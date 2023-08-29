@@ -16,7 +16,7 @@
 
 package com.yugyd.quiz.progressui.specificprogress
 
-import com.yugyd.quiz.domain.model.payload.SpecificProgressPayload
+import com.yugyd.quiz.domain.api.payload.SpecificProgressPayload
 import com.yugyd.quiz.progressui.model.ProgressUiModel
 
 interface SpecificProgressView {

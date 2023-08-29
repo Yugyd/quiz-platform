@@ -18,11 +18,11 @@ package com.yugyd.quiz.progressui.progress
 
 import androidx.lifecycle.viewModelScope
 import com.yugyd.quiz.commonui.base.BaseViewModel
+import com.yugyd.quiz.core.Logger
+import com.yugyd.quiz.core.runCatch
+import com.yugyd.quiz.domain.api.payload.SpecificProgressPayload
 import com.yugyd.quiz.domain.controller.RecordController
-import com.yugyd.quiz.domain.interactor.progress.ProgressInteractor
-import com.yugyd.quiz.domain.model.payload.SpecificProgressPayload
-import com.yugyd.quiz.domain.repository.Logger
-import com.yugyd.quiz.domain.utils.runCatch
+import com.yugyd.quiz.domain.progress.ProgressInteractor
 import com.yugyd.quiz.progressui.model.ItemProgressUiModel
 import com.yugyd.quiz.progressui.model.ProgressUiMapper
 import com.yugyd.quiz.progressui.progress.ProgressView.Action
@@ -36,7 +36,7 @@ class ProgressViewModel @Inject constructor(
     private val progressInteractor: ProgressInteractor,
     private val recordController: RecordController,
     private val progressMapper: ProgressUiMapper,
-    logger: Logger
+    logger: Logger,
 ) : BaseViewModel<State, Action>(logger, State(isLoading = true)),
     RecordController.Listener {
 

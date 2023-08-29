@@ -18,9 +18,9 @@ package com.yugyd.quiz.gameui.game
 
 import com.google.android.gms.ads.LoadAdError
 import com.yugyd.quiz.core.GlobalConfig
-import com.yugyd.quiz.domain.model.game.QuestModel
-import com.yugyd.quiz.domain.model.payload.GameEndPayload
-import com.yugyd.quiz.domain.model.payload.GamePayload
+import com.yugyd.quiz.domain.api.model.game.QuestModel
+import com.yugyd.quiz.domain.api.model.payload.GameEndPayload
+import com.yugyd.quiz.domain.api.model.payload.GamePayload
 import com.yugyd.quiz.gameui.game.model.ControlUiModel
 import com.yugyd.quiz.gameui.game.model.QuestUiModel
 import com.yugyd.quiz.gameui.game.model.RewardedAdStatus

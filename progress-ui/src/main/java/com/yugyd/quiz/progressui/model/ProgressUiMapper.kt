@@ -19,9 +19,9 @@ package com.yugyd.quiz.progressui.model
 import android.content.Context
 import com.yugyd.quiz.commonui.model.mode.ModeUiMapper
 import com.yugyd.quiz.commonui.utils.ProgressColorUtils
-import com.yugyd.quiz.domain.model.progress.Progress
-import com.yugyd.quiz.domain.model.progress.TotalProgress
-import com.yugyd.quiz.domain.model.specificprogress.ModeProgress
+import com.yugyd.quiz.domain.api.model.progress.Progress
+import com.yugyd.quiz.domain.api.model.progress.TotalProgress
+import com.yugyd.quiz.domain.api.model.specificprogress.ModeProgress
 import com.yugyd.quiz.progressui.R
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject

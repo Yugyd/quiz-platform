@@ -19,7 +19,7 @@ package com.yugyd.quiz.data
 import android.content.Context
 import com.google.firebase.FirebaseApp
 import com.google.firebase.crashlytics.FirebaseCrashlytics
-import com.yugyd.quiz.domain.repository.Logger
+import com.yugyd.quiz.core.Logger
 import timber.log.Timber
 
 class LoggerImpl(private val context: Context) : Logger {

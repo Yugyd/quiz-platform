@@ -37,7 +37,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.yugyd.quiz.domain.model.payload.OnboardingPayload
+import com.yugyd.quiz.domain.api.payload.OnboardingPayload
 import com.yugyd.quiz.uikit.common.ThemePreviews
 import com.yugyd.quiz.uikit.theme.QuizApplicationTheme
 import com.yugyd.quiz.uikit.R as UiKitR

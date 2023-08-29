@@ -16,10 +16,10 @@
 
 package com.yugyd.quiz.data
 
-import com.yugyd.quiz.domain.model.share.Content
-import com.yugyd.quiz.domain.repository.ContentManager
+import com.yugyd.quiz.domain.api.model.Content
+import com.yugyd.quiz.domain.api.repository.ContentSource
 
-class ContentManagerImpl : ContentManager {
+class ContentManagerImpl : ContentSource {
 
     private var content: Content = Content.LITE
 

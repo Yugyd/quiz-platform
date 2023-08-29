@@ -1,0 +1,13 @@
+plugins {
+    id 'quiz.android.library'
+    id 'kotlin-parcelize'
+}
+
+android {
+    namespace 'com.yugyd.quiz.domain.api'
+}
+
+dependencies {
+    // Kotlin
+    implementation libs.kotlinx.coroutines.android
+}

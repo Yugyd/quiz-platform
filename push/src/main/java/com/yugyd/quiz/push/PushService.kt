@@ -18,7 +18,7 @@ package com.yugyd.quiz.push
 
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
-import com.yugyd.quiz.domain.repository.Logger
+import com.yugyd.quiz.core.Logger
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

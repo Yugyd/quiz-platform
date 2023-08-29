@@ -10,10 +10,9 @@ android {
 
 dependencies {
     // Module
+    implementation project(':core')
     implementation project(':uikit')
-    implementation project(':domain')
     implementation project(':common-ui')
-    implementation project(':navigation')
 
     // UI - Compose
     implementation libs.compose.material3

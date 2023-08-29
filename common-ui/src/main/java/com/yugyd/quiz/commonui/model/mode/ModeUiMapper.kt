@@ -16,7 +16,7 @@
 
 package com.yugyd.quiz.commonui.model.mode
 
-import com.yugyd.quiz.domain.model.share.Mode
+import com.yugyd.quiz.domain.api.model.Mode
 import javax.inject.Inject
 
 class ModeUiMapper @Inject constructor() {

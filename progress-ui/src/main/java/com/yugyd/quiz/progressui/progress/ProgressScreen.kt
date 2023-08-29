@@ -49,7 +49,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.yugyd.quiz.commonui.utils.ProgressUtils
-import com.yugyd.quiz.domain.model.payload.SpecificProgressPayload
+import com.yugyd.quiz.domain.api.payload.SpecificProgressPayload
 import com.yugyd.quiz.progressui.R
 import com.yugyd.quiz.progressui.model.HeaderProgressUiModel
 import com.yugyd.quiz.progressui.model.ItemProgressUiModel

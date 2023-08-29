@@ -16,7 +16,7 @@
 
 package com.yugyd.quiz.correctui
 
-import com.yugyd.quiz.domain.model.payload.GamePayload
+import com.yugyd.quiz.domain.api.model.payload.GamePayload
 
 interface CorrectView {
 

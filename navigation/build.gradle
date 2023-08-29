@@ -7,9 +7,6 @@ android {
 }
 
 dependencies {
-    // Module
-    implementation project(':domain')
-
     // Navigation
     implementation libs.navigation.runtime
 }

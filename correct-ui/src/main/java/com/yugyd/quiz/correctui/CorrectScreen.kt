@@ -44,7 +44,7 @@ import com.yugyd.quiz.correctui.CorrectView.Action
 import com.yugyd.quiz.correctui.CorrectView.State
 import com.yugyd.quiz.correctui.CorrectView.State.AvailableMode
 import com.yugyd.quiz.correctui.CorrectView.State.NavigationState
-import com.yugyd.quiz.domain.model.payload.GamePayload
+import com.yugyd.quiz.domain.api.model.payload.GamePayload
 import com.yugyd.quiz.uikit.LoadingContent
 import com.yugyd.quiz.uikit.WarningContent
 import com.yugyd.quiz.uikit.common.ThemePreviews

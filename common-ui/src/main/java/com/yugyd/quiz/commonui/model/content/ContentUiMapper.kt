@@ -16,7 +16,7 @@
 
 package com.yugyd.quiz.commonui.model.content
 
-import com.yugyd.quiz.domain.model.share.Content
+import com.yugyd.quiz.domain.api.model.Content
 import javax.inject.Inject
 
 class ContentUiMapper @Inject constructor() {

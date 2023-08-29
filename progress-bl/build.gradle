@@ -1,0 +1,21 @@
+plugins {
+    id 'quiz.android.library'
+    id 'quiz.android.hilt'
+}
+
+android {
+    namespace 'com.yugyd.quiz.domain.progress'
+}
+
+dependencies {
+    // Modules
+    implementation project(":core")
+    implementation project(':domain-api')
+    implementation project(':domain-controller')
+
+    // Kotlin
+    implementation libs.kotlinx.coroutines.android
+
+    // Logging
+    implementation libs.timber
+}

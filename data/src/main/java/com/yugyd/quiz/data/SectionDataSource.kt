@@ -20,7 +20,7 @@ import com.yugyd.quiz.data.database.dao.QuestDao
 import com.yugyd.quiz.data.database.dao.ResetDao
 import com.yugyd.quiz.data.database.dao.SectionDao
 import com.yugyd.quiz.data.model.mappers.SectionEntityMapper
-import com.yugyd.quiz.domain.repository.user.SectionSource
+import com.yugyd.quiz.domain.api.repository.SectionSource
 
 class SectionDataSource(
     private val questDao: QuestDao,

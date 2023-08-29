@@ -1,6 +1,5 @@
 plugins {
     id 'quiz.android.library'
-    id 'quiz.android.hilt'
     id 'quiz.android.compose.library'
 }
 
@@ -11,7 +10,6 @@ android {
 dependencies {
     // Module
     implementation project(':uikit')
-    implementation project(':domain')
     implementation project(':navigation')
 
     // UI - Compose

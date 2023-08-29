@@ -18,7 +18,7 @@ package com.yugyd.quiz
 
 import android.app.Application
 import com.yugyd.quiz.core.GlobalConfig
-import com.yugyd.quiz.domain.repository.Logger
+import com.yugyd.quiz.core.Logger
 import com.yugyd.quiz.push.PushManager
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber

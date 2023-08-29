@@ -19,7 +19,7 @@ package com.yugyd.quiz.data
 import com.yugyd.quiz.data.database.dao.QuestDao
 import com.yugyd.quiz.data.database.dao.ThemeDao
 import com.yugyd.quiz.data.model.mappers.ThemeEntityMapper
-import com.yugyd.quiz.domain.repository.content.ThemeSource
+import com.yugyd.quiz.domain.api.repository.ThemeSource
 
 class ThemeDataSource(
     private val questDao: QuestDao,

@@ -16,15 +16,6 @@
 
 <resources>
 
-    <!-- Game End -->
-    <string name="title_well">Great!</string>
-    <string name="msg_new_record">A new record has been set! Did you like it?</string>
-
-    <!-- Error List -->
-    <string name="title_quest">Question</string>
-    <string name="title_true_answer">Right answer</string>
-    <string name="title_error_list">List of errors</string>
-
     <!-- Game -->
     <string name="title_add_life">Extra life</string>
     <string name="msg_add_life">Get an extra life by watching a promotional video</string>

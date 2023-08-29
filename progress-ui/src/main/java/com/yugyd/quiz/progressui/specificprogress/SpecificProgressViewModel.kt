@@ -19,11 +19,11 @@ package com.yugyd.quiz.progressui.specificprogress
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.yugyd.quiz.commonui.base.BaseViewModel
+import com.yugyd.quiz.core.Logger
+import com.yugyd.quiz.core.runCatch
 import com.yugyd.quiz.domain.controller.RecordController
-import com.yugyd.quiz.domain.interactor.progress.ProgressInteractor
-import com.yugyd.quiz.domain.interactor.record.RecordInteractor
-import com.yugyd.quiz.domain.repository.Logger
-import com.yugyd.quiz.domain.utils.runCatch
+import com.yugyd.quiz.domain.progress.ProgressInteractor
+import com.yugyd.quiz.domain.progress.RecordInteractor
 import com.yugyd.quiz.progressui.model.ProgressUiMapper
 import com.yugyd.quiz.progressui.specificprogress.SpecificProgressView.Action
 import com.yugyd.quiz.progressui.specificprogress.SpecificProgressView.State

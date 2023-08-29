@@ -58,7 +58,7 @@ import com.google.android.gms.ads.AdView
 import com.yugyd.quiz.commonui.utils.ProgressUtils
 import com.yugyd.quiz.core.AdIdProvider
 import com.yugyd.quiz.core.ResIdProvider
-import com.yugyd.quiz.domain.model.payload.GameEndPayload
+import com.yugyd.quiz.domain.api.model.payload.GameEndPayload
 import com.yugyd.quiz.gameui.R
 import com.yugyd.quiz.gameui.game.GameView.Action
 import com.yugyd.quiz.gameui.game.GameView.State

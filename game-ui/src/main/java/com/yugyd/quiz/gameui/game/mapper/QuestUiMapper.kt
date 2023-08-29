@@ -16,7 +16,7 @@
 
 package com.yugyd.quiz.gameui.game.mapper
 
-import com.yugyd.quiz.domain.model.game.QuestModel
+import com.yugyd.quiz.domain.api.model.game.QuestModel
 import com.yugyd.quiz.gameui.game.model.QuestUiModel
 import javax.inject.Inject
 

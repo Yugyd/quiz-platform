@@ -1,0 +1,32 @@
+plugins {
+    id 'quiz.android.library'
+    id 'quiz.android.hilt'
+    id 'quiz.android.compose.library'
+}
+
+android {
+    namespace 'com.yugyd.quiz.ui.section'
+}
+
+dependencies {
+    // Module
+    implementation project(':common-ui')
+    implementation project(':uikit')
+    implementation project(':core')
+    implementation project(':section-bl')
+    implementation project(':domain-api')
+    implementation project(':domain-controller')
+
+    // UI - Compose
+    implementation libs.compose.material3
+    implementation libs.compose.viewmodel
+    implementation libs.compose.lifecycle
+    // Navigation
+    implementation libs.compose.hilt.navigation
+
+    // Image
+    implementation libs.coil.compose
+
+    // Play Services: Ads
+    implementation libs.play.ads
+}

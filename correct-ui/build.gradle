@@ -10,11 +10,14 @@ android {
 
 dependencies {
     // Module
-    implementation project(':domain')
+    implementation project(':core')
     implementation project(':common-ui')
     implementation project(':uikit')
     implementation project(':navigation')
     implementation project(':featuretoggle')
+    implementation project(':errors-bl')
+    implementation project(':domain-api')
+    implementation project(':domain-controller')
 
     // UI - Compose
     implementation libs.compose.material3

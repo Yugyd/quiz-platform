@@ -16,15 +16,6 @@
 
 <resources>
 
-    <!-- Game End -->
-    <string name="title_well">Отлично!</string>
-    <string name="msg_new_record">Установлен новый рекорд! Вам понравилось?</string>
-
-    <!-- Error List -->
-    <string name="title_quest">Вопрос</string>
-    <string name="title_true_answer">Правильный ответ</string>
-    <string name="title_error_list">Список ошибок</string>
-
     <!-- Game -->
     <string name="title_add_life">Дополнительная жизнь</string>
     <string name="msg_add_life">Получить дополнительную жизнь, посмотрев рекламный ролик</string>

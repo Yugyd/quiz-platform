@@ -23,7 +23,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.yugyd.quiz.domain.model.payload.SpecificProgressPayload
+import com.yugyd.quiz.domain.api.payload.SpecificProgressPayload
 import com.yugyd.quiz.navigation.calculateRouteModel
 import com.yugyd.quiz.navigation.getRouteWithArguments
 

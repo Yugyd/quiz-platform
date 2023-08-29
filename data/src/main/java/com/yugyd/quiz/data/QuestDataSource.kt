@@ -19,7 +19,7 @@ package com.yugyd.quiz.data
 import com.yugyd.quiz.data.database.dao.QuestDao
 import com.yugyd.quiz.data.model.QuestComplexitySubsetEntity
 import com.yugyd.quiz.data.model.mappers.QuestEntityMapper
-import com.yugyd.quiz.domain.repository.content.QuestSource
+import com.yugyd.quiz.domain.api.repository.QuestSource
 
 class QuestDataSource(
     private val questDao: QuestDao,

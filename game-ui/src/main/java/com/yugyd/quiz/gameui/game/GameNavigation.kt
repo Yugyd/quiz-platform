@@ -25,9 +25,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.yugyd.quiz.core.AdIdProvider
 import com.yugyd.quiz.core.ResIdProvider
-import com.yugyd.quiz.domain.model.payload.GameEndPayload
-import com.yugyd.quiz.domain.model.payload.GamePayload
-import com.yugyd.quiz.domain.model.share.Mode
+import com.yugyd.quiz.domain.api.model.Mode
+import com.yugyd.quiz.domain.api.model.payload.GameEndPayload
+import com.yugyd.quiz.domain.api.model.payload.GamePayload
 import com.yugyd.quiz.navigation.hideBottomBarArgument
 
 private const val MODE_ARG = "mode"

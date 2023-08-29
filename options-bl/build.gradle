@@ -1,0 +1,16 @@
+plugins {
+    id 'quiz.android.library'
+    id 'quiz.android.hilt'
+}
+
+android {
+    namespace 'com.yugyd.quiz.domain.options'
+}
+
+dependencies {
+    // Modules
+    implementation project(':domain-api')
+
+    // Kotlin
+    implementation libs.kotlinx.coroutines.android
+}

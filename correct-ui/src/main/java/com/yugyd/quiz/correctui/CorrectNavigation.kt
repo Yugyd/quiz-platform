@@ -20,7 +20,7 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.yugyd.quiz.domain.model.payload.GamePayload
+import com.yugyd.quiz.domain.api.model.payload.GamePayload
 import com.yugyd.quiz.navigation.topLevelNavOptions
 
 private const val CORRECT_ROUTE = "correct"

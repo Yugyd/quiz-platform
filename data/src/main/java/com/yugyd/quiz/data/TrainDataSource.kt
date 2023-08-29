@@ -18,7 +18,7 @@ package com.yugyd.quiz.data
 
 import com.yugyd.quiz.data.database.dao.TrainDao
 import com.yugyd.quiz.data.model.mappers.TrainEntityMapper
-import com.yugyd.quiz.domain.repository.user.TrainSource
+import com.yugyd.quiz.domain.api.repository.TrainSource
 
 class TrainDataSource(
     private val trainDao: TrainDao,

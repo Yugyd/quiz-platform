@@ -18,9 +18,9 @@ package com.yugyd.quiz.gameui.game.mapper
 
 import androidx.compose.ui.graphics.Color
 import com.yugyd.quiz.commonui.utils.ProgressColorUtils
-import com.yugyd.quiz.domain.model.game.ControlModel
-import com.yugyd.quiz.domain.model.share.Mode
-import com.yugyd.quiz.domain.utils.percent
+import com.yugyd.quiz.core.percent
+import com.yugyd.quiz.domain.api.model.Mode
+import com.yugyd.quiz.domain.api.model.game.ControlModel
 import com.yugyd.quiz.gameui.R
 import com.yugyd.quiz.gameui.game.model.ConditionUiModel
 import com.yugyd.quiz.gameui.game.model.ControlUiModel

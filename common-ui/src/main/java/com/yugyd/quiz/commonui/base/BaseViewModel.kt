@@ -17,7 +17,7 @@
 package com.yugyd.quiz.commonui.base
 
 import androidx.lifecycle.ViewModel
-import com.yugyd.quiz.domain.repository.Logger
+import com.yugyd.quiz.core.Logger
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

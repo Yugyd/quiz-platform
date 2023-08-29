@@ -19,10 +19,10 @@ package com.yugyd.quiz.main
 import androidx.lifecycle.viewModelScope
 import com.yugyd.quiz.commonui.base.BaseViewModel
 import com.yugyd.quiz.core.ContentProvider
-import com.yugyd.quiz.domain.interactor.options.OptionsInteractor
-import com.yugyd.quiz.domain.interactor.update.UpdateInteractor
-import com.yugyd.quiz.domain.model.payload.OnboardingPayload
-import com.yugyd.quiz.domain.repository.Logger
+import com.yugyd.quiz.core.Logger
+import com.yugyd.quiz.domain.api.payload.OnboardingPayload
+import com.yugyd.quiz.domain.options.OptionsInteractor
+import com.yugyd.quiz.domain.update.UpdateInteractor
 import com.yugyd.quiz.featuretoggle.domain.FeatureManager
 import com.yugyd.quiz.featuretoggle.domain.RemoteConfigRepository
 import com.yugyd.quiz.featuretoggle.domain.model.FeatureToggle

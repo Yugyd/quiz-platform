@@ -16,7 +16,7 @@
 
 package com.yugyd.quiz.progressui.progress
 
-import com.yugyd.quiz.domain.model.payload.SpecificProgressPayload
+import com.yugyd.quiz.domain.api.payload.SpecificProgressPayload
 import com.yugyd.quiz.progressui.model.ItemProgressUiModel
 import com.yugyd.quiz.progressui.model.ProgressUiModel
 

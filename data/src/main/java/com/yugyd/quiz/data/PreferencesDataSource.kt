@@ -18,7 +18,7 @@ package com.yugyd.quiz.data
 
 import android.content.Context
 import androidx.core.content.edit
-import com.yugyd.quiz.domain.repository.PreferencesSource
+import com.yugyd.quiz.domain.api.repository.PreferencesSource
 import java.util.Date
 
 class PreferencesDataSource(context: Context) : PreferencesSource {

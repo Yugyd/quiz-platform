@@ -18,6 +18,7 @@ package com.yugyd.quiz.data.di
 
 import android.content.Context
 import androidx.room.Room
+import com.yugyd.quiz.core.Logger
 import com.yugyd.quiz.data.ErrorDataSource
 import com.yugyd.quiz.data.LoggerImpl
 import com.yugyd.quiz.data.PreferencesDataSource
@@ -34,14 +35,13 @@ import com.yugyd.quiz.data.model.mappers.RecordEntityMapper
 import com.yugyd.quiz.data.model.mappers.SectionEntityMapper
 import com.yugyd.quiz.data.model.mappers.ThemeEntityMapper
 import com.yugyd.quiz.data.model.mappers.TrainEntityMapper
-import com.yugyd.quiz.domain.repository.Logger
-import com.yugyd.quiz.domain.repository.PreferencesSource
-import com.yugyd.quiz.domain.repository.content.QuestSource
-import com.yugyd.quiz.domain.repository.content.ThemeSource
-import com.yugyd.quiz.domain.repository.user.ErrorSource
-import com.yugyd.quiz.domain.repository.user.RecordSource
-import com.yugyd.quiz.domain.repository.user.SectionSource
-import com.yugyd.quiz.domain.repository.user.TrainSource
+import com.yugyd.quiz.domain.api.repository.ErrorSource
+import com.yugyd.quiz.domain.api.repository.PreferencesSource
+import com.yugyd.quiz.domain.api.repository.QuestSource
+import com.yugyd.quiz.domain.api.repository.RecordSource
+import com.yugyd.quiz.domain.api.repository.SectionSource
+import com.yugyd.quiz.domain.api.repository.ThemeSource
+import com.yugyd.quiz.domain.api.repository.TrainSource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

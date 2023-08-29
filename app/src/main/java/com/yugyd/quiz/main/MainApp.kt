@@ -62,9 +62,9 @@ import com.yugyd.quiz.main.MainView.State.TopDestination
 import com.yugyd.quiz.navigation.SHOW_BOTTOM_BAR_ARG
 import com.yugyd.quiz.navigation.getTelegramIntent
 import com.yugyd.quiz.newversiononboarding.OnboardingBottomSheet
-import com.yugyd.quiz.profileui.profile.navigateToProfile
 import com.yugyd.quiz.progressui.progress.navigateToProgress
-import com.yugyd.quiz.themeui.theme.navigateToTheme
+import com.yugyd.quiz.ui.profile.navigateToProfile
+import com.yugyd.quiz.ui.theme.navigateToTheme
 import com.yugyd.quiz.uikit.common.ThemePreviews
 import com.yugyd.quiz.uikit.component.QuizBackground
 import com.yugyd.quiz.uikit.theme.QuizApplicationTheme

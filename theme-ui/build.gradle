@@ -5,17 +5,21 @@ plugins {
 }
 
 android {
-    namespace 'com.yugyd.quiz.themeui'
+    namespace 'com.yugyd.quiz.ui.theme'
 }
 
 dependencies {
     // Module
-    implementation project(':domain')
     implementation project(':common-ui')
     implementation project(':uikit')
     implementation project(':navigation')
     implementation project(':featuretoggle')
     implementation project(':core')
+    implementation project(':theme-bl')
+    implementation project(':progress-bl')
+    implementation project(':domain-api')
+    implementation project(':domain-controller')
+    implementation project(':options-bl')
 
     // UI - Compose
     implementation libs.compose.material3

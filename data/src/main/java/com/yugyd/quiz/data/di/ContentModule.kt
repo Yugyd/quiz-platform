@@ -17,7 +17,7 @@
 package com.yugyd.quiz.data.di
 
 import com.yugyd.quiz.data.ContentManagerImpl
-import com.yugyd.quiz.domain.repository.ContentManager
+import com.yugyd.quiz.domain.api.repository.ContentSource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -30,5 +30,5 @@ class ContentModule {
 
     @Singleton
     @Provides
-    fun provideContentManager(): ContentManager = ContentManagerImpl()
+    fun provideContentManager(): ContentSource = ContentManagerImpl()
 }

@@ -19,9 +19,9 @@ package com.yugyd.quiz.data
 import com.yugyd.quiz.data.database.dao.RecordDao
 import com.yugyd.quiz.data.database.dao.ResetDao
 import com.yugyd.quiz.data.model.mappers.RecordEntityMapper
-import com.yugyd.quiz.domain.model.data.Record
-import com.yugyd.quiz.domain.model.share.Mode
-import com.yugyd.quiz.domain.repository.user.RecordSource
+import com.yugyd.quiz.domain.api.model.Mode
+import com.yugyd.quiz.domain.api.model.Record
+import com.yugyd.quiz.domain.api.repository.RecordSource
 
 class RecordDataSource(
     private val recordDao: RecordDao,

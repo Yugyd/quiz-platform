@@ -18,7 +18,7 @@ package com.yugyd.quiz.main
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import com.yugyd.quiz.domain.model.payload.OnboardingPayload
+import com.yugyd.quiz.domain.api.payload.OnboardingPayload
 import com.yugyd.quiz.uikit.R
 import com.yugyd.quiz.commonui.R as CommonUiR
 

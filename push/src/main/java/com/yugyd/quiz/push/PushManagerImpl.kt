@@ -30,8 +30,8 @@ import android.os.SystemClock
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import com.yugyd.quiz.core.Logger
 import com.yugyd.quiz.core.ResIdProvider
-import com.yugyd.quiz.domain.repository.Logger
 import com.yugyd.quiz.uikit.theme.app_color_positive
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject

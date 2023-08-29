@@ -16,7 +16,7 @@
 
 package com.yugyd.quiz.data.model.mappers
 
-import com.yugyd.quiz.domain.model.share.Mode
+import com.yugyd.quiz.domain.api.model.Mode
 import javax.inject.Inject
 
 class ModeEntityMapper @Inject constructor() {

@@ -18,7 +18,7 @@ package com.yugyd.quiz.data.model.mappers
 
 import com.yugyd.quiz.data.crypto.CryptoHelper
 import com.yugyd.quiz.data.model.QuestEntity
-import com.yugyd.quiz.domain.model.data.Quest
+import com.yugyd.quiz.domain.api.model.Quest
 import javax.inject.Inject
 
 class QuestEntityMapper @Inject constructor(private val cryptoHelper: CryptoHelper) {

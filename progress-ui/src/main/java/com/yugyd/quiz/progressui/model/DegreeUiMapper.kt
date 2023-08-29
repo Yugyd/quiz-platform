@@ -16,16 +16,16 @@
 
 package com.yugyd.quiz.progressui.model
 
-import com.yugyd.quiz.domain.model.share.Degree
-import com.yugyd.quiz.domain.model.share.Degree.ACADEMIC
-import com.yugyd.quiz.domain.model.share.Degree.AMATEUR
-import com.yugyd.quiz.domain.model.share.Degree.CANDIDATE
-import com.yugyd.quiz.domain.model.share.Degree.DOCTOR
-import com.yugyd.quiz.domain.model.share.Degree.MASTER
-import com.yugyd.quiz.domain.model.share.Degree.POSTGRADUATE
-import com.yugyd.quiz.domain.model.share.Degree.PROFESSOR
-import com.yugyd.quiz.domain.model.share.Degree.SCHOOLBOY
-import com.yugyd.quiz.domain.model.share.Degree.STUDENT
+import com.yugyd.quiz.domain.api.model.Degree
+import com.yugyd.quiz.domain.api.model.Degree.ACADEMIC
+import com.yugyd.quiz.domain.api.model.Degree.AMATEUR
+import com.yugyd.quiz.domain.api.model.Degree.CANDIDATE
+import com.yugyd.quiz.domain.api.model.Degree.DOCTOR
+import com.yugyd.quiz.domain.api.model.Degree.MASTER
+import com.yugyd.quiz.domain.api.model.Degree.POSTGRADUATE
+import com.yugyd.quiz.domain.api.model.Degree.PROFESSOR
+import com.yugyd.quiz.domain.api.model.Degree.SCHOOLBOY
+import com.yugyd.quiz.domain.api.model.Degree.STUDENT
 import javax.inject.Inject
 
 class DegreeUiMapper @Inject constructor() {

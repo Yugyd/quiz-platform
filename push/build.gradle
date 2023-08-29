@@ -9,8 +9,8 @@ android {
 
 dependencies {
     // Module
-    implementation project(':domain')
     implementation project(':core')
+    implementation project(':domain-api')
     implementation project(':uikit')
 
     // UI: Compose

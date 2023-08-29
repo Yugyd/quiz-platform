@@ -17,7 +17,7 @@
 package com.yugyd.quiz.data.model.mappers
 
 import com.yugyd.quiz.data.model.ThemeEntity
-import com.yugyd.quiz.domain.model.data.Theme
+import com.yugyd.quiz.domain.api.model.Theme
 import javax.inject.Inject
 
 class ThemeEntityMapper @Inject constructor() {

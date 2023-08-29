@@ -17,7 +17,7 @@
 package com.yugyd.quiz.data.model.mappers
 
 import com.yugyd.quiz.data.model.RecordEntity
-import com.yugyd.quiz.domain.model.data.Record
+import com.yugyd.quiz.domain.api.model.Record
 import javax.inject.Inject
 
 class RecordEntityMapper @Inject constructor(private val modeEntityMapper: ModeEntityMapper) {

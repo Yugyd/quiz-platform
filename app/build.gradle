@@ -102,22 +102,27 @@ android {
 dependencies {
     // Module
     implementation project(':data')
-    implementation project(':domain')
     implementation project(':uikit')
     implementation project(':common-ui')
     implementation project(':navigation')
     implementation project(':featuretoggle')
     implementation project(':core')
     implementation project(':push')
-
+    implementation project(':domain-api')
+    implementation project(':options-bl')
+    implementation project(':update-bl')
     implementation project(':pro-ui')
     implementation project(':correct-ui')
     implementation project(':theme-ui')
+    implementation project(':section-ui')
     implementation project(':progress-ui')
     implementation project(':game-ui')
     implementation project(':profile-ui')
     implementation project(':new-version-onboarding-ui')
     implementation project(':update-ui')
+    implementation project(':errors-ui')
+    implementation project(':end-ui')
+    implementation project(':transition-ui')
 
     // Kotlin
     implementation libs.kotlinx.coroutines.android

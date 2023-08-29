@@ -1,0 +1,12 @@
+plugins {
+    id 'quiz.android.library'
+}
+
+android {
+    namespace 'com.yugyd.quiz.domain.controller'
+}
+
+dependencies {
+    // DI
+    implementation libs.javax.inject
+}

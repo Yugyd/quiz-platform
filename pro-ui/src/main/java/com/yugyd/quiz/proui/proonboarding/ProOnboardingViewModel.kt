@@ -17,7 +17,7 @@
 package com.yugyd.quiz.proui.proonboarding
 
 import com.yugyd.quiz.commonui.base.BaseViewModel
-import com.yugyd.quiz.domain.repository.Logger
+import com.yugyd.quiz.core.Logger
 import com.yugyd.quiz.proui.proonboarding.ProOnboardingView.Action
 import com.yugyd.quiz.proui.proonboarding.ProOnboardingView.State
 import com.yugyd.quiz.proui.proonboarding.ProOnboardingView.State.NavigationState

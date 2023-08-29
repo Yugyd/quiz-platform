@@ -9,7 +9,8 @@ android {
 
 dependencies {
     // Module
-    implementation project(':domain')
+    implementation project(':domain-api')
+    implementation project(':core')
 
     // Kotlin
     implementation libs.kotlinx.coroutines.android

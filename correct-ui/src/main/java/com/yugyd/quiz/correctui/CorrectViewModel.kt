@@ -18,18 +18,18 @@ package com.yugyd.quiz.correctui
 
 import androidx.lifecycle.viewModelScope
 import com.yugyd.quiz.commonui.base.BaseViewModel
+import com.yugyd.quiz.core.Logger
+import com.yugyd.quiz.core.runCatch
 import com.yugyd.quiz.correctui.CorrectView.Action
 import com.yugyd.quiz.correctui.CorrectView.State
 import com.yugyd.quiz.correctui.CorrectView.State.AvailableMode
 import com.yugyd.quiz.correctui.CorrectView.State.NavigationState
+import com.yugyd.quiz.domain.api.model.Content
+import com.yugyd.quiz.domain.api.model.Mode
+import com.yugyd.quiz.domain.api.model.payload.GamePayload
+import com.yugyd.quiz.domain.api.repository.ContentSource
 import com.yugyd.quiz.domain.controller.ErrorController
-import com.yugyd.quiz.domain.interactor.error.ErrorInteractor
-import com.yugyd.quiz.domain.model.payload.GamePayload
-import com.yugyd.quiz.domain.model.share.Content
-import com.yugyd.quiz.domain.model.share.Mode
-import com.yugyd.quiz.domain.repository.ContentManager
-import com.yugyd.quiz.domain.repository.Logger
-import com.yugyd.quiz.domain.utils.runCatch
+import com.yugyd.quiz.domain.errors.ErrorInteractor
 import com.yugyd.quiz.featuretoggle.domain.FeatureManager
 import com.yugyd.quiz.featuretoggle.domain.model.FeatureToggle
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -40,9 +40,9 @@ import javax.inject.Inject
 class CorrectViewModel @Inject constructor(
     private val errorInteractor: ErrorInteractor,
     private val errorController: ErrorController,
-    private val contentManager: ContentManager,
+    private val contentSource: ContentSource,
     private val featureManager: FeatureManager,
-    logger: Logger
+    logger: Logger,
 ) :
     BaseViewModel<State, Action>(
         logger = logger,
@@ -102,7 +102,7 @@ class CorrectViewModel @Inject constructor(
     }
 
     private fun processData(isHaveErrors: Boolean, isProFeatureEnabled: Boolean) {
-        val availableMode = when (contentManager.getContent()) {
+        val availableMode = when (contentSource.getContent()) {
             Content.LITE -> {
                 if (isProFeatureEnabled) {
                     AvailableMode.PRO_MESSAGE

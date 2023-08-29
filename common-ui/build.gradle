@@ -1,0 +1,26 @@
+plugins {
+    id 'quiz.android.library'
+    id 'quiz.android.hilt'
+}
+
+android {
+    namespace 'com.yugyd.quiz.commonui'
+}
+
+dependencies {
+    // Module
+    implementation project(':domain')
+    implementation project(':uikit')
+    implementation project(':navigation')
+
+    // UI - Android X
+    implementation libs.core.ktx
+    implementation libs.appcompat
+
+    // UI - Compose
+    implementation libs.compose.ui.graphics
+
+    // UI - Lifecycle
+    implementation libs.lifecycle.viewmodel.ktx
+    implementation libs.lifecycle.runtime.ktx
+}

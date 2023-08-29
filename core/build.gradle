@@ -1,0 +1,11 @@
+plugins {
+    id 'quiz.android.library'
+}
+
+android {
+    namespace 'com.yugyd.quiz.core'
+}
+
+dependencies {
+    implementation libs.androidx.annotation
+}

@@ -1,0 +1,37 @@
+pluginManagement {
+    includeBuild("build-logic")
+
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+rootProject.name = "QuizPlatform"
+
+include ':app'
+include ':core'
+include ':data'
+include ':domain'
+include ':common-ui'
+include ':uikit'
+include ':navigation'
+include ':push'
+include ':profile-ui'
+include ':game-ui'
+include ':progress-ui'
+include ':theme-ui'
+include ':correct-ui'
+include ':pro-ui'
+include ':featuretoggle'
+include ':new-version-onboarding-ui'
+include ':update-ui'

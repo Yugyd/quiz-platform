@@ -1,0 +1,18 @@
+plugins {
+    id 'quiz.android.library'
+    id 'quiz.android.hilt'
+    id 'quiz.android.compose.library'
+}
+
+android {
+    namespace 'com.yugyd.quiz.newversiononboarding'
+}
+
+dependencies {
+    // Module
+    implementation project(':uikit')
+    implementation project(':domain')
+
+    // UI - Compose
+    implementation libs.compose.material3
+}

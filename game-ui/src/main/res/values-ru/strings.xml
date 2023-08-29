@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~    Copyright 2023 Roman Likhachev
+  ~
+  ~    Licensed under the Apache License, Version 2.0 (the "License");
+  ~    you may not use this file except in compliance with the License.
+  ~    You may obtain a copy of the License at
+  ~
+  ~        http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~    Unless required by applicable law or agreed to in writing, software
+  ~    distributed under the License is distributed on an "AS IS" BASIS,
+  ~    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~    See the License for the specific language governing permissions and
+  ~    limitations under the License.
+  -->
+
+<resources>
+
+    <!-- Game End -->
+    <string name="title_well">Отлично!</string>
+    <string name="msg_new_record">Установлен новый рекорд! Вам понравилось?</string>
+
+    <!-- Error List -->
+    <string name="title_quest">Вопрос</string>
+    <string name="title_true_answer">Правильный ответ</string>
+    <string name="title_error_list">Список ошибок</string>
+
+    <!-- Game -->
+    <string name="title_add_life">Дополнительная жизнь</string>
+    <string name="msg_add_life">Получить дополнительную жизнь, посмотрев рекламный ролик</string>
+
+    <!-- Action -->
+    <string name="action_leave_rate">Оставьте отзыв</string>
+    <string name="action_skip">Пропустить</string>
+    <string name="action_show_error">Смотреть ошибки</string>
+    <string name="action_new_game">Новая игра</string>
+    <string name="action_watch">Посмотреть</string>
+    <string name="action_next">Далее</string>
+
+    <string name="error_reward_not_loaded">Не удалось загрузить рекламу</string>
+
+</resources>

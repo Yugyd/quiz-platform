@@ -1,0 +1,169 @@
+plugins {
+    id 'quiz.android.application'
+    id 'quiz.android.hilt'
+    id 'quiz.android.compose.application'
+}
+
+def isGoogleServicesExists = file("google-services.json").exists()
+
+if (isGoogleServicesExists) {
+    apply(plugin = libs.plugins.gms.get())
+    apply(plugin = libs.plugins.firebase.appdistribution.get())
+    apply(plugin = libs.plugins.firebase.crashlytics.get())
+}
+
+def getProperties(String properties) {
+    def keystorePropertiesFile = rootProject.file(properties)
+    def keystoreProperties = new Properties()
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+    return keystoreProperties
+}
+
+def isReleaseKeystoreExists = rootProject.file("upload.jks").exists()
+
+android {
+    defaultConfig {
+        applicationId "com.yugyd.quiz"
+        versionCode 41
+        versionName "2.2.0"
+
+        buildConfigField 'String', 'DEV_ID', '\"REPLACE_ME\"'
+        buildConfigField 'String', 'STORE_PACKAGE', "\"com.android.vending\""
+    }
+
+    signingConfigs {
+        debug {
+            def properties = getProperties("debug.properties")
+            keyAlias properties['keyAlias']
+            keyPassword properties['keyPassword']
+            storeFile file(properties['storeFile'])
+            storePassword properties['storePassword']
+        }
+        release {
+            if (isReleaseKeystoreExists) {
+                def properties = getProperties("upload.properties")
+                keyAlias properties['keyAlias']
+                keyPassword properties['keyPassword']
+                storeFile file(properties['storeFile'])
+                storePassword properties['storePassword']
+            }
+        }
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            signingConfig signingConfigs.debug
+
+            applicationIdSuffix ".debug"
+        }
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            signingConfig isReleaseKeystoreExists ? signingConfigs.release : signingConfigs.debug
+        }
+    }
+
+    buildFeatures {
+        buildConfig true
+        viewBinding true
+    }
+
+    flavorDimensions "version"
+
+    productFlavors {
+        dev {
+            dimension "version"
+            applicationId "com.yugyd.russianlanguagequiz"
+
+            buildConfigField 'String', 'PRO_APP_PACKAGE', "\"REPLACE_ME\""
+            buildConfigField 'String', 'PRIVACY_POLICY_LINK', "\"REPLACE_ME\""
+
+            if (isGoogleServicesExists) {
+                firebaseAppDistribution {
+                    appId = "REPLACE_ME"
+                    artifactType = "APK"
+                    releaseNotesFile = "releasenotes.txt"
+                    groups = "qa"
+                    serviceCredentialsFile = "REPLACE_ME.json"
+                }
+            }
+        }
+    }
+
+    namespace 'com.yugyd.quiz'
+}
+
+dependencies {
+    // Module
+    implementation project(':data')
+    implementation project(':domain')
+    implementation project(':uikit')
+    implementation project(':common-ui')
+    implementation project(':navigation')
+    implementation project(':featuretoggle')
+    implementation project(':core')
+    implementation project(':push')
+
+    implementation project(':pro-ui')
+    implementation project(':correct-ui')
+    implementation project(':theme-ui')
+    implementation project(':progress-ui')
+    implementation project(':game-ui')
+    implementation project(':profile-ui')
+    implementation project(':new-version-onboarding-ui')
+    implementation project(':update-ui')
+
+    // Kotlin
+    implementation libs.kotlinx.coroutines.android
+
+    // UI - Compose
+    implementation libs.compose.material3
+    implementation libs.compose.activity
+    implementation libs.compose.viewmodel
+    implementation libs.compose.lifecycle
+    // Accompanist
+    implementation libs.accompanist.systemuicontroller
+    implementation libs.accompanist.permissions
+    // Navigation
+    implementation libs.compose.navigation
+
+    // UI - Android X
+    implementation libs.core.ktx
+    implementation libs.appcompat
+    implementation libs.splashscreen
+
+    // UI - Material
+    implementation libs.material
+
+    // UI - Lifecycle
+    implementation libs.lifecycle.viewmodel.ktx
+    implementation libs.lifecycle.runtime.ktx
+    implementation libs.lifecycle.process
+
+    // Room
+    implementation libs.room.runtime
+    implementation libs.room.ktx
+    kapt libs.room.compiler
+
+    // Firebase: Analytics, AppIndexing, Crashlytics, Cloud Messaging
+    implementation platform(libs.firebase.bom)
+    implementation libs.firebase.analytics
+    implementation libs.firebase.crashlytics
+    implementation libs.firebase.messages
+
+    // Play Services: Ads, Auth, Games
+    implementation libs.play.core
+    implementation libs.play.ads
+
+    // Work Manager
+    implementation libs.work.manager.ktx
+
+    // Logging
+    implementation libs.timber
+}

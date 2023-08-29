@@ -1,0 +1,25 @@
+plugins {
+    id 'quiz.android.library'
+    id 'quiz.android.hilt'
+    id 'quiz.android.compose.library'
+}
+
+android {
+    namespace 'com.yugyd.quiz.correctui'
+}
+
+dependencies {
+    // Module
+    implementation project(':domain')
+    implementation project(':common-ui')
+    implementation project(':uikit')
+    implementation project(':navigation')
+    implementation project(':featuretoggle')
+
+    // UI - Compose
+    implementation libs.compose.material3
+    implementation libs.compose.viewmodel
+    implementation libs.compose.lifecycle
+    // Navigation
+    implementation libs.compose.hilt.navigation
+}

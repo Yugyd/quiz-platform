@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~    Copyright 2023 Roman Likhachev
+  ~
+  ~    Licensed under the Apache License, Version 2.0 (the "License");
+  ~    you may not use this file except in compliance with the License.
+  ~    You may obtain a copy of the License at
+  ~
+  ~        http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~    Unless required by applicable law or agreed to in writing, software
+  ~    distributed under the License is distributed on an "AS IS" BASIS,
+  ~    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~    See the License for the specific language governing permissions and
+  ~    limitations under the License.
+  -->
+
+<resources>
+
+    <!-- Share -->
+    <string name="title_theme">Themes</string>
+    <string name="title_correct">Correct</string>
+    <string name="title_progress">Progress</string>
+    <string name="title_profile">Profile</string>
+
+    <string name="title_arcade">Arcade</string>
+    <string name="title_marathon">Marathon</string>
+    <string name="title_train">Train</string>
+    <string name="title_unknown">Unknown</string>
+
+    <string name="title_content_lite">Lite</string>
+    <string name="title_content_pro">Pro</string>
+
+    <!-- Game End -->
+    <string name="title_work_error">Work on mistakes</string>
+
+    <string name="format_record_progress">%1$d of %2$d</string>
+
+    <!-- Action -->
+    <string name="action_game">Play</string>
+
+    <!-- Error -->
+    <string name="error_base">Something went wrong</string>
+
+    <!-- Empty state -->
+    <string name="title_empty_state">Oops, no data</string>
+    <string name="title_empty_state_description">Try reloading</string>
+
+</resources>

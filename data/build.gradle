@@ -1,0 +1,32 @@
+plugins {
+    id 'quiz.android.library'
+    id 'quiz.android.hilt'
+}
+
+android {
+    namespace 'com.yugyd.quiz.data'
+}
+
+dependencies {
+    // Module
+    implementation project(':domain')
+
+    // Kotlin
+    implementation libs.kotlinx.coroutines.android
+
+    // UI - Android X
+    implementation libs.core.ktx
+
+    // Room
+    implementation libs.room.runtime
+    implementation libs.room.ktx
+    kapt libs.room.compiler
+
+    // Firebase: Analytics, Crashlytics
+    implementation platform(libs.firebase.bom)
+    implementation libs.firebase.analytics
+    implementation libs.firebase.crashlytics
+
+    // Logging
+    implementation libs.timber
+}

@@ -1,0 +1,107 @@
+[versions]
+androidGradlePlugin = '8.0.2'
+crashlyticsVersion = '2.9.8'
+kotlinVersion = '1.8.20'
+hiltVersion = '2.44'
+coroutinesVersion = '1.7.0'
+lifecycleVersion = '2.6.1'
+androidxTest = '1.5.2'
+core-ktx = '1.10.0'
+appcompat = '1.6.1'
+material = '1.9.0'
+roomVersion = '2.5.1'
+workManagerVersion = '2.8.1'
+firebaseVersion = '32.0.0'
+composeVersion = '2023.04.01'
+# https://developer.android.com/jetpack/androidx/releases/compose-kotlin#pre-release_kotlin_compatibility
+kotlinCompilerExtensionVersion = '1.4.5'
+accompanistVersion = '0.30.1'
+versionsUpdates = '0.47.0'
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
+android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
+android-test = { id = "com.android.test", version.ref = "androidGradlePlugin" }
+# Google services
+firebase-appdistribution = { id = "com.google.firebase.appdistribution", version = "4.0.0" }
+firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "crashlyticsVersion" }
+gms = { id = "com.google.gms.google-services", version = '4.3.15' }
+# DI
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hiltVersion" }
+# Kotlin
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlinVersion" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinVersion" }
+# Other
+android-cache-fix = { id = "org.gradle.android.cache-fix", version = "2.7.1" }
+update-versions = { id = "com.github.ben-manes.versions", version.ref = "versionsUpdates" }
+
+[libraries]
+# Gradle
+android-gradle-plugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
+kotlin-gradle-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlinVersion" }
+google-services-plugin = { group = "com.google.gms", name = "google-services", version = '4.3.15' }
+firebase-crashlytics-gradle-plugin = { group = "com.google.firebase", name = "firebase-crashlytics-gradle", version.ref = "crashlyticsVersion" }
+firebase-appdistribution-gradle-plugin = { group = "com.google.firebase", name = "firebase-appdistribution-gradle", version = '4.0.0' }
+hilt-gradle-plugin = { group = "com.google.dagger", name = "hilt-android-gradle-plugin", version.ref = 'hiltVersion' }
+update-versions-gradle-plugin = { group = "com.github.ben-manes", name = "gradle-versions-plugin", version.ref = 'versionsUpdates' }
+# Kotlin
+kotlin-stdlib-core = { module = 'org.jetbrains.kotlin:kotlin-stdlib', version.ref = 'kotlinVersion' }
+kotlinx-serialization = { module = 'org.jetbrains.kotlinx:kotlinx-serialization-json', version = '1.5.0' }
+# Coroutines
+kotlinx-coroutines-android = { module = 'org.jetbrains.kotlinx:kotlinx-coroutines-android', version.ref = 'coroutinesVersion' }
+kotlinx-coroutines-play-services = { module = 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services', version.ref = 'coroutinesVersion' }
+# AndroidX
+androidx-annotation = { module = 'androidx.annotation:annotation', version = '1.5.0' }
+core-ktx = { module = 'androidx.core:core-ktx', version.ref = 'core-ktx' }
+appcompat = { module = 'androidx.appcompat:appcompat', version.ref = 'appcompat' }
+lifecycle-viewmodel-ktx = { module = 'androidx.lifecycle:lifecycle-viewmodel-ktx', version.ref = 'lifecycleVersion' }
+lifecycle-runtime-ktx = { module = 'androidx.lifecycle:lifecycle-runtime-ktx', version.ref = 'lifecycleVersion' }
+lifecycle-process = { module = 'androidx.lifecycle:lifecycle-process', version.ref = 'lifecycleVersion' }
+splashscreen = { module = 'androidx.core:core-splashscreen', version = '1.0.0' }
+# Compose
+compose-bom = { module = 'androidx.compose:compose-bom', version.ref = 'composeVersion' }
+# Material Design 3
+compose-material3 = { module = 'androidx.compose.material3:material3', version = '1.1.1' }
+# Android Studio Preview support
+compose-ui-tooling-preview = { module = 'androidx.compose.ui:ui-tooling-preview' }
+compose-ui-tooling = { module = 'androidx.compose.ui:ui-tooling' }
+# Optional - Resources
+compose-material-icons = { module = 'androidx.compose.material:material-icons-extended' }
+# UI Foundation
+compose-ui-graphics = { module = 'androidx.compose.ui:ui-graphics' }
+# Optional - Integration with activities and ViewModels
+compose-activity = { module = 'androidx.activity:activity-compose', version = '1.6.1' }
+compose-viewmodel = { module = 'androidx.lifecycle:lifecycle-viewmodel-compose', version = '2.5.1' }
+compose-lifecycle = { module = 'androidx.lifecycle:lifecycle-runtime-compose', version = '2.6.0-beta01' }
+# Navigation
+navigation-runtime = { module = 'androidx.navigation:navigation-runtime-ktx', version = '2.6.0' }
+compose-navigation = { module = 'androidx.navigation:navigation-compose', version = '2.6.0' }
+compose-hilt-navigation = { module = 'androidx.hilt:hilt-navigation-compose', version = '1.0.0' }
+# Accompanist
+accompanist-drawablepainter = { module = 'com.google.accompanist:accompanist-drawablepainter', version.ref = 'accompanistVersion' }
+accompanist-systemuicontroller = { group = "com.google.accompanist", name = "accompanist-systemuicontroller", version.ref = "accompanistVersion" }
+accompanist-permissions = { group = "com.google.accompanist", name = "accompanist-permissions", version.ref = "accompanistVersion" }
+# Material
+material = { module = 'com.google.android.material:material', version.ref = 'material' }
+# DI
+hilt-android = { module = 'com.google.dagger:hilt-android', version.ref = 'hiltVersion' }
+hilt-dagger-compiler = { module = 'com.google.dagger:hilt-android-compiler', version.ref = 'hiltVersion' }
+# Timber
+timber = { module = 'com.jakewharton.timber:timber', version = '5.0.1' }
+# Room
+room-runtime = { module = 'androidx.room:room-runtime', version.ref = 'roomVersion' }
+room-compiler = { module = 'androidx.room:room-compiler', version.ref = 'roomVersion' }
+room-ktx = { module = 'androidx.room:room-ktx', version.ref = 'roomVersion' }
+# WorkManager
+work-manager-ktx = { module = 'androidx.work:work-runtime-ktx', version.ref = 'workManagerVersion' }
+# Google
+play-core = { module = 'com.google.android.play:core', version = '1.10.3' }
+play-ads = { module = 'com.google.android.gms:play-services-ads', version = '22.0.0' }
+# Firebase
+firebase-bom = { module = 'com.google.firebase:firebase-bom', version.ref = 'firebaseVersion' }
+firebase-analytics = { module = 'com.google.firebase:firebase-analytics-ktx' }
+firebase-crashlytics = { module = 'com.google.firebase:firebase-crashlytics-ktx' }
+firebase-messages = { module = 'com.google.firebase:firebase-messaging-ktx' }
+firebase-config = { module = 'com.google.firebase:firebase-config-ktx' }
+# Coil
+coil-compose = { module = 'io.coil-kt:coil-compose', version = '2.4.0' }

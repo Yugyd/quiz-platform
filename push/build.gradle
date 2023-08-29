@@ -1,0 +1,22 @@
+plugins {
+    id 'quiz.android.library'
+    id 'quiz.android.hilt'
+}
+
+android {
+    namespace 'com.yugyd.quiz.push'
+}
+
+dependencies {
+    // Module
+    implementation project(':domain')
+    implementation project(':core')
+    implementation project(':uikit')
+
+    // UI: Compose
+    implementation libs.compose.ui.graphics
+
+    // Firebase: Cloud Messaging
+    implementation platform(libs.firebase.bom)
+    implementation libs.firebase.messages
+}

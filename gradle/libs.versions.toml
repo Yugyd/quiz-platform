@@ -106,3 +106,6 @@ firebase-messages = { module = 'com.google.firebase:firebase-messaging-ktx' }
 firebase-config = { module = 'com.google.firebase:firebase-config-ktx' }
 # Coil
 coil-compose = { module = 'io.coil-kt:coil-compose', version = '2.4.0' }
+# Test
+junit-core = { module = 'junit:junit', version = '4.13.2' }
+kotlin-test = { module = 'org.jetbrains.kotlin:kotlin-test', version.ref = 'kotlinVersion' }

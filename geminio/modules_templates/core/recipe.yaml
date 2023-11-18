@@ -1,0 +1,26 @@
+requiredParams:
+  name: Core module
+  description: Creates core module
+
+widgets:
+  - booleanParameter:
+      id: enableDi
+      name: Enable DI
+      help: Adds hilt convention plugin
+      default: false
+
+predefinedFeatures:
+  - enableModuleCreationParams:
+      defaultPackageNamePrefix: com.yugyd.quiz
+
+recipe:
+  - mkDirs:
+      - ${srcOut}
+
+  - instantiate:
+      from: root/gitignore.ftl
+      to: ${rootOut}/.gitignore
+
+  - instantiateAndOpen:
+      from: root/build.gradle.ftl
+      to: ${rootOut}/build.gradle

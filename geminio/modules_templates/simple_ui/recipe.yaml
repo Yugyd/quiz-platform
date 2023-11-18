@@ -1,0 +1,151 @@
+requiredParams:
+  name: Ui module
+  description: Creates ui module
+
+widgets:
+  - stringParameter:
+      id: featurePrefix
+      name: Feature Prefix
+      help: Prefix of the feature
+      constraints:
+        - nonempty
+        - unique
+        - class
+      default: Blank
+
+  - booleanParameter:
+      id: enableUnitTest
+      name: Enable unit test
+      help: Adds unit test dependencies (convention plugin, core module, kotlin-test and junit)
+      default: false
+
+predefinedFeatures:
+  - enableModuleCreationParams:
+      defaultPackageNamePrefix: com.yugyd.quiz.ui
+
+globals:
+  - stringParameter:
+      id: argsName
+      value: ${featurePrefix}Args
+
+  - stringParameter:
+      id: payloadName
+      value: ${featurePrefix}Payload
+
+  - stringParameter:
+      id: routeName
+      value: ${featurePrefix.camelCaseToUnderlines()}
+
+  - stringParameter:
+      id: constantRouteName
+      value: ${featurePrefix.camelCaseToUnderlines()}
+
+  - stringParameter:
+      id: navigationScreenName
+      value: ${featurePrefix}Screen
+
+  - stringParameter:
+      id: routeName
+      value: ${featurePrefix}Route
+
+  - stringParameter:
+      id: generalPackage
+      value: com.yugyd.quiz
+
+  - stringParameter:
+      id: domainPackage
+      value: com.yugyd.quiz.domain.${featurePrefix.camelCaseToUnderlines()}
+
+  - stringParameter:
+      id: modelName
+      value: ${featurePrefix}Model
+
+  - stringParameter:
+      id: previewParameterProviderName
+      value: ${featurePrefix}PreviewParameterProvider
+
+  - stringParameter:
+      id: uiKitPackage
+      value: com.yugyd.quiz.uikit
+
+  - stringParameter:
+      id: viewModelName
+      value: ${featurePrefix}ViewModel
+
+  - stringParameter:
+      id: screenName
+      value: ${featurePrefix}Screen
+
+  - stringParameter:
+      id: viewName
+      value: ${featurePrefix}View
+
+  - stringParameter:
+      id: titleName
+      value: ${featurePrefix.camelCaseToUnderlines()}_title
+
+  - stringParameter:
+      id: contentName
+      value: ${featurePrefix}Content
+
+  - stringParameter:
+      id: payloadPackage
+      value: com.yugyd.quiz.domain.api.payload
+
+  - stringParameter:
+      id: interactorName
+      value: ${featurePrefix}Interactor
+
+  - stringParameter:
+      id: corePackage
+      value: com.yugyd.quiz.core
+
+  - stringParameter:
+      id: navigationName
+      value: ${featurePrefix}Navigation
+
+  - stringParameter:
+      id: blModuleName
+      value: ${featurePrefix.camelCaseToUnderlines()}-bl
+
+recipe:
+  - mkDirs:
+      - ${resOut}:
+          - values
+          - values-ru
+
+  - instantiate:
+      from: root/gitignore.ftl
+      to: ${rootOut}/.gitignore
+
+  - instantiate:
+      from: root/build.gradle.ftl
+      to: ${rootOut}/build.gradle
+
+  - instantiate:
+      from: root/src/FeatureNavigation.kt.ftl
+      to: ${srcOut}/${navigationName}.kt
+
+  - instantiate:
+      from: root/src/FeaturePreviewParameterProvider.kt.ftl
+      to: ${srcOut}/${previewParameterProviderName}.kt
+
+  - instantiate:
+      from: root/src/FeatureScreen.kt.ftl
+      to: ${srcOut}/${screenName}.kt
+
+  - instantiate:
+      from: root/src/FeatureView.kt.ftl
+      to: ${srcOut}/${viewName}.kt
+
+  - instantiate:
+      from: root/src/FeatureViewModel.kt.ftl
+      to: ${srcOut}/${viewModelName}.kt
+
+  - instantiate:
+      from: root/res/values/strings.xml.ftl
+      to: ${resOut}/values/strings.xml
+
+  - instantiate:
+      from: root/res/values-ru/strings.xml.ftl
+      to: ${resOut}/values-ru/strings.xml

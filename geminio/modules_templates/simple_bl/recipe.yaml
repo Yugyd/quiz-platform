@@ -1,0 +1,121 @@
+requiredParams:
+  name: Bl module
+  description: Creates bl module
+
+widgets:
+  - stringParameter:
+      id: featurePrefix
+      name: Feature Prefix
+      help: Prefix of the feature
+      constraints:
+        - nonempty
+        - unique
+        - class
+      default: Blank
+
+  - booleanParameter:
+      id: enableDi
+      name: Enable DI
+      help: Adds hilt convention plugin
+      default: false
+
+  - booleanParameter:
+      id: enableAnalytics
+      name: Add analytics
+      help: Adds analytics
+      default: false
+
+  - booleanParameter:
+      id: enableUnitTest
+      name: Enable unit test
+      help: Adds unit test dependencies (convention plugin, core module, kotlin-test and junit)
+      default: false
+
+predefinedFeatures:
+  - enableModuleCreationParams:
+      defaultPackageNamePrefix: com.yugyd.quiz.domain
+
+globals:
+  - stringParameter:
+      id: entityMapperName
+      value: ${featurePrefix}EntityMapper
+
+  - stringParameter:
+      id: entityTableName
+      value: ${featurePrefix.camelCaseToUnderlines()}
+
+  - stringParameter:
+      id: entityName
+      value: ${featurePrefix}Entity
+
+  - stringParameter:
+      id: dataSourceName
+      value: ${featurePrefix}DataSource
+
+  - stringParameter:
+      id: modelName
+      value: ${featurePrefix}Model
+
+  - stringParameter:
+      id: blModuleName
+      value: ${featurePrefix}BlModule
+
+  - stringParameter:
+      id: interactorName
+      value: ${featurePrefix}Interactor
+
+  - stringParameter:
+      id: interactorImplName
+      value: ${featurePrefix}InteractorImpl
+
+  - stringParameter:
+      id: sourceName
+      value: ${featurePrefix}Source
+
+recipe:
+  - mkDirs:
+      - ${srcOut}:
+          - data
+          - data/model
+          - data/model/mapper
+          - model
+
+  - instantiate:
+      from: root/gitignore.ftl
+      to: ${rootOut}/.gitignore
+
+  - instantiate:
+      from: root/build.gradle.ftl
+      to: ${rootOut}/build.gradle
+
+  - instantiate:
+      from: root/src/FeatureSource.kt.ftl
+      to: ${srcOut}/${sourceName}.kt
+
+  - instantiate:
+      from: root/src/FeatureInteractorImpl.kt.ftl
+      to: ${srcOut}/${interactorImplName}.kt
+
+  - instantiate:
+      from: root/src/FeatureInteractor.kt.ftl
+      to: ${srcOut}/${interactorName}.kt
+
+  - instantiate:
+      from: root/src/di/FeatureBlModule.kt.ftl
+      to: ${srcOut}/di/${blModuleName}.kt
+
+  - instantiate:
+      from: root/src/model/FeatureModel.kt.ftl
+      to: ${srcOut}/model/${modelName}.kt
+
+  - instantiate:
+      from: root/src/data/FeatureDataSource.kt.ftl
+      to: ${srcOut}/data/${dataSourceName}.kt
+
+  - instantiate:
+      from: root/src/data/model/FeatureEntity.kt.ftl
+      to: ${srcOut}/data/model/${entityName}.kt
+
+  - instantiate:
+      from: root/src/data/model/mapper/FeatureEntityMapper.kt.ftl
+      to: ${srcOut}/data/model/mapper/${entityMapperName}.kt

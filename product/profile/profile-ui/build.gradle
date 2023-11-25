@@ -1,0 +1,34 @@
+plugins {
+    id 'quiz.android.library'
+    id 'quiz.android.hilt'
+    id 'quiz.android.compose.library'
+}
+
+android {
+    namespace 'com.yugyd.quiz.ui.profile'
+}
+
+dependencies {
+    // Module
+    implementation project(':product:core:common-ui')
+    implementation project(':product:designsystem:uikit')
+    implementation project(':product:core:navigation')
+    implementation project(':product:core:featuretoggle')
+    implementation project(':product:core')
+    implementation project(':product:content:content-bl')
+    implementation project(':product:options:options-bl')
+    implementation project(':product:shared:domain-api')
+    implementation project(':product:shared:domain-controller')
+
+    // UI - Compose
+    implementation libs.compose.material3
+    implementation libs.compose.viewmodel
+    implementation libs.compose.lifecycle
+    // Ext
+    implementation libs.accompanist.drawablepainter
+    // Navigation
+    implementation libs.compose.hilt.navigation
+
+    // UI - Android X
+    implementation libs.appcompat
+}

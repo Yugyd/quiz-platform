@@ -11,8 +11,8 @@ android {
 
 dependencies {
     // Modules
-    implementation project(':domain-api')
-    implementation project(':domain-utils')
+    implementation project(':product:shared:domain-api')
+    implementation project(':product:shared:domain-utils')
     <#if enableAnalytics>
     implementation project(":analytics:analytics-bl")
     </#if>

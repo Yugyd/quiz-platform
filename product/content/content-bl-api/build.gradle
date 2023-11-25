@@ -1,0 +1,11 @@
+plugins {
+    id 'quiz.android.library'
+}
+
+android {
+    namespace 'com.yugyd.quiz.domain.content.api'
+}
+
+dependencies {
+    implementation(project(":product:shared:domain-api"))
+}

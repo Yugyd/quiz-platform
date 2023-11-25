@@ -1,0 +1,18 @@
+plugins {
+    id 'quiz.android.library'
+    id 'quiz.android.hilt'
+}
+
+android {
+    namespace 'com.yugyd.quiz.domain.errors'
+}
+
+dependencies {
+    // Modules
+    implementation project(":product:core:coroutines-utils")
+    implementation project(':product:shared:domain-api')
+    implementation project(':product:shared:domain-utils')
+
+    // Kotlin
+    implementation libs.kotlinx.coroutines.android
+}

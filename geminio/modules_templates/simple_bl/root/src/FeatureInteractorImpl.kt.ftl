@@ -16,14 +16,16 @@
 
 package ${packageName}
 
+import com.yugyd.quiz.core.coroutinesutils.DispatchersProvider
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class ${interactorImplName}(
     private val source: ${sourceName},
+    private val dispatcherProvider: DispatchersProvider,
 ) : ${interactorName} {
 
-    override suspend fun getData() = withContext(Dispatchers.IO) {
+    override suspend fun getData() = withContext(dispatcherProvider.io) {
         source.getData()
     }
 }

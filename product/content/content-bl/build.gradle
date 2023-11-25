@@ -1,0 +1,22 @@
+plugins {
+    id 'quiz.android.library'
+    id 'quiz.android.hilt'
+}
+
+android {
+    namespace 'com.yugyd.quiz.domain.content'
+}
+
+dependencies {
+    // Modules
+    api(project(':product:content:content-bl-api'))
+    implementation project(':product:core')
+    implementation project(':product:core:file')
+    implementation project(':product:core:coroutines-utils')
+    implementation project(':product:shared:domain-api')
+    implementation project(':product:shared:domain-utils')
+    implementation project(':product:shared:data')
+
+    // Kotlin
+    implementation libs.kotlinx.coroutines.android
+}

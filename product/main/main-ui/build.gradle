@@ -1,0 +1,54 @@
+plugins {
+    id 'quiz.android.library'
+    id 'quiz.android.hilt'
+    id 'quiz.android.compose.library'
+}
+
+android {
+    namespace 'com.yugyd.quiz.ui.main'
+}
+
+dependencies {
+    // Module
+    implementation project(':product:core:common-ui')
+    implementation project(':product:designsystem:uikit')
+    implementation project(':product:core:navigation')
+    implementation project(':product:core')
+    implementation project(':product:core:featuretoggle')
+    implementation project(':product:errors:errors-bl')
+    implementation project(':product:shared:domain-api')
+    implementation project(':product:correct:correct-ui')
+    implementation project(':product:main:new-version-onboarding-ui')
+    implementation project(':product:progress:progress-ui')
+    implementation project(':product:content:content-ui')
+    implementation project(':product:profile:profile-ui')
+    implementation project(':product:profile:transition-ui')
+    implementation project(':product:theme:theme-ui')
+    implementation project(':product:update:update-bl')
+    implementation project(':product:update:update-ui')
+    implementation project(':product:options:options-bl')
+    implementation project(':product:game:game-ui')
+    implementation project(':product:pro:pro-ui')
+    implementation project(':product:end:end-ui')
+    implementation project(':product:errors:errors-ui')
+    implementation project(':product:section:section-ui')
+
+    // UI - Android X
+    implementation libs.splashscreen
+
+    // UI - Compose
+    implementation libs.compose.material3
+    implementation libs.compose.viewmodel
+    implementation libs.compose.lifecycle
+    // Accompanist
+    implementation libs.accompanist.permissions
+    implementation libs.accompanist.systemuicontroller
+    // Navigation
+    implementation libs.compose.hilt.navigation
+
+    // Play Services: Ads, Auth, Games
+    implementation libs.play.ads
+
+    // Logging
+    implementation libs.timber
+}

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~    Copyright 2023 Roman Likhachev
+  ~
+  ~    Licensed under the Apache License, Version 2.0 (the "License");
+  ~    you may not use this file except in compliance with the License.
+  ~    You may obtain a copy of the License at
+  ~
+  ~        http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~    Unless required by applicable law or agreed to in writing, software
+  ~    distributed under the License is distributed on an "AS IS" BASIS,
+  ~    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~    See the License for the specific language governing permissions and
+  ~    limitations under the License.
+  -->
+
+<resources>
+
+    <!-- Profile -->
+    <string name="profile_title_content">Контент</string>
+    <string name="profile_title_content_not_selected">Контент не выбран</string>
+    <string name="title_social">Социальные сети</string>
+    <string name="title_settings">Настройки</string>
+    <string name="title_show_answer">Просмотр ответа</string>
+    <string name="title_sorting_quest">Сортировка вопросов</string>
+    <string name="title_vibration">Вибрация</string>
+
+    <string name="title_purchases">Покупки</string>
+    <string name="title_pro_version">Про-версия</string>
+
+    <string name="title_please_use">Порадовать нас</string>
+    <string name="title_rate_app">Оцените приложение</string>
+    <string name="title_share_friend">Расскажите другу</string>
+    <string name="title_other_apps">Наши приложения</string>
+
+    <string name="title_feedback">Обратная связь</string>
+    <string name="title_report_error">Сообщите об ошибке</string>
+    <string name="title_privacy_policy">Политика конфиденциальности</string>
+
+    <string name="profile_title_telegram">Telegram-канал</string>
+    <string name="profile_title_telegram_promo">Ежедневные вопросы и обратная связь</string>
+
+    <string name="format_version">%1$s версия</string>
+    <string name="format_time_second">%1$.1f сек.</string>
+    <string name="format_round_time_second">%1$d сек.</string>
+
+</resources>

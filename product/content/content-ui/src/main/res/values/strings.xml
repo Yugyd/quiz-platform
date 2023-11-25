@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~    Copyright 2023 Roman Likhachev
+  ~
+  ~    Licensed under the Apache License, Version 2.0 (the "License");
+  ~    you may not use this file except in compliance with the License.
+  ~    You may obtain a copy of the License at
+  ~
+  ~        http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~    Unless required by applicable law or agreed to in writing, software
+  ~    distributed under the License is distributed on an "AS IS" BASIS,
+  ~    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~    See the License for the specific language governing permissions and
+  ~    limitations under the License.
+  -->
+
+<resources>
+    <string name="content_title">Content</string>
+    <string name="content_empty_state_new_file">New file</string>
+    <string name="content_empty_state_title">Get started</string>
+    <string name="content_empty_state_message">
+        Select a new content file and then enjoy the app with your content.
+    </string>
+    <string name="content_empty_state_button">Choose file</string>
+    <string name="content_empty_state_note">Content must match the data format.</string>
+    <string name="content_error_not_added_content_is_exists">Content has already been added</string>
+    <string name="content_error_invalid_uri">Failed to access content file</string>
+    <string name="content_error_add_is_failed">Failed to add content</string>
+    <string name="content_error_delete_is_failed">Failed to delete content</string>
+    <string name="content_error_not_select_and_delete">The selected content is invalid and has been removed</string>
+    <string name="content_error_select_is_failed">Failed to select content</string>
+
+    <!-- Content -->
+    <string name="content_format_error_content_quest_duplicate_id">
+        Duplicate IDs detected, please provide unique IDs for questions: %s
+    </string>
+    <string name="content_format_error_content_theme_duplicate_id">
+        Duplicate IDs detected, please set unique IDs for topics: %s
+    </string>
+    <string name="content_format_error_content_quest_not_valid">
+        Incorrectly written questions detected: %s
+    </string>
+    <string name="content_format_error_content_theme_not_valid">
+        Incorrectly composed topics detected: %s
+    </string>
+
+</resources>

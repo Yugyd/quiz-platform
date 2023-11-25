@@ -1,0 +1,17 @@
+plugins {
+    id 'quiz.android.library'
+    id 'quiz.android.compose.library'
+}
+
+android {
+    namespace 'com.yugyd.quiz.newversiononboarding'
+}
+
+dependencies {
+    // Module
+    implementation project(':product:shared:domain-api')
+    implementation project(':product:designsystem:uikit')
+
+    // UI - Compose
+    implementation libs.compose.material3
+}

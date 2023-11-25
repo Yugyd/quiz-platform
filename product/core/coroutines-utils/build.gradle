@@ -1,0 +1,11 @@
+plugins {
+    id 'quiz.android.library'
+}
+
+android {
+    namespace 'com.yugyd.quiz.core.coroutinesutils'
+}
+
+dependencies {
+    implementation(libs.kotlinx.coroutines.android)
+}

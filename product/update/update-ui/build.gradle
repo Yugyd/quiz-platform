@@ -1,0 +1,20 @@
+plugins {
+    id 'quiz.android.library'
+    id 'quiz.android.compose.library'
+}
+
+android {
+    namespace 'com.yugyd.quiz.update'
+}
+
+dependencies {
+    // Module
+    implementation project(':product:designsystem:uikit')
+    implementation project(':product:core:navigation')
+
+    // UI - Compose
+    implementation libs.compose.material3
+
+    // Navigation
+    implementation libs.compose.navigation
+}

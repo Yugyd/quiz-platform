@@ -14,26 +14,14 @@
  *    limitations under the License.
  */
 
-package com.yugyd.quiz.data.database
+package com.yugyd.quiz.data
 
-import androidx.room.Database
-import androidx.room.RoomDatabase
 import com.yugyd.quiz.data.database.dao.ContentResetDao
-import com.yugyd.quiz.data.database.dao.QuestDao
-import com.yugyd.quiz.data.database.dao.ThemeDao
-import com.yugyd.quiz.data.model.QuestEntity
-import com.yugyd.quiz.data.model.ThemeEntity
+import com.yugyd.quiz.domain.api.repository.ContentResetSource
 
-@Database(
-    entities = [
-        ThemeEntity::class,
-        QuestEntity::class
-    ],
-    version = 5,
-    exportSchema = false
-)
-abstract class ContentDatabase : RoomDatabase() {
-    abstract fun themeDao(): ThemeDao
-    abstract fun questDao(): QuestDao
-    abstract fun resetDao(): ContentResetDao
+class ContentResetDataSource(
+    private val contentResetDao: ContentResetDao,
+) : ContentResetSource {
+
+    override suspend fun reset() = contentResetDao.reset()
 }

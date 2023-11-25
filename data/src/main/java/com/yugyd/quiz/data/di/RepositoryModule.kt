@@ -19,6 +19,7 @@ package com.yugyd.quiz.data.di
 import android.content.Context
 import androidx.room.Room
 import com.yugyd.quiz.core.Logger
+import com.yugyd.quiz.data.ContentResetDataSource
 import com.yugyd.quiz.data.ErrorDataSource
 import com.yugyd.quiz.data.LoggerImpl
 import com.yugyd.quiz.data.PreferencesDataSource
@@ -35,6 +36,7 @@ import com.yugyd.quiz.data.model.mappers.RecordEntityMapper
 import com.yugyd.quiz.data.model.mappers.SectionEntityMapper
 import com.yugyd.quiz.data.model.mappers.ThemeEntityMapper
 import com.yugyd.quiz.data.model.mappers.TrainEntityMapper
+import com.yugyd.quiz.domain.api.repository.ContentResetSource
 import com.yugyd.quiz.domain.api.repository.ErrorSource
 import com.yugyd.quiz.domain.api.repository.PreferencesSource
 import com.yugyd.quiz.domain.api.repository.QuestSource
@@ -75,6 +77,12 @@ class RepositoryModule {
 
     @Singleton
     @Provides
+    fun provideContentResetSource(
+        contentDb: ContentDatabase,
+    ): ContentResetSource = ContentResetDataSource(contentDb.resetDao())
+
+    @Singleton
+    @Provides
     fun provideContentDatabase(
         @ApplicationContext appContext: Context
     ) = Room
@@ -83,7 +91,6 @@ class RepositoryModule {
             ContentDatabase::class.java,
             CONTENT_DB_NAME
         )
-        .createFromAsset(CONTENT_DB_NAME)
         .fallbackToDestructiveMigration()
         .build()
 

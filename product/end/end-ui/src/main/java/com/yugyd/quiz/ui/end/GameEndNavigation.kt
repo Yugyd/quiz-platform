@@ -16,6 +16,7 @@
 
 package com.yugyd.quiz.ui.end
 
+import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.runtime.Composable
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavBackStackEntry
@@ -100,7 +101,7 @@ fun getEndRoute(
 
 fun NavGraphBuilder.endScreen(
     routeModel: RouteModel,
-    content: @Composable (NavBackStackEntry) -> Unit
+    content: @Composable AnimatedContentScope.(NavBackStackEntry) -> Unit
 ) {
     composable(
         route = routeModel.route,

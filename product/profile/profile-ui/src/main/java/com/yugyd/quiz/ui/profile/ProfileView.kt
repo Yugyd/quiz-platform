@@ -41,15 +41,22 @@ interface ProfileView {
             object NavigateToExternalReportError : NavigationState
             object NavigateToPrivacyPolicy : NavigationState
             object NavigateToContents : NavigationState
+            object NavigateToExternalPlatformReportError : NavigationState
+            object NavigateToExternalPlatformRate : NavigationState
         }
     }
 
     sealed interface Action {
         class OnProfileClicked(val item: ProfileUiModel) : Action
+
         class OnProfileItemChecked(
             val item: SwitchItemProfileUiModel,
             val isChecked: Boolean
         ) : Action
+
+        object OnRatePlatformClicked : Action
+
+        object OnReportBugPlatformClicked : Action
 
         object OnTelegramHandled : Action
 

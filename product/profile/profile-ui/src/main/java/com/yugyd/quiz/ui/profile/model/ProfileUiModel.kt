@@ -18,6 +18,6 @@ package com.yugyd.quiz.ui.profile.model
 
 import com.yugyd.quiz.commonui.list.DiffItem
 
-interface ProfileUiModel : DiffItem {
+sealed interface ProfileUiModel : DiffItem {
     val type: TypeProfile
 }

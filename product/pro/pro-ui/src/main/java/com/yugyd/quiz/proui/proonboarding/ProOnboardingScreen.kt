@@ -155,11 +155,14 @@ internal fun PagerContent(
         modifier = modifier.padding(vertical = 16.dp)
     ) {
         val count = items.count()
-        val pagerState = rememberPagerState()
+        val pagerState = rememberPagerState(
+            initialPage = 0,
+            initialPageOffsetFraction = 0f,
+            pageCount = { count },
+        )
         HorizontalPager(
             modifier = modifier,
             state = pagerState,
-            pageCount = count,
             contentPadding = PaddingValues(all = 16.dp),
         ) { page ->
             ProOnboardingItem(model = items[page])

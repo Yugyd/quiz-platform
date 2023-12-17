@@ -18,6 +18,7 @@ package com.yugyd.quiz.ui.profile
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import com.yugyd.quiz.ui.profile.model.HeaderProfileUiModel
+import com.yugyd.quiz.ui.profile.model.OpenSourceProfileUiModel
 import com.yugyd.quiz.ui.profile.model.ProfileUiModel
 import com.yugyd.quiz.ui.profile.model.SectionProfileUiModel
 import com.yugyd.quiz.ui.profile.model.SelectItemProfileUiModel
@@ -78,6 +79,9 @@ internal class ProfilePreviewParameterProvider : PreviewParameterProvider<List<P
                         message = "Telegram message",
                         icon = R.drawable.ic_telegram,
                     )
+                )
+                add(
+                    OpenSourceProfileUiModel()
                 )
             },
         )

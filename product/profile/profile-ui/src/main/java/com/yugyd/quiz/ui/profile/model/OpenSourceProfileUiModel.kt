@@ -14,16 +14,9 @@
  *    limitations under the License.
  */
 
-package com.yugyd.quiz.core
+package com.yugyd.quiz.ui.profile.model
 
-import kotlin.properties.Delegates
-
-object GlobalConfig {
-    var DEBUG by Delegates.notNull<Boolean>()
-    var APPLICATION_ID by Delegates.notNull<String>()
-    var PRO_APP_PACKAGE by Delegates.notNull<String>()
-    var DEV_ID by Delegates.notNull<String>()
-    var PRIVACY_POLICY_LINK by Delegates.notNull<String>()
-    var VERSION_CODE by Delegates.notNull<Int>()
-    var IS_BASED_ON_PLATFORM_APP by Delegates.notNull<Boolean>()
-}
+data class OpenSourceProfileUiModel(
+    override val id: Int = 0,
+    override val type: TypeProfile = TypeProfile.NONE,
+) : ProfileUiModel

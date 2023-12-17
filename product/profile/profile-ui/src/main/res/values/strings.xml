@@ -16,7 +16,6 @@
 
 <resources>
 
-    <!-- Profile -->
     <string name="profile_title_content">Content</string>
     <string name="profile_title_content_not_selected">No content selected</string>
     <string name="title_social">Social media</string>
@@ -24,6 +23,11 @@
     <string name="title_show_answer">Viewing the answer</string>
     <string name="title_sorting_quest">Question sorting</string>
     <string name="title_vibration">Vibration</string>
+
+    <string name="profile_content_banner_title">Quiz-Platform</string>
+    <string name="profile_content_banner_subtitle">The application is based on the open-source Quiz-Platform solution. We\'d love to hear from you about the platform on GitHub.</string>
+    <string name="profile_content_banner_rate">Rate</string>
+    <string name="profile_content_banner_report_error">Report a bug</string>
 
     <string name="title_purchases">Purchases</string>
     <string name="title_pro_version">Pro version</string>

@@ -1,20 +1,20 @@
 [versions]
 androidGradlePlugin = '8.0.2'
-crashlyticsVersion = '2.9.8'
-kotlinVersion = '1.8.20'
-hiltVersion = '2.44'
-coroutinesVersion = '1.7.0'
-lifecycleVersion = '2.6.1'
+crashlyticsVersion = '2.9.9'
+kotlinVersion = '1.9.21'
+hiltVersion = '2.49'
+coroutinesVersion = '1.7.1'
+lifecycleVersion = '2.6.2'
 androidxTest = '1.5.2'
-core-ktx = '1.10.0'
+core-ktx = '1.12.0'
 appcompat = '1.6.1'
-material = '1.9.0'
-roomVersion = '2.5.1'
-workManagerVersion = '2.8.1'
-firebaseVersion = '32.0.0'
-composeVersion = '2023.04.01'
+material = '1.10.0'
+roomVersion = '2.6.1'
+workManagerVersion = '2.9.0'
+firebaseVersion = '32.7.0'
+composeVersion = '2023.10.01'
 # https://developer.android.com/jetpack/androidx/releases/compose-kotlin#pre-release_kotlin_compatibility
-kotlinCompilerExtensionVersion = '1.4.5'
+kotlinCompilerExtensionVersion = '1.5.6'
 accompanistVersion = '0.30.1'
 versionsUpdates = '0.47.0'
 
@@ -39,7 +39,7 @@ update-versions = { id = "com.github.ben-manes.versions", version.ref = "version
 # Gradle
 android-gradle-plugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
 kotlin-gradle-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlinVersion" }
-google-services-plugin = { group = "com.google.gms", name = "google-services", version = '4.3.15' }
+google-services-plugin = { group = "com.google.gms", name = "google-services", version = '4.4.0' }
 firebase-crashlytics-gradle-plugin = { group = "com.google.firebase", name = "firebase-crashlytics-gradle", version.ref = "crashlyticsVersion" }
 firebase-appdistribution-gradle-plugin = { group = "com.google.firebase", name = "firebase-appdistribution-gradle", version = '4.0.0' }
 hilt-gradle-plugin = { group = "com.google.dagger", name = "hilt-android-gradle-plugin", version.ref = 'hiltVersion' }
@@ -51,17 +51,17 @@ kotlinx-serialization = { module = 'org.jetbrains.kotlinx:kotlinx-serialization-
 kotlinx-coroutines-android = { module = 'org.jetbrains.kotlinx:kotlinx-coroutines-android', version.ref = 'coroutinesVersion' }
 kotlinx-coroutines-play-services = { module = 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services', version.ref = 'coroutinesVersion' }
 # AndroidX
-androidx-annotation = { module = 'androidx.annotation:annotation', version = '1.5.0' }
+androidx-annotation = { module = 'androidx.annotation:annotation', version = '1.7.0' }
 core-ktx = { module = 'androidx.core:core-ktx', version.ref = 'core-ktx' }
 appcompat = { module = 'androidx.appcompat:appcompat', version.ref = 'appcompat' }
 lifecycle-viewmodel-ktx = { module = 'androidx.lifecycle:lifecycle-viewmodel-ktx', version.ref = 'lifecycleVersion' }
 lifecycle-runtime-ktx = { module = 'androidx.lifecycle:lifecycle-runtime-ktx', version.ref = 'lifecycleVersion' }
 lifecycle-process = { module = 'androidx.lifecycle:lifecycle-process', version.ref = 'lifecycleVersion' }
-splashscreen = { module = 'androidx.core:core-splashscreen', version = '1.0.0' }
+splashscreen = { module = 'androidx.core:core-splashscreen', version = '1.0.1' }
 # Compose
 compose-bom = { module = 'androidx.compose:compose-bom', version.ref = 'composeVersion' }
 # Material Design 3
-compose-material3 = { module = 'androidx.compose.material3:material3', version = '1.1.1' }
+compose-material3 = { module = 'androidx.compose.material3:material3', version = '1.1.2' }
 # Android Studio Preview support
 compose-ui-tooling-preview = { module = 'androidx.compose.ui:ui-tooling-preview' }
 compose-ui-tooling = { module = 'androidx.compose.ui:ui-tooling' }
@@ -70,13 +70,13 @@ compose-material-icons = { module = 'androidx.compose.material:material-icons-ex
 # UI Foundation
 compose-ui-graphics = { module = 'androidx.compose.ui:ui-graphics' }
 # Optional - Integration with activities and ViewModels
-compose-activity = { module = 'androidx.activity:activity-compose', version = '1.6.1' }
-compose-viewmodel = { module = 'androidx.lifecycle:lifecycle-viewmodel-compose', version = '2.5.1' }
-compose-lifecycle = { module = 'androidx.lifecycle:lifecycle-runtime-compose', version = '2.6.0-beta01' }
+compose-activity = { module = 'androidx.activity:activity-compose', version = '1.8.1' }
+compose-viewmodel = { module = 'androidx.lifecycle:lifecycle-viewmodel-compose', version = '2.6.2' }
+compose-lifecycle = { module = 'androidx.lifecycle:lifecycle-runtime-compose', version = '2.6.2' }
 # Navigation
-navigation-runtime = { module = 'androidx.navigation:navigation-runtime-ktx', version = '2.6.0' }
-compose-navigation = { module = 'androidx.navigation:navigation-compose', version = '2.6.0' }
-compose-hilt-navigation = { module = 'androidx.hilt:hilt-navigation-compose', version = '1.0.0' }
+navigation-runtime = { module = 'androidx.navigation:navigation-runtime-ktx', version = '2.7.5' }
+compose-navigation = { module = 'androidx.navigation:navigation-compose', version = '2.7.5' }
+compose-hilt-navigation = { module = 'androidx.hilt:hilt-navigation-compose', version = '1.1.0' }
 # Accompanist
 accompanist-drawablepainter = { module = 'com.google.accompanist:accompanist-drawablepainter', version.ref = 'accompanistVersion' }
 accompanist-systemuicontroller = { group = "com.google.accompanist", name = "accompanist-systemuicontroller", version.ref = "accompanistVersion" }
@@ -97,7 +97,7 @@ room-ktx = { module = 'androidx.room:room-ktx', version.ref = 'roomVersion' }
 work-manager-ktx = { module = 'androidx.work:work-runtime-ktx', version.ref = 'workManagerVersion' }
 # Google
 play-core = { module = 'com.google.android.play:core', version = '1.10.3' }
-play-ads = { module = 'com.google.android.gms:play-services-ads', version = '22.0.0' }
+play-ads = { module = 'com.google.android.gms:play-services-ads', version = '22.6.0' }
 # Firebase
 firebase-bom = { module = 'com.google.firebase:firebase-bom', version.ref = 'firebaseVersion' }
 firebase-analytics = { module = 'com.google.firebase:firebase-analytics-ktx' }

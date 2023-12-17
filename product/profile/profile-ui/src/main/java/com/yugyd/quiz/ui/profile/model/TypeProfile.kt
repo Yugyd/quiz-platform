@@ -34,5 +34,6 @@ enum class TypeProfile(val id: Int) {
     SOCIAL_SECTION(id = 15),
     TELEGRAM_SOCIAL(id = 16),
     SELECT_CONTENT(id = 17),
+    OPEN_SOURCE(id = 18),
     NONE(id = -1)
 }

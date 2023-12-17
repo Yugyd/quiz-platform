@@ -46,6 +46,7 @@ class ProfileUiMapper @Inject constructor(
         isTelegramFeatureEnabled: Boolean,
         telegramConfig: TelegramConfig?,
         contentTitle: String?,
+        isBasedOnPlatformApp: Boolean,
     ) = listOfNotNull(
         header(content, isProFeatureEnabled),
         value(
@@ -67,7 +68,8 @@ class ProfileUiMapper @Inject constructor(
         item(TypeProfile.OTHER_APPS, R.string.title_other_apps),
         section(TypeProfile.FEEDBACK_SECTION, R.string.title_feedback),
         item(TypeProfile.REPORT_ERROR, R.string.title_report_error),
-        item(TypeProfile.PRIVACY_POLICY, R.string.title_privacy_policy)
+        item(TypeProfile.PRIVACY_POLICY, R.string.title_privacy_policy),
+        getOpenSourceItem(isBasedOnPlatformApp),
     )
 
     private fun header(content: Content, isProFeatureEnabled: Boolean) = content.run {
@@ -166,5 +168,14 @@ class ProfileUiMapper @Inject constructor(
         } else {
             null
         }
+    }
+
+    private fun getOpenSourceItem(isBasedOnPlatformApp: Boolean) = if (isBasedOnPlatformApp) {
+        OpenSourceProfileUiModel(
+            id = TypeProfile.OPEN_SOURCE.id,
+            type = TypeProfile.OPEN_SOURCE,
+        )
+    } else {
+        null
     }
 }

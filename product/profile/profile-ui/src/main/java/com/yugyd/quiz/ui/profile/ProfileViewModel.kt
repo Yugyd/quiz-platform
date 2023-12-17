@@ -19,6 +19,7 @@ package com.yugyd.quiz.ui.profile
 import androidx.lifecycle.viewModelScope
 import com.yugyd.quiz.commonui.base.BaseViewModel
 import com.yugyd.quiz.core.ContentProvider
+import com.yugyd.quiz.core.GlobalConfig
 import com.yugyd.quiz.core.Logger
 import com.yugyd.quiz.core.runCatch
 import com.yugyd.quiz.domain.api.repository.ContentSource
@@ -37,6 +38,7 @@ import com.yugyd.quiz.ui.profile.model.ProfileUiModel
 import com.yugyd.quiz.ui.profile.model.SwitchItemProfileUiModel
 import com.yugyd.quiz.ui.profile.model.TypeProfile.FEEDBACK_SECTION
 import com.yugyd.quiz.ui.profile.model.TypeProfile.NONE
+import com.yugyd.quiz.ui.profile.model.TypeProfile.OPEN_SOURCE
 import com.yugyd.quiz.ui.profile.model.TypeProfile.OTHER_APPS
 import com.yugyd.quiz.ui.profile.model.TypeProfile.PLEASE_US_SECTION
 import com.yugyd.quiz.ui.profile.model.TypeProfile.PRIVACY_POLICY
@@ -99,6 +101,18 @@ class ProfileViewModel @Inject constructor(
                     telegramLink = "",
                 )
             }
+
+            Action.OnRatePlatformClicked -> {
+                screenState = screenState.copy(
+                    navigationState = NavigationState.NavigateToExternalPlatformRate,
+                )
+            }
+
+            Action.OnReportBugPlatformClicked -> {
+                screenState = screenState.copy(
+                    navigationState = NavigationState.NavigateToExternalPlatformReportError,
+                )
+            }
         }
     }
 
@@ -135,12 +149,15 @@ class ProfileViewModel @Inject constructor(
             navigateToScreen(NavigationState.NavigateToPrivacyPolicy)
         }
 
-        SORT_QUEST, VIBRATION -> Unit
-        SETTINGS_SECTION, PURCHASES_SECTION, PLEASE_US_SECTION, FEEDBACK_SECTION, SOCIAL_SECTION, NONE -> Unit
         TELEGRAM_SOCIAL -> openTelegram()
+
         SELECT_CONTENT -> {
             navigateToScreen(NavigationState.NavigateToContents)
         }
+
+        SORT_QUEST, VIBRATION, OPEN_SOURCE -> Unit
+
+        SETTINGS_SECTION, PURCHASES_SECTION, PLEASE_US_SECTION, FEEDBACK_SECTION, SOCIAL_SECTION, NONE -> Unit
     }
 
     private fun onProfileItemChecked(item: SwitchItemProfileUiModel, isChecked: Boolean) =
@@ -166,12 +183,14 @@ class ProfileViewModel @Inject constructor(
                     val isTelegramEnabled = featureManager.isFeatureEnabled(FeatureToggle.TELEGRAM)
                     val telegramConfig = remoteConfigRepository.fetchTelegramConfig()
                     val contentTitle = contentInteractor.getSelectedContent()?.name
+                    val isBasedOnPlatformApp = GlobalConfig.IS_BASED_ON_PLATFORM_APP
 
                     processState(
                         isProEnabled = isProEnabled,
                         isTelegramEnabled = isTelegramEnabled,
                         telegramConfig = telegramConfig,
                         contentTitle = contentTitle,
+                        isBasedOnPlatformApp = isBasedOnPlatformApp,
                     )
                 },
                 catch = ::processDataError
@@ -184,6 +203,7 @@ class ProfileViewModel @Inject constructor(
         isTelegramEnabled: Boolean,
         telegramConfig: TelegramConfig?,
         contentTitle: String?,
+        isBasedOnPlatformApp: Boolean,
     ) {
         screenState = screenState.copy(
             isProFeatureEnabled = isProEnabled,
@@ -196,6 +216,7 @@ class ProfileViewModel @Inject constructor(
                 isTelegramFeatureEnabled = isTelegramEnabled,
                 telegramConfig = telegramConfig,
                 contentTitle = contentTitle,
+                isBasedOnPlatformApp = isBasedOnPlatformApp,
             ),
             isWarning = false,
             isLoading = false

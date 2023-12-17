@@ -128,6 +128,12 @@ internal fun QuizNavHost(
             onNavigateToContents = {
                 navController.navigateToContent(isBackEnabled = true)
             },
+            onNavigateToExternalPlatformRate = {
+                navigateToExternalScreen(GlobalScreens.platformGitHubProject(context))
+            },
+            onNavigateToExternalPlatformReportError = {
+                navigateToExternalScreen(GlobalScreens.platformGitHubIssues(context))
+            },
         )
 
         proOnboardingScreen(

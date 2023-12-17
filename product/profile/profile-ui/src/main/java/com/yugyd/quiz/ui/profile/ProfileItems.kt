@@ -19,15 +19,21 @@ package com.yugyd.quiz.ui.profile
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Button
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
@@ -36,22 +42,29 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
 import com.yugyd.quiz.ui.profile.model.HeaderProfileUiModel
+import com.yugyd.quiz.ui.profile.model.OpenSourceProfileUiModel
 import com.yugyd.quiz.ui.profile.model.ProfileUiModel
 import com.yugyd.quiz.ui.profile.model.SectionProfileUiModel
 import com.yugyd.quiz.ui.profile.model.SelectItemProfileUiModel
 import com.yugyd.quiz.ui.profile.model.SocialItemProfileUiModel
 import com.yugyd.quiz.ui.profile.model.SwitchItemProfileUiModel
 import com.yugyd.quiz.ui.profile.model.ValueItemProfileUiModel
+import com.yugyd.quiz.uikit.common.ThemePreviews
+import com.yugyd.quiz.uikit.theme.QuizApplicationTheme
 
 @Composable
 internal fun ProfileItem(
     model: ProfileUiModel,
     onItemClicked: (ProfileUiModel) -> Unit,
     onItemChecked: (SwitchItemProfileUiModel, Boolean) -> Unit,
+    onRatePlatformClicked: () -> Unit,
+    onReportBugPlatformClicked: () -> Unit,
 ) {
     when (model) {
         is HeaderProfileUiModel -> {
@@ -87,6 +100,13 @@ internal fun ProfileItem(
             TelegramProfileItem(
                 model = model,
                 onItemClicked = onItemClicked,
+            )
+        }
+
+        is OpenSourceProfileUiModel -> {
+            OpenSourceProfileItem(
+                onRatePlatformClicked = onRatePlatformClicked,
+                onReportBugPlatformClicked = onReportBugPlatformClicked,
             )
         }
     }
@@ -131,6 +151,62 @@ internal fun HeaderProfileItem(model: HeaderProfileUiModel) {
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.bodyLarge,
             )
+        }
+    }
+}
+
+@Composable
+internal fun OpenSourceProfileItem(
+    onRatePlatformClicked: () -> Unit,
+    onReportBugPlatformClicked: () -> Unit,
+) {
+    OutlinedCard(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(all = 8.dp),
+    ) {
+        Column(
+            modifier = Modifier.padding(all = 16.dp),
+        ) {
+            Text(
+                text = stringResource(id = R.string.profile_content_banner_title),
+                style = MaterialTheme.typography.displaySmall,
+                color = MaterialTheme.colorScheme.onBackground,
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Text(
+                text = stringResource(id = R.string.profile_content_banner_subtitle),
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                style = MaterialTheme.typography.bodyMedium,
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Row(
+                modifier = Modifier
+                    .align(Alignment.End),
+                horizontalArrangement = Arrangement.End,
+            ) {
+                OutlinedButton(
+                    onClick = onReportBugPlatformClicked,
+                ) {
+                    Text(
+                        text = stringResource(id = R.string.profile_content_banner_report_error),
+                    )
+                }
+
+                Spacer(modifier = Modifier.width(width = 8.dp))
+
+                Button(
+                    onClick = onRatePlatformClicked,
+                ) {
+                    Text(
+                        text = stringResource(id = R.string.profile_content_banner_rate),
+                    )
+                }
+            }
         }
     }
 }
@@ -229,4 +305,31 @@ internal fun TelegramProfileItem(
             )
         },
     )
+}
+
+@ThemePreviews
+@Composable
+private fun HeaderProfileItemPreview(
+    @PreviewParameter(ProfilePreviewParameterProvider::class) items: List<ProfileUiModel>,
+) {
+    QuizApplicationTheme {
+        Surface {
+            HeaderProfileItem(
+                model = items.filterIsInstance<HeaderProfileUiModel>().first(),
+            )
+        }
+    }
+}
+
+@ThemePreviews
+@Composable
+private fun OpenSourceProfileItemPreview() {
+    QuizApplicationTheme {
+        Surface {
+            OpenSourceProfileItem(
+                onRatePlatformClicked = {},
+                onReportBugPlatformClicked = {},
+            )
+        }
+    }
 }

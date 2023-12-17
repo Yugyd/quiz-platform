@@ -51,6 +51,14 @@ object GlobalScreens {
         data = Uri.parse(url)
     }
 
+    fun platformGitHubProject(context: Context) = externalBrowser(
+        url = context.getString(R.string.main_link_quiz_platform_project),
+    )
+
+    fun platformGitHubIssues(context: Context) = externalBrowser(
+        url = context.getString(R.string.main_link_quiz_platform_issues),
+    )
+
     fun externalBrowser(url: String) = Intent(Intent.ACTION_VIEW, Uri.parse(url))
 
     fun externalReportError(context: Context): Intent {

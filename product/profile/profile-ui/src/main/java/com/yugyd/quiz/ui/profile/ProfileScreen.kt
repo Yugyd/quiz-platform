@@ -51,6 +51,8 @@ fun ProfileRoute(
     onNavigateToProOnboarding: () -> Unit,
     onNavigateToShare: () -> Unit,
     onNavigateToContents: () -> Unit,
+    onNavigateToExternalPlatformRate: () -> Unit,
+    onNavigateToExternalPlatformReportError: () -> Unit,
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
@@ -61,6 +63,12 @@ fun ProfileRoute(
         },
         onItemChecked = { model, isChecked ->
             viewModel.onAction(Action.OnProfileItemChecked(model, isChecked))
+        },
+        onRatePlatformClicked = {
+            viewModel.onAction(Action.OnRatePlatformClicked)
+        },
+        onReportBugPlatformClicked = {
+            viewModel.onAction(Action.OnReportBugPlatformClicked)
         },
         onNavigateToTelegram = onNavigateToTelegram,
         onNavigateToTransition = onNavigateToTransition,
@@ -74,6 +82,8 @@ fun ProfileRoute(
         onTelegramHandled = {
             viewModel.onAction(Action.OnTelegramHandled)
         },
+        onNavigateToExternalPlatformRate = onNavigateToExternalPlatformRate,
+        onNavigateToExternalPlatformReportError = onNavigateToExternalPlatformReportError,
         onNavigationHandled = {
             viewModel.onAction(Action.OnNavigationHandled)
         },
@@ -85,6 +95,8 @@ internal fun ProfileScreen(
     uiState: State,
     onItemClicked: (ProfileUiModel) -> Unit,
     onItemChecked: (SwitchItemProfileUiModel, Boolean) -> Unit,
+    onRatePlatformClicked: () -> Unit,
+    onReportBugPlatformClicked: () -> Unit,
     onNavigateToTelegram: (String) -> Unit,
     onNavigateToTransition: () -> Unit,
     onNavigateToExternalReportError: () -> Unit,
@@ -94,6 +106,8 @@ internal fun ProfileScreen(
     onNavigateToProOnboarding: () -> Unit,
     onNavigateToShare: () -> Unit,
     onNavigateToContents: () -> Unit,
+    onNavigateToExternalPlatformRate: () -> Unit,
+    onNavigateToExternalPlatformReportError: () -> Unit,
     onTelegramHandled: () -> Unit,
     onNavigationHandled: () -> Unit,
 ) {
@@ -124,6 +138,8 @@ internal fun ProfileScreen(
                     items = uiState.items,
                     onItemClicked = onItemClicked,
                     onItemChecked = onItemChecked,
+                    onRatePlatformClicked = onRatePlatformClicked,
+                    onReportBugPlatformClicked = onReportBugPlatformClicked,
                 )
             }
         }
@@ -139,6 +155,8 @@ internal fun ProfileScreen(
         onNavigateToProOnboarding = onNavigateToProOnboarding,
         onNavigateToShare = onNavigateToShare,
         onNavigateToContents = onNavigateToContents,
+        onNavigateToExternalPlatformRate = onNavigateToExternalPlatformRate,
+        onNavigateToExternalPlatformReportError = onNavigateToExternalPlatformReportError,
         onNavigationHandled = onNavigationHandled,
     )
 }
@@ -148,6 +166,8 @@ internal fun ProfileContent(
     items: List<ProfileUiModel>,
     onItemClicked: (ProfileUiModel) -> Unit,
     onItemChecked: (SwitchItemProfileUiModel, Boolean) -> Unit,
+    onRatePlatformClicked: () -> Unit,
+    onReportBugPlatformClicked: () -> Unit,
 ) {
     LazyColumn {
         items(
@@ -158,6 +178,8 @@ internal fun ProfileContent(
                 model = it,
                 onItemClicked = onItemClicked,
                 onItemChecked = onItemChecked,
+                onRatePlatformClicked = onRatePlatformClicked,
+                onReportBugPlatformClicked = onReportBugPlatformClicked,
             )
         }
     }
@@ -174,6 +196,8 @@ internal fun NavigationHandler(
     onNavigateToProOnboarding: () -> Unit,
     onNavigateToShare: () -> Unit,
     onNavigateToContents: () -> Unit,
+    onNavigateToExternalPlatformRate: () -> Unit,
+    onNavigateToExternalPlatformReportError: () -> Unit,
     onNavigationHandled: () -> Unit,
 ) {
     LaunchedEffect(key1 = navigationState) {
@@ -186,6 +210,8 @@ internal fun NavigationHandler(
             NavigationState.NavigateToShare -> onNavigateToShare()
             NavigationState.NavigateToTransition -> onNavigateToTransition()
             NavigationState.NavigateToContents -> onNavigateToContents()
+            NavigationState.NavigateToExternalPlatformRate -> onNavigateToExternalPlatformRate()
+            NavigationState.NavigateToExternalPlatformReportError -> onNavigateToExternalPlatformReportError()
             null -> Unit
         }
 
@@ -204,6 +230,8 @@ private fun ContentPreview(
                 items = items,
                 onItemClicked = {},
                 onItemChecked = { _, _ -> },
+                onRatePlatformClicked = {},
+                onReportBugPlatformClicked = {},
             )
         }
     }

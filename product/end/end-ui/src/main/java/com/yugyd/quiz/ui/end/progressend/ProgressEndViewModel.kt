@@ -17,10 +17,11 @@
 package com.yugyd.quiz.ui.end.progressend
 
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.viewModelScope
+
 import com.yugyd.quiz.commonui.base.BaseViewModel
 import com.yugyd.quiz.core.ContentProvider
 import com.yugyd.quiz.core.Logger
+import com.yugyd.quiz.core.coroutinesutils.DispatchersProvider
 import com.yugyd.quiz.featuretoggle.domain.FeatureManager
 import com.yugyd.quiz.featuretoggle.domain.RemoteConfigRepository
 import com.yugyd.quiz.featuretoggle.domain.model.FeatureToggle
@@ -42,24 +43,17 @@ class ProgressEndViewModel @Inject constructor(
     private val contentProvider: ContentProvider,
     private val progressEndMapper: ProgressEndMapper,
     logger: Logger,
+    dispatchersProvider: DispatchersProvider,
 ) : BaseViewModel<State, Action>(
     logger = logger,
+    dispatchersProvider = dispatchersProvider,
     initialState = State(
         payload = EndArgs(savedStateHandle).payload,
     )
 ) {
 
     init {
-        viewModelScope.launch {
-            val isTelegramFeatureEnabled = featureManager.isFeatureEnabled(FeatureToggle.TELEGRAM)
-
-            screenState = if (isTelegramFeatureEnabled) {
-                val config = repository.fetchTelegramConfig()
-                progressEndMapper.map(screenState, config)
-            } else {
-                progressEndMapper.map(screenState, null)
-            }
-        }
+        loadData()
     }
 
     override fun handleAction(action: Action) {
@@ -79,6 +73,19 @@ class ProgressEndViewModel @Inject constructor(
         }
     }
 
+    private fun loadData() {
+        vmScopeErrorHandled.launch {
+            val isTelegramFeatureEnabled = featureManager.isFeatureEnabled(FeatureToggle.TELEGRAM)
+
+            screenState = if (isTelegramFeatureEnabled) {
+                val config = repository.fetchTelegramConfig()
+                progressEndMapper.map(screenState, config)
+            } else {
+                progressEndMapper.map(screenState, null)
+            }
+        }
+    }
+
     private fun onRateClicked() {
         screenState = screenState.copy(isRated = true)
 
@@ -90,7 +97,7 @@ class ProgressEndViewModel @Inject constructor(
             }
 
             ActionButtonType.TELEGRAM -> {
-                viewModelScope.launch {
+                vmScopeErrorHandled.launch {
                     val link = contentProvider.getTelegramChannel()
                     screenState = screenState.copy(
                         showTelegram = true,

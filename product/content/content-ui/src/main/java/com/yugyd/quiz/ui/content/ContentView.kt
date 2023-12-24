@@ -16,7 +16,6 @@
 
 package com.yugyd.quiz.ui.content
 
-import android.net.Uri
 import com.yugyd.quiz.domain.content.api.ContentModel
 import com.yugyd.quiz.domain.content.exceptions.ContentVerificationException
 
@@ -45,6 +44,8 @@ interface ContentView {
             object SelectIsFailed : SnackbarState
 
             object DeleteIsFailed : SnackbarState
+            object OneItemNotDelete : SnackbarState
+            object SelectedItemNotDelete : SnackbarState
 
             data class VerifyError(val error: ContentVerificationException) : SnackbarState
         }
@@ -61,7 +62,7 @@ interface ContentView {
         object OnOpenFileClicked : Action
         object OnSnackbarDismissed : Action
         object OnStartFileProviderHandled : Action
-        class OnDocumentResult(val uri: Uri?) : Action
+        class OnDocumentResult(val uri: String?) : Action
         object OnNavigationHandled : Action
     }
 }

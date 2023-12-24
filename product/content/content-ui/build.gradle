@@ -11,6 +11,7 @@ android {
 dependencies {
     // Module
     implementation project(':product:core:common-ui')
+    implementation project(':product:core:coroutines-utils')
     implementation project(':product:designsystem:uikit')
     implementation project(':product:core:navigation')
     implementation project(':product:core')
@@ -18,10 +19,17 @@ dependencies {
     implementation project(':product:content:content-bl')
     implementation project(':product:shared:domain-api')
 
-    // UI - Compose
+    // UI Compose
     implementation libs.compose.material3
     implementation libs.compose.viewmodel
     implementation libs.compose.lifecycle
     // Navigation
     implementation libs.compose.hilt.navigation
+
+    // Test
+    testImplementation(project(":product:core:test"))
+    testImplementation(project(":product:core:common-ui-test"))
+    testImplementation(libs.junit.core)
+    testImplementation(libs.kotlin.test)
+    testImplementation(libs.kotlinx.coroutines.test)
 }

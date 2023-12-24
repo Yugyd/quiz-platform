@@ -18,21 +18,35 @@ package com.yugyd.quiz.commonui.base
 
 import androidx.lifecycle.ViewModel
 import com.yugyd.quiz.core.Logger
+import com.yugyd.quiz.core.coroutinesutils.DispatchersProvider
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 
 abstract class BaseViewModel<State : Any, Action : Any> protected constructor(
     private val logger: Logger,
+    dispatchersProvider: DispatchersProvider,
     initialState: State
-) : ViewModel() {
+) : ViewModel(), StateViewModel<State> {
+
+    private val coroutineExceptionHandler = CoroutineExceptionHandler { _, error ->
+        processError(error)
+    }
+    protected val vmScopeErrorHandled = CoroutineScope(
+        SupervisorJob() + dispatchersProvider.main + coroutineExceptionHandler,
+    )
 
     private val _state = MutableStateFlow(initialState)
-    val state: StateFlow<State> = _state
+    override val state: StateFlow<State> = _state.asStateFlow()
 
     protected var screenState: State
         get() = _state.value
         set(value) {
+            logger.print("BaseViewModel", "New state is: $value")
             _state.value = value
         }
 

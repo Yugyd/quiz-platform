@@ -10,10 +10,12 @@ interface FileRepository {
     @Throws(IOException::class, FileNotFoundException::class)
     fun saveTextToLocalStorage(fileName: String, fileContents: String): File
 
-    fun checkUri(uri: Uri): Boolean
+    fun checkUri(uri: String): Boolean
+
+    fun getFileName(uri: String): String?
 
     @Throws(IOException::class)
-    fun readTextFromUri(uri: Uri): String
+    fun readTextFromUri(uri: String): String
 
     @Throws(IOException::class, FileNotFoundException::class)
     fun readTextFromFile(fileName: String): String

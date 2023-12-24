@@ -25,6 +25,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -41,7 +42,10 @@ import com.yugyd.quiz.uikit.common.ThemePreviews
 import com.yugyd.quiz.uikit.theme.QuizApplicationTheme
 
 @Composable
-fun WarningContent() {
+fun WarningContent(
+    isRetryButtonEnabled: Boolean = false,
+    onRetryClicked: (() -> Unit)? = null,
+) {
     Column(
         modifier = Modifier
             .padding(16.dp)
@@ -74,6 +78,19 @@ fun WarningContent() {
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.bodyMedium,
         )
+
+        if (isRetryButtonEnabled && onRetryClicked != null) {
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Button(
+                onClick = onRetryClicked,
+                enabled = isRetryButtonEnabled,
+            ) {
+                Text(
+                    text = stringResource(id = R.string.title_empty_state_retry),
+                )
+            }
+        }
     }
 }
 
@@ -83,6 +100,19 @@ fun WarningContentPreview() {
     QuizApplicationTheme {
         Surface {
             WarningContent()
+        }
+    }
+}
+
+@ThemePreviews
+@Composable
+fun WarningWithButtonContentPreview() {
+    QuizApplicationTheme {
+        Surface {
+            WarningContent(
+                isRetryButtonEnabled = true,
+                onRetryClicked = {},
+            )
         }
     }
 }

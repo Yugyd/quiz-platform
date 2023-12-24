@@ -1,7 +1,5 @@
 package com.yugyd.quiz.domain.content.data
 
-import android.net.Uri
-import androidx.core.net.toFile
 import com.yugyd.quiz.core.Logger
 import com.yugyd.quiz.core.file.FileRepository
 import com.yugyd.quiz.core.runCatch
@@ -15,15 +13,19 @@ import com.yugyd.quiz.domain.content.ContentPreferencesSource
 import com.yugyd.quiz.domain.content.ContentSource
 import com.yugyd.quiz.domain.content.api.ContentModel
 import com.yugyd.quiz.domain.content.api.RawContentDataModel
-import com.yugyd.quiz.domain.content.data.helper.ContentValidatorHelper
 import com.yugyd.quiz.domain.content.exceptions.ContentNotValidException
 import com.yugyd.quiz.domain.content.exceptions.DuplicateIdQuestsException
 import com.yugyd.quiz.domain.content.exceptions.DuplicateIdThemesException
 import com.yugyd.quiz.domain.content.exceptions.NotValidQuestsException
 import com.yugyd.quiz.domain.content.exceptions.NotValidThemesException
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.onEach
 import java.io.IOException
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 internal class ContentClientImpl @Inject constructor(
     private val fileRepository: FileRepository,
     private val textToContentEntityMapper: TextToContentModelMapper,
@@ -50,10 +52,28 @@ internal class ContentClientImpl @Inject constructor(
         return data
     }
 
+    override fun subscribeToSelectedContent(): Flow<ContentModel?> {
+        return contentSource
+            .subscribeToSelectedContent()
+            .onEach {
+                logger.print(TAG, "Subscribe to selected content. New selected item: $it")
+            }
+            .distinctUntilChanged()
+    }
+
     override suspend fun getContents(): List<ContentModel> {
-        val data = contentSource.getData()
+        val data = contentSource.getContents()
         logger.print(TAG, "Get contents: $data")
         return data
+    }
+
+    override fun subscribeToContents(): Flow<List<ContentModel>> {
+        return contentSource
+            .subscribeToContents()
+            .onEach {
+                logger.print(TAG, "Subscribe to contents. New items: $it")
+            }
+            .distinctUntilChanged()
     }
 
     override suspend fun setContent(newModel: ContentModel, oldModel: ContentModel): Boolean {
@@ -128,9 +148,9 @@ internal class ContentClientImpl @Inject constructor(
     }
 
     override suspend fun setContent(
-        oldModel: ContentModel,
-        contentName: String,
-        uri: Uri,
+        oldModel: ContentModel?,
+        contentName: String?,
+        uri: String,
     ): Boolean {
         logger.print(TAG, "Set content started. Old: $oldModel, name: $contentName, uri: $uri")
 
@@ -167,10 +187,14 @@ internal class ContentClientImpl @Inject constructor(
             databaseMarker = databaseMarker,
         )
 
-        val uncheckedOldModel = oldModel.copy(isChecked = false)
-        contentSource.updateContent(uncheckedOldModel)
+        if (oldModel != null) {
+            val uncheckedOldModel = oldModel.copy(isChecked = false)
+            contentSource.updateContent(uncheckedOldModel)
+        }
+
+        val name = contentName ?: localStorageFile.substringBeforeLast(".")
         val checkedNewModel = ContentModel(
-            name = contentName,
+            name = name,
             filePath = internalFile.path,
             isChecked = true,
         )
@@ -226,16 +250,16 @@ internal class ContentClientImpl @Inject constructor(
         contentPreferencesSource.databaseMarker = databaseMarker
     }
 
-    private fun getFileName(databaseMarker: String, uri: Uri): String {
-        val uriFileName = uri.toFile().name
+    private fun getFileName(databaseMarker: String, uri: String): String {
+        val uriFileName = requireNotNull(fileRepository.getFileName(uri))
         return databaseMarker + FILE_SEPARATOR + uriFileName
     }
 
     private fun getRawData(rawText: String): RawContentDataModel {
-        val rawCategoryBlock = getCategoryBlock(rawText)
-        val rawCategories = rawCategoryBlock.split(ITEM_SPLITTER)
+        val rawCategoryBlock = getCategoryBlock(rawText).trim()
+        val rawCategories = rawCategoryBlock.split(ITEM_SPLITTER);
 
-        val rawQuestBlock = getQuestBlock(rawText)
+        val rawQuestBlock = getQuestBlock(rawText).trim()
         val rawQuests = rawQuestBlock.split(ITEM_SPLITTER)
 
         return RawContentDataModel(
@@ -244,14 +268,17 @@ internal class ContentClientImpl @Inject constructor(
         )
     }
 
-    private fun getCategoryBlock(rawText: String) = rawText.substringAfter(QUEST_SECTION)
+    private fun getCategoryBlock(rawText: String) = rawText
+        .substringAfter(CATEGORY_SECTION)
+        .substringBefore(QUEST_SECTION)
 
-    private fun getQuestBlock(rawText: String) = rawText.substringBefore(QUEST_SECTION)
+    private fun getQuestBlock(rawText: String) = rawText.substringAfter(QUEST_SECTION)
 
     companion object {
         private const val TAG = "ContentClientImpl"
         private const val FILE_SEPARATOR = "-"
+        private const val CATEGORY_SECTION = "[category]"
         private const val QUEST_SECTION = "[quest]"
-        private const val ITEM_SPLITTER = ""
+        private const val ITEM_SPLITTER = "\n\n"
     }
 }

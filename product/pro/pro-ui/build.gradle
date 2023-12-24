@@ -11,8 +11,9 @@ android {
 dependencies {
     // Module
     implementation project(':product:core')
-    implementation project(':product:designsystem:uikit')
+    implementation project(':product:core:coroutines-utils')
     implementation project(':product:core:common-ui')
+    implementation project(':product:designsystem:uikit')
 
     // UI - Compose
     implementation libs.compose.material3

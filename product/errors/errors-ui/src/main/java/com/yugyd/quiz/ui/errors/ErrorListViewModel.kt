@@ -17,9 +17,9 @@
 package com.yugyd.quiz.ui.errors
 
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.viewModelScope
 import com.yugyd.quiz.commonui.base.BaseViewModel
 import com.yugyd.quiz.core.Logger
+import com.yugyd.quiz.core.coroutinesutils.DispatchersProvider
 import com.yugyd.quiz.core.runCatch
 import com.yugyd.quiz.domain.api.model.errorlist.ErrorModel
 import com.yugyd.quiz.domain.errors.ErrorInteractor
@@ -35,12 +35,13 @@ class ErrorListViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val errorInteractor: ErrorInteractor,
     logger: Logger,
+    dispatchersProvider: DispatchersProvider,
 ) :
     BaseViewModel<State, Action>(
         logger = logger,
+        dispatchersProvider = dispatchersProvider,
         initialState = State(
             payload = ErrorListArgs(savedStateHandle).errorListPayload,
-            isLoading = true
         )
     ) {
 
@@ -68,28 +69,34 @@ class ErrorListViewModel @Inject constructor(
 
     private fun onErrorClicked(item: ErrorModel) {
         screenState = screenState.copy(
-            navigationState = NavigationState.NavigateToExternalBrowser(item.queryLink)
+            navigationState = NavigationState.NavigateToExternalBrowser(item.queryLink),
         )
     }
 
     private fun loadData() {
-        viewModelScope.launch {
+        vmScopeErrorHandled.launch {
+            screenState = screenState.copy(
+                isLoading = true,
+                isWarning = false,
+                items = emptyList(),
+            )
+
             runCatch(
                 block = {
                     val state = errorInteractor
                         .getErrorsModels(screenState.payload.errorQuestIds)
                     processData(state)
                 },
-                catch = ::processDataError
+                catch = ::processDataError,
             )
         }
     }
 
     private fun processData(models: List<ErrorModel>) {
         screenState = screenState.copy(
-            items = models,
-            isWarning = models.isEmpty(),
             isLoading = false,
+            isWarning = false,
+            items = models,
         )
     }
 
@@ -97,6 +104,7 @@ class ErrorListViewModel @Inject constructor(
         screenState = screenState.copy(
             isLoading = false,
             isWarning = true,
+            items = emptyList(),
             showErrorMessage = true,
         )
         processError(error)

@@ -47,5 +47,6 @@
     <!-- Empty state -->
     <string name="title_empty_state">Oops, no data</string>
     <string name="title_empty_state_description">Try reloading</string>
+    <string name="title_empty_state_retry">Retry</string>
 
 </resources>

@@ -16,34 +16,24 @@
 
 package com.yugyd.quiz.domain.content.di
 
-import android.content.Context
-import com.yugyd.quiz.data.database.user.dao.ContentDao
-import com.yugyd.quiz.data.model.mappers.ContentEntityMapper
 import com.yugyd.quiz.domain.content.ContentPreferencesSource
 import com.yugyd.quiz.domain.content.ContentSource
 import com.yugyd.quiz.domain.content.data.ContentDataSource
 import com.yugyd.quiz.domain.content.data.ContentPreferencesSourceImpl
+import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ViewModelComponent
-import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 
 @Module
-@InstallIn(ViewModelComponent::class)
-class ContentDataModule {
+@InstallIn(SingletonComponent::class)
+abstract class ContentDataModule {
 
-    @Provides
-    fun provideContentPreferencesSource(
-        @ApplicationContext context: Context,
-    ): ContentPreferencesSource = ContentPreferencesSourceImpl(context)
+    @Binds
+    internal abstract fun bindContentPreferencesSource(
+        impl: ContentPreferencesSourceImpl,
+    ): ContentPreferencesSource
 
-    @Provides
-    fun provideContentSource(
-        contentDao: ContentDao,
-        contentEntityMapper: ContentEntityMapper,
-    ): ContentSource = ContentDataSource(
-        contentDao = contentDao,
-        entityMapper = contentEntityMapper,
-    )
+    @Binds
+    internal abstract fun bindContentSource(impl: ContentDataSource): ContentSource
 }

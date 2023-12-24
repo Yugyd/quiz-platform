@@ -17,12 +17,14 @@
 package com.yugyd.quiz.progressui.specificprogress
 
 import com.yugyd.quiz.domain.api.payload.SpecificProgressPayload
+import com.yugyd.quiz.domain.content.api.ContentModel
 import com.yugyd.quiz.progressui.model.ProgressUiModel
 
 interface SpecificProgressView {
 
     data class State(
         val payload: SpecificProgressPayload,
+        val contentModel: ContentModel? = null,
         val models: List<Any> = emptyList(),
         val themeTitle: String = "",
         val items: List<ProgressUiModel> = emptyList(),

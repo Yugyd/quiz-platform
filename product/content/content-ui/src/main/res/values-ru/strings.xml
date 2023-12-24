@@ -29,6 +29,8 @@
     <string name="content_error_delete_is_failed">Не удалось удалить контент</string>
     <string name="content_error_not_select_and_delete">Выбранный контент невалидный и был удален</string>
     <string name="content_error_select_is_failed">Не удалось выбрать контент</string>
+    <string name="content_error_one_item_not_delete">Единственный контент не может быть удален</string>
+    <string name="content_error_selected_item_not_delete">Выбранный контент не может быть удален</string>
 
     <!-- Content -->
     <string name="content_format_error_content_quest_duplicate_id">

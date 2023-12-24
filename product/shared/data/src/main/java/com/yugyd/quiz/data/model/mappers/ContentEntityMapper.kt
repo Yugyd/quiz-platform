@@ -36,8 +36,13 @@ class ContentEntityMapper @Inject constructor() {
     }
 
     fun mapToEntity(model: ContentModel) = model.run {
+        val id = if (model.id.isNotEmpty()) {
+            model.id.toInt()
+        } else {
+            0
+        }
         ContentEntity(
-            id = model.id.toInt(),
+            id = id,
             name = model.name,
             filePath = model.filePath,
             isChecked = model.isChecked,

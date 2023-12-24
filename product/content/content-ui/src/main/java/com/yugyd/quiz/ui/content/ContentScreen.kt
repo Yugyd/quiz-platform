@@ -96,7 +96,7 @@ fun ContentRoute(
             viewModel.onAction(Action.OnStartFileProviderHandled)
         },
         onDocumentResult = {
-            viewModel.onAction(Action.OnDocumentResult(uri = it))
+            viewModel.onAction(Action.OnDocumentResult(uri = it?.toString()))
         }
     )
 }
@@ -127,10 +127,12 @@ internal fun ContentScreen(
     )
 
     Column {
-        SimpleToolbar(
-            title = stringResource(id = R.string.content_title),
-            onBackPressed = onBackPressed,
-        )
+        if (uiState.isBackEnabled) {
+            SimpleToolbar(
+                title = stringResource(id = R.string.content_title),
+                onBackPressed = onBackPressed,
+            )
+        }
 
         when {
             uiState.isLoading -> {
@@ -201,6 +203,14 @@ internal fun SnackbarMessageEffect(
                 snackbarState.error.mapToMessage(context)
             }
 
+            SnackbarState.OneItemNotDelete -> {
+                context.getString(R.string.content_error_one_item_not_delete)
+            }
+
+            SnackbarState.SelectedItemNotDelete -> {
+                context.getString(R.string.content_error_selected_item_not_delete)
+            }
+
             null -> null
         }
 
@@ -266,6 +276,14 @@ internal fun EmptyStateContent(
             style = MaterialTheme.typography.bodyLarge,
         )
 
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Text(
+            text = stringResource(id = R.string.content_empty_state_note),
+            style = MaterialTheme.typography.titleSmall,
+            color = MaterialTheme.colorScheme.primary,
+        )
+
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(
@@ -273,14 +291,6 @@ internal fun EmptyStateContent(
         ) {
             Text(text = stringResource(id = R.string.content_empty_state_button))
         }
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        Text(
-            text = stringResource(id = R.string.content_empty_state_note),
-            style = MaterialTheme.typography.titleSmall,
-            color = MaterialTheme.colorScheme.primary,
-        )
     }
 }
 

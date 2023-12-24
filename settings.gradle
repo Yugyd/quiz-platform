@@ -19,15 +19,15 @@ dependencyResolutionManagement {
 rootProject.name = "QuizPlatform"
 // Configuration
 include ':app'
-// Base
-// TODO Add main, dashboard
 // Core
 include ':product:core'
-include ':product:core:coroutines-utils'
 include ':product:core:common-ui'
-include ':product:core:navigation'
+include ':product:core:common-ui-test'
+include ':product:core:coroutines-utils'
 include ':product:core:featuretoggle'
 include ':product:core:file'
+include ':product:core:navigation'
+include ':product:core:test'
 // Services
 include ':product:services:push'
 // Design system

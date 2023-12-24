@@ -16,17 +16,25 @@
 
 package com.yugyd.quiz.domain.content
 
-import android.net.Uri
 import com.yugyd.quiz.core.coroutinesutils.DispatchersProvider
+import com.yugyd.quiz.core.file.FileRepository
 import com.yugyd.quiz.domain.content.api.ContentModel
+import com.yugyd.quiz.domain.content.models.ContentResult
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 internal class ContentInteractorImpl @Inject constructor(
     private val contentClient: ContentClient,
     private val contentPreferencesSource: ContentPreferencesSource,
+    private val fileRepository: FileRepository,
     private val dispatchersProvider: DispatchersProvider,
 ) : ContentInteractor {
+
+    override suspend fun getContentNameFromUri(uri: String) = withContext(dispatchersProvider.io) {
+        fileRepository.getFileName(uri)?.substringBeforeLast(".")
+    }
 
     override suspend fun isSelected() = withContext(dispatchersProvider.io) {
         !contentPreferencesSource.databaseMarker.isNullOrEmpty() && contentClient.isSelected()
@@ -38,6 +46,28 @@ internal class ContentInteractorImpl @Inject constructor(
 
     override suspend fun getContents() = withContext(dispatchersProvider.io) {
         contentClient.getContents()
+    }
+
+    override fun subscribeToContents(): Flow<List<ContentModel>> {
+        return contentClient
+            .subscribeToContents()
+            .flowOn(dispatchersProvider.io)
+    }
+
+    override fun subscribeToSelectedContent(): Flow<ContentModel?> {
+        return contentClient
+            .subscribeToSelectedContent()
+            .flowOn(dispatchersProvider.io)
+    }
+
+    override fun isResetNavigation(
+        oldModel: ContentModel?,
+        newModel: ContentModel?,
+    ): ContentResult {
+        return ContentResult(
+            isBack = oldModel != null && oldModel != newModel,
+            newModel = newModel,
+        )
     }
 
     override suspend fun deleteContent(id: String) = withContext(dispatchersProvider.io) {
@@ -55,9 +85,9 @@ internal class ContentInteractorImpl @Inject constructor(
     }
 
     override suspend fun addContent(
-        oldModel: ContentModel,
-        contentName: String,
-        uri: Uri,
+        oldModel: ContentModel?,
+        contentName: String?,
+        uri: String,
     ) = withContext(dispatchersProvider.io) {
         contentClient.setContent(
             oldModel = oldModel,

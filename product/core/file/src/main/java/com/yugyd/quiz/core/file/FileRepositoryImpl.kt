@@ -3,6 +3,7 @@ package com.yugyd.quiz.core.file
 import android.content.Context
 import android.database.Cursor
 import android.net.Uri
+import android.provider.OpenableColumns
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileNotFoundException
@@ -24,30 +25,50 @@ class FileRepositoryImpl(private val context: Context) : FileRepository {
         return file
     }
 
-    override fun checkUri(uri: Uri): Boolean {
+    /**
+     * https://developer.android.com/training/secure-file-sharing/retrieve-info#RetrieveFileInfo
+     */
+    override fun getFileName(uri: String): String? {
         val contentResolver = context.contentResolver
 
-        val cursor: Cursor? = contentResolver.query(uri, null, null, null, null, null)
+        val androidUri = Uri.parse(uri)
+        val cursor: Cursor? = contentResolver.query(androidUri, null, null, null, null, null)
+        val fileName = cursor?.use {
+            val nameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+
+            val isMove = cursor.moveToFirst()
+
+            if (isMove) {
+                cursor.getString(nameIndex)
+            } else {
+                null
+            }
+        }
+
+        return fileName
+    }
+
+    override fun checkUri(uri: String): Boolean {
+        val contentResolver = context.contentResolver
+
+        val androidUri = Uri.parse(uri)
+        val cursor: Cursor? = contentResolver.query(androidUri, null, null, null, null, null)
         val result = cursor?.use {
             it.count > 1
         }
         return result ?: false
     }
 
-    override fun readTextFromUri(uri: Uri): String {
+    override fun readTextFromUri(uri: String): String {
         val contentResolver = context.contentResolver
 
         val stringBuilder = StringBuilder()
 
-        contentResolver.openInputStream(uri)?.use { inputStream ->
+        val androidUri = Uri.parse(uri)
+        contentResolver.openInputStream(androidUri)?.use { inputStream ->
             val inputStreamReader = InputStreamReader(inputStream)
             BufferedReader(inputStreamReader).use { reader ->
-                var line: String? = reader.readLine()
-
-                while (line != null) {
-                    stringBuilder.append(line)
-                    line = reader.readLine()
-                }
+                stringBuilder.append(reader.readText())
             }
         }
 
@@ -55,7 +76,7 @@ class FileRepositoryImpl(private val context: Context) : FileRepository {
     }
 
     override fun readTextFromFile(fileName: String): String {
-        val file = File(context.filesDir, fileName)
+        val file = File(fileName)
 
         if (!file.exists()) {
             throw FileNotFoundException("$fileName not founded")
@@ -66,12 +87,7 @@ class FileRepositoryImpl(private val context: Context) : FileRepository {
         file.inputStream().use { inputStream ->
             val inputStreamReader = InputStreamReader(inputStream)
             BufferedReader(inputStreamReader).use { reader ->
-                var line: String? = reader.readLine()
-
-                while (line != null) {
-                    stringBuilder.append(line)
-                    line = reader.readLine()
-                }
+                stringBuilder.append(reader.readText())
             }
         }
 

@@ -18,6 +18,7 @@ package com.yugyd.quiz.proui.proonboarding
 
 import com.yugyd.quiz.commonui.base.BaseViewModel
 import com.yugyd.quiz.core.Logger
+import com.yugyd.quiz.core.coroutinesutils.DispatchersProvider
 import com.yugyd.quiz.proui.proonboarding.ProOnboardingView.Action
 import com.yugyd.quiz.proui.proonboarding.ProOnboardingView.State
 import com.yugyd.quiz.proui.proonboarding.ProOnboardingView.State.NavigationState
@@ -28,8 +29,13 @@ import javax.inject.Inject
 @HiltViewModel
 class ProOnboardingViewModel @Inject constructor(
     private val proOnboadringUiMapper: ProOnboadringUiMapper,
-    logger: Logger
-) : BaseViewModel<State, Action>(logger, State()) {
+    logger: Logger,
+    dispatchersProvider: DispatchersProvider,
+) : BaseViewModel<State, Action>(
+    logger = logger,
+    dispatchersProvider = dispatchersProvider,
+    State(),
+) {
 
     init {
         loadData()

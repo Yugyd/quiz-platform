@@ -17,12 +17,14 @@
 package com.yugyd.quiz.ui.section
 
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.viewModelScope
 import com.yugyd.quiz.commonui.base.BaseViewModel
 import com.yugyd.quiz.core.Logger
+import com.yugyd.quiz.core.coroutinesutils.DispatchersProvider
 import com.yugyd.quiz.core.runCatch
 import com.yugyd.quiz.domain.api.model.Mode
 import com.yugyd.quiz.domain.api.model.payload.GamePayload
+import com.yugyd.quiz.domain.content.ContentInteractor
+import com.yugyd.quiz.domain.content.models.ContentResult
 import com.yugyd.quiz.domain.controller.SectionController
 import com.yugyd.quiz.domain.section.SectionInteractor
 import com.yugyd.quiz.domain.section.model.Section
@@ -30,6 +32,9 @@ import com.yugyd.quiz.ui.section.SectionView.Action
 import com.yugyd.quiz.ui.section.SectionView.State
 import com.yugyd.quiz.ui.section.SectionView.State.NavigationState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -37,21 +42,26 @@ import javax.inject.Inject
 class SectionViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val sectionInteractor: SectionInteractor,
+    private val contentInteractor: ContentInteractor,
     private val sectionController: SectionController,
     logger: Logger,
+    dispatchersProvider: DispatchersProvider,
 ) :
     BaseViewModel<State, Action>(
-        logger,
-        State(
+        logger = logger,
+        dispatchersProvider = dispatchersProvider,
+        initialState = State(
             payload = SectionsArgs(savedStateHandle).payload,
-            isLoading = true
         )
     ),
     SectionController.Listener {
 
+    private var loadContentJob: Job? = null
+
     init {
         sectionController.subscribe(this)
         initData()
+        loadContent()
     }
 
     override fun onCleared() {
@@ -88,9 +98,11 @@ class SectionViewModel @Inject constructor(
     }
 
     private fun initData() {
-        viewModelScope.launch {
+        vmScopeErrorHandled.launch {
             screenState = screenState.copy(
+                models = emptyList(),
                 isLoading = true,
+                isWarning = false,
                 themeTitle = screenState.payload.themeTitle,
             )
 
@@ -107,7 +119,7 @@ class SectionViewModel @Inject constructor(
     private fun processItems(items: List<Section>) {
         screenState = screenState.copy(
             models = items,
-            isWarning = items.isEmpty(),
+            isWarning = false,
             isLoading = false
         )
     }
@@ -121,6 +133,37 @@ class SectionViewModel @Inject constructor(
         processError(error)
     }
 
+    private fun loadContent() {
+        loadContentJob?.cancel()
+        loadContentJob = vmScopeErrorHandled.launch {
+            contentInteractor
+                .subscribeToSelectedContent()
+                .map {
+                    contentInteractor.isResetNavigation(
+                        oldModel = screenState.contentModel,
+                        newModel = it,
+                    )
+                }
+                .catch {
+                    processItemsError(it)
+                }
+                .collect(::processContentResetEvent)
+        }
+    }
+
+    private fun processContentResetEvent(model: ContentResult) {
+        val navigationState = if (model.isBack) {
+            NavigationState.Back
+        } else {
+            screenState.navigationState
+        }
+
+        screenState = screenState.copy(
+            contentModel = model.newModel,
+            navigationState = navigationState,
+        )
+    }
+
     private fun navigateToGame(item: Section) {
         val payload = GamePayload(
             mode = Mode.ARCADE,
@@ -129,7 +172,7 @@ class SectionViewModel @Inject constructor(
             record = item.point,
         )
         screenState = screenState.copy(
-            navigationState = NavigationState.NavigateToGame(payload)
+            navigationState = NavigationState.NavigateToGame(payload),
         )
     }
 }

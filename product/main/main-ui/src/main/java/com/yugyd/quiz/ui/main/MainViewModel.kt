@@ -16,11 +16,12 @@
 
 package com.yugyd.quiz.ui.main
 
-import androidx.lifecycle.viewModelScope
 import com.yugyd.quiz.commonui.base.BaseViewModel
 import com.yugyd.quiz.core.ContentProvider
 import com.yugyd.quiz.core.Logger
+import com.yugyd.quiz.core.coroutinesutils.DispatchersProvider
 import com.yugyd.quiz.domain.api.payload.OnboardingPayload
+import com.yugyd.quiz.domain.content.ContentInteractor
 import com.yugyd.quiz.domain.options.OptionsInteractor
 import com.yugyd.quiz.domain.update.UpdateInteractor
 import com.yugyd.quiz.featuretoggle.domain.FeatureManager
@@ -30,6 +31,7 @@ import com.yugyd.quiz.ui.main.MainView.Action
 import com.yugyd.quiz.ui.main.MainView.State
 import com.yugyd.quiz.ui.main.MainView.State.NavigationState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -38,29 +40,20 @@ class MainViewModel @Inject constructor(
     private val featureManager: FeatureManager,
     private val remoteConfigRepository: RemoteConfigRepository,
     private val contentProvider: ContentProvider,
-    logger: Logger,
     private val optionsInteractor: OptionsInteractor,
-    private val updateInteractor: UpdateInteractor
-) : BaseViewModel<State, Action>(logger, State()) {
+    private val updateInteractor: UpdateInteractor,
+    private val contentInteractor: ContentInteractor,
+    logger: Logger,
+    dispatchersProvider: DispatchersProvider,
+) :
+    BaseViewModel<State, Action>(
+        logger = logger,
+        dispatchersProvider = dispatchersProvider,
+        initialState = State(),
+    ) {
 
     init {
-        viewModelScope.launch {
-            val isCorrectFeatureEnabled = featureManager.isFeatureEnabled(FeatureToggle.CORRECT)
-            val isTelegramFeatureEnabled = featureManager.isFeatureEnabled(FeatureToggle.TELEGRAM)
-
-            screenState = screenState.copy(
-                isCorrectFeatureEnabled = isCorrectFeatureEnabled,
-                requestPushPermission = true,
-            )
-
-            if (optionsInteractor.isTelegramPopupShow() && isTelegramFeatureEnabled) {
-                showTelegramOnboarding()
-            }
-
-            if (updateInteractor.shouldForceUpdateApp()) {
-                screenState = screenState.copy(navigationState = NavigationState.NavigateToUpdate)
-            }
-        }
+        loadData()
     }
 
     override fun handleAction(action: Action) {
@@ -92,8 +85,59 @@ class MainViewModel @Inject constructor(
         }
     }
 
+    private fun loadData() {
+        vmScopeErrorHandled.launch {
+            val isCorrectFeatureEnabledDeferred = async {
+                featureManager.isFeatureEnabled(FeatureToggle.CORRECT)
+            }
+            val shouldForceUpdateAppDeferred = async { updateInteractor.shouldForceUpdateApp() }
+            val shouldStartContentScreenDeferred = async { !contentInteractor.isSelected() }
+            val shouldTelegramOnboardingDeferred = async {
+                optionsInteractor.isTelegramPopupShow() &&
+                        featureManager.isFeatureEnabled(FeatureToggle.TELEGRAM)
+            }
+
+            processData(
+                isCorrectFeatureEnabled = isCorrectFeatureEnabledDeferred.await(),
+                shouldForceUpdateApp = shouldForceUpdateAppDeferred.await(),
+                shouldStartContentScreen = shouldStartContentScreenDeferred.await(),
+                shouldTelegramOnboarding = shouldTelegramOnboardingDeferred.await(),
+            )
+        }
+    }
+
+    private suspend fun processData(
+        isCorrectFeatureEnabled: Boolean,
+        shouldForceUpdateApp: Boolean,
+        shouldStartContentScreen: Boolean,
+        shouldTelegramOnboarding: Boolean,
+    ) {
+        screenState = screenState.copy(
+            isCorrectFeatureEnabled = isCorrectFeatureEnabled,
+            requestPushPermission = true,
+        )
+
+        when {
+            shouldForceUpdateApp -> {
+                screenState = screenState.copy(
+                    navigationState = NavigationState.NavigateToUpdate,
+                )
+            }
+
+            shouldStartContentScreen -> {
+                screenState = screenState.copy(
+                    navigationState = NavigationState.NavigateToContent,
+                )
+            }
+
+            shouldTelegramOnboarding -> {
+                showTelegramOnboarding()
+            }
+        }
+    }
+
     private fun onOnboardingClicked() {
-        viewModelScope.launch {
+        vmScopeErrorHandled.launch {
             val link = contentProvider.getTelegramChannel()
             screenState = screenState.copy(
                 showTelegram = true,
@@ -107,7 +151,7 @@ class MainViewModel @Inject constructor(
     }
 
     private fun processPushData(extras: Map<String, String>) {
-        viewModelScope.launch {
+        vmScopeErrorHandled.launch {
             val action = extras["action"]
 
             if (action == "telegram") {

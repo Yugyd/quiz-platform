@@ -1,0 +1,15 @@
+plugins {
+    id 'quiz.android.library'
+}
+
+android {
+    namespace 'com.yugyd.quiz.commonui.test'
+}
+
+dependencies {
+    // Module
+    implementation project(':product:core:common-ui')
+
+    // Threading
+    implementation(libs.kotlinx.coroutines.core)
+}

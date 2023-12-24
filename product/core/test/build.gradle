@@ -1,0 +1,15 @@
+plugins {
+    id 'quiz.android.library'
+}
+
+android {
+    namespace 'com.yugyd.quiz.core.test'
+}
+
+dependencies {
+    implementation(project(":product:core"))
+    implementation(project(":product:core:coroutines-utils"))
+
+    // Threading
+    implementation(libs.kotlinx.coroutines.test)
+}

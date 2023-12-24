@@ -16,14 +16,15 @@
 
 package com.yugyd.quiz.ui.profile
 
-import androidx.lifecycle.viewModelScope
 import com.yugyd.quiz.commonui.base.BaseViewModel
 import com.yugyd.quiz.core.ContentProvider
 import com.yugyd.quiz.core.GlobalConfig
 import com.yugyd.quiz.core.Logger
+import com.yugyd.quiz.core.coroutinesutils.DispatchersProvider
 import com.yugyd.quiz.core.runCatch
 import com.yugyd.quiz.domain.api.repository.ContentSource
 import com.yugyd.quiz.domain.content.ContentInteractor
+import com.yugyd.quiz.domain.content.api.ContentModel
 import com.yugyd.quiz.domain.controller.TransitionController
 import com.yugyd.quiz.domain.options.OptionsInteractor
 import com.yugyd.quiz.featuretoggle.domain.FeatureManager
@@ -55,7 +56,10 @@ import com.yugyd.quiz.ui.profile.model.TypeProfile.SORT_QUEST
 import com.yugyd.quiz.ui.profile.model.TypeProfile.TELEGRAM_SOCIAL
 import com.yugyd.quiz.ui.profile.model.TypeProfile.TRANSITION
 import com.yugyd.quiz.ui.profile.model.TypeProfile.VIBRATION
+import com.yugyd.quiz.ui.profile.model.ValueItemProfileUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -70,12 +74,51 @@ class ProfileViewModel @Inject constructor(
     private val contentProvider: ContentProvider,
     private val contentInteractor: ContentInteractor,
     logger: Logger,
-) : BaseViewModel<State, Action>(logger, State(isLoading = true)),
+    dispatchersProvider: DispatchersProvider,
+) :
+    BaseViewModel<State, Action>(
+        logger = logger,
+        dispatchersProvider = dispatchersProvider,
+        initialState = State(),
+    ),
     TransitionController.Listener {
+
+    private var loadDataJob: Job? = null
 
     init {
         transitionController.subscribe(this)
+
         initData()
+
+        loadContent()
+    }
+
+    private fun loadContent() {
+        loadDataJob?.cancel()
+        loadDataJob = vmScopeErrorHandled.launch {
+            contentInteractor
+                .subscribeToSelectedContent()
+                .catch {
+                    processError(it)
+                }
+                .collect {
+                    processContent(it)
+                }
+        }
+    }
+
+    private fun processContent(newContent: ContentModel?) {
+        val newItems = screenState.items.map {
+            if (
+                it.type == SELECT_CONTENT &&
+                it is ValueItemProfileUiModel
+            ) {
+                profileUiMapper.mapContentToValueItem(contentTitle = newContent?.name)
+            } else {
+                it
+            }
+        }
+        screenState = screenState.copy(items = newItems)
     }
 
     override fun onCleared() {
@@ -174,9 +217,13 @@ class ProfileViewModel @Inject constructor(
         }
 
     private fun initData() {
-        screenState = screenState.copy(isLoading = true)
+        screenState = screenState.copy(
+            isLoading = true,
+            isWarning = false,
+            items = emptyList(),
+        )
 
-        viewModelScope.launch {
+        vmScopeErrorHandled.launch {
             runCatch(
                 block = {
                     val isProEnabled = featureManager.isFeatureEnabled(FeatureToggle.PRO)
@@ -226,7 +273,8 @@ class ProfileViewModel @Inject constructor(
     private fun processDataError(error: Throwable) {
         screenState = screenState.copy(
             isLoading = false,
-            isWarning = true
+            isWarning = true,
+            items = emptyList(),
         )
         processError(error)
     }
@@ -269,7 +317,7 @@ class ProfileViewModel @Inject constructor(
     }
 
     private fun openTelegram() {
-        viewModelScope.launch {
+        vmScopeErrorHandled.launch {
             val link = contentProvider.getTelegramChannel()
             screenState = screenState.copy(
                 showTelegram = true,

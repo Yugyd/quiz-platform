@@ -48,8 +48,10 @@ update-versions-gradle-plugin = { group = "com.github.ben-manes", name = "gradle
 kotlin-stdlib-core = { module = 'org.jetbrains.kotlin:kotlin-stdlib', version.ref = 'kotlinVersion' }
 kotlinx-serialization = { module = 'org.jetbrains.kotlinx:kotlinx-serialization-json', version = '1.5.0' }
 # Coroutines
+kotlinx-coroutines-core = { module = 'org.jetbrains.kotlinx:kotlinx-coroutines-core', version.ref = 'coroutinesVersion' }
 kotlinx-coroutines-android = { module = 'org.jetbrains.kotlinx:kotlinx-coroutines-android', version.ref = 'coroutinesVersion' }
 kotlinx-coroutines-play-services = { module = 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services', version.ref = 'coroutinesVersion' }
+kotlinx-coroutines-test = { module = 'org.jetbrains.kotlinx:kotlinx-coroutines-test', version.ref = 'coroutinesVersion' }
 # AndroidX
 androidx-annotation = { module = 'androidx.annotation:annotation', version = '1.7.0' }
 core-ktx = { module = 'androidx.core:core-ktx', version.ref = 'core-ktx' }

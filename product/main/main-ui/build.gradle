@@ -10,16 +10,18 @@ android {
 
 dependencies {
     // Module
-    implementation project(':product:core:common-ui')
-    implementation project(':product:designsystem:uikit')
-    implementation project(':product:core:navigation')
     implementation project(':product:core')
+    implementation project(':product:core:coroutines-utils')
+    implementation project(':product:core:common-ui')
+    implementation project(':product:core:navigation')
     implementation project(':product:core:featuretoggle')
+    implementation project(':product:designsystem:uikit')
     implementation project(':product:errors:errors-bl')
     implementation project(':product:shared:domain-api')
     implementation project(':product:correct:correct-ui')
     implementation project(':product:main:new-version-onboarding-ui')
     implementation project(':product:progress:progress-ui')
+    implementation project(':product:content:content-bl')
     implementation project(':product:content:content-ui')
     implementation project(':product:profile:profile-ui')
     implementation project(':product:profile:transition-ui')

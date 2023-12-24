@@ -17,7 +17,6 @@
 package ${packageName}
 
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.viewModelScope
 import ${generalPackage}.commonui.base.BaseViewModel
 import ${corePackage}.Logger
 import ${corePackage}.runCatch
@@ -75,7 +74,7 @@ class ${viewModelName} @Inject constructor(
     }
 
     private fun loadData() {
-        viewModelScope.launch {
+        vmScopeErrorHandled.launch {
             runCatch(
                 block = {
                     val state = interactor.getData(screenState.payload.id)

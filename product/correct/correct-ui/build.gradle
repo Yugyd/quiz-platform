@@ -12,6 +12,8 @@ dependencies {
     // Module
     implementation project(':product:core')
     implementation project(':product:core:common-ui')
+    implementation project(':product:core:coroutines-utils')
+    implementation project(':product:content:content-bl')
     implementation project(':product:designsystem:uikit')
     implementation project(':product:core:navigation')
     implementation project(':product:core:featuretoggle')

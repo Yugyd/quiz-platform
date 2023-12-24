@@ -49,11 +49,7 @@ class ProfileUiMapper @Inject constructor(
         isBasedOnPlatformApp: Boolean,
     ) = listOfNotNull(
         header(content, isProFeatureEnabled),
-        value(
-            TypeProfile.SELECT_CONTENT,
-            R.string.profile_title_content,
-            contentTitle ?: context.getString(R.string.profile_title_content_not_selected),
-        ),
+        mapContentToValueItem(contentTitle),
         section(TypeProfile.SOCIAL_SECTION, R.string.title_social, isTelegramFeatureEnabled),
         social(TypeProfile.TELEGRAM_SOCIAL, isTelegramFeatureEnabled, telegramConfig),
         section(TypeProfile.SETTINGS_SECTION, R.string.title_settings),
@@ -71,6 +67,14 @@ class ProfileUiMapper @Inject constructor(
         item(TypeProfile.PRIVACY_POLICY, R.string.title_privacy_policy),
         getOpenSourceItem(isBasedOnPlatformApp),
     )
+
+    fun mapContentToValueItem(contentTitle: String?): ValueItemProfileUiModel {
+        return value(
+            TypeProfile.SELECT_CONTENT,
+            R.string.profile_title_content,
+            contentTitle ?: context.getString(R.string.profile_title_content_not_selected),
+        )
+    }
 
     private fun header(content: Content, isProFeatureEnabled: Boolean) = content.run {
         val contentUi = contentUiMapper.map(content)

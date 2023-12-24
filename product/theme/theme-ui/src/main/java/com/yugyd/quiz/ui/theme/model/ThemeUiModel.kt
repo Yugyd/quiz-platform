@@ -23,7 +23,7 @@ data class ThemeUiModel(
     val id: Int = 0,
     val title: String = "",
     val subtitle: String = "",
-    val imageUri: Uri = Uri.EMPTY,
+    val imageUri: Uri? = null,
     val progressPercent: Int = 0,
     val record: Int = 0,
     val progressColor: Color = Color.Unspecified

@@ -1,12 +1,12 @@
 package com.yugyd.quiz.domain.content
 
-import android.net.Uri
 import com.yugyd.quiz.domain.content.api.ContentModel
 import com.yugyd.quiz.domain.content.exceptions.ContentNotValidException
 import com.yugyd.quiz.domain.content.exceptions.DuplicateIdQuestsException
 import com.yugyd.quiz.domain.content.exceptions.DuplicateIdThemesException
 import com.yugyd.quiz.domain.content.exceptions.NotValidQuestsException
 import com.yugyd.quiz.domain.content.exceptions.NotValidThemesException
+import kotlinx.coroutines.flow.Flow
 
 interface ContentClient {
 
@@ -14,7 +14,11 @@ interface ContentClient {
 
     suspend fun getSelectedContent(): ContentModel?
 
+    fun subscribeToSelectedContent(): Flow<ContentModel?>
+
     suspend fun getContents(): List<ContentModel>
+
+    fun subscribeToContents(): Flow<List<ContentModel>>
 
     /**
      * @param newModel previously uploaded content.
@@ -40,9 +44,9 @@ interface ContentClient {
         NotValidThemesException::class,
     )
     suspend fun setContent(
-        oldModel: ContentModel,
-        contentName: String,
-        uri: Uri,
+        oldModel: ContentModel?,
+        contentName: String?,
+        uri: String,
     ): Boolean
 
     suspend fun deleteContent(id: String)

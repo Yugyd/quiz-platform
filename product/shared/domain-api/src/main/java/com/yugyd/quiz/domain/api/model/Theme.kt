@@ -21,7 +21,7 @@ data class Theme(
     val ordinal: Int = 0,
     val name: String = "",
     val info: String = "",
-    val image: String = "",
+    val image: String? = null,
     val progress: Int = 0,
     val count: Int = 0
 )

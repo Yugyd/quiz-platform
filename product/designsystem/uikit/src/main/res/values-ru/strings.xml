@@ -47,5 +47,6 @@
     <!-- Empty state -->
     <string name="title_empty_state">Упс, нет данных</string>
     <string name="title_empty_state_description">Попробуйте перезагрузить экран</string>
+    <string name="title_empty_state_retry">Повторить</string>
 
 </resources>

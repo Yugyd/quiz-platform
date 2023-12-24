@@ -17,10 +17,13 @@
 package com.yugyd.quiz.domain.content
 
 import com.yugyd.quiz.domain.content.api.ContentModel
+import kotlinx.coroutines.flow.Flow
 
 interface ContentSource {
-    suspend fun getData(): List<ContentModel>
+    suspend fun getContents(): List<ContentModel>
+    fun subscribeToContents(): Flow<List<ContentModel>>
     suspend fun getSelectedContent(): ContentModel?
+    fun subscribeToSelectedContent(): Flow<ContentModel?>
     suspend fun deleteContent(id: String)
     suspend fun addContent(contentModel: ContentModel)
     suspend fun updateContent(contentModel: ContentModel)

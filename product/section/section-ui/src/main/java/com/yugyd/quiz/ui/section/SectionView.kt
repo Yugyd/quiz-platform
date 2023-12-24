@@ -18,13 +18,15 @@ package com.yugyd.quiz.ui.section
 
 import com.yugyd.quiz.domain.api.model.payload.GamePayload
 import com.yugyd.quiz.domain.api.payload.SectionPayload
+import com.yugyd.quiz.domain.content.api.ContentModel
 import com.yugyd.quiz.domain.section.model.Section
 
 interface SectionView {
 
     data class State(
         val payload: SectionPayload = SectionPayload(),
-        var models: List<Section> = emptyList(),
+        val contentModel: ContentModel? = null,
+        val models: List<Section> = emptyList(),
         val themeTitle: String = "",
         val error: Throwable? = null,
         val isWarning: Boolean = false,

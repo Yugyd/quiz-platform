@@ -16,16 +16,17 @@
 
 package com.yugyd.quiz.ui.theme
 
-import androidx.lifecycle.viewModelScope
 import com.google.android.gms.ads.LoadAdError
 import com.yugyd.quiz.commonui.base.BaseViewModel
 import com.yugyd.quiz.commonui.model.mode.ModeUiMapper
 import com.yugyd.quiz.commonui.model.mode.ModeUiModel
 import com.yugyd.quiz.core.ContentProvider
 import com.yugyd.quiz.core.Logger
+import com.yugyd.quiz.core.coroutinesutils.DispatchersProvider
 import com.yugyd.quiz.core.runCatch
 import com.yugyd.quiz.domain.api.model.payload.GamePayload
 import com.yugyd.quiz.domain.api.payload.SectionPayload
+import com.yugyd.quiz.domain.content.ContentInteractor
 import com.yugyd.quiz.domain.controller.RecordController
 import com.yugyd.quiz.domain.options.OptionsInteractor
 import com.yugyd.quiz.domain.progress.RecordInteractor
@@ -42,6 +43,8 @@ import com.yugyd.quiz.ui.theme.model.RewardType
 import com.yugyd.quiz.ui.theme.model.ThemeUiMapper
 import com.yugyd.quiz.ui.theme.model.ThemeUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -51,25 +54,37 @@ class ThemeViewModel @Inject constructor(
     private val recordInteractor: RecordInteractor,
     private val remoteConfigRepository: RemoteConfigRepository,
     private val optionsInteractor: OptionsInteractor,
+    private val contentInteractor: ContentInteractor,
     private val contentProvider: ContentProvider,
     private val recordController: RecordController,
     private val modeMapper: ModeUiMapper,
     private val themeMapper: ThemeUiMapper,
     private val rewardDialogUiMapper: RewardDialogUiMapper,
     private val featureManager: FeatureManager,
+    dispatchersProvider: DispatchersProvider,
     logger: Logger,
-) : BaseViewModel<State, Action>(logger, State(isLoading = true)),
+) :
+    BaseViewModel<State, Action>(
+        logger = logger,
+        dispatchersProvider = dispatchersProvider,
+        initialState = State(),
+    ),
     RecordController.Listener {
+
+    private var loadDataJob: Job? = null
 
     init {
         recordController.subscribe(this)
-        viewModelScope.launch {
+
+        vmScopeErrorHandled.launch {
             val isAdFeatureEnabled = featureManager.isFeatureEnabled(FeatureToggle.AD)
             val isTelegramFeatureEnabled = featureManager.isFeatureEnabled(FeatureToggle.TELEGRAM)
-            loadThemes(
+
+            loadData(
                 isAdFeatureEnabled = isAdFeatureEnabled,
-                isTelegramFeatureEnabled = isTelegramFeatureEnabled
+                isTelegramFeatureEnabled = isTelegramFeatureEnabled,
             )
+
             loadAd(isAdFeatureEnabled)
         }
     }
@@ -80,7 +95,7 @@ class ThemeViewModel @Inject constructor(
     }
 
     override fun onRecordUpdate() {
-        loadThemes(
+        loadData(
             isAdFeatureEnabled = screenState.isAdFeatureEnabled,
             isTelegramFeatureEnabled = screenState.isTelegramFeatureEnabled
         )
@@ -165,7 +180,7 @@ class ThemeViewModel @Inject constructor(
                 screenState.isTelegramFeatureEnabled &&
                 !optionsInteractor.isTelegramSubscription
             ) {
-                viewModelScope.launch {
+                vmScopeErrorHandled.launch {
                     val config = remoteConfigRepository.fetchTelegramConfig() ?: return@launch
 
                     val dialog = rewardDialogUiMapper.mapToTelegram(config, model)
@@ -187,12 +202,10 @@ class ThemeViewModel @Inject constructor(
     }
 
     private fun onInfoClicked(model: ThemeUiModel) {
-        viewModelScope.launch {
-            screenState = screenState.copy(
-                showInfoDialog = true,
-                infoDialogTheme = model,
-            )
-        }
+        screenState = screenState.copy(
+            showInfoDialog = true,
+            infoDialogTheme = model,
+        )
     }
 
     private fun onModeChanged(mode: ModeUiModel) {
@@ -207,7 +220,7 @@ class ThemeViewModel @Inject constructor(
             mode = mode,
         )
 
-        loadThemes(
+        loadData(
             isAdFeatureEnabled = screenState.isAdFeatureEnabled,
             isTelegramFeatureEnabled = screenState.isTelegramFeatureEnabled
         )
@@ -223,7 +236,7 @@ class ThemeViewModel @Inject constructor(
             }
 
             RewardType.Telegram -> {
-                viewModelScope.launch {
+                vmScopeErrorHandled.launch {
                     optionsInteractor.isTelegramSubscription = true
 
                     val link = contentProvider.getTelegramChannel()
@@ -260,25 +273,59 @@ class ThemeViewModel @Inject constructor(
 
     private fun onRewardAdClosed() = loadAd(screenState.isAdFeatureEnabled)
 
-    private fun loadThemes(
+    private fun loadData(
         isAdFeatureEnabled: Boolean,
         isTelegramFeatureEnabled: Boolean,
     ) {
-        viewModelScope.launch {
-            runCatch(
-                block = {
-                    val themes = themeInteractor
-                        .getThemes(screenState.domainMode)
-                        .map(themeMapper::map)
-                    processThemes(
-                        items = themes,
+        screenState = screenState.copy(
+            items = emptyList(),
+            isLoading = true,
+            isWarning = false,
+        )
+
+        loadDataJob?.cancel()
+        loadDataJob = vmScopeErrorHandled.launch {
+            contentInteractor
+                .subscribeToSelectedContent()
+                .catch {
+                    processDataError(it)
+                }
+                .collect {
+                    loadThemes(
                         isAdFeatureEnabled = isAdFeatureEnabled,
-                        isTelegramFeatureEnabled = isTelegramFeatureEnabled
+                        isTelegramFeatureEnabled = isTelegramFeatureEnabled,
                     )
-                },
-                catch = ::processThemesError
-            )
+                }
         }
+    }
+
+    private fun processDataError(error: Throwable) {
+        screenState = screenState.copy(
+            items = emptyList(),
+            isLoading = false,
+            isWarning = true,
+            showErrorMessage = true,
+        )
+        processError(error)
+    }
+
+    private suspend fun loadThemes(
+        isAdFeatureEnabled: Boolean,
+        isTelegramFeatureEnabled: Boolean,
+    ) {
+        runCatch(
+            block = {
+                val themes = themeInteractor
+                    .getThemes(screenState.domainMode)
+                    .map(themeMapper::map)
+                processThemes(
+                    items = themes,
+                    isAdFeatureEnabled = isAdFeatureEnabled,
+                    isTelegramFeatureEnabled = isTelegramFeatureEnabled
+                )
+            },
+            catch = ::processDataError,
+        )
     }
 
     private fun processThemes(
@@ -291,18 +338,9 @@ class ThemeViewModel @Inject constructor(
             items = items,
             isAdFeatureEnabled = isAdFeatureEnabled,
             isTelegramFeatureEnabled = isTelegramFeatureEnabled,
-            isWarning = items.isEmpty(),
-            isLoading = false
-        )
-    }
-
-    private fun processThemesError(error: Throwable) {
-        screenState = screenState.copy(
+            isWarning = false,
             isLoading = false,
-            isWarning = true,
-            showErrorMessage = true,
         )
-        processError(error)
     }
 
     private fun navigateToSections(themeId: Int, themeTitle: String) {

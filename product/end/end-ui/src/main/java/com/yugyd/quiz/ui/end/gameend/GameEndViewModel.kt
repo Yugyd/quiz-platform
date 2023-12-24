@@ -17,9 +17,9 @@
 package com.yugyd.quiz.ui.end.gameend
 
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.viewModelScope
 import com.yugyd.quiz.commonui.base.BaseViewModel
 import com.yugyd.quiz.core.Logger
+import com.yugyd.quiz.core.coroutinesutils.DispatchersProvider
 import com.yugyd.quiz.core.runCatch
 import com.yugyd.quiz.domain.api.model.Mode.ARCADE
 import com.yugyd.quiz.domain.api.model.Mode.ERROR
@@ -47,13 +47,15 @@ class GameEndViewModel @Inject constructor(
     private val gameEndUiMapper: GameEndUiMapper,
     private val featureManager: FeatureManager,
     logger: Logger,
-) : BaseViewModel<State, Action>(
-    logger = logger,
-    initialState = State(
-        payload = EndArgs(savedStateHandle).payload,
-        isLoading = true,
-    )
-) {
+    dispatchersProvider: DispatchersProvider,
+) :
+    BaseViewModel<State, Action>(
+        logger = logger,
+        dispatchersProvider = dispatchersProvider,
+        initialState = State(
+            payload = EndArgs(savedStateHandle).payload,
+        )
+    ) {
 
     init {
         loadData()
@@ -82,7 +84,9 @@ class GameEndViewModel @Inject constructor(
     }
 
     private fun loadData() {
-        viewModelScope.launch {
+        vmScopeErrorHandled.launch {
+            screenState = screenState.copy(isLoading = true)
+
             val isAdFeatureEnabled = featureManager.isFeatureEnabled(FeatureToggle.AD)
 
             runCatch(

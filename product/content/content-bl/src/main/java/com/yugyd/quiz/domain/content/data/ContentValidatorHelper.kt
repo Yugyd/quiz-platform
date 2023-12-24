@@ -1,4 +1,4 @@
-package com.yugyd.quiz.domain.content.data.helper
+package com.yugyd.quiz.domain.content.data
 
 import com.yugyd.quiz.domain.content.api.ContentDataModel
 import com.yugyd.quiz.domain.content.exceptions.DuplicateIdQuestsException

@@ -16,11 +16,14 @@
 
 package com.yugyd.quiz.domain.content
 
-import android.net.Uri
 import com.yugyd.quiz.domain.content.api.ContentModel
 import com.yugyd.quiz.domain.content.exceptions.ContentNotValidException
+import com.yugyd.quiz.domain.content.models.ContentResult
+import kotlinx.coroutines.flow.Flow
 
 interface ContentInteractor {
+
+    suspend fun getContentNameFromUri(uri: String): String?
 
     suspend fun isSelected(): Boolean
 
@@ -28,12 +31,18 @@ interface ContentInteractor {
 
     suspend fun getContents(): List<ContentModel>
 
+    fun subscribeToContents(): Flow<List<ContentModel>>
+
+    fun subscribeToSelectedContent(): Flow<ContentModel?>
+
+    fun isResetNavigation(oldModel: ContentModel?, newModel: ContentModel?): ContentResult
+
     suspend fun deleteContent(id: String)
 
     suspend fun addContent(
-        oldModel: ContentModel,
-        contentName: String,
-        uri: Uri,
+        oldModel: ContentModel?,
+        contentName: String?,
+        uri: String,
     ): Boolean
 
     @Throws(ContentNotValidException::class)

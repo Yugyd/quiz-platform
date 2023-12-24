@@ -16,12 +16,8 @@
 
 package com.yugyd.quiz.domain.content.di
 
-import com.yugyd.quiz.domain.content.ContentClient
 import com.yugyd.quiz.domain.content.ContentInteractor
 import com.yugyd.quiz.domain.content.ContentInteractorImpl
-import com.yugyd.quiz.domain.content.data.ContentClientImpl
-import com.yugyd.quiz.domain.content.data.helper.ContentValidatorHelper
-import com.yugyd.quiz.domain.content.data.helper.ContentValidatorHelperImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -30,14 +26,6 @@ import dagger.hilt.android.components.ViewModelComponent
 @Module
 @InstallIn(ViewModelComponent::class)
 abstract class ContentBlModule {
-
-    @Binds
-    internal abstract fun bindContentValidatorHelper(
-        impl: ContentValidatorHelperImpl,
-    ): ContentValidatorHelper
-
-    @Binds
-    internal abstract fun bindContentClient(impl: ContentClientImpl): ContentClient
 
     @Binds
     internal abstract fun bindContentInteractor(impl: ContentInteractorImpl): ContentInteractor

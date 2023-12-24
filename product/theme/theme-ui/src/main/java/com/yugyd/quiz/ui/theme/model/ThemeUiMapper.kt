@@ -28,11 +28,16 @@ class ThemeUiMapper @Inject constructor(
 
     fun map(model: Theme) = model.run {
         val progressPercent = percent(progress, count)
+        val imageUri = if (model.image != null) {
+            Uri.parse("$ASSETS_PATH$image")
+        } else {
+            null
+        }
         ThemeUiModel(
             id = id,
             title = name,
             subtitle = info,
-            imageUri = Uri.parse("$ASSETS_PATH$image"),
+            imageUri = imageUri,
             progressPercent = progressPercent,
             progressColor = progressColorUtils.getProgressColor(progressPercent),
             record = progress

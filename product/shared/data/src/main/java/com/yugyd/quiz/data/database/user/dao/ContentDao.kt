@@ -22,6 +22,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.yugyd.quiz.data.model.ContentEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ContentDao {
@@ -29,7 +30,13 @@ interface ContentDao {
     @Query("SELECT * FROM content")
     suspend fun getAll(): List<ContentEntity>
 
-    @Query("SELECT * FROM content WHERE is_checked = ${true}")
+    @Query("SELECT * FROM content")
+    fun subscribeToAll(): Flow<List<ContentEntity>>
+
+    @Query("SELECT * FROM content WHERE is_checked")
+    fun subscribeToSelectedContent(): Flow<ContentEntity?>
+
+    @Query("SELECT * FROM content WHERE is_checked")
     suspend fun getSelectedContent(): ContentEntity?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

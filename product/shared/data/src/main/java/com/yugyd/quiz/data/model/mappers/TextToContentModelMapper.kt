@@ -9,46 +9,63 @@ import javax.inject.Inject
 class TextToContentModelMapper @Inject constructor() {
 
     fun map(raw: RawContentDataModel): ContentDataModel {
+        val quests = raw.rawQuests.mapIndexed { index, item ->
+            item.mapToQuestEntity(id = index.inc())
+        }
         return ContentDataModel(
-            quests = raw.rawQuests.map { it.mapToQuestEntity() },
-            themes = raw.rawCategories.map { it.mapToThemeEntity() },
+            quests = quests,
+            themes = raw.rawCategories.mapIndexed { index, item ->
+                val mappedItem = item.mapToThemeEntity(ordinal = index)
+                mappedItem.copy(
+                    count = quests.count { it.category == mappedItem.id }
+                )
+            },
         )
     }
 
-    private fun String.mapToQuestEntity(): Quest {
+    private fun String.mapToQuestEntity(id: Int): Quest {
         val data = this.split(SPLITTER)
 
         return Quest(
-            id = data[0].toInt(),
-            quest = data[1],
-            trueAnswer = data[2],
-            answer2 = data[3],
-            answer3 = data[4],
-            answer4 = data[5],
-            answer5 = data[6],
-            answer6 = data[7],
-            answer7 = data[8],
-            answer8 = data[9],
-            complexity = data[10].toInt(),
-            category = data[11].toInt(),
-            section = data[12].toInt(),
+            id = id,
+            quest = data[0],
+            trueAnswer = data[1],
+            answer2 = data[2],
+            answer3 = data[3],
+            answer4 = data[4],
+            answer5 = "",
+            answer6 = "",
+            answer7 = "",
+            answer8 = "",
+            complexity = data[5].toInt(),
+            category = data[6].toInt(),
+            section = data[7].toInt(),
         )
     }
 
-    private fun String.mapToThemeEntity(): Theme {
+    private fun String.mapToThemeEntity(ordinal: Int): Theme {
         val data = this.split(SPLITTER)
 
-        return Theme(
-            id = data[0].toInt(),
-            ordinal = data[1].toInt(),
-            name = data[2],
-            info = data[3],
-            image = data[4],
-            count = data[5].toInt(),
-        )
+        return if (data.size == 3) {
+            Theme(
+                id = data[0].toInt(),
+                ordinal = ordinal,
+                name = data[1],
+                info = data[2],
+                image = null,
+            )
+        } else {
+            Theme(
+                id = data[0].toInt(),
+                ordinal = ordinal,
+                name = data[1],
+                info = data[2],
+                image = data[3],
+            )
+        }
     }
 
     companion object {
-        private const val SPLITTER = ""
+        private const val SPLITTER = "\n"
     }
 }

@@ -17,7 +17,6 @@
 package com.yugyd.quiz.gameui.game
 
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.viewModelScope
 import com.google.android.gms.ads.LoadAdError
 import com.yugyd.quiz.commonui.base.BaseViewModel
 import com.yugyd.quiz.core.GlobalConfig
@@ -40,7 +39,9 @@ import com.yugyd.quiz.gameui.game.GameView.State.NavigationState
 import com.yugyd.quiz.gameui.game.mapper.ControlUiMapper
 import com.yugyd.quiz.gameui.game.mapper.HighlightUiMapper
 import com.yugyd.quiz.gameui.game.mapper.QuestUiMapper
+import com.yugyd.quiz.gameui.game.model.ControlUiModel
 import com.yugyd.quiz.gameui.game.model.HighlightUiModel
+import com.yugyd.quiz.gameui.game.model.QuestUiModel
 import com.yugyd.quiz.gameui.game.model.RewardedAdStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
@@ -59,14 +60,15 @@ class GameViewModel @Inject constructor(
     private val highlightUiMapper: HighlightUiMapper,
     private val featureManager: FeatureManager,
     logger: Logger,
-    private val dispatcherProvider: DispatchersProvider,
-) : BaseViewModel<State, Action>(
-    logger = logger,
-    initialState = State(
-        payload = GamePayloadArgs(savedStateHandle).payload,
-        isLoading = true,
-    )
-) {
+    private val dispatchersProvider: DispatchersProvider,
+) :
+    BaseViewModel<State, Action>(
+        logger = logger,
+        dispatchersProvider = dispatchersProvider,
+        initialState = State(
+            payload = GamePayloadArgs(savedStateHandle).payload,
+        )
+    ) {
 
     private var debugableAutoTestJob: Job? = null
 
@@ -133,7 +135,7 @@ class GameViewModel @Inject constructor(
     }
 
     private fun onBackPressed() {
-        viewModelScope.launch {
+        vmScopeErrorHandled.launch {
             runCatch(
                 block = {
                     gameInteractor.firstFinishGame()
@@ -147,7 +149,7 @@ class GameViewModel @Inject constructor(
     }
 
     private fun onAnswerClicked(index: Int) {
-        viewModelScope.launch {
+        vmScopeErrorHandled.launch {
             runCatch(
                 block = {
                     val answerData = gameInteractor.resultAnswer(screenState.domainQuest, index)
@@ -165,7 +167,7 @@ class GameViewModel @Inject constructor(
     private fun onNegativeRewardDialogClicked() = continueGame()
 
     private fun onUserEarnedReward() {
-        viewModelScope.launch {
+        vmScopeErrorHandled.launch {
             runCatch(
                 block = {
                     gameInteractor.onUserEarnedReward()
@@ -212,9 +214,9 @@ class GameViewModel @Inject constructor(
     private fun onAutoTestClicked() {
         if (GlobalConfig.DEBUG) {
             debugableAutoTestJob?.cancel()
-            debugableAutoTestJob = viewModelScope.launch {
+            debugableAutoTestJob = vmScopeErrorHandled.launch {
                 repeat(Int.MAX_VALUE) {
-                    withContext(dispatcherProvider.default) {
+                    withContext(dispatchersProvider.default) {
                         val delayTimeMills = optionsInteractor.transition.value.toLong() * 2000
                         delay(delayTimeMills)
                     }
@@ -231,7 +233,15 @@ class GameViewModel @Inject constructor(
     }
 
     private fun initData() {
-        viewModelScope.launch {
+        vmScopeErrorHandled.launch {
+            screenState = screenState.copy(
+                isLoading = true,
+                isWarning = false,
+                domainQuest = QuestModel(),
+                quest = QuestUiModel(),
+                control = ControlUiModel(),
+            )
+
             runCatch(
                 block = {
                     val gameData = gameInteractor.startGame(screenState.payload)
@@ -249,7 +259,7 @@ class GameViewModel @Inject constructor(
                         screenState = screenState.copy(loadAd = true)
                     }
                 },
-                catch = ::processGameError
+                catch = ::processGameError,
             )
         }
     }
@@ -267,7 +277,7 @@ class GameViewModel @Inject constructor(
             isAdFeatureEnabled = isAdFeatureEnabled,
             isProFeatureEnabled = isProFeatureEnabled,
             isWarning = false,
-            isLoading = false
+            isLoading = false,
         )
 
         if (GlobalConfig.DEBUG) {
@@ -281,7 +291,10 @@ class GameViewModel @Inject constructor(
     }
 
     private fun processGameError(error: Throwable) = when (error) {
-        is FinishGameException -> finishGame()
+        is FinishGameException -> {
+            finishGame()
+        }
+
         is RewardedGameException -> {
             if (
                 screenState.isAdFeatureEnabled &&
@@ -295,10 +308,14 @@ class GameViewModel @Inject constructor(
 
         else -> {
             processError(error)
+
             screenState = screenState.copy(
-                isWarning = true,
                 isLoading = false,
+                isWarning = true,
                 showErrorMessage = true,
+                domainQuest = QuestModel(),
+                quest = QuestUiModel(),
+                control = ControlUiModel(),
             )
         }
     }
@@ -324,7 +341,7 @@ class GameViewModel @Inject constructor(
         optionsInteractor.isVibration && highlight is HighlightUiModel.False
 
     private fun blockAnswer() {
-        viewModelScope.launch {
+        vmScopeErrorHandled.launch {
             delay(optionsInteractor.transition.value.toLong() * 1000)
             processBlockAnswer()
         }
@@ -342,7 +359,7 @@ class GameViewModel @Inject constructor(
     }
 
     private fun continueGame() {
-        viewModelScope.launch {
+        vmScopeErrorHandled.launch {
             runCatch(
                 block = {
                     val gameData = gameInteractor.continueGame()
@@ -352,13 +369,13 @@ class GameViewModel @Inject constructor(
                         isProFeatureEnabled = screenState.isProFeatureEnabled,
                     )
                 },
-                catch = ::processGameError
+                catch = ::processGameError,
             )
         }
     }
 
     private fun finishGame() {
-        viewModelScope.launch {
+        vmScopeErrorHandled.launch {
             runCatch(
                 block = {
                     val payload = gameInteractor.finishGame()

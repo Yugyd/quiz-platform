@@ -16,9 +16,9 @@
 
 package com.yugyd.quiz.ui.transition
 
-import androidx.lifecycle.viewModelScope
 import com.yugyd.quiz.commonui.base.BaseViewModel
 import com.yugyd.quiz.core.Logger
+import com.yugyd.quiz.core.coroutinesutils.DispatchersProvider
 import com.yugyd.quiz.core.runCatch
 import com.yugyd.quiz.domain.controller.TransitionController
 import com.yugyd.quiz.domain.options.OptionsInteractor
@@ -37,7 +37,12 @@ class TransitionViewModel @Inject constructor(
     private val optionsInteractor: OptionsInteractor,
     private val uiMapper: TransitionUiMapper,
     logger: Logger,
-) : BaseViewModel<State, Action>(logger, State(isLoading = true)) {
+    dispatchersProvider: DispatchersProvider,
+) : BaseViewModel<State, Action>(
+    logger = logger,
+    dispatchersProvider = dispatchersProvider,
+    initialState = State()
+) {
 
     init {
         initData()
@@ -62,7 +67,10 @@ class TransitionViewModel @Inject constructor(
     }
 
     private fun initData() {
-        screenState = screenState.copy(isLoading = true)
+        screenState = screenState.copy(
+            isLoading = true,
+            items = emptyList(),
+        )
 
         val transactions = optionsInteractor
             .getTransitions()
@@ -78,18 +86,18 @@ class TransitionViewModel @Inject constructor(
 
         screenState = screenState.copy(
             items = models,
-            isLoading = false
+            isLoading = false,
         )
     }
 
     private fun changeTransition(value: Double) {
-        viewModelScope.launch {
+        vmScopeErrorHandled.launch {
             runCatch(
                 block = {
                     optionsInteractor.setTransition(value)
                     processTransaction()
                 },
-                catch = ::processError
+                catch = ::processError,
             )
         }
     }

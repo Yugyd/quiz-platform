@@ -93,3 +93,4 @@ lint/outputs/
 lint/tmp/
 
 .DS_Store
+/.idea/migrations.xml

@@ -23,9 +23,9 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "category")
 data class ThemeEntity(
     @PrimaryKey @ColumnInfo(name = "_id") val id: Int,
-    val ordinal: Int,
-    val name: String,
-    val info: String,
-    val image: String,
-    val count: Int
+    @ColumnInfo(name = "ordinal") val ordinal: Int,
+    @ColumnInfo(name = "name") val name: String,
+    @ColumnInfo(name = "info") val info: String,
+    @ColumnInfo(name = "image") val image: String?,
+    @ColumnInfo(name = "count") val count: Int
 )

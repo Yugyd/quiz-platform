@@ -17,10 +17,12 @@
 package com.yugyd.quiz.progressui.specificprogress
 
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.viewModelScope
 import com.yugyd.quiz.commonui.base.BaseViewModel
 import com.yugyd.quiz.core.Logger
+import com.yugyd.quiz.core.coroutinesutils.DispatchersProvider
 import com.yugyd.quiz.core.runCatch
+import com.yugyd.quiz.domain.content.ContentInteractor
+import com.yugyd.quiz.domain.content.models.ContentResult
 import com.yugyd.quiz.domain.controller.RecordController
 import com.yugyd.quiz.domain.progress.ProgressInteractor
 import com.yugyd.quiz.domain.progress.RecordInteractor
@@ -29,6 +31,9 @@ import com.yugyd.quiz.progressui.specificprogress.SpecificProgressView.Action
 import com.yugyd.quiz.progressui.specificprogress.SpecificProgressView.State
 import com.yugyd.quiz.progressui.specificprogress.SpecificProgressView.State.NavigationState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -37,22 +42,29 @@ class SpecificProgressViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val recordInteractor: RecordInteractor,
     private val progressInteractor: ProgressInteractor,
+    private val contentInteractor: ContentInteractor,
     private val recordController: RecordController,
     private val progressMapper: ProgressUiMapper,
     logger: Logger,
+    dispatchersProvider: DispatchersProvider,
 ) :
     BaseViewModel<State, Action>(
-        logger,
-        State(
+        logger = logger,
+        dispatchersProvider = dispatchersProvider,
+        initialState = State(
             payload = SpecificProgressArgs(savedStateHandle).payload,
-            isLoading = true,
         )
     ),
     RecordController.Listener {
 
+    private var loadContentJob: Job? = null
+
     init {
         recordController.subscribe(this)
+
         initData()
+
+        loadContent()
     }
 
     override fun onCleared() {
@@ -92,9 +104,14 @@ class SpecificProgressViewModel @Inject constructor(
     private fun onResetProgressAccepted() = resetProgress()
 
     private fun initData() {
-        screenState = screenState.copy(isLoading = true)
+        screenState = screenState.copy(
+            isLoading = true,
+            isWarning = false,
+            resetState = State.ResetState.HIDE,
+            items = emptyList(),
+        )
 
-        viewModelScope.launch {
+        vmScopeErrorHandled.launch {
             runCatch(
                 block = {
                     val items = progressInteractor.getSpecificProgressItems(
@@ -103,7 +120,7 @@ class SpecificProgressViewModel @Inject constructor(
                     val isProgress = progressInteractor.isRecord(items)
                     processItems(items, isProgress)
                 },
-                catch = ::processItemsError
+                catch = ::processItemsError,
             )
         }
     }
@@ -114,7 +131,7 @@ class SpecificProgressViewModel @Inject constructor(
             themeTitle = screenState.payload.themeTitle,
             resetState = if (isRecord) State.ResetState.VISIBLE else State.ResetState.HIDE,
             items = progressMapper.map(items),
-            isWarning = items.isEmpty(),
+            isWarning = false,
             isLoading = false
         )
     }
@@ -123,13 +140,46 @@ class SpecificProgressViewModel @Inject constructor(
         screenState = screenState.copy(
             isLoading = false,
             isWarning = true,
+            resetState = State.ResetState.HIDE,
+            items = emptyList(),
             showErrorMessage = true,
         )
         processError(error)
     }
 
+    private fun loadContent() {
+        loadContentJob?.cancel()
+        loadContentJob = vmScopeErrorHandled.launch {
+            contentInteractor
+                .subscribeToSelectedContent()
+                .map {
+                    contentInteractor.isResetNavigation(
+                        oldModel = screenState.contentModel,
+                        newModel = it,
+                    )
+                }
+                .catch {
+                    processItemsError(it)
+                }
+                .collect(::processContentResetEvent)
+        }
+    }
+
+    private fun processContentResetEvent(model: ContentResult) {
+        val navigationState = if (model.isBack) {
+            NavigationState.Back
+        } else {
+            screenState.navigationState
+        }
+
+        screenState = screenState.copy(
+            contentModel = model.newModel,
+            navigationState = navigationState,
+        )
+    }
+
     private fun resetProgress() {
-        viewModelScope.launch {
+        vmScopeErrorHandled.launch {
             runCatch(
                 block = {
                     recordInteractor.resetRecord(screenState.payload.themeId)

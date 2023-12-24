@@ -25,7 +25,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.yugyd.quiz.navigation.hideBottomBarArgument
 
-private const val IS_BACK_ENABLED_ARG = "isBackEnabled"
+internal const val IS_BACK_ENABLED_ARG = "isBackEnabled"
 private const val ROUTE = "content"
 
 internal class ContentArgs(

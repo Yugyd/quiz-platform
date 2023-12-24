@@ -22,7 +22,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "content")
 data class ContentEntity(
-    @PrimaryKey @ColumnInfo(name = "_id") val id: Int,
+    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "_id") val id: Int = 0,
     @ColumnInfo(name = "name") val name: String,
     @ColumnInfo(name = "file_path") val filePath: String,
     @ColumnInfo(name = "is_checked") val isChecked: Boolean,

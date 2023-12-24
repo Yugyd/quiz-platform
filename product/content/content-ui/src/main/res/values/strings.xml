@@ -29,6 +29,8 @@
     <string name="content_error_delete_is_failed">Failed to delete content</string>
     <string name="content_error_not_select_and_delete">The selected content is invalid and has been removed</string>
     <string name="content_error_select_is_failed">Failed to select content</string>
+    <string name="content_error_one_item_not_delete">The only content cannot be deleted</string>
+    <string name="content_error_selected_item_not_delete">Selected content cannot be deleted</string>
 
     <!-- Content -->
     <string name="content_format_error_content_quest_duplicate_id">

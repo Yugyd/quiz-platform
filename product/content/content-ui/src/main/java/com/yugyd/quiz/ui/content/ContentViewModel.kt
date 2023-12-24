@@ -16,12 +16,10 @@
 
 package com.yugyd.quiz.ui.content
 
-import android.net.Uri
-import androidx.core.net.toFile
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.viewModelScope
 import com.yugyd.quiz.commonui.base.BaseViewModel
 import com.yugyd.quiz.core.Logger
+import com.yugyd.quiz.core.coroutinesutils.DispatchersProvider
 import com.yugyd.quiz.core.runCatch
 import com.yugyd.quiz.domain.content.ContentInteractor
 import com.yugyd.quiz.domain.content.api.ContentModel
@@ -32,6 +30,7 @@ import com.yugyd.quiz.ui.content.ContentView.State
 import com.yugyd.quiz.ui.content.ContentView.State.NavigationState
 import com.yugyd.quiz.ui.content.ContentView.State.SnackbarState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 import java.util.Locale
 import javax.inject.Inject
@@ -41,12 +40,13 @@ class ContentViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val interactor: ContentInteractor,
     logger: Logger,
+    dispatchersProvider: DispatchersProvider,
 ) :
     BaseViewModel<State, Action>(
         logger = logger,
+        dispatchersProvider = dispatchersProvider,
         initialState = State(
             isBackEnabled = ContentArgs(savedStateHandle).isBackEnabled,
-            isLoading = true,
         )
     ) {
 
@@ -94,7 +94,7 @@ class ContentViewModel @Inject constructor(
             return
         }
 
-        viewModelScope.launch {
+        vmScopeErrorHandled.launch {
             runCatch(
                 block = {
                     val result = interactor.selectContent(
@@ -135,10 +135,29 @@ class ContentViewModel @Inject constructor(
     }
 
     private fun onDeleteClicked(item: ContentModel) {
-        viewModelScope.launch {
+        vmScopeErrorHandled.launch {
             runCatch(
                 block = {
-                    interactor.deleteContent(item.id)
+                    val items = requireNotNull(screenState.items)
+                    val selectedItem = items.first(ContentModel::isChecked)
+
+                    when {
+                        items.size == 1 -> {
+                            screenState = screenState.copy(
+                                snackbarState = SnackbarState.OneItemNotDelete,
+                            )
+                        }
+
+                        item == selectedItem -> {
+                            screenState = screenState.copy(
+                                snackbarState = SnackbarState.SelectedItemNotDelete,
+                            )
+                        }
+
+                        else -> {
+                            interactor.deleteContent(item.id)
+                        }
+                    }
                 },
                 catch = {
                     processError(it)
@@ -150,46 +169,52 @@ class ContentViewModel @Inject constructor(
     }
 
     private fun loadData() {
-        viewModelScope.launch {
-            runCatch(
-                block = {
-                    val state = interactor.getContents()
-                    processData(state)
-                },
-                catch = ::processDataError,
+        vmScopeErrorHandled.launch {
+            screenState = screenState.copy(
+                isLoading = true,
+                isWarning = false,
+                items = null,
             )
+
+            interactor
+                .subscribeToContents()
+                .catch {
+                    processDataError(it)
+                }
+                .collect(::processData)
         }
     }
 
     private fun processData(models: List<ContentModel>) {
         screenState = screenState.copy(
-            items = models,
-            isWarning = false,
             isLoading = false,
+            isWarning = false,
+            items = models,
         )
     }
 
     private fun processDataError(error: Throwable) {
         processError(error)
         screenState = screenState.copy(
-            items = null,
             isLoading = false,
             isWarning = true,
+            items = null,
         )
     }
 
-    private fun onDocumentResult(uri: Uri?) {
+    private fun onDocumentResult(uri: String?) {
         if (uri == null) {
             screenState = screenState.copy(snackbarState = SnackbarState.UriIsNull)
             return
         }
 
-        viewModelScope.launch {
+        vmScopeErrorHandled.launch {
             runCatch(
                 block = {
-                    val selectedItem = requireNotNull(screenState.items).first { it.isChecked }
+                    val selectedItem = screenState.items?.firstOrNull { it.isChecked }
 
-                    val fileName = uri.toFile().nameWithoutExtension.replaceFirstChar {
+                    val fileName = interactor.getContentNameFromUri(uri)
+                    val contentName = fileName?.replaceFirstChar {
                         if (it.isLowerCase()) {
                             it.titlecase(Locale.getDefault())
                         } else {
@@ -200,7 +225,7 @@ class ContentViewModel @Inject constructor(
                     val isAdded = interactor.addContent(
                         oldModel = selectedItem,
                         // TODO Add feature to set a name for content
-                        contentName = fileName,
+                        contentName = contentName,
                         uri = uri,
                     )
 

@@ -16,11 +16,12 @@
 
 package com.yugyd.quiz.progressui.progress
 
-import androidx.lifecycle.viewModelScope
 import com.yugyd.quiz.commonui.base.BaseViewModel
 import com.yugyd.quiz.core.Logger
+import com.yugyd.quiz.core.coroutinesutils.DispatchersProvider
 import com.yugyd.quiz.core.runCatch
 import com.yugyd.quiz.domain.api.payload.SpecificProgressPayload
+import com.yugyd.quiz.domain.content.ContentInteractor
 import com.yugyd.quiz.domain.controller.RecordController
 import com.yugyd.quiz.domain.progress.ProgressInteractor
 import com.yugyd.quiz.progressui.model.ItemProgressUiModel
@@ -28,23 +29,34 @@ import com.yugyd.quiz.progressui.model.ProgressUiMapper
 import com.yugyd.quiz.progressui.progress.ProgressView.Action
 import com.yugyd.quiz.progressui.progress.ProgressView.State
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class ProgressViewModel @Inject constructor(
     private val progressInteractor: ProgressInteractor,
+    private val contentInteractor: ContentInteractor,
     private val recordController: RecordController,
     private val progressMapper: ProgressUiMapper,
     logger: Logger,
-) : BaseViewModel<State, Action>(logger, State(isLoading = true)),
+    dispatchersProvider: DispatchersProvider,
+) :
+    BaseViewModel<State, Action>(
+        logger = logger,
+        dispatchersProvider = dispatchersProvider,
+        initialState = State(),
+    ),
     RecordController.Listener {
+
+    private var loadDataJob: Job? = null
 
     private var models: List<Any> = emptyList()
 
     init {
         recordController.subscribe(this)
-        initData()
+        loadData()
     }
 
     override fun onCleared() {
@@ -52,7 +64,7 @@ class ProgressViewModel @Inject constructor(
         super.onCleared()
     }
 
-    override fun onRecordUpdate() = initData()
+    override fun onRecordUpdate() = loadData()
 
     override fun handleAction(action: Action) {
         when (action) {
@@ -67,18 +79,44 @@ class ProgressViewModel @Inject constructor(
         }
     }
 
-    private fun initData() {
-        screenState = screenState.copy(isLoading = true)
+    private fun loadData() {
+        screenState = screenState.copy(
+            isLoading = true,
+            isWarning = false,
+            models = emptyList(),
+        )
 
-        viewModelScope.launch {
-            runCatch(
-                block = {
-                    val items = progressInteractor.getProgressItems()
-                    processItems(items)
-                },
-                catch = ::processItemsError
-            )
+        loadDataJob?.cancel()
+        loadDataJob = vmScopeErrorHandled.launch {
+            contentInteractor
+                .subscribeToSelectedContent()
+                .catch {
+                    processDataError(it)
+                }
+                .collect {
+                    processData()
+                }
         }
+    }
+
+    private suspend fun processData() {
+        runCatch(
+            block = {
+                val items = progressInteractor.getProgressItems()
+                processItems(items)
+            },
+            catch = ::processDataError,
+        )
+    }
+
+    private fun processDataError(error: Throwable) {
+        screenState = screenState.copy(
+            isLoading = false,
+            isWarning = true,
+            items = emptyList(),
+            showErrorMessage = true,
+        )
+        processError(error)
     }
 
     private fun processItems(items: List<Any>) {
@@ -86,18 +124,9 @@ class ProgressViewModel @Inject constructor(
 
         screenState = screenState.copy(
             items = progressMapper.map(items),
-            isWarning = items.isEmpty(),
-            isLoading = false
-        )
-    }
-
-    private fun processItemsError(error: Throwable) {
-        screenState = screenState.copy(
+            isWarning = false,
             isLoading = false,
-            isWarning = true,
-            showErrorMessage = true,
         )
-        processError(error)
     }
 
     private fun navigateToSpecificProgress(item: ItemProgressUiModel) {
@@ -106,7 +135,7 @@ class ProgressViewModel @Inject constructor(
             themeTitle = item.title
         )
         screenState = screenState.copy(
-            navigationState = State.NavigationState.NavigateToSpecificProgress(payload)
+            navigationState = State.NavigationState.NavigateToSpecificProgress(payload),
         )
     }
 }

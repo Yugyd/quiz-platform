@@ -17,6 +17,11 @@ dependencies {
     implementation project(':product:shared:domain-utils')
     implementation project(':product:shared:data')
 
-    // Kotlin
-    implementation libs.kotlinx.coroutines.android
+    // Threading
+    implementation libs.kotlinx.coroutines.core
+
+    // Test
+    testImplementation(project(":product:core:test"))
+    testImplementation(libs.junit.core)
+    testImplementation(libs.kotlin.test)
 }

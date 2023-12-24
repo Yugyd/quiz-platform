@@ -20,6 +20,8 @@ import com.yugyd.quiz.data.database.user.dao.ContentDao
 import com.yugyd.quiz.data.model.mappers.ContentEntityMapper
 import com.yugyd.quiz.domain.content.ContentSource
 import com.yugyd.quiz.domain.content.api.ContentModel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 internal class ContentDataSource @Inject constructor(
@@ -27,14 +29,28 @@ internal class ContentDataSource @Inject constructor(
     private val entityMapper: ContentEntityMapper
 ) : ContentSource {
 
-    override suspend fun getData(): List<ContentModel> {
+    override suspend fun getContents(): List<ContentModel> {
         val contents = contentDao.getAll()
         return entityMapper.mapToDomain(contents)
+    }
+
+    override fun subscribeToContents(): Flow<List<ContentModel>> {
+        return contentDao
+            .subscribeToAll()
+            .map(entityMapper::mapToDomain)
     }
 
     override suspend fun getSelectedContent(): ContentModel? {
         val content = contentDao.getSelectedContent()
         return content?.let(entityMapper::mapToDomain)
+    }
+
+    override fun subscribeToSelectedContent(): Flow<ContentModel?> {
+        return contentDao
+            .subscribeToSelectedContent()
+            .map { entity ->
+                entity?.let(entityMapper::mapToDomain)
+            }
     }
 
     override suspend fun deleteContent(id: String) {

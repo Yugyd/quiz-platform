@@ -9,6 +9,7 @@ android {
 dependencies {
     // Module
     implementation project(':product:core')
+    implementation project(':product:core:coroutines-utils')
     implementation project(':product:designsystem:uikit')
     implementation project(':product:core:navigation')
     implementation project(':product:shared:domain-api')

@@ -23,5 +23,5 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "mode")
 data class ModeEntity(
     @PrimaryKey @ColumnInfo(name = "_id") val id: Int = 0,
-    val title: String = ""
+    @ColumnInfo(name = "title") val title: String = ""
 )

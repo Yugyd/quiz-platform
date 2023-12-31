@@ -1,4 +1,4 @@
-# Contriburion guide
+# Contribution guide
 
 Coming soon.
 

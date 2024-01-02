@@ -21,6 +21,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class TelegramConfigDto(
+    @SerialName("locale")
+    val locale: String,
     @SerialName("gameEnd")
     val gameEnd: GameEndDto,
     @SerialName("links")

@@ -16,7 +16,10 @@
 
 package com.yugyd.quiz.featuretoggle.domain.model.telegram
 
+import java.util.Locale
+
 data class TelegramConfig(
+    val locale: Locale,
     val gameEnd: GameEnd,
     val links: List<Link>,
     val mainPopup: MainPopup,

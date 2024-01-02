@@ -30,7 +30,7 @@ import org.gradle.kotlin.dsl.configure
 class AndroidApplicationConventionPlugin : Plugin<Project> {
 
     companion object {
-        private val ACTIVE_PRODUCT_FLAVOR_VARIANTS = arrayOf("devDebug")
+        private val ACTIVE_PRODUCT_FLAVOR_VARIANTS = arrayOf("dev")
     }
 
     override fun apply(target: Project) {
@@ -47,22 +47,9 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
 
                 configureKotlin(this)
 
-                disableReleaseVariants()
-
                 configureLint()
 
                 disableUnusedProductFlavorVariants()
-            }
-        }
-    }
-
-    private fun Project.disableReleaseVariants() {
-        // https://developer.android.com/build/build-variants#filter-variants
-        extensions.configure<ApplicationAndroidComponentsExtension> {
-            beforeVariants { variantBuilder ->
-                if (variantBuilder.buildType == "release" && project.name != "app") {
-                    variantBuilder.enable = false
-                }
             }
         }
     }
@@ -71,7 +58,7 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
         // https://developer.android.com/build/build-variants#filter-variants
         extensions.configure<ApplicationAndroidComponentsExtension> {
             beforeVariants { variantBuilder ->
-                if (!ACTIVE_PRODUCT_FLAVOR_VARIANTS.contains(variantBuilder.name)) {
+                if (!ACTIVE_PRODUCT_FLAVOR_VARIANTS.contains(variantBuilder.flavorName)) {
                     variantBuilder.enable = false
                 }
             }

@@ -14,18 +14,29 @@
   ~    limitations under the License.
   -->
 
-<defaults xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="MissingDefaultResource">
-    <entry>
-        <key>feature_ad</key>
-        <value>true</value>
-    </entry>
+<defaults>
     <entry>
         <key>feature_pro</key>
         <value>false</value>
     </entry>
     <entry>
         <key>feature_correct</key>
+        <value>true</value>
+    </entry>
+    <entry>
+        <key>feature_ad</key>
+        <value>false</value>
+    </entry>
+    <entry>
+        <key>config_telegram</key>
+        <value>[{"locale":"en","gameEnd":{"title":"New record!","message":"Did you like it? Subscribe to the Telegram channel, daily questions and a lot of interesting things await you!","buttonTitle":"Follow"},"profileCell":{"title":"","message":"Daily questions and feedback"},"mainPopup":{"title":"We have opened a telegram channel!","message":"Daily questions and a lot of interesting things await you!","buttonTitle":"Follow"},"trainPopup":{"title":"We have opened a telegram channel!","message":"Daily questions and a lot of interesting things await you!","positiveButtonTitle":"Follow","negativeButtonTitle":"Later"},"links":[{"package":"com.yugyd.quiz","link":"quizplatformapp"},{"package":"com.yugyd.russianlanguagequiz","link":"russian_language_quiz"},{"package":"com.yugyd.russianhistoryquiz","link":"russian_history_quiz "},{"package":"com.yugyd.sociologyquiz","link":"sociology_quiz"},{"package":"com.yugyd.biologyquiz","link":"biology_quiz_app"},{"package":"com.yugyd.geographyquiz","link":"geography_quiz_app"}]},{"locale":"ru","gameEnd":{"title":"Новый рекорд!","message":"Вам понравилось? Подпишитесь на телеграм канал, вас ждут ежедневные вопросы и много интересного!","buttonTitle":"Подписаться"},"profileCell":{"title":"","message":"Ежедневные вопросы и обратная связь"},"mainPopup":{"title":"Мы открыли телеграм канал!","message":"Вас ждут ежедневные вопросы и много интересного!","buttonTitle":"Подписаться"},"trainPopup":{"title":"Мы открыли телеграм канал!","message":"Вас ждут ежедневные вопросы и много интересного!","positiveButtonTitle":"Подписаться","negativeButtonTitle":"Позже"},"links":[{"package":"com.yugyd.quiz","link":"quizplatformapp"},{"package":"com.yugyd.russianlanguagequiz","link":"russian_language_quiz"},{"package":"com.yugyd.russianhistoryquiz","link":"russian_history_quiz "},{"package":"com.yugyd.sociologyquiz","link":"sociology_quiz"},{"package":"com.yugyd.biologyquiz","link":"biology_quiz_app"},{"package":"com.yugyd.geographyquiz","link":"geography_quiz_app"}]}]</value>
+    </entry>
+    <entry>
+        <key>force_update_version</key>
+        <value>0</value>
+    </entry>
+    <entry>
+        <key>feature_telegram</key>
         <value>true</value>
     </entry>
 </defaults>

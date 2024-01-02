@@ -7,9 +7,9 @@ plugins {
 def isGoogleServicesExists = file("google-services.json").exists()
 
 if (isGoogleServicesExists) {
-    apply(plugin = libs.plugins.gms.get())
-    apply(plugin = libs.plugins.firebase.appdistribution.get())
-    apply(plugin = libs.plugins.firebase.crashlytics.get())
+    plugins.apply(libs.plugins.gms.get().pluginId)
+    plugins.apply(libs.plugins.firebase.appdistribution.get().pluginId)
+    plugins.apply(libs.plugins.firebase.crashlytics.get().pluginId)
 }
 
 def getProperties(String properties) {
@@ -79,7 +79,7 @@ android {
     productFlavors {
         dev {
             dimension "version"
-            applicationId "com.yugyd.russianlanguagequiz"
+            applicationId "com.yugyd.quiz"
 
             buildConfigField 'String', 'PRO_APP_PACKAGE', "\"REPLACE_ME\""
             buildConfigField 'String', 'PRIVACY_POLICY_LINK', "\"REPLACE_ME\""

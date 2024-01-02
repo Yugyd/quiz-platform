@@ -23,12 +23,14 @@ import com.yugyd.quiz.featuretoggle.domain.model.telegram.MainPopup
 import com.yugyd.quiz.featuretoggle.domain.model.telegram.ProfileCell
 import com.yugyd.quiz.featuretoggle.domain.model.telegram.TelegramConfig
 import com.yugyd.quiz.featuretoggle.domain.model.telegram.TrainPopup
+import java.util.Locale
 import javax.inject.Inject
 
 class TelegramConfigMapper @Inject constructor() {
 
     fun map(telegramConfigDto: TelegramConfigDto): TelegramConfig = telegramConfigDto.run {
         return TelegramConfig(
+            locale = locale.toLocale(),
             gameEnd = GameEnd(
                 buttonTitle = gameEnd.buttonTitle,
                 message = gameEnd.message,
@@ -51,5 +53,18 @@ class TelegramConfigMapper @Inject constructor() {
                 title = trainPopup.title
             )
         )
+    }
+
+    private fun String.toLocale(): Locale {
+        val language = if (contains(LOCALE_VALUE_SEPARATOR)) {
+            substringBefore(LOCALE_VALUE_SEPARATOR)
+        } else {
+            this
+        }
+        return Locale(language)
+    }
+
+    companion object {
+        private const val LOCALE_VALUE_SEPARATOR = "-"
     }
 }

@@ -43,9 +43,22 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
 
                 configureKotlin(this)
 
+                disableReleaseVariants()
+
                 configureLint()
 
                 disableUnnecessaryAndroidTests()
+            }
+        }
+    }
+
+    private fun Project.disableReleaseVariants() {
+        // https://developer.android.com/build/build-variants#filter-variants
+        extensions.configure<LibraryAndroidComponentsExtension> {
+            beforeVariants { variantBuilder ->
+                if (variantBuilder.buildType == "release" && project.name != "app") {
+                    variantBuilder.enable = false
+                }
             }
         }
     }

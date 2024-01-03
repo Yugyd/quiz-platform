@@ -29,7 +29,7 @@ class ThemeUiMapper @Inject constructor(
     fun map(model: Theme) = model.run {
         val progressPercent = percent(progress, count)
         val imageUri = if (model.image != null) {
-            Uri.parse("$ASSETS_PATH$image")
+            Uri.parse(image)
         } else {
             null
         }
@@ -42,9 +42,5 @@ class ThemeUiMapper @Inject constructor(
             progressColor = progressColorUtils.getProgressColor(progressPercent),
             record = progress
         )
-    }
-
-    companion object {
-        private const val ASSETS_PATH = "file:///android_asset/"
     }
 }

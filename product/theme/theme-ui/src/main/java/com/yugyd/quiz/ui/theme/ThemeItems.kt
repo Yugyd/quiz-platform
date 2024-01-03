@@ -17,12 +17,14 @@
 package com.yugyd.quiz.ui.theme
 
 import android.net.Uri
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -35,8 +37,10 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -45,6 +49,7 @@ import com.yugyd.quiz.ui.theme.model.ThemeUiModel
 import com.yugyd.quiz.uikit.common.ThemePreviews
 import com.yugyd.quiz.uikit.theme.QuizApplicationTheme
 import com.yugyd.quiz.uikit.theme.app_color_positive
+import com.yugyd.quiz.uikit.R as UiKitR
 
 private const val THEME_IMAGER_RATIO = 1.77F
 
@@ -60,12 +65,31 @@ internal fun ThemeItem(
         onClick = { onStartClicked(model) }
     ) {
         Column {
-            AsyncImage(
-                model = model.imageUri,
-                contentDescription = null,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier.aspectRatio(THEME_IMAGER_RATIO)
-            )
+            Box(
+                modifier = Modifier
+                    .aspectRatio(THEME_IMAGER_RATIO)
+                    .background(
+                        color = MaterialTheme.colorScheme.primaryContainer,
+                    ),
+            ) {
+                if (model.imageUri != null) {
+                    AsyncImage(
+                        model = model.imageUri,
+                        contentDescription = null,
+                        contentScale = ContentScale.Fit,
+                        modifier = Modifier.fillMaxSize(),
+                        placeholder = painterResource(id = UiKitR.drawable.ic_no_photography_24),
+                        error = painterResource(id = UiKitR.drawable.ic_no_photography_24),
+                    )
+                } else {
+                    Text(
+                        modifier = Modifier.align(Alignment.Center),
+                        text = model.title.first().toString().uppercase(),
+                        style = MaterialTheme.typography.displayLarge,
+                        color = MaterialTheme.colorScheme.onPrimaryContainer,
+                    )
+                }
+            }
 
             Column(
                 modifier = Modifier.padding(all = 16.dp)

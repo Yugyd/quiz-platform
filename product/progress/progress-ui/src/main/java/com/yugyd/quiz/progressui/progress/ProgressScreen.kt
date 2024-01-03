@@ -214,6 +214,7 @@ internal fun HeaderProgressItem(
                 val animatedProgress by animateFloatAsState(
                     targetValue = ProgressUtils.toFloatPercent(model.progressPercent),
                     animationSpec = ProgressIndicatorDefaults.ProgressAnimationSpec,
+                    label = "ProgressFloatAnimation",
                 )
                 LinearProgressIndicator(
                     progress = animatedProgress,

@@ -17,6 +17,7 @@
 package com.yugyd.quiz.ui.theme
 
 import android.net.Uri
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -32,11 +33,14 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.ProgressIndicatorDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -45,10 +49,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.yugyd.quiz.commonui.utils.ProgressUtils
 import com.yugyd.quiz.ui.theme.model.ThemeUiModel
 import com.yugyd.quiz.uikit.common.ThemePreviews
 import com.yugyd.quiz.uikit.theme.QuizApplicationTheme
 import com.yugyd.quiz.uikit.theme.app_color_positive
+import com.yugyd.quiz.uikit.theme.progressIndicatorHeight
 import com.yugyd.quiz.uikit.R as UiKitR
 
 private const val THEME_IMAGER_RATIO = 1.77F
@@ -107,6 +113,21 @@ internal fun ThemeItem(
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis,
                     style = MaterialTheme.typography.bodyMedium,
+                )
+
+                Spacer(modifier = Modifier.height(height = 16.dp))
+
+                val animatedProgress by animateFloatAsState(
+                    targetValue = ProgressUtils.toFloatPercent(model.progressPercent),
+                    animationSpec = ProgressIndicatorDefaults.ProgressAnimationSpec,
+                    label = "ProgressFloatAnimation",
+                )
+                LinearProgressIndicator(
+                    progress = animatedProgress,
+                    modifier = Modifier
+                        .height(height = progressIndicatorHeight)
+                        .fillMaxWidth(),
+                    color = model.progressColor,
                 )
 
                 Spacer(modifier = Modifier.height(height = 16.dp))

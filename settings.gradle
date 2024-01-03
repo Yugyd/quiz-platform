@@ -29,6 +29,7 @@ include ':product:core:file'
 include ':product:core:navigation'
 include ':product:core:test'
 // Services
+include ':product:services:remoteconfig-api'
 include ':product:services:push'
 // Design system
 include ':product:designsystem:uikit'

@@ -45,6 +45,7 @@ fun NavController.navigateToContent(isBackEnabled: Boolean) {
 fun NavGraphBuilder.contentScreen(
     snackbarHostState: SnackbarHostState,
     onBack: () -> Unit,
+    onNavigateToBrowser: (String) -> Unit,
 ) {
     val route = "$ROUTE/{$IS_BACK_ENABLED_ARG}"
     composable(
@@ -57,6 +58,7 @@ fun NavGraphBuilder.contentScreen(
         ContentRoute(
             snackbarHostState = snackbarHostState,
             onBack = onBack,
+            onNavigateToBrowser = onNavigateToBrowser,
         )
     }
 }

@@ -74,6 +74,10 @@ class ContentViewModel @Inject constructor(
                 screenState = screenState.copy(startFileProvider = true)
             }
 
+            Action.OnContentFormatClicked -> {
+                onContentFormatClicked()
+            }
+
             is Action.OnDocumentResult -> {
                 onDocumentResult(action.uri)
             }
@@ -200,6 +204,26 @@ class ContentViewModel @Inject constructor(
             isWarning = true,
             items = null,
         )
+    }
+
+    private fun onContentFormatClicked() {
+        vmScopeErrorHandled.launch {
+            runCatch(
+                block = {
+                    val url = interactor.getContentFormatUrl()
+                    screenState = screenState.copy(
+                        navigationState = NavigationState.NavigateToContentFormat(url = url),
+                    )
+                },
+                catch = {
+                    processError(it)
+
+                    screenState = screenState.copy(
+                        snackbarState = SnackbarState.ContentFormatUrlNotLoaded,
+                    )
+                }
+            )
+        }
     }
 
     private fun onDocumentResult(uri: String?) {

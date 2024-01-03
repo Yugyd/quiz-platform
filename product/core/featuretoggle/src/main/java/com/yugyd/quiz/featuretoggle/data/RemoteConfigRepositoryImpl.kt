@@ -22,6 +22,7 @@ import com.yugyd.quiz.featuretoggle.data.model.TelegramConfigDto
 import com.yugyd.quiz.featuretoggle.domain.RemoteConfigRepository
 import com.yugyd.quiz.featuretoggle.domain.model.FeatureToggle
 import com.yugyd.quiz.featuretoggle.domain.model.telegram.TelegramConfig
+import com.yugyd.quiz.remoteconfig.api.RemoteConfig
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.serialization.json.Json
 import timber.log.Timber

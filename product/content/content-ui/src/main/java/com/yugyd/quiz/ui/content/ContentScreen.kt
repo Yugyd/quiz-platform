@@ -22,6 +22,7 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -33,11 +34,13 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -70,6 +73,7 @@ fun ContentRoute(
     viewModel: ContentViewModel = hiltViewModel(),
     snackbarHostState: SnackbarHostState,
     onBack: () -> Unit,
+    onNavigateToBrowser: (String) -> Unit,
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
@@ -85,10 +89,14 @@ fun ContentRoute(
         onOpenFileClicked = {
             viewModel.onAction(Action.OnOpenFileClicked)
         },
+        onContentFormatClicked = {
+            viewModel.onAction(Action.OnContentFormatClicked)
+        },
         onSnackbarDismissed = {
             viewModel.onAction(Action.OnSnackbarDismissed)
         },
         onBack = onBack,
+        onNavigateToBrowser = onNavigateToBrowser,
         onNavigationHandled = {
             viewModel.onAction(Action.OnNavigationHandled)
         },
@@ -108,8 +116,10 @@ internal fun ContentScreen(
     onBackPressed: () -> Unit,
     onItemClicked: (ContentModel) -> Unit,
     onOpenFileClicked: () -> Unit,
+    onContentFormatClicked: () -> Unit,
     onSnackbarDismissed: () -> Unit,
     onBack: () -> Unit,
+    onNavigateToBrowser: (String) -> Unit,
     onNavigationHandled: () -> Unit,
     onStartFileProviderHandled: () -> Unit,
     onDocumentResult: (Uri?) -> Unit,
@@ -146,6 +156,7 @@ internal fun ContentScreen(
             uiState.items.isNullOrEmpty() -> {
                 EmptyStateContent(
                     onOpenFileClicked = onOpenFileClicked,
+                    onContentFormatClicked = onContentFormatClicked,
                 )
             }
 
@@ -154,6 +165,7 @@ internal fun ContentScreen(
                     items = requireNotNull(uiState.items),
                     onItemClicked = onItemClicked,
                     onOpenFileClicked = onOpenFileClicked,
+                    onContentFormatClicked = onContentFormatClicked
                 )
             }
         }
@@ -162,6 +174,7 @@ internal fun ContentScreen(
     NavigationHandler(
         navigationState = uiState.navigationState,
         onBack = onBack,
+        onNavigateToBrowser = onNavigateToBrowser,
         onNavigationHandled = onNavigationHandled,
     )
 }
@@ -211,6 +224,10 @@ internal fun SnackbarMessageEffect(
                 context.getString(R.string.content_error_selected_item_not_delete)
             }
 
+            SnackbarState.ContentFormatUrlNotLoaded -> {
+                context.getString(R.string.content_error_content_format_url_not_loaded)
+            }
+
             null -> null
         }
 
@@ -244,6 +261,7 @@ internal fun FileProviderEffect(
 @Composable
 internal fun EmptyStateContent(
     onOpenFileClicked: () -> Unit,
+    onContentFormatClicked: () -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -276,15 +294,20 @@ internal fun EmptyStateContent(
             style = MaterialTheme.typography.bodyLarge,
         )
 
+        TextButton(
+            onClick = onContentFormatClicked,
+            shape = RectangleShape,
+            contentPadding = PaddingValues(all = 0.dp),
+        ) {
+            Text(
+                text = stringResource(id = R.string.content_empty_state_note),
+                style = MaterialTheme.typography.titleSmall,
+                color = MaterialTheme.colorScheme.primary,
+                textAlign = TextAlign.Center,
+            )
+        }
+
         Spacer(modifier = Modifier.height(8.dp))
-
-        Text(
-            text = stringResource(id = R.string.content_empty_state_note),
-            style = MaterialTheme.typography.titleSmall,
-            color = MaterialTheme.colorScheme.primary,
-        )
-
-        Spacer(modifier = Modifier.height(16.dp))
 
         Button(
             onClick = onOpenFileClicked,
@@ -299,13 +322,17 @@ internal fun ContentContent(
     items: List<ContentModel>,
     onItemClicked: (ContentModel) -> Unit,
     onOpenFileClicked: () -> Unit,
+    onContentFormatClicked: () -> Unit,
 ) {
     LazyColumn {
         item(
             key = ContentType.NEW_FILE_HEADER.name,
             contentType = ContentType.NEW_FILE_HEADER,
         ) {
-            NewFileItem(onOpenFileClicked = onOpenFileClicked)
+            NewFileItem(
+                onOpenFileClicked = onOpenFileClicked,
+                onContentFormatClicked = onContentFormatClicked,
+            )
 
             Spacer(modifier = Modifier.height(height = 16.dp))
         }
@@ -329,11 +356,13 @@ internal fun ContentContent(
 internal fun NavigationHandler(
     navigationState: NavigationState?,
     onBack: () -> Unit,
+    onNavigateToBrowser: (String) -> Unit,
     onNavigationHandled: () -> Unit,
 ) {
     LaunchedEffect(key1 = navigationState) {
         when (navigationState) {
             NavigationState.Back -> onBack()
+            is NavigationState.NavigateToContentFormat -> onNavigateToBrowser(navigationState.url)
             null -> Unit
         }
 
@@ -384,6 +413,7 @@ private fun ContentPreview(
                 items = items,
                 onItemClicked = {},
                 onOpenFileClicked = {},
+                onContentFormatClicked = {},
             )
         }
     }
@@ -396,6 +426,7 @@ private fun EmptyStatePreview() {
         QuizBackground {
             EmptyStateContent(
                 onOpenFileClicked = {},
+                onContentFormatClicked = {},
             )
         }
     }

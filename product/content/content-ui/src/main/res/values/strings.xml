@@ -46,4 +46,8 @@
         Incorrectly composed topics detected: %s
     </string>
 
+    <string name="content_error_content_format_url_not_loaded">
+        Content format resource link not loaded
+    </string>
+
 </resources>

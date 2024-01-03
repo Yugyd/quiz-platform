@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.yugyd.quiz.featuretoggle.data
+package com.yugyd.quiz.remoteconfig.api
 
 interface RemoteConfig {
     suspend fun fetchStringValue(key: String): String

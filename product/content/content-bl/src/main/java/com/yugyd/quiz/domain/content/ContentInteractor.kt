@@ -47,4 +47,6 @@ interface ContentInteractor {
 
     @Throws(ContentNotValidException::class)
     suspend fun selectContent(oldModel: ContentModel, newModel: ContentModel): Boolean
+
+    suspend fun getContentFormatUrl(): String
 }

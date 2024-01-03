@@ -8,6 +8,7 @@ import com.yugyd.quiz.domain.content.ContentInteractor
 import com.yugyd.quiz.domain.content.api.ContentModel
 import com.yugyd.quiz.domain.content.exceptions.ContentNotValidException
 import com.yugyd.quiz.domain.content.exceptions.DuplicateIdThemesException
+import com.yugyd.quiz.domain.content.models.ContentResult
 import com.yugyd.quiz.ui.content.ContentView.Action
 import com.yugyd.quiz.ui.content.ContentView.State.NavigationState
 import com.yugyd.quiz.ui.content.ContentView.State.SnackbarState
@@ -29,7 +30,7 @@ class ContentViewModelTest {
 
     // Tests
     private val testIsBackEnabled = true
-    private var testUri = "file://data/text.txt"
+    private var testUri = "file://foo/bar.txt"
     private var testContents: List<ContentModel> = buildList {
         repeat(10) {
             add(
@@ -43,6 +44,7 @@ class ContentViewModelTest {
     private var testError: Throwable? = null
     private var testSelectContent = true
     private var testAddContent = true
+    private val testContentFormatUrl = "https://foo.bar/"
 
     // Fakes
     private lateinit var savedStateHandle: SavedStateHandle
@@ -83,6 +85,13 @@ class ContentViewModelTest {
         }
 
         override fun subscribeToSelectedContent(): Flow<ContentModel?> {
+            TODO("Not yet implemented")
+        }
+
+        override fun isResetNavigation(
+            oldModel: ContentModel?,
+            newModel: ContentModel?
+        ): ContentResult {
             TODO("Not yet implemented")
         }
 
@@ -130,6 +139,14 @@ class ContentViewModelTest {
                     contentsFlow.value = testContents
                 }
                 testSelectContent
+            }
+        }
+
+        override suspend fun getContentFormatUrl(): String {
+            return if (testError != null) {
+                throw testError!!
+            } else {
+                testContentFormatUrl
             }
         }
     }
@@ -324,7 +341,6 @@ class ContentViewModelTest {
         assertEquals(SnackbarState.DeleteIsFailed, viewModel.currentState.snackbarState)
     }
 
-    // onDeleteClicked -> deleteContent -> failed not delete selected
     @Test
     fun onDeleteClicked_setsSelectedItemNotDeleteMessageInState() {
         // Given
@@ -339,7 +355,6 @@ class ContentViewModelTest {
         assertEquals(SnackbarState.SelectedItemNotDelete, viewModel.currentState.snackbarState)
     }
 
-    // onDeleteClicked -> deleteContent -> failed not delete one item
     @Test
     fun onDeleteClicked_setsOneItemNotDeleteMessageInState() {
         // Given
@@ -357,7 +372,6 @@ class ContentViewModelTest {
         assertEquals(SnackbarState.OneItemNotDelete, viewModel.currentState.snackbarState)
     }
 
-    // OnSnackbarDismissed
     @Test
     fun onItemClicked_setsSnackbarStateIsNullInState() {
         // Given
@@ -374,7 +388,6 @@ class ContentViewModelTest {
         assertNull(viewModel.currentState.snackbarState)
     }
 
-    // OnNavigationHandled
     @Test
     fun onNavigationHandled_setsNavigationStateIsNullInState() {
         // Given
@@ -389,7 +402,6 @@ class ContentViewModelTest {
         assertNull(viewModel.currentState.navigationState)
     }
 
-    // OnOpenFileClicked
     @Test
     fun onOpenFileClicked_setsStateFileProviderIsTrueInState() {
         // Given
@@ -402,7 +414,6 @@ class ContentViewModelTest {
         assertTrue(viewModel.currentState.startFileProvider)
     }
 
-    // OnStartFileProviderHandled
     @Test
     fun onStartFileProviderHandled_setsStateFileProviderIsFalseInState() {
         // Given
@@ -417,7 +428,6 @@ class ContentViewModelTest {
         assertFalse(viewModel.currentState.startFileProvider)
     }
 
-    // OnDocumentResult -> uri == null
     @Test
     fun onDocumentResult_setsUriIsNullMessageInState() {
         // Given
@@ -448,7 +458,6 @@ class ContentViewModelTest {
         }
     }
 
-    // OnDocumentResult -> addContent -> success -> isAdded == true / not selected item / note items
     @Test
     fun onDocumentResult_setsNewContentInState() {
         // Given
@@ -472,7 +481,6 @@ class ContentViewModelTest {
         }
     }
 
-    // OnDocumentResult -> addContent -> success -> isAdded == true
     @Test
     fun onDocumentResult_setsNavigationBackInState() {
         // Given
@@ -486,7 +494,6 @@ class ContentViewModelTest {
         assertEquals(NavigationState.Back, viewModel.currentState.navigationState)
     }
 
-    // OnDocumentResult -> addContent -> success -> isAdded == false
     @Test
     fun onDocumentResult_setsNotAddedContentsMessageInState() {
         // Given
@@ -502,7 +509,6 @@ class ContentViewModelTest {
     }
 
 
-    // OnDocumentResult -> addContent -> failed -> ContentVerificationException
     @Test
     fun onDocumentResult_setsVerifyErrorMessageInState() {
         // Given
@@ -523,7 +529,6 @@ class ContentViewModelTest {
         )
     }
 
-    // OnDocumentResult -> addContent -> failed -> else
     @Test
     fun onDocumentResult_setsAddIsFailedMessageInState() {
         // Given
@@ -535,6 +540,37 @@ class ContentViewModelTest {
 
         // Then
         assertEquals(SnackbarState.AddIsFailed, viewModel.currentState.snackbarState)
+    }
+
+    @Test
+    fun onContentFormatClicked_setsNavigateToContentFormatInState() {
+        // Given
+        createViewModel()
+
+        // When
+        viewModel.onAction(Action.OnContentFormatClicked)
+
+        // Then
+        assertEquals(
+            NavigationState.NavigateToContentFormat(url = testContentFormatUrl),
+            viewModel.currentState.navigationState,
+        )
+    }
+
+    @Test
+    fun onContentFormatClicked_setsContentFormatUrlNotLoadedMessageInState() {
+        // Given
+        testError = NullPointerException()
+        createViewModel()
+
+        // When
+        viewModel.onAction(Action.OnContentFormatClicked)
+
+        // Then
+        assertEquals(
+            SnackbarState.ContentFormatUrlNotLoaded,
+            viewModel.currentState.snackbarState,
+        )
     }
 
     private fun buildContent(index: Int, filePath: String? = null, isChecked: Boolean = false) =

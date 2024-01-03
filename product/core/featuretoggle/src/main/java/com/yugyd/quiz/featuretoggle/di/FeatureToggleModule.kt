@@ -16,7 +16,7 @@
 
 package com.yugyd.quiz.featuretoggle.di
 
-import com.yugyd.quiz.featuretoggle.data.RemoteConfig
+import com.yugyd.quiz.remoteconfig.api.RemoteConfig
 import com.yugyd.quiz.featuretoggle.data.RemoteConfigImpl
 import com.yugyd.quiz.featuretoggle.data.RemoteConfigRepositoryImpl
 import com.yugyd.quiz.featuretoggle.domain.FeatureManager

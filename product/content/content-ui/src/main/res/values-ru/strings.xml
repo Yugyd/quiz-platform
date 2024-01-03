@@ -46,4 +46,8 @@
         Обнаружены неправильно составленные темы: %s
     </string>
 
+    <string name="content_error_content_format_url_not_loaded">
+        Ссылка на ресурс формата контента не загружена
+    </string>
+
 </resources>

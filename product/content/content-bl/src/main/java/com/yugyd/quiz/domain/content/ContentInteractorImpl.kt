@@ -30,6 +30,7 @@ internal class ContentInteractorImpl @Inject constructor(
     private val contentPreferencesSource: ContentPreferencesSource,
     private val fileRepository: FileRepository,
     private val dispatchersProvider: DispatchersProvider,
+    private val contentRemoteConfigSource: ContentRemoteConfigSource,
 ) : ContentInteractor {
 
     override suspend fun getContentNameFromUri(uri: String) = withContext(dispatchersProvider.io) {
@@ -94,5 +95,9 @@ internal class ContentInteractorImpl @Inject constructor(
             contentName = contentName,
             uri = uri,
         )
+    }
+
+    override suspend fun getContentFormatUrl() = withContext(dispatchersProvider.io) {
+        contentRemoteConfigSource.getContentFormatUrl()
     }
 }

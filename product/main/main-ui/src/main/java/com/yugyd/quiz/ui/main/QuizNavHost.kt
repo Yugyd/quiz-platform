@@ -67,6 +67,9 @@ internal fun QuizNavHost(
         contentScreen(
             snackbarHostState = snackbarHostState,
             onBack = navController::popBackStack,
+            onNavigateToBrowser = {
+                navigateToExternalScreen(GlobalScreens.externalBrowser(it))
+            }
         )
 
         updateScreen(

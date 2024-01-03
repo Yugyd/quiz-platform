@@ -48,9 +48,12 @@ interface ContentView {
             object SelectedItemNotDelete : SnackbarState
 
             data class VerifyError(val error: ContentVerificationException) : SnackbarState
+
+            object ContentFormatUrlNotLoaded : SnackbarState
         }
 
         sealed interface NavigationState {
+            data class NavigateToContentFormat(val url: String) : NavigationState
             object Back : NavigationState
         }
     }
@@ -60,6 +63,7 @@ interface ContentView {
         class OnItemClicked(val item: ContentModel) : Action
         class OnDeleteClicked(val item: ContentModel) : Action
         object OnOpenFileClicked : Action
+        object OnContentFormatClicked : Action
         object OnSnackbarDismissed : Action
         object OnStartFileProviderHandled : Action
         class OnDocumentResult(val uri: String?) : Action

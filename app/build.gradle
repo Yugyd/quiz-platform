@@ -27,7 +27,8 @@ android {
         versionCode 41
         versionName "2.2.0"
 
-        buildConfigField 'String', 'DEV_ID', '\"REPLACE_ME\"'
+        // Replace with your resource
+        buildConfigField 'String', 'DEV_ID', '\"6210589965533125989\"'
         buildConfigField 'String', 'STORE_PACKAGE', "\"com.android.vending\""
     }
 
@@ -81,17 +82,18 @@ android {
             dimension "version"
             applicationId "com.yugyd.quiz"
 
-            buildConfigField 'String', 'PRO_APP_PACKAGE', "\"REPLACE_ME\""
-            buildConfigField 'String', 'PRIVACY_POLICY_LINK', "\"REPLACE_ME\""
+            buildConfigField 'String', 'PRO_APP_PACKAGE', "\"DEPRECATED\""
+            // Replace with your resource
+            buildConfigField 'String', 'PRIVACY_POLICY_LINK', "\"https://sites.google.com/view/yugyd/privacy-policy/quiz-platform\""
             buildConfigField 'boolean', 'IS_BASED_ON_PLATFORM_APP', "false"
 
             if (isGoogleServicesExists) {
                 firebaseAppDistribution {
-                    appId = "REPLACE_ME"
+                    appId = providers.environmentVariable('FIREBASE_APP_ID').get()
                     artifactType = "APK"
                     releaseNotesFile = "releasenotes.txt"
                     groups = "qa"
-                    serviceCredentialsFile = "REPLACE_ME.json"
+                    serviceCredentialsFile = "../secret/firebase-credentials.json"
                 }
             }
         }

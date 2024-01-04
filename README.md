@@ -43,6 +43,12 @@ Debug - Logging, debug mode, proguard off.
 
 Release - No logging, no debug mode, proguard enabled.
 
+# Deploy to Firebase App Distribution
+
+Use environment variable `FIREBASE_APP_ID`. Set your app id value from Firebase.
+
+https://docs.gradle.org/current/userguide/build_environment.html#sec:gradle_environment_variables
+
 # Contributions
 
 [Guide](docs/CONTRIBUTION.md)

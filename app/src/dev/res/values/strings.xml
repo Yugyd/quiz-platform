@@ -18,9 +18,12 @@
 
     <!-- Base -->
     <string name="app_name">Quiz Platform</string>
-    <string name="app_site_host" translatable="false">replace_me</string>
-    <string name="app_site_patch_prefix" translatable="false">/replace_me</string>
-    <string name="app_telegram_chat_name" translatable="false">REPLACE_ME</string>
+    <!-- Replace with your resource -->
+    <string name="app_site_host" translatable="false">sites.google.com</string>
+    <!-- Replace with your resource -->
+    <string name="app_site_patch_prefix" translatable="false">/view/yugyd/quiz/quiz-platform</string>
+    <!-- Replace with your resource -->
+    <string name="app_telegram_chat_name" translatable="false">quizplatformapp</string>
 
     <!-- Messages -->
     <string name="msg_pro_dialog">

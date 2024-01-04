@@ -35,6 +35,7 @@ internal class ContentPreviewParameterProvider : PreviewParameterProvider<List<C
                             name = "Name $it",
                             filePath = "file://$it.txt",
                             isChecked = it == 0,
+                            contentMarker = it.toString(),
                         )
                     )
                 }

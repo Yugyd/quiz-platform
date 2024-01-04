@@ -9,7 +9,6 @@ import com.yugyd.quiz.domain.api.repository.QuestSource
 import com.yugyd.quiz.domain.api.repository.ThemeSource
 import com.yugyd.quiz.domain.api.repository.UserResetSource
 import com.yugyd.quiz.domain.content.ContentClient
-import com.yugyd.quiz.domain.content.ContentPreferencesSource
 import com.yugyd.quiz.domain.content.ContentSource
 import com.yugyd.quiz.domain.content.api.ContentModel
 import com.yugyd.quiz.domain.content.api.RawContentDataModel
@@ -32,7 +31,6 @@ internal class ContentClientImpl @Inject constructor(
     private val contentResetDataSource: ContentResetSource,
     private val themeDataSource: ThemeSource,
     private val questDataSource: QuestSource,
-    private val contentPreferencesSource: ContentPreferencesSource,
     private val userResetSource: UserResetSource,
     private val contentSource: ContentSource,
     private val contentValidatorHelper: ContentValidatorHelper,
@@ -40,8 +38,7 @@ internal class ContentClientImpl @Inject constructor(
 ) : ContentClient {
 
     override suspend fun isSelected(): Boolean {
-        val isSelected = !contentPreferencesSource.databaseMarker.isNullOrEmpty()
-                && contentSource.getSelectedContent() != null
+        val isSelected = contentSource.getSelectedContent() != null
         logger.print(TAG, "Is selected content: $isSelected")
         return isSelected
     }
@@ -84,22 +81,22 @@ internal class ContentClientImpl @Inject constructor(
         val rawText = fileRepository.readTextFromFile(newModel.filePath)
 
         // Generate content tag
-        val databaseMarker = rawText.hashCode().toString()
+        val contentMarker = rawText.hashCode().toString()
 
         logger.print(
             tag = TAG,
-            message = "Load data from $filePath. Database marker: $databaseMarker",
+            message = "Load data from $filePath. Content marker: $contentMarker",
         )
 
         // Check that this is not current content
-        if (!isNewSelected(databaseMarker)) return false
+        if (!isNewSelected(contentMarker)) return false
 
         runCatch(
             block = {
                 // Process content
                 processContent(
                     rawText = rawText,
-                    databaseMarker = databaseMarker,
+                    contentMarker = contentMarker,
                 )
 
                 val checkedNewModel = newModel.copy(isChecked = true)
@@ -134,12 +131,25 @@ internal class ContentClientImpl @Inject constructor(
         return true
     }
 
-    private fun isNewSelected(databaseMarker: String): Boolean {
-        val oldContentDatabaseMarker = contentPreferencesSource.databaseMarker
-        return if (oldContentDatabaseMarker == databaseMarker) {
+    private suspend fun isNewSelected(contentMarker: String): Boolean {
+        val oldContentMarker = contentSource.getSelectedContent()?.contentMarker
+        return if (oldContentMarker == contentMarker) {
             logger.print(
                 tag = TAG,
-                message = "Content is already selected. Old: $oldContentDatabaseMarker, new: $databaseMarker",
+                message = "Content is already selected. Old: $oldContentMarker, new: $contentMarker",
+            )
+            false
+        } else {
+            true
+        }
+    }
+
+    private suspend fun isExists(contentMarker: String): Boolean {
+        val contentMarkers = contentSource.getContents().map(ContentModel::contentMarker)
+        return if (contentMarkers.contains(contentMarker)) {
+            logger.print(
+                tag = TAG,
+                message = "Content is already selected. Olds: $contentMarkers, new: $contentMarker",
             )
             false
         } else {
@@ -158,19 +168,19 @@ internal class ContentClientImpl @Inject constructor(
         val rawText = fileRepository.readTextFromUri(uri)
 
         // Generate content tag
-        val databaseMarker = rawText.hashCode().toString()
+        val contentMarker = rawText.hashCode().toString()
 
         logger.print(
             tag = TAG,
-            message = "Load data from uri: $uri. Database marker: $databaseMarker",
+            message = "Load data from uri: $uri. Content marker: $contentMarker",
         )
 
         // Check that this is not current content
-        if (!isNewSelected(databaseMarker)) return false
+        if (!isNewSelected(contentMarker) || !isExists(contentMarker)) return false
 
         // Copy file
         val localStorageFile = getFileName(
-            databaseMarker = databaseMarker,
+            contentMarker = contentMarker,
             uri = uri,
         )
         logger.print(TAG, "Local content file name: $localStorageFile")
@@ -184,7 +194,7 @@ internal class ContentClientImpl @Inject constructor(
         // Process content
         processContent(
             rawText = rawText,
-            databaseMarker = databaseMarker,
+            contentMarker = contentMarker,
         )
 
         if (oldModel != null) {
@@ -197,6 +207,7 @@ internal class ContentClientImpl @Inject constructor(
             name = name,
             filePath = internalFile.path,
             isChecked = true,
+            contentMarker = contentMarker,
         )
         contentSource.addContent(checkedNewModel)
 
@@ -217,10 +228,10 @@ internal class ContentClientImpl @Inject constructor(
         NotValidQuestsException::class,
         NotValidThemesException::class,
     )
-    private suspend fun processContent(rawText: String, databaseMarker: String) {
+    private suspend fun processContent(rawText: String, contentMarker: String) {
         logger.print(
             tag = TAG,
-            message = "Process content is started. Raw text length: ${rawText.length}, marker: $databaseMarker"
+            message = "Process content is started. Raw text length: ${rawText.length}, marker: $contentMarker",
         )
 
         // Map the data into the model
@@ -228,7 +239,7 @@ internal class ContentClientImpl @Inject constructor(
         val contentData = textToContentEntityMapper.map(rawData)
         logger.print(
             tag = TAG,
-            message = "Raw data mapped. Quest: ${contentData.quests.size}, category: ${contentData.themes.size}"
+            message = "Raw data mapped. Quest: ${contentData.quests.size}, category: ${contentData.themes.size}",
         )
 
         // Data validation, filtering of invalid data
@@ -245,19 +256,16 @@ internal class ContentClientImpl @Inject constructor(
         userResetSource.reset()
 
         logger.print(TAG, "Reset content and user progress. Add content to database")
-
-        // Add content tag
-        contentPreferencesSource.databaseMarker = databaseMarker
     }
 
-    private fun getFileName(databaseMarker: String, uri: String): String {
+    private fun getFileName(contentMarker: String, uri: String): String {
         val uriFileName = requireNotNull(fileRepository.getFileName(uri))
-        return databaseMarker + FILE_SEPARATOR + uriFileName
+        return contentMarker + FILE_SEPARATOR + uriFileName
     }
 
     private fun getRawData(rawText: String): RawContentDataModel {
         val rawCategoryBlock = getCategoryBlock(rawText).trim()
-        val rawCategories = rawCategoryBlock.split(ITEM_SPLITTER);
+        val rawCategories = rawCategoryBlock.split(ITEM_SPLITTER)
 
         val rawQuestBlock = getQuestBlock(rawText).trim()
         val rawQuests = rawQuestBlock.split(ITEM_SPLITTER)

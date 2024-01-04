@@ -16,11 +16,9 @@
 
 package com.yugyd.quiz.domain.content.di
 
-import com.yugyd.quiz.domain.content.ContentPreferencesSource
 import com.yugyd.quiz.domain.content.ContentRemoteConfigSource
 import com.yugyd.quiz.domain.content.ContentSource
 import com.yugyd.quiz.domain.content.data.ContentDataSource
-import com.yugyd.quiz.domain.content.data.ContentPreferencesSourceImpl
 import com.yugyd.quiz.domain.content.data.ContentRemoteConfigDataSource
 import dagger.Binds
 import dagger.Module
@@ -35,11 +33,6 @@ abstract class ContentDataModule {
     internal abstract fun bindContentRemoteConfigSource(
         impl: ContentRemoteConfigDataSource,
     ): ContentRemoteConfigSource
-
-    @Binds
-    internal abstract fun bindContentPreferencesSource(
-        impl: ContentPreferencesSourceImpl,
-    ): ContentPreferencesSource
 
     @Binds
     internal abstract fun bindContentSource(impl: ContentDataSource): ContentSource

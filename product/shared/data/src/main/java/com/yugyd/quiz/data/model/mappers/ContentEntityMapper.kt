@@ -32,6 +32,7 @@ class ContentEntityMapper @Inject constructor() {
             name = entity.name,
             filePath = entity.filePath,
             isChecked = entity.isChecked,
+            contentMarker = entity.contentMarker,
         )
     }
 
@@ -46,6 +47,7 @@ class ContentEntityMapper @Inject constructor() {
             name = model.name,
             filePath = model.filePath,
             isChecked = model.isChecked,
+            contentMarker = model.contentMarker,
         )
     }
 }

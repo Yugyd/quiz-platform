@@ -27,7 +27,6 @@ import javax.inject.Inject
 
 internal class ContentInteractorImpl @Inject constructor(
     private val contentClient: ContentClient,
-    private val contentPreferencesSource: ContentPreferencesSource,
     private val fileRepository: FileRepository,
     private val dispatchersProvider: DispatchersProvider,
     private val contentRemoteConfigSource: ContentRemoteConfigSource,
@@ -38,7 +37,7 @@ internal class ContentInteractorImpl @Inject constructor(
     }
 
     override suspend fun isSelected() = withContext(dispatchersProvider.io) {
-        !contentPreferencesSource.databaseMarker.isNullOrEmpty() && contentClient.isSelected()
+        contentClient.isSelected()
     }
 
     override suspend fun getSelectedContent() = withContext(dispatchersProvider.io) {

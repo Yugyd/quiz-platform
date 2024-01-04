@@ -17,13 +17,9 @@
 package com.yugyd.quiz.domain.content.api
 
 data class ContentModel(
-    val id: String = DEFAULT_ID,
+    val id: String = "",
     val name: String,
     val filePath: String,
     val isChecked: Boolean,
+    val contentMarker: String,
 )
-
-/**
- * New item to database
- */
-private const val DEFAULT_ID = ""

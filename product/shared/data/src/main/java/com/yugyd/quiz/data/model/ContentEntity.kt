@@ -26,4 +26,5 @@ data class ContentEntity(
     @ColumnInfo(name = "name") val name: String,
     @ColumnInfo(name = "file_path") val filePath: String,
     @ColumnInfo(name = "is_checked") val isChecked: Boolean,
+    @ColumnInfo(name = "content_marker") val contentMarker: String,
 )

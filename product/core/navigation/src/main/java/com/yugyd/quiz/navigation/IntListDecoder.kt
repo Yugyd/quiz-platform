@@ -20,11 +20,19 @@ object IntListDecoder {
 
     private const val SEPARATOR = ";"
 
-    fun encode(items: List<Int>): String {
-        return items.joinToString(SEPARATOR) { it.toString() }
+    fun encode(items: List<Int>): String? {
+        return if (items.isNotEmpty()) {
+            items.joinToString(SEPARATOR) { it.toString() }
+        } else {
+            null
+        }
     }
 
-    fun decode(value: String): List<Int> {
-        return value.split(SEPARATOR).map { it.toInt() }
+    fun decode(value: String?): List<Int> {
+        return if (!value.isNullOrEmpty()) {
+            value.split(SEPARATOR).map { it.toInt() }
+        } else {
+            emptyList()
+        }
     }
 }

@@ -19,7 +19,7 @@ package com.yugyd.quiz.navigation
 import androidx.navigation.NamedNavArgument
 
 fun RouteModel.getRouteWithArguments(
-    argumentBuilder: (String) -> String,
+    argumentBuilder: (String) -> String?,
 ): String {
     return buildString {
         append(routePath)

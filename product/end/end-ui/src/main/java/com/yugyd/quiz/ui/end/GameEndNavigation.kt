@@ -50,7 +50,10 @@ internal fun getEndRouteModel(route: String) = calculateRouteModel(
         navArgument(OLD_RECORD_ARG) { type = NavType.IntType },
         navArgument(POINT_ARG) { type = NavType.IntType },
         navArgument(COUNT_ARG) { type = NavType.IntType },
-        navArgument(ERROR_IDS_ARG) { type = NavType.StringType },
+        navArgument(ERROR_IDS_ARG) {
+            type = NavType.StringType
+            nullable = true
+        },
         navArgument(IS_REWARDED_SUCCESS_ARG) { type = NavType.BoolType },
         navArgument(IS_BLOCKED_INTERSTITIAL_ARG) { type = NavType.BoolType },
         hideBottomBarArgument,
@@ -71,7 +74,7 @@ internal class EndArgs(
             point = checkNotNull(savedStateHandle[POINT_ARG]),
             count = checkNotNull(savedStateHandle[COUNT_ARG]),
             errorQuestIds = IntListDecoder.decode(
-                value = checkNotNull(savedStateHandle[ERROR_IDS_ARG])
+                value = savedStateHandle[ERROR_IDS_ARG],
             ),
             isRewardedSuccess = checkNotNull(savedStateHandle[IS_REWARDED_SUCCESS_ARG]),
             isBlockedInterstitial = checkNotNull(savedStateHandle[IS_BLOCKED_INTERSTITIAL_ARG]),

@@ -31,7 +31,7 @@ private const val ERROR_IDS_ARG = "errorQuestIds"
 private const val ERROR_LIST_ROUTE = "error_list/"
 
 internal class ErrorListArgs(
-    val errorListPayload: ErrorListPayload
+    val errorListPayload: ErrorListPayload,
 ) {
 
     constructor(savedStateHandle: SavedStateHandle) : this(

@@ -1,1 +1,20 @@
-Version 2.2.0(41)
+Version 1.0.0(43)
+    Preparing the app for publication
+    Rename app
+    Update resources
+    Duplicate add new content
+    Fix navigate progress end crash
+    Add privacy policy link and url page to site
+    Add progress to theme item
+    Add default image to category item if empty url
+    Add transition to content format page
+    Enabled google services and fix telegram config
+    Added brand icon
+    Added content format docs
+    Added content logic and view model test
+    Added open source banner to profile screen
+    Added select content feature
+    Added reset content database logic
+    Added ftl templates
+    Modularization
+    Initial commit

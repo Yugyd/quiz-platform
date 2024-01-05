@@ -17,7 +17,7 @@
 <resources>
 
     <!-- Base -->
-    <string name="app_name">Quiz Platform</string>
+    <string name="app_name">Flexquiz: Викторина Платформа</string>
 
     <!-- Messages -->
     <string name="msg_pro_dialog">

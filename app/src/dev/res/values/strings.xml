@@ -17,7 +17,7 @@
 <resources>
 
     <!-- Base -->
-    <string name="app_name">Quiz Platform</string>
+    <string name="app_name">Flexquiz: Quiz Platform</string>
     <!-- Replace with your resource -->
     <string name="app_site_host" translatable="false">sites.google.com</string>
     <!-- Replace with your resource -->

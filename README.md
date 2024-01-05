@@ -53,6 +53,23 @@ https://docs.gradle.org/current/userguide/build_environment.html#sec:gradle_envi
 
 [Guide](docs/CONTRIBUTION.md)
 
+# Build
+
+## Deploy debug to Firebase App Distribution
+
+- `./gradlew clean bundleDevDebug`
+- `./gradlew appDistributionUploadDevDebug`
+
+## Deploy release to Firebase App Distribution
+
+- `./gradlew clean bundleDevRelease`
+- `./gradlew appDistributionUploadDevRelease`
+
+## Upload to Google Play
+
+- `./gradlew clean bundleProdRelease`
+- Manual upload to Google Play
+
 # License
 
 ```

@@ -89,11 +89,11 @@ android {
 
             if (isGoogleServicesExists) {
                 firebaseAppDistribution {
-                    appId = providers.environmentVariable('FIREBASE_APP_ID').get()
-                    artifactType = "APK"
+                    appId = providers.environmentVariable('FIREBASE_APP_ID').getOrNull()
+                    artifactType = "AAB"
                     releaseNotesFile = "releasenotes.txt"
                     groups = "qa"
-                    serviceCredentialsFile = "../secret/firebase-credentials.json"
+                    serviceCredentialsFile = "secret/firebase-credentials.json"
                 }
             }
         }

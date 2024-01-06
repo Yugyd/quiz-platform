@@ -24,8 +24,8 @@ def isReleaseKeystoreExists = rootProject.file("upload.jks").exists()
 android {
     defaultConfig {
         applicationId "com.yugyd.quiz"
-        versionCode 43
-        versionName "1.0.0"
+        versionCode 44
+        versionName "1.0.1"
 
         // Replace with your resource
         buildConfigField 'String', 'DEV_ID', '\"6210589965533125989\"'

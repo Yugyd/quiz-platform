@@ -7,6 +7,10 @@ sample for other developers.
 
 Coming soon app "Quiz Platform" on Google Play.
 
+# Download Quiz Platform
+
+<a href="https://play.google.com/store/apps/details?id=com.yugyd.quiz"><img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" height="70"></a>
+
 # Apps built on Quiz Platform
 
 500K+ downloads (total for 5 apps)

@@ -19,7 +19,7 @@ package com.yugyd.quiz.ui.errors
 import com.yugyd.quiz.domain.api.model.errorlist.ErrorModel
 import com.yugyd.quiz.domain.api.payload.ErrorListPayload
 
-interface ErrorListView {
+internal interface ErrorListView {
 
     data class State(
         val payload: ErrorListPayload = ErrorListPayload(),

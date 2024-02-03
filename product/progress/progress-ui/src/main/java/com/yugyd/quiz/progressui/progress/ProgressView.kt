@@ -20,7 +20,7 @@ import com.yugyd.quiz.domain.api.payload.SpecificProgressPayload
 import com.yugyd.quiz.progressui.model.ItemProgressUiModel
 import com.yugyd.quiz.progressui.model.ProgressUiModel
 
-interface ProgressView {
+internal interface ProgressView {
 
     data class State(
         val models: List<Any> = emptyList(),

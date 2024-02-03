@@ -27,7 +27,7 @@ import com.yugyd.quiz.ui.profile.R
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
-class ProfileUiMapper @Inject constructor(
+internal class ProfileUiMapper @Inject constructor(
     @ApplicationContext private val context: Context,
     private val contentUiMapper: ContentUiMapper,
     private val resIdProvider: ResIdProvider

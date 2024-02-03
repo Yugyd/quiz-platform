@@ -31,7 +31,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ErrorListViewModel @Inject constructor(
+internal class ErrorListViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val errorInteractor: ErrorInteractor,
     logger: Logger,

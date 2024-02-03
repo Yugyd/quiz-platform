@@ -20,9 +20,13 @@ import android.content.Context
 import com.google.firebase.FirebaseApp
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.yugyd.quiz.core.Logger
+import dagger.hilt.android.qualifiers.ApplicationContext
 import timber.log.Timber
+import javax.inject.Inject
 
-class LoggerImpl(private val context: Context) : Logger {
+internal class LoggerImpl @Inject constructor(
+    @ApplicationContext private val context: Context,
+) : Logger {
 
     override fun print(tag: String, message: String) {
         Timber.tag(tag).d(message)

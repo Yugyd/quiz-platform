@@ -67,7 +67,7 @@ import com.yugyd.quiz.uikit.theme.progressIndicatorHeight
 import com.yugyd.quiz.uikit.R as UiKitR
 
 @Composable
-fun ProgressRoute(
+internal fun ProgressRoute(
     viewModel: ProgressViewModel = hiltViewModel(),
     snackbarHostState: SnackbarHostState,
     onNavigateToSpecificProgress: (SpecificProgressPayload) -> Unit,

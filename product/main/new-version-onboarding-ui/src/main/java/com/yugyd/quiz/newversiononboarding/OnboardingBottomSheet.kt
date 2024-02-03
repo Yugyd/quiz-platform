@@ -75,7 +75,7 @@ fun OnboardingBottomSheet(
 }
 
 @Composable
-fun OnboardingContent(
+internal fun OnboardingContent(
     payload: OnboardingPayload,
     onButtonClicked: () -> Unit,
     onDismissRequest: () -> Unit,
@@ -132,7 +132,7 @@ fun OnboardingContent(
 
 @ThemePreviews
 @Composable
-fun OnboardingContentPreview() {
+private fun OnboardingContentPreview() {
     QuizApplicationTheme {
         Surface {
             OnboardingContent(

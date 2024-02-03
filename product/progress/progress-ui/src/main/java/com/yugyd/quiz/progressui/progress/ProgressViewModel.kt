@@ -35,7 +35,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ProgressViewModel @Inject constructor(
+internal class ProgressViewModel @Inject constructor(
     private val progressInteractor: ProgressInteractor,
     private val contentInteractor: ContentInteractor,
     private val recordController: RecordController,

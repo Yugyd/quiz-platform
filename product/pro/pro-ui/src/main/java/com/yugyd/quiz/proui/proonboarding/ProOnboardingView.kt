@@ -18,7 +18,7 @@ package com.yugyd.quiz.proui.proonboarding
 
 import com.yugyd.quiz.proui.proonboarding.model.ProOnboardingUiModel
 
-interface ProOnboardingView {
+internal interface ProOnboardingView {
 
     data class State(
         val items: List<ProOnboardingUiModel> = emptyList(),

@@ -22,7 +22,7 @@ import com.yugyd.quiz.core.percent
 import com.yugyd.quiz.domain.api.model.Theme
 import javax.inject.Inject
 
-class ThemeUiMapper @Inject constructor(
+internal class ThemeUiMapper @Inject constructor(
     private val progressColorUtils: ProgressColorUtils
 ) {
 

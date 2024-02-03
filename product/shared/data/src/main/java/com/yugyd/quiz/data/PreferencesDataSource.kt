@@ -19,12 +19,16 @@ package com.yugyd.quiz.data
 import android.content.Context
 import androidx.core.content.edit
 import com.yugyd.quiz.domain.api.repository.PreferencesSource
+import dagger.hilt.android.qualifiers.ApplicationContext
 import java.util.Date
+import javax.inject.Inject
 
-class PreferencesDataSource(context: Context) : PreferencesSource {
+internal class PreferencesDataSource @Inject constructor(
+    @ApplicationContext private val context: Context
+) : PreferencesSource {
 
-    private val preferences =
-        context.getSharedPreferences(OPTIONS_PREFERENCES, Context.MODE_PRIVATE)
+    private val preferences
+        get() = context.getSharedPreferences(OPTIONS_PREFERENCES, Context.MODE_PRIVATE)
 
     override var transition: Double
         get() = preferences.getLong(PREF_TRANSITION, 0).let { Double.fromBits(it) }

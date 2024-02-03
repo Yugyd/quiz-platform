@@ -16,7 +16,9 @@
 
 package com.yugyd.quiz.data.crypto
 
-class CryptoHelperImpl : CryptoHelper {
+import javax.inject.Inject
+
+internal class CryptoHelperImpl @Inject constructor() : CryptoHelper {
 
     override fun decrypt(encrypted: String?): String {
         // Add your encrypted logic

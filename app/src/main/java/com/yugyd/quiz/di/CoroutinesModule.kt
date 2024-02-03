@@ -20,26 +20,30 @@ import com.yugyd.quiz.core.coroutinesutils.AppScopeProvider
 import com.yugyd.quiz.core.coroutinesutils.AppScopeProviderImpl
 import com.yugyd.quiz.core.coroutinesutils.DispatchersProvider
 import com.yugyd.quiz.core.coroutinesutils.DispatchersProviderImpl
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.Dispatchers
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object CoroutinesModule {
+interface CoroutinesModule {
 
-    @Provides
-    fun providesDispatchersProvider(): DispatchersProvider = DispatchersProviderImpl(
-        io = Dispatchers.IO,
-        default = Dispatchers.Default,
-        main = Dispatchers.Main.immediate
-    )
+    @Singleton
+    @Binds
+    fun bindAppScopeProvider(impl: AppScopeProviderImpl): AppScopeProvider
 
-    @Provides
-    fun providesAppScopeProvider(dispatchersProvider: DispatchersProvider): AppScopeProvider =
-        AppScopeProviderImpl(
-            dispatchersProvider = dispatchersProvider,
+    companion object {
+
+        @Singleton
+        @Provides
+        fun providesDispatchersProvider(): DispatchersProvider = DispatchersProviderImpl(
+            io = Dispatchers.IO,
+            default = Dispatchers.Default,
+            main = Dispatchers.Main.immediate
         )
+    }
 }

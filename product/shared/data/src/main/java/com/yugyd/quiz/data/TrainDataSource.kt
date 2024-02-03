@@ -19,8 +19,9 @@ package com.yugyd.quiz.data
 import com.yugyd.quiz.data.database.user.dao.TrainDao
 import com.yugyd.quiz.data.model.mappers.TrainEntityMapper
 import com.yugyd.quiz.domain.api.repository.TrainSource
+import javax.inject.Inject
 
-class TrainDataSource(
+internal class TrainDataSource @Inject constructor(
     private val trainDao: TrainDao,
     private val trainEntityMapper: TrainEntityMapper
 ) : TrainSource {

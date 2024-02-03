@@ -16,8 +16,6 @@
 
 package com.yugyd.quiz.data.di
 
-import android.content.Context
-import androidx.room.Room
 import com.yugyd.quiz.core.Logger
 import com.yugyd.quiz.core.file.FileRepository
 import com.yugyd.quiz.core.file.FileRepositoryImpl
@@ -31,15 +29,6 @@ import com.yugyd.quiz.data.SectionDataSource
 import com.yugyd.quiz.data.ThemeDataSource
 import com.yugyd.quiz.data.TrainDataSource
 import com.yugyd.quiz.data.UserResetDataSource
-import com.yugyd.quiz.data.database.content.ContentDatabase
-import com.yugyd.quiz.data.database.user.UserDatabase
-import com.yugyd.quiz.data.database.user.dao.ContentDao
-import com.yugyd.quiz.data.model.mappers.ErrorEntityMapper
-import com.yugyd.quiz.data.model.mappers.QuestEntityMapper
-import com.yugyd.quiz.data.model.mappers.RecordEntityMapper
-import com.yugyd.quiz.data.model.mappers.SectionEntityMapper
-import com.yugyd.quiz.data.model.mappers.ThemeEntityMapper
-import com.yugyd.quiz.data.model.mappers.TrainEntityMapper
 import com.yugyd.quiz.domain.api.repository.ContentResetSource
 import com.yugyd.quiz.domain.api.repository.ErrorSource
 import com.yugyd.quiz.domain.api.repository.PreferencesSource
@@ -49,117 +38,70 @@ import com.yugyd.quiz.domain.api.repository.SectionSource
 import com.yugyd.quiz.domain.api.repository.ThemeSource
 import com.yugyd.quiz.domain.api.repository.TrainSource
 import com.yugyd.quiz.domain.api.repository.UserResetSource
+import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class RepositoryModule {
+abstract class RepositoryModule {
 
     @Singleton
-    @Provides
-    fun providePreferencesSource(
-        @ApplicationContext context: Context
-    ): PreferencesSource = PreferencesDataSource(context)
+    @Binds
+    internal abstract fun bindPreferencesSource(
+        impl: PreferencesDataSource
+    ): PreferencesSource
 
-    @Provides
-    fun provideQuestSource(
-        db: ContentDatabase,
-        questEntityMapper: QuestEntityMapper
-    ): QuestSource = QuestDataSource(db.questDao(), questEntityMapper)
+    @Binds
+    internal abstract fun bindQuestSource(
+        impl: QuestDataSource,
+    ): QuestSource
 
-    @Provides
-    fun provideThemeSource(
-        db: ContentDatabase,
-        themeEntityMapper: ThemeEntityMapper
-    ): ThemeSource = ThemeDataSource(db.questDao(), db.themeDao(), themeEntityMapper)
+    @Binds
+    internal abstract fun bindThemeSource(
+        impl: ThemeDataSource,
+    ): ThemeSource
 
-    @Provides
-    fun provideContentResetSource(
-        contentDb: ContentDatabase,
-    ): ContentResetSource = ContentResetDataSource(contentDb.resetDao())
+    @Binds
+    internal abstract fun bindContentResetSource(
+        impl: ContentResetDataSource,
+    ): ContentResetSource
 
-    @Singleton
-    @Provides
-    fun provideContentDatabase(
-        @ApplicationContext appContext: Context
-    ) = Room
-        .databaseBuilder(
-            appContext,
-            ContentDatabase::class.java,
-            CONTENT_DB_NAME,
-        )
-        .fallbackToDestructiveMigration()
-        .build()
+    @Binds
+    internal abstract fun bindErrorSource(
+        impl: ErrorDataSource,
+    ): ErrorSource
 
-    @Provides
-    fun provideErrorSource(
-        db: UserDatabase,
-        errorEntityMapper: ErrorEntityMapper
-    ): ErrorSource = ErrorDataSource(db.errorDao(), errorEntityMapper)
+    @Binds
+    internal abstract fun bindRecordSource(
+        impl: RecordDataSource,
+    ): RecordSource
 
-    @Provides
-    fun provideRecordSource(
-        db: UserDatabase,
-        recordEntityMapper: RecordEntityMapper,
-    ): RecordSource = RecordDataSource(
-        db.recordDao(),
-        db.resetDao(),
-        recordEntityMapper
-    )
+    @Binds
+    internal abstract fun bindSectionSource(
+        impl: SectionDataSource,
+    ): SectionSource
 
-    @Provides
-    fun provideSectionSource(
-        contentDb: ContentDatabase,
-        userDb: UserDatabase,
-        sectionEntityMapper: SectionEntityMapper
-    ): SectionSource = SectionDataSource(
-        contentDb.questDao(),
-        userDb.sectionDao(),
-        userDb.resetDao(),
-        sectionEntityMapper
-    )
+    @Binds
+    internal abstract fun bindTrainSource(
+        impl: TrainDataSource,
+    ): TrainSource
 
-    @Provides
-    fun provideTrainSource(
-        db: UserDatabase,
-        trainEntityMapper: TrainEntityMapper
-    ): TrainSource = TrainDataSource(db.trainDao(), trainEntityMapper)
-
-    @Provides
-    fun provideContentDao(db: UserDatabase): ContentDao = db.contentDao()
-
-    @Provides
-    fun provideUserResetSource(
-        db: UserDatabase,
-    ): UserResetSource = UserResetDataSource(db.resetDao())
+    @Binds
+    internal abstract fun bindUserResetSource(
+        impl: UserResetDataSource,
+    ): UserResetSource
 
     @Singleton
-    @Provides
-    fun provideUserDatabase(
-        @ApplicationContext appContext: Context
-    ) = Room
-        .databaseBuilder(appContext, UserDatabase::class.java, USER_DB_NAME)
-        .fallbackToDestructiveMigration()
-        .build()
+    @Binds
+    internal abstract fun bindLogger(
+        impl: LoggerImpl,
+    ): Logger
 
-    @Singleton
-    @Provides
-    fun provideLogger(
-        @ApplicationContext appContext: Context
-    ): Logger = LoggerImpl(appContext)
-
-    @Provides
-    fun provideFileRepository(
-        @ApplicationContext appContext: Context
-    ): FileRepository = FileRepositoryImpl(appContext)
-
-    companion object {
-        private const val USER_DB_NAME = "user-data.db"
-        private const val CONTENT_DB_NAME = "content-encode-pro.db"
-    }
+    @Binds
+    internal abstract fun bindFileRepository(
+        impl: FileRepositoryImpl,
+    ): FileRepository
 }

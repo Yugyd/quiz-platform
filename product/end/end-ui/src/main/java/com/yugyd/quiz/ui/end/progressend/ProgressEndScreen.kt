@@ -54,7 +54,7 @@ import com.yugyd.quiz.uikit.theme.QuizApplicationTheme
  * @param onNavigateToGameEnd должен быть через replace
  */
 @Composable
-fun ProgressEndRoute(
+internal fun ProgressEndRoute(
     viewModel: ProgressEndViewModel = hiltViewModel(),
     onNavigateToGameEnd: (GameEndPayload) -> Unit,
     onNavigateToRate: () -> Unit,

@@ -20,7 +20,7 @@ import com.yugyd.quiz.domain.api.payload.SpecificProgressPayload
 import com.yugyd.quiz.domain.content.api.ContentModel
 import com.yugyd.quiz.progressui.model.ProgressUiModel
 
-interface SpecificProgressView {
+internal interface SpecificProgressView {
 
     data class State(
         val payload: SpecificProgressPayload,

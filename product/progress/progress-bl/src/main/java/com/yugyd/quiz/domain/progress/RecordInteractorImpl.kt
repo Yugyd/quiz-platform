@@ -24,8 +24,9 @@ import com.yugyd.quiz.domain.api.repository.TrainSource
 import com.yugyd.quiz.domain.controller.RecordController
 import com.yugyd.quiz.domain.controller.SectionController
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class RecordInteractorImpl(
+internal class RecordInteractorImpl @Inject constructor(
     private val recordSource: RecordSource,
     private val questSource: QuestSource,
     private val sectionSource: SectionSource,

@@ -18,17 +18,17 @@ package com.yugyd.quiz.data.di
 
 import com.yugyd.quiz.data.crypto.CryptoHelper
 import com.yugyd.quiz.data.crypto.CryptoHelperImpl
+import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class CryptoModule {
+abstract class CryptoModule {
 
     @Singleton
-    @Provides
-    fun provideCryptoHelper(): CryptoHelper = CryptoHelperImpl()
+    @Binds
+    internal abstract fun bindCryptoHelper(impl: CryptoHelperImpl): CryptoHelper
 }

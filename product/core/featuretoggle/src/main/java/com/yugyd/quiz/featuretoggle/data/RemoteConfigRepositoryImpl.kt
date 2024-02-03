@@ -28,10 +28,8 @@ import kotlinx.serialization.json.Json
 import timber.log.Timber
 import java.util.Locale
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class RemoteConfigRepositoryImpl @Inject internal constructor(
+internal class RemoteConfigRepositoryImpl @Inject internal constructor(
     @ApplicationContext private val context: Context,
     private val remoteConfig: RemoteConfig,
     private val telegramConfigMapper: TelegramConfigMapper,

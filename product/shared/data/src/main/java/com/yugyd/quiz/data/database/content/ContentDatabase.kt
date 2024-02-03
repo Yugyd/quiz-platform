@@ -34,7 +34,7 @@ private const val CONTENT_DB_VERSION = 5
     version = CONTENT_DB_VERSION,
     exportSchema = false
 )
-abstract class ContentDatabase : RoomDatabase() {
+internal abstract class ContentDatabase : RoomDatabase() {
     abstract fun themeDao(): ThemeDao
     abstract fun questDao(): QuestDao
     abstract fun resetDao(): ContentResetDao

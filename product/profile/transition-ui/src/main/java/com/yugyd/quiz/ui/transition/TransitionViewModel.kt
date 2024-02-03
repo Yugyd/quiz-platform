@@ -32,7 +32,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class TransitionViewModel @Inject constructor(
+internal class TransitionViewModel @Inject constructor(
     private val transitionController: TransitionController,
     private val optionsInteractor: OptionsInteractor,
     private val uiMapper: TransitionUiMapper,

@@ -18,7 +18,7 @@ package com.yugyd.quiz.ui.end.progressend
 
 import com.yugyd.quiz.domain.api.model.payload.GameEndPayload
 
-interface ProgressEndView {
+internal interface ProgressEndView {
 
     data class State(
         val payload: GameEndPayload,

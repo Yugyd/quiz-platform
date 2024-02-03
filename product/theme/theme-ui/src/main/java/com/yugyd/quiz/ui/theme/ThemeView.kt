@@ -24,7 +24,7 @@ import com.yugyd.quiz.domain.api.payload.SectionPayload
 import com.yugyd.quiz.ui.theme.model.RewardDialogUiModel
 import com.yugyd.quiz.ui.theme.model.ThemeUiModel
 
-interface ThemeView {
+internal interface ThemeView {
 
     data class State(
         val domainMode: Mode = Mode.ARCADE,

@@ -22,8 +22,9 @@ import com.yugyd.quiz.domain.options.model.Transition
 import kotlinx.coroutines.withContext
 import java.util.Calendar
 import java.util.Date
+import javax.inject.Inject
 
-class OptionsInteractorImpl(
+internal class OptionsInteractorImpl @Inject constructor(
     private val preferencesSource: PreferencesSource,
     private val dispatcherProvider: DispatchersProvider,
 ) : OptionsInteractor {

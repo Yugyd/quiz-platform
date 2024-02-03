@@ -82,7 +82,7 @@ import com.yugyd.quiz.uikit.R as UiKitR
  * TODO Implement logic with ads - https://yudyd.atlassian.net/browse/QUIZ-203
  */
 @Composable
-fun GameRoute(
+internal fun GameRoute(
     viewModel: GameViewModel = hiltViewModel(),
     snackbarHostState: SnackbarHostState,
     adIdProvider: AdIdProvider,

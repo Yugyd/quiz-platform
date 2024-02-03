@@ -19,7 +19,7 @@ package com.yugyd.quiz
 import com.yugyd.quiz.core.AdIdProvider
 import javax.inject.Inject
 
-class AdIdProviderImpl @Inject constructor() : AdIdProvider {
+internal class AdIdProviderImpl @Inject constructor() : AdIdProvider {
     override fun idAdBannerGame() = R.string.id_ad_banner_game
     override fun idAdRewardedGame() = R.string.id_ad_rewarded_game
     override fun idAdInterstitialGameEnd() = R.string.id_ad_interstitial_game_end

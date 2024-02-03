@@ -16,7 +16,7 @@
 
 package com.yugyd.quiz.ui.profile.model
 
-enum class TypeProfile(val id: Int) {
+internal enum class TypeProfile(val id: Int) {
     TRANSITION(id = 1),
     SORT_QUEST(id = 2),
     VIBRATION(id = 3),

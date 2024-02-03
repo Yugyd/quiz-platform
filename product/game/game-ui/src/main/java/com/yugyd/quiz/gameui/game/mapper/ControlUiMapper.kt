@@ -26,7 +26,7 @@ import com.yugyd.quiz.gameui.game.model.ConditionUiModel
 import com.yugyd.quiz.gameui.game.model.ControlUiModel
 import javax.inject.Inject
 
-class ControlUiMapper @Inject constructor(private val progressColorUtils: ProgressColorUtils) {
+internal class ControlUiMapper @Inject constructor(private val progressColorUtils: ProgressColorUtils) {
 
     private val ControlModel.percentProgress: Int
         get() = percent(steep, questCount)

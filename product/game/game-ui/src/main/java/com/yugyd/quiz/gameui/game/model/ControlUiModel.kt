@@ -22,7 +22,7 @@ import com.yugyd.quiz.gameui.R
 import com.yugyd.quiz.gameui.game.model.ConditionUiModel.NONE
 import com.yugyd.quiz.uikit.theme.app_color_negative
 
-data class ControlUiModel(
+internal data class ControlUiModel(
     val id: Int = 0,
     val countTitle: String = "",
     val conditionTitle: String = "",

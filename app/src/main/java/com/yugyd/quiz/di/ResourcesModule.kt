@@ -29,14 +29,14 @@ import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
-interface ResourcesModule {
+abstract class ResourcesModule {
 
     @Binds
-    fun bindAdIdProvider(impl: AdIdProviderImpl): AdIdProvider
+    internal abstract fun bindAdIdProvider(impl: AdIdProviderImpl): AdIdProvider
 
     @Binds
-    fun bindResIdProvider(impl: ResIdProviderImpl): ResIdProvider
+    internal abstract fun bindResIdProvider(impl: ResIdProviderImpl): ResIdProvider
 
     @Binds
-    fun bindContentProvider(impl: ContentProviderImpl): ContentProvider
+    internal abstract fun bindContentProvider(impl: ContentProviderImpl): ContentProvider
 }

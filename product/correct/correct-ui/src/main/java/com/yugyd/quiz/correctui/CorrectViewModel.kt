@@ -40,7 +40,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CorrectViewModel @Inject constructor(
+internal class CorrectViewModel @Inject constructor(
     private val errorInteractor: ErrorInteractor,
     private val errorController: ErrorController,
     private val contentInteractor: ContentInteractor,

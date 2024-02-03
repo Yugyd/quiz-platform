@@ -18,7 +18,7 @@ package com.yugyd.quiz.ui.transition.model
 
 import com.yugyd.quiz.commonui.list.DiffItem
 
-data class TransitionUiModel(
+internal data class TransitionUiModel(
     override val id: Int = 0,
     val value: Double = 0.0,
     val title: String = "",

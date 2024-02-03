@@ -19,7 +19,7 @@ package com.yugyd.quiz.proui.proonboarding.model
 import androidx.annotation.DrawableRes
 import com.yugyd.quiz.commonui.list.DiffItem
 
-data class ProOnboardingUiModel(
+internal data class ProOnboardingUiModel(
     override val id: Int = 0,
     @DrawableRes val icon: Int = 0,
     val title: String = "",

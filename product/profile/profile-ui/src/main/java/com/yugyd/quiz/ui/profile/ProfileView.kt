@@ -19,7 +19,7 @@ package com.yugyd.quiz.ui.profile
 import com.yugyd.quiz.ui.profile.model.ProfileUiModel
 import com.yugyd.quiz.ui.profile.model.SwitchItemProfileUiModel
 
-interface ProfileView {
+internal interface ProfileView {
 
     data class State(
         val items: List<ProfileUiModel> = emptyList(),

@@ -21,8 +21,9 @@ import com.yugyd.quiz.data.database.content.dao.ThemeDao
 import com.yugyd.quiz.data.model.mappers.ThemeEntityMapper
 import com.yugyd.quiz.domain.api.model.Theme
 import com.yugyd.quiz.domain.api.repository.ThemeSource
+import javax.inject.Inject
 
-class ThemeDataSource(
+internal class ThemeDataSource @Inject constructor(
     private val questDao: QuestDao,
     private val themeDao: ThemeDao,
     private val themeEntityMapper: ThemeEntityMapper

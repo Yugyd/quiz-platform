@@ -1,23 +1,14 @@
 package com.yugyd.quiz.domain.theme
 
-import com.yugyd.quiz.core.coroutinesutils.DispatchersProvider
-import com.yugyd.quiz.domain.api.repository.RecordSource
-import com.yugyd.quiz.domain.api.repository.ThemeSource
+import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
+import dagger.hilt.android.components.ViewModelComponent
 
 @Module
-@InstallIn(SingletonComponent::class)
-class ThemeBlModule {
+@InstallIn(ViewModelComponent::class)
+abstract class ThemeBlModule {
 
-    @Singleton
-    @Provides
-    fun provideThemeInteractor(
-        themeSource: ThemeSource,
-        recordSource: RecordSource,
-        dispatchersProvider: DispatchersProvider,
-    ): ThemeInteractor = ThemeInteractorImpl(themeSource, recordSource, dispatchersProvider)
+    @Binds
+    internal abstract fun bindThemeInteractor(impl: ThemeInteractorImpl): ThemeInteractor
 }

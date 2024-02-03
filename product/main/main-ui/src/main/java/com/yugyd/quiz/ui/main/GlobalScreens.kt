@@ -23,7 +23,7 @@ import com.yugyd.quiz.core.GlobalConfig
 import com.yugyd.quiz.commonui.R as CommonUiR
 import com.yugyd.quiz.uikit.R as UiKitR
 
-object GlobalScreens {
+internal object GlobalScreens {
 
     fun pro() = externalStore(
         url = "$APP_URL_STORE${GlobalConfig.PRO_APP_PACKAGE}"

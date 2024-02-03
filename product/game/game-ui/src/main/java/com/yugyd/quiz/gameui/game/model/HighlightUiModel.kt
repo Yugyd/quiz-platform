@@ -16,7 +16,7 @@
 
 package com.yugyd.quiz.gameui.game.model
 
-sealed class HighlightUiModel {
+internal sealed class HighlightUiModel {
     data class True(val index: Int) : HighlightUiModel()
     data class False(val trueIndex: Int, val falseIndex: Int) : HighlightUiModel()
     object Default : HighlightUiModel()

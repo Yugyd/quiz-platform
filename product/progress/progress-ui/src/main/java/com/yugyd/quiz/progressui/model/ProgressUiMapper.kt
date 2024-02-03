@@ -27,7 +27,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import com.yugyd.quiz.uikit.R as uiKitR
 
-class ProgressUiMapper @Inject constructor(
+internal class ProgressUiMapper @Inject constructor(
     @ApplicationContext private val context: Context,
     private val degreeUiMapper: DegreeUiMapper,
     private val modeUiMapper: ModeUiMapper,

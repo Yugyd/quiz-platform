@@ -16,7 +16,7 @@
 
 package com.yugyd.quiz.ui.profile.model
 
-data class ValueItemProfileUiModel(
+internal data class ValueItemProfileUiModel(
     override val id: Int = 0,
     override val type: TypeProfile = TypeProfile.NONE,
     val title: String = "",

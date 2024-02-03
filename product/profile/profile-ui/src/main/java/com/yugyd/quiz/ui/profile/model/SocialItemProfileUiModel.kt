@@ -18,7 +18,7 @@ package com.yugyd.quiz.ui.profile.model
 
 import androidx.annotation.DrawableRes
 
-data class SocialItemProfileUiModel(
+internal data class SocialItemProfileUiModel(
     override val id: Int = 0,
     override val type: TypeProfile = TypeProfile.NONE,
     val title: String,

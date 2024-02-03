@@ -23,8 +23,9 @@ import com.yugyd.quiz.domain.api.repository.SectionSource
 import com.yugyd.quiz.domain.section.model.ProgressState
 import com.yugyd.quiz.domain.section.model.Section
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class SectionInteractorImpl(
+internal class SectionInteractorImpl @Inject constructor(
     private val questSource: QuestSource,
     private val sectionSource: SectionSource,
     private val dispatcherProvider: DispatchersProvider,

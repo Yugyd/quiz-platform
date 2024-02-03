@@ -20,7 +20,7 @@ import com.yugyd.quiz.domain.api.model.game.HighlightModel
 import com.yugyd.quiz.gameui.game.model.HighlightUiModel
 import javax.inject.Inject
 
-class HighlightUiMapper @Inject constructor() {
+internal class HighlightUiMapper @Inject constructor() {
 
     fun map(model: HighlightModel) = when (model.state) {
         HighlightModel.State.TRUE -> {

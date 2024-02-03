@@ -23,7 +23,7 @@ import com.yugyd.quiz.ui.end.progressend.ProgressEndView.State
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
-class ProgressEndMapper @Inject constructor(
+internal class ProgressEndMapper @Inject constructor(
     @ApplicationContext private val context: Context,
 ) {
 

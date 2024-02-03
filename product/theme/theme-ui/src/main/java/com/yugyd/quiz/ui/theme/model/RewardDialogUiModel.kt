@@ -16,7 +16,7 @@
 
 package com.yugyd.quiz.ui.theme.model
 
-data class RewardDialogUiModel(
+internal data class RewardDialogUiModel(
     val title: String,
     val message: String,
     val positiveButton: String,

@@ -21,8 +21,9 @@ import com.yugyd.quiz.data.model.QuestComplexitySubsetEntity
 import com.yugyd.quiz.data.model.mappers.QuestEntityMapper
 import com.yugyd.quiz.domain.api.model.Quest
 import com.yugyd.quiz.domain.api.repository.QuestSource
+import javax.inject.Inject
 
-class QuestDataSource(
+internal class QuestDataSource @Inject constructor(
     private val questDao: QuestDao,
     private val questEntityMapper: QuestEntityMapper
 ) : QuestSource {

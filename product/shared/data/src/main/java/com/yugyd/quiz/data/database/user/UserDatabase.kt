@@ -29,7 +29,7 @@ private const val USER_DB_VERSION = 1
     version = USER_DB_VERSION,
     exportSchema = false
 )
-abstract class UserDatabase : RoomDatabase() {
+internal abstract class UserDatabase : RoomDatabase() {
     abstract fun errorDao(): ErrorDao
     abstract fun recordDao(): RecordDao
     abstract fun resetDao(): UserResetDao

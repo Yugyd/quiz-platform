@@ -26,7 +26,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import com.yugyd.quiz.uikit.R as uiKitR
 
-class GameEndUiMapper @Inject constructor(
+internal class GameEndUiMapper @Inject constructor(
     @ApplicationContext private val context: Context,
     private val progressColorUtils: ProgressColorUtils
 ) {

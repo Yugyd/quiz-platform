@@ -18,7 +18,7 @@ package com.yugyd.quiz.ui.transition
 
 import com.yugyd.quiz.ui.transition.model.TransitionUiModel
 
-interface TransitionView {
+internal interface TransitionView {
 
     data class State(
         val items: List<TransitionUiModel> = emptyList(),

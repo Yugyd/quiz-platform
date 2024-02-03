@@ -16,6 +16,6 @@
 
 package com.yugyd.quiz.gameui.game.model
 
-enum class RewardedAdStatus {
+internal enum class RewardedAdStatus {
     SUCCESS, ERROR, NONE
 }

@@ -19,7 +19,7 @@ package com.yugyd.quiz.ui.content
 import com.yugyd.quiz.domain.content.api.ContentModel
 import com.yugyd.quiz.domain.content.exceptions.ContentVerificationException
 
-interface ContentView {
+internal interface ContentView {
 
     data class State(
         val isBackEnabled: Boolean = true,

@@ -19,8 +19,9 @@ package com.yugyd.quiz.data
 import com.yugyd.quiz.data.database.user.dao.ErrorDao
 import com.yugyd.quiz.data.model.mappers.ErrorEntityMapper
 import com.yugyd.quiz.domain.api.repository.ErrorSource
+import javax.inject.Inject
 
-class ErrorDataSource(
+internal class ErrorDataSource @Inject constructor(
     private val errorDao: ErrorDao,
     private val errorEntityMapper: ErrorEntityMapper
 ) : ErrorSource {

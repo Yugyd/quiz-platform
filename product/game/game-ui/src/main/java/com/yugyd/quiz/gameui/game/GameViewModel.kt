@@ -51,7 +51,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class GameViewModel @Inject constructor(
+internal class GameViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val gameInteractor: GameInteractor,
     private val optionsInteractor: OptionsInteractor,

@@ -18,8 +18,9 @@ package com.yugyd.quiz.data
 
 import com.yugyd.quiz.data.database.content.dao.ContentResetDao
 import com.yugyd.quiz.domain.api.repository.ContentResetSource
+import javax.inject.Inject
 
-class ContentResetDataSource(
+internal class ContentResetDataSource @Inject constructor(
     private val contentResetDao: ContentResetDao,
 ) : ContentResetSource {
 

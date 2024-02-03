@@ -39,7 +39,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SectionViewModel @Inject constructor(
+internal class SectionViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val sectionInteractor: SectionInteractor,
     private val contentInteractor: ContentInteractor,

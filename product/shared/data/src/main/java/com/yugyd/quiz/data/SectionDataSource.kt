@@ -21,8 +21,9 @@ import com.yugyd.quiz.data.database.user.dao.SectionDao
 import com.yugyd.quiz.data.database.user.dao.UserResetDao
 import com.yugyd.quiz.data.model.mappers.SectionEntityMapper
 import com.yugyd.quiz.domain.api.repository.SectionSource
+import javax.inject.Inject
 
-class SectionDataSource(
+internal class SectionDataSource @Inject constructor(
     private val questDao: QuestDao,
     private val sectionDao: SectionDao,
     private val resetDao: UserResetDao,

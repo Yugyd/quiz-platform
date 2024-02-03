@@ -16,22 +16,17 @@
 
 package com.yugyd.quiz.domain.options
 
-import com.yugyd.quiz.core.coroutinesutils.DispatchersProvider
-import com.yugyd.quiz.domain.api.repository.PreferencesSource
+import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
+import dagger.hilt.android.components.ViewModelComponent
 
 @Module
-@InstallIn(SingletonComponent::class)
-class OptionsBlModule {
+@InstallIn(ViewModelComponent::class)
+abstract class OptionsBlModule {
 
-    @Singleton
-    @Provides
-    fun provideOptionsInteractor(
-        preferencesDataSource: PreferencesSource,
-        dispatchersProvider: DispatchersProvider,
-    ): OptionsInteractor = OptionsInteractorImpl(preferencesDataSource, dispatchersProvider)
+    @Binds
+    internal abstract fun bindOptionsInteractor(
+        impl: OptionsInteractorImpl,
+    ): OptionsInteractor
 }

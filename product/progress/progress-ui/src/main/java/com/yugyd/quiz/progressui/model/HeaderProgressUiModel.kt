@@ -18,7 +18,7 @@ package com.yugyd.quiz.progressui.model
 
 import androidx.compose.ui.graphics.Color
 
-data class HeaderProgressUiModel(
+internal data class HeaderProgressUiModel(
     override val id: Int = 0,
     val title: String = "",
     val progressPercent: Int = 0,

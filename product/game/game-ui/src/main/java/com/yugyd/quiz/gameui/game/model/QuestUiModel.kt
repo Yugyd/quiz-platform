@@ -16,7 +16,7 @@
 
 package com.yugyd.quiz.gameui.game.model
 
-data class QuestUiModel(
+internal data class QuestUiModel(
     val id: Int = 0,
     val quest: String = "",
     val oneAnswer: String = "",

@@ -16,7 +16,7 @@
 
 package com.yugyd.quiz.ui.profile.model
 
-data class OpenSourceProfileUiModel(
+internal data class OpenSourceProfileUiModel(
     override val id: Int = 0,
     override val type: TypeProfile = TypeProfile.NONE,
 ) : ProfileUiModel

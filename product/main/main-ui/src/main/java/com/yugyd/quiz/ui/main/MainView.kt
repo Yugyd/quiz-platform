@@ -16,13 +16,9 @@
 
 package com.yugyd.quiz.ui.main
 
-import androidx.annotation.DrawableRes
-import androidx.annotation.StringRes
 import com.yugyd.quiz.domain.api.payload.OnboardingPayload
-import com.yugyd.quiz.uikit.R
-import com.yugyd.quiz.commonui.R as CommonUiR
 
-interface MainView {
+internal interface MainView {
 
     data class State(
         val isCorrectFeatureEnabled: Boolean = false,
@@ -34,32 +30,6 @@ interface MainView {
         val telegramLink: String = "",
         val navigationState: NavigationState? = null,
     ) {
-
-        enum class TopDestination(
-            @StringRes val titleResId: Int,
-            @DrawableRes val iconResId: Int,
-        ) {
-
-            THEME(
-                R.string.title_theme,
-                CommonUiR.drawable.ic_menu_book,
-            ),
-
-            CORRECT(
-                R.string.title_correct,
-                CommonUiR.drawable.ic_check_circle,
-            ),
-
-            PROGRESS(
-                R.string.title_progress,
-                CommonUiR.drawable.ic_pie_chart,
-            ),
-
-            PROFILE(
-                R.string.title_profile,
-                R.drawable.ic_account_circle,
-            ),
-        }
 
         sealed interface NavigationState {
             object Back : NavigationState

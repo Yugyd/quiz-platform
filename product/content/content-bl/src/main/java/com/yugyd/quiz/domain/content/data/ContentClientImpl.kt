@@ -22,9 +22,7 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.onEach
 import java.io.IOException
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
 internal class ContentClientImpl @Inject constructor(
     private val fileRepository: FileRepository,
     private val textToContentEntityMapper: TextToContentModelMapper,

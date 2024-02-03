@@ -1,19 +1,14 @@
 package com.yugyd.quiz.domain.update
 
-import com.yugyd.quiz.featuretoggle.domain.RemoteConfigRepository
+import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
+import dagger.hilt.android.components.ViewModelComponent
 
 @Module
-@InstallIn(SingletonComponent::class)
-class UpdateBlModule {
+@InstallIn(ViewModelComponent::class)
+abstract class UpdateBlModule {
 
-    @Singleton
-    @Provides
-    fun provideUpdateInteractor(
-        remoteConfigRepository: RemoteConfigRepository,
-    ): UpdateInteractor = UpdateInteractorImpl(remoteConfigRepository)
+    @Binds
+    internal abstract fun bindUpdateInteractor(impl: UpdateInteractorImpl): UpdateInteractor
 }

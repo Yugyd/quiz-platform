@@ -20,7 +20,7 @@ import com.yugyd.quiz.featuretoggle.domain.model.FeatureToggle
 import timber.log.Timber
 import javax.inject.Inject
 
-class FeatureManagerImpl @Inject internal constructor(
+internal class FeatureManagerImpl @Inject internal constructor(
     private val remoteConfigRepository: RemoteConfigRepository,
 ) : FeatureManager {
 

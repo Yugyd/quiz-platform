@@ -25,8 +25,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@Singleton
-class ContentProviderImpl @Inject constructor(
+internal class ContentProviderImpl @Inject constructor(
     @ApplicationContext private val context: Context,
     private val remoteConfigRepository: RemoteConfigRepository,
     private val resIdProvider: ResIdProvider,

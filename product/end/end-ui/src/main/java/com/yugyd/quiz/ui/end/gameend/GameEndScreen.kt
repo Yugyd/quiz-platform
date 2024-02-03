@@ -58,7 +58,7 @@ import com.yugyd.quiz.uikit.theme.progressIndicatorHeight
  * TODO Implement logic with ads - https://yudyd.atlassian.net/browse/QUIZ-203
  */
 @Composable
-fun GameEndRoute(
+internal fun GameEndRoute(
     viewModel: GameEndViewModel = hiltViewModel(),
     onNavigateToErrors: (ErrorListPayload) -> Unit,
     onBack: () -> Unit,

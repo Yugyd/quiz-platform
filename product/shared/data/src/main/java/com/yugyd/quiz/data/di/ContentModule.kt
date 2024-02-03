@@ -18,17 +18,17 @@ package com.yugyd.quiz.data.di
 
 import com.yugyd.quiz.data.ContentManagerImpl
 import com.yugyd.quiz.domain.api.repository.ContentSource
+import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class ContentModule {
+abstract class ContentModule {
 
     @Singleton
-    @Provides
-    fun provideContentManager(): ContentSource = ContentManagerImpl()
+    @Binds
+    internal abstract fun bindContentManager(impl: ContentManagerImpl): ContentSource
 }

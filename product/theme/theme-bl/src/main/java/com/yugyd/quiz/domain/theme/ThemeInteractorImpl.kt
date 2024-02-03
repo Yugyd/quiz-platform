@@ -22,10 +22,10 @@ import com.yugyd.quiz.domain.api.model.Record
 import com.yugyd.quiz.domain.api.model.Theme
 import com.yugyd.quiz.domain.api.repository.RecordSource
 import com.yugyd.quiz.domain.api.repository.ThemeSource
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class ThemeInteractorImpl(
+internal class ThemeInteractorImpl @Inject constructor(
     private val themeSource: ThemeSource,
     private val recordSource: RecordSource,
     private val dispatcherProvider: DispatchersProvider,

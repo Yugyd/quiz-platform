@@ -54,7 +54,7 @@ import com.yugyd.quiz.uikit.theme.QuizApplicationTheme
 import com.yugyd.quiz.uikit.R as UiKitR
 
 @Composable
-fun TransitionRoute(
+internal fun TransitionRoute(
     viewModel: TransitionViewModel = hiltViewModel(),
     onBack: () -> Unit,
 ) {

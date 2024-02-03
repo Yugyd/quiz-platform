@@ -23,8 +23,9 @@ import com.yugyd.quiz.domain.api.repository.ErrorSource
 import com.yugyd.quiz.domain.api.repository.QuestSource
 import com.yugyd.quiz.domain.utils.SeparatorParser
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class ErrorInteractorImpl(
+internal class ErrorInteractorImpl @Inject constructor(
     private val questSource: QuestSource,
     private val errorSource: ErrorSource,
     private val separatorParser: SeparatorParser,

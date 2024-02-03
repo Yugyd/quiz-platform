@@ -22,7 +22,7 @@ import com.yugyd.quiz.ui.theme.R
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
-class RewardDialogUiMapper @Inject constructor(
+internal class RewardDialogUiMapper @Inject constructor(
     @ApplicationContext private val context: Context,
 ) {
 

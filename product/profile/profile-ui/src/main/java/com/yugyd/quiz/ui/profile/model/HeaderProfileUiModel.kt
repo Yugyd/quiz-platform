@@ -20,7 +20,7 @@ import androidx.annotation.DrawableRes
 import androidx.compose.ui.graphics.Color
 import com.yugyd.quiz.uikit.theme.app_color_neutral
 
-data class HeaderProfileUiModel(
+internal data class HeaderProfileUiModel(
     override val id: Int = 0,
     override val type: TypeProfile = TypeProfile.NONE,
     val appName: String = "",

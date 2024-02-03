@@ -16,6 +16,6 @@
 
 package com.yugyd.quiz.gameui.game.model
 
-enum class ConditionUiModel {
+internal enum class ConditionUiModel {
     LIFE, HIDE, NONE
 }

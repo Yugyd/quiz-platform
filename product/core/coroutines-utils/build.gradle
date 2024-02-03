@@ -8,4 +8,7 @@ android {
 
 dependencies {
     implementation(libs.kotlinx.coroutines.android)
+
+    // DI
+    implementation(libs.javax.inject)
 }

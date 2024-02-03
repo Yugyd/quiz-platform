@@ -62,7 +62,6 @@ import com.yugyd.quiz.ui.content.navigateToContent
 import com.yugyd.quiz.ui.main.MainView.Action
 import com.yugyd.quiz.ui.main.MainView.State
 import com.yugyd.quiz.ui.main.MainView.State.NavigationState
-import com.yugyd.quiz.ui.main.MainView.State.TopDestination
 import com.yugyd.quiz.ui.profile.navigateToProfile
 import com.yugyd.quiz.ui.theme.navigateToTheme
 import com.yugyd.quiz.uikit.common.ThemePreviews
@@ -72,7 +71,7 @@ import com.yugyd.quiz.update.navigateToUpdate
 import timber.log.Timber
 
 @Composable
-fun MainApp(
+internal fun MainApp(
     viewModel: MainViewModel,
     adIdProvider: AdIdProvider,
     resIdProvider: ResIdProvider,

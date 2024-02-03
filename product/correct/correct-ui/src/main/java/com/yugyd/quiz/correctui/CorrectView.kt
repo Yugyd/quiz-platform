@@ -18,7 +18,7 @@ package com.yugyd.quiz.correctui
 
 import com.yugyd.quiz.domain.api.model.payload.GamePayload
 
-interface CorrectView {
+internal interface CorrectView {
 
     data class State(
         val toolbarTitle: String = "",

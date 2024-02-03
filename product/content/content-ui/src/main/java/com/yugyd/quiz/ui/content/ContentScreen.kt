@@ -69,7 +69,7 @@ import com.yugyd.quiz.uikit.component.SimpleToolbar
 import com.yugyd.quiz.uikit.theme.QuizApplicationTheme
 
 @Composable
-fun ContentRoute(
+internal fun ContentRoute(
     viewModel: ContentViewModel = hiltViewModel(),
     snackbarHostState: SnackbarHostState,
     onBack: () -> Unit,

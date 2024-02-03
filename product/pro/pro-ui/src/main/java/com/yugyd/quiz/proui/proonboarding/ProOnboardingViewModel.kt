@@ -27,7 +27,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class ProOnboardingViewModel @Inject constructor(
+internal class ProOnboardingViewModel @Inject constructor(
     private val proOnboadringUiMapper: ProOnboadringUiMapper,
     logger: Logger,
     dispatchersProvider: DispatchersProvider,

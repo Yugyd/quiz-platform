@@ -18,7 +18,7 @@ package com.yugyd.quiz.progressui.model
 
 import androidx.compose.ui.graphics.Color
 
-data class ItemProgressUiModel(
+internal data class ItemProgressUiModel(
     override val id: Int = 0,
     val title: String = "",
     val subtitle: String = "",

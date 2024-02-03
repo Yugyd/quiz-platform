@@ -40,7 +40,7 @@ import com.yugyd.quiz.uikit.theme.QuizApplicationTheme
 import com.yugyd.quiz.uikit.R as UiKitR
 
 @Composable
-fun ProfileRoute(
+internal fun ProfileRoute(
     viewModel: ProfileViewModel = hiltViewModel(),
     onNavigateToTelegram: (String) -> Unit,
     onNavigateToTransition: () -> Unit,

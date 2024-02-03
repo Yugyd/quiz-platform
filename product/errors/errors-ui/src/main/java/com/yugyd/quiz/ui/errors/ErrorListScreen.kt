@@ -52,7 +52,7 @@ import com.yugyd.quiz.uikit.theme.QuizApplicationTheme
 import com.yugyd.quiz.uikit.R as UiKitR
 
 @Composable
-fun ErrorListRoute(
+internal fun ErrorListRoute(
     viewModel: ErrorListViewModel = hiltViewModel(),
     snackbarHostState: SnackbarHostState,
     onBack: () -> Unit,

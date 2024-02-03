@@ -4,12 +4,16 @@ import android.content.Context
 import android.database.Cursor
 import android.net.Uri
 import android.provider.OpenableColumns
+import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.InputStreamReader
+import javax.inject.Inject
 
-class FileRepositoryImpl(private val context: Context) : FileRepository {
+class FileRepositoryImpl @Inject constructor(
+    @ApplicationContext private val context: Context,
+) : FileRepository {
 
     override fun saveTextToLocalStorage(fileName: String, fileContents: String): File {
         val file = File(context.filesDir, fileName)

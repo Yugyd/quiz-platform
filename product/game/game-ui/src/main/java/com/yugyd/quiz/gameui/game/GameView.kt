@@ -25,7 +25,7 @@ import com.yugyd.quiz.gameui.game.model.ControlUiModel
 import com.yugyd.quiz.gameui.game.model.QuestUiModel
 import com.yugyd.quiz.gameui.game.model.RewardedAdStatus
 
-interface GameView {
+internal interface GameView {
 
     data class State(
         val payload: GamePayload,

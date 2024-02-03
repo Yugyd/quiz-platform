@@ -19,8 +19,9 @@ package com.yugyd.quiz.domain.update
 import com.yugyd.quiz.core.GlobalConfig
 import com.yugyd.quiz.featuretoggle.domain.RemoteConfigRepository
 import timber.log.Timber
+import javax.inject.Inject
 
-class UpdateInteractorImpl(
+internal class UpdateInteractorImpl @Inject constructor(
     private val remoteConfigRepository: RemoteConfigRepository
 ) : UpdateInteractor {
 

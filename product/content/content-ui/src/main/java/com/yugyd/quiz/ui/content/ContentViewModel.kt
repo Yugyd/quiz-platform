@@ -36,7 +36,7 @@ import java.util.Locale
 import javax.inject.Inject
 
 @HiltViewModel
-class ContentViewModel @Inject constructor(
+internal class ContentViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val interactor: ContentInteractor,
     logger: Logger,

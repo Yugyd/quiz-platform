@@ -40,8 +40,9 @@ import com.yugyd.quiz.domain.game.exception.RewardedGameException
 import com.yugyd.quiz.domain.utils.AbQuestParser
 import com.yugyd.quiz.domain.utils.SeparatorParser
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class GameInteractorImpl(
+internal class GameInteractorImpl @Inject constructor(
     private val questSource: QuestSource,
     private val sectionSource: SectionSource,
     private val trainSource: TrainSource,

@@ -36,7 +36,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ProgressEndViewModel @Inject constructor(
+internal class ProgressEndViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val featureManager: FeatureManager,
     private val repository: RemoteConfigRepository,

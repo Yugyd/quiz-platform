@@ -59,7 +59,7 @@ import com.yugyd.quiz.uikit.component.defaultToolbarHeight
 import com.yugyd.quiz.uikit.theme.QuizApplicationTheme
 
 @Composable
-fun ProOnboardingRoute(
+internal fun ProOnboardingRoute(
     viewModel: ProOnboardingViewModel = hiltViewModel(),
     onNavigateToPro: () -> Unit,
     onBack: () -> Unit,

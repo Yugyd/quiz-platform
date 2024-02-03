@@ -64,7 +64,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ProfileViewModel @Inject constructor(
+internal class ProfileViewModel @Inject constructor(
     private val optionsInteractor: OptionsInteractor,
     private val transitionController: TransitionController,
     private val profileUiMapper: ProfileUiMapper,

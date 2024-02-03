@@ -29,9 +29,10 @@ import com.yugyd.quiz.domain.api.model.specificprogress.ModeProgress
 import com.yugyd.quiz.domain.api.repository.RecordSource
 import com.yugyd.quiz.domain.api.repository.ThemeSource
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 import kotlin.math.roundToInt
 
-class ProgressInteractorImpl(
+class ProgressInteractorImpl @Inject constructor(
     private val themeSource: ThemeSource,
     private val recordSource: RecordSource,
     private val dispatcherProvider: DispatchersProvider,

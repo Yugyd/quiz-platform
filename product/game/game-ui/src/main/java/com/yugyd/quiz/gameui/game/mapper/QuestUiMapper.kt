@@ -20,7 +20,7 @@ import com.yugyd.quiz.domain.api.model.game.QuestModel
 import com.yugyd.quiz.gameui.game.model.QuestUiModel
 import javax.inject.Inject
 
-class QuestUiMapper @Inject constructor() {
+internal class QuestUiMapper @Inject constructor() {
 
     fun map(model: QuestModel) = model.run {
         QuestUiModel(

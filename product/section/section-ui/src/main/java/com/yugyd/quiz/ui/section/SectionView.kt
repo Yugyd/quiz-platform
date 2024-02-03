@@ -21,7 +21,7 @@ import com.yugyd.quiz.domain.api.payload.SectionPayload
 import com.yugyd.quiz.domain.content.api.ContentModel
 import com.yugyd.quiz.domain.section.model.Section
 
-interface SectionView {
+internal interface SectionView {
 
     data class State(
         val payload: SectionPayload = SectionPayload(),

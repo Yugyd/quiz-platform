@@ -49,7 +49,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ThemeViewModel @Inject constructor(
+internal class ThemeViewModel @Inject constructor(
     private val themeInteractor: ThemeInteractor,
     private val recordInteractor: RecordInteractor,
     private val remoteConfigRepository: RemoteConfigRepository,

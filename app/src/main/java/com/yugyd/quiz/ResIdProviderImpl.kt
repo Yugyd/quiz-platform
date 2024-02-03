@@ -20,7 +20,7 @@ import com.yugyd.quiz.core.ResIdProvider
 import javax.inject.Inject
 import com.yugyd.quiz.uikit.R as uiKitR
 
-class ResIdProviderImpl @Inject constructor() : ResIdProvider {
+internal class ResIdProviderImpl @Inject constructor() : ResIdProvider {
     override fun appIcon() = R.mipmap.ic_launcher
     override fun appRoundIcon() = R.mipmap.ic_launcher_round
     override fun pushIcon() = uiKitR.drawable.ic_message_24

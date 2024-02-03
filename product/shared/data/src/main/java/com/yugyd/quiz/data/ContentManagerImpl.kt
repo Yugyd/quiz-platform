@@ -18,8 +18,9 @@ package com.yugyd.quiz.data
 
 import com.yugyd.quiz.domain.api.model.Content
 import com.yugyd.quiz.domain.api.repository.ContentSource
+import javax.inject.Inject
 
-class ContentManagerImpl : ContentSource {
+internal class ContentManagerImpl @Inject constructor() : ContentSource {
 
     private var content: Content = Content.LITE
 

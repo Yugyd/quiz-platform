@@ -25,7 +25,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import com.yugyd.quiz.uikit.R as uiKitR
 
-class ProOnboadringUiMapper @Inject constructor(
+internal class ProOnboadringUiMapper @Inject constructor(
     @ApplicationContext private val context: Context
 ) {
 

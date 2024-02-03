@@ -55,7 +55,7 @@ import com.yugyd.quiz.uikit.theme.QuizApplicationTheme
 import com.yugyd.quiz.uikit.R as UiKitR
 
 @Composable
-fun CorrectRoute(
+internal fun CorrectRoute(
     viewModel: CorrectViewModel = hiltViewModel(),
     snackbarHostState: SnackbarHostState,
     onNavigateToGame: (GamePayload) -> Unit,
@@ -130,7 +130,7 @@ internal fun CorrectScreen(
 }
 
 @Composable
-fun CorrectContent(
+internal fun CorrectContent(
     availableMode: AvailableMode,
     @DrawableRes icon: Int,
     showIconBackground: Boolean,

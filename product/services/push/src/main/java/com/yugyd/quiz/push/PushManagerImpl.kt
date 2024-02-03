@@ -36,7 +36,7 @@ import com.yugyd.quiz.uikit.theme.app_color_positive
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
-class PushManagerImpl @Inject constructor(
+internal class PushManagerImpl @Inject constructor(
     @ApplicationContext private val context: Context,
     private val logger: Logger,
     private val resIdProvider: ResIdProvider

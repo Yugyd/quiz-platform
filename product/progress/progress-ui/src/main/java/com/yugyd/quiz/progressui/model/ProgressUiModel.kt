@@ -18,4 +18,4 @@ package com.yugyd.quiz.progressui.model
 
 import com.yugyd.quiz.commonui.list.DiffItem
 
-interface ProgressUiModel : DiffItem
+internal interface ProgressUiModel : DiffItem

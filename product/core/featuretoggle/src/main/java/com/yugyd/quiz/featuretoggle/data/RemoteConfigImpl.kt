@@ -30,8 +30,7 @@ import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@Singleton
-class RemoteConfigImpl @Inject internal constructor(
+internal class RemoteConfigImpl @Inject internal constructor(
     @ApplicationContext private val context: Context,
 ) : RemoteConfig {
 

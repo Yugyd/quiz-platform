@@ -22,8 +22,9 @@ import com.yugyd.quiz.data.model.mappers.RecordEntityMapper
 import com.yugyd.quiz.domain.api.model.Mode
 import com.yugyd.quiz.domain.api.model.Record
 import com.yugyd.quiz.domain.api.repository.RecordSource
+import javax.inject.Inject
 
-class RecordDataSource(
+internal class RecordDataSource @Inject constructor(
     private val recordDao: RecordDao,
     private val resetDao: UserResetDao,
     private val recordEntityMapper: RecordEntityMapper,

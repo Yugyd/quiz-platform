@@ -19,7 +19,7 @@ package com.yugyd.quiz.ui.theme.model
 import android.net.Uri
 import androidx.compose.ui.graphics.Color
 
-data class ThemeUiModel(
+internal data class ThemeUiModel(
     val id: Int = 0,
     val title: String = "",
     val subtitle: String = "",

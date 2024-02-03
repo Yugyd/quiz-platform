@@ -41,7 +41,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class GameEndViewModel @Inject constructor(
+internal class GameEndViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val themeInteractor: ThemeInteractor,
     private val gameEndUiMapper: GameEndUiMapper,

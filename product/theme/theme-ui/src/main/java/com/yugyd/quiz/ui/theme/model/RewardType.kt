@@ -16,7 +16,7 @@
 
 package com.yugyd.quiz.ui.theme.model
 
-sealed interface RewardType {
+internal sealed interface RewardType {
     object Telegram : RewardType
     object Ad : RewardType
 }

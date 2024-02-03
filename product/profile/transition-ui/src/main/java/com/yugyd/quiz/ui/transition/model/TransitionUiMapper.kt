@@ -23,7 +23,9 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import kotlin.math.roundToInt
 
-class TransitionUiMapper @Inject constructor(@ApplicationContext private val context: Context) {
+internal class TransitionUiMapper @Inject constructor(
+    @ApplicationContext private val context: Context,
+) {
 
     fun map(model: Transition) = model.run {
         val title = if (value < Transition.TRANSITION1000.value) {

@@ -28,7 +28,7 @@ import com.yugyd.quiz.domain.api.model.Degree.SCHOOLBOY
 import com.yugyd.quiz.domain.api.model.Degree.STUDENT
 import javax.inject.Inject
 
-class DegreeUiMapper @Inject constructor() {
+internal class DegreeUiMapper @Inject constructor() {
     fun map(model: Degree) = when (model) {
         SCHOOLBOY -> DegreeUIModel.SCHOOLBOY
         AMATEUR -> DegreeUIModel.AMATEUR

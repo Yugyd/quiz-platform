@@ -35,7 +35,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : FragmentActivity() {
+internal class MainActivity : FragmentActivity() {
 
     @Inject
     lateinit var adIdProvider: AdIdProvider

@@ -16,27 +16,30 @@
 
 package com.yugyd.quiz.featuretoggle.di
 
-import com.yugyd.quiz.remoteconfig.api.RemoteConfig
 import com.yugyd.quiz.featuretoggle.data.RemoteConfigImpl
 import com.yugyd.quiz.featuretoggle.data.RemoteConfigRepositoryImpl
 import com.yugyd.quiz.featuretoggle.domain.FeatureManager
 import com.yugyd.quiz.featuretoggle.domain.FeatureManagerImpl
 import com.yugyd.quiz.featuretoggle.domain.RemoteConfigRepository
+import com.yugyd.quiz.remoteconfig.api.RemoteConfig
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-interface FeatureToggleModule {
+abstract class FeatureToggleModule {
+
+    @Singleton
+    @Binds
+    internal abstract fun bindRemoteConfig(impl: RemoteConfigImpl): RemoteConfig
+
+    @Singleton
+    @Binds
+    internal abstract fun bindRemoteConfigRepository(impl: RemoteConfigRepositoryImpl): RemoteConfigRepository
 
     @Binds
-    fun bindRemoteConfig(impl: RemoteConfigImpl): RemoteConfig
-
-    @Binds
-    fun bindRemoteConfigRepository(impl: RemoteConfigRepositoryImpl): RemoteConfigRepository
-
-    @Binds
-    fun bindFeatureManager(impl: FeatureManagerImpl): FeatureManager
+    internal abstract fun bindFeatureManager(impl: FeatureManagerImpl): FeatureManager
 }

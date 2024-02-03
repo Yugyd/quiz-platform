@@ -24,6 +24,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
 @Module(includes = [ContentDataModule::class])
 @InstallIn(SingletonComponent::class)
@@ -34,6 +35,7 @@ abstract class ContentClientModule {
         impl: ContentValidatorHelperImpl,
     ): ContentValidatorHelper
 
+    @Singleton
     @Binds
     internal abstract fun bindContentClient(impl: ContentClientImpl): ContentClient
 }

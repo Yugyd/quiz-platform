@@ -48,7 +48,7 @@ import com.yugyd.quiz.uikit.theme.QuizApplicationTheme
 import com.yugyd.quiz.uikit.R as UiKitR
 
 @Composable
-fun SpecificProgressRoute(
+internal fun SpecificProgressRoute(
     viewModel: SpecificProgressViewModel = hiltViewModel(),
     snackbarHostState: SnackbarHostState,
     onBack: () -> Unit,

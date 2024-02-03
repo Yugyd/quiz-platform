@@ -38,7 +38,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SpecificProgressViewModel @Inject constructor(
+internal class SpecificProgressViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val recordInteractor: RecordInteractor,
     private val progressInteractor: ProgressInteractor,

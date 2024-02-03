@@ -20,7 +20,7 @@ import androidx.compose.ui.graphics.Color
 import com.yugyd.quiz.domain.api.model.payload.GameEndPayload
 import com.yugyd.quiz.domain.api.payload.ErrorListPayload
 
-interface GameEndView {
+internal interface GameEndView {
 
     data class State(
         val payload: GameEndPayload,

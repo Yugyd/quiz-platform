@@ -1,7 +1,12 @@
 plugins {
-    id 'quiz.android.application'
-    id 'quiz.android.hilt'
-    id 'quiz.android.compose.application'
+    alias(libs.plugins.convention.application)
+    alias(libs.plugins.convention.application.buildtype)
+    alias(libs.plugins.convention.application.compose)
+    alias(libs.plugins.convention.application.jacoco)
+    alias(libs.plugins.convention.application.lint)
+    alias(libs.plugins.convention.application.test)
+    alias(libs.plugins.convention.hilt)
+    alias(libs.plugins.ksp)
 }
 
 def isGoogleServicesExists = file("google-services.json").exists()
@@ -53,19 +58,14 @@ android {
 
     buildTypes {
         debug {
-            minifyEnabled false
-            shrinkResources false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-
             signingConfig signingConfigs.debug
-
             applicationIdSuffix ".debug"
         }
+        staging {
+            signingConfig signingConfigs.debug
+            applicationIdSuffix ".staging"
+        }
         release {
-            minifyEnabled true
-            shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-
             signingConfig isReleaseKeystoreExists ? signingConfigs.release : signingConfigs.debug
         }
     }
@@ -161,7 +161,7 @@ dependencies {
     // Room
     implementation libs.room.runtime
     implementation libs.room.ktx
-    kapt libs.room.compiler
+    ksp libs.room.compiler
 
     // Firebase: Analytics, AppIndexing, Crashlytics, Cloud Messaging
     implementation platform(libs.firebase.bom)

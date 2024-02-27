@@ -1,6 +1,10 @@
 plugins {
-    id 'quiz.android.library'
-    id 'quiz.android.hilt'
+    alias(libs.plugins.convention.library)
+    alias(libs.plugins.convention.library.buildtype)
+    alias(libs.plugins.convention.library.jacoco)
+    alias(libs.plugins.convention.library.lint)
+    alias(libs.plugins.convention.library.test)
+    alias(libs.plugins.convention.hilt)
 }
 
 android {
@@ -23,7 +27,7 @@ dependencies {
     // Room
     implementation libs.room.runtime
     implementation libs.room.ktx
-    kapt libs.room.compiler
+    ksp libs.room.compiler
 
     // Firebase: Analytics, Crashlytics
     implementation platform(libs.firebase.bom)

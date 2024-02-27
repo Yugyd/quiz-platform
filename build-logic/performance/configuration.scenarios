@@ -1,0 +1,9 @@
+clean_build {
+    title = "Configuration build"
+    versions = ["8.6"]
+    tasks = ["help"]
+    gradle-args = ["--no-build-cache", "--no-configuration-cache"]
+    cleanup-tasks = ["clean"]
+    warm-ups = 2
+    iterations = 10
+}

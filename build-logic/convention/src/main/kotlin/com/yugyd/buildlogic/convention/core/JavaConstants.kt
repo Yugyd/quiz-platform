@@ -1,5 +1,5 @@
 /*
- *    Copyright 2023 Roman Likhachev
+ *    Copyright 2024 Roman Likhachev
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -14,8 +14,8 @@
  *    limitations under the License.
  */
 
-package com.yugyd.quiz.buildlogic
+package com.yugyd.buildlogic.convention.core
 
-internal const val KOTLIN_ANDROID_PLUGIN_ID = "org.jetbrains.kotlin.android"
-internal const val ANDROID_APPLICATION_PLUGIN_ID = "com.android.application"
-internal const val ANDROID_LIBRARY_PLUGIN_ID = "com.android.library"
+import org.gradle.api.JavaVersion
+
+internal val JAVA_VERSION = JavaVersion.VERSION_11

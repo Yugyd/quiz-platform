@@ -1,5 +1,5 @@
 /*
- *    Copyright 2023 Roman Likhachev
+ *    Copyright 2024 Roman Likhachev
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -14,24 +14,23 @@
  *    limitations under the License.
  */
 
-import com.yugyd.quiz.buildlogic.IMPLEMENTATION
-import com.yugyd.quiz.buildlogic.KAPT
-import com.yugyd.quiz.buildlogic.libs
+package com.yugyd.buildlogic.convention.compose
+
+import com.android.build.gradle.LibraryExtension
+import com.yugyd.buildlogic.convention.core.ANDROID_LIBRARY_ALIAS
+import com.yugyd.buildlogic.convention.core.checkPlugin
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.kotlin.dsl.dependencies
+import org.gradle.kotlin.dsl.getByType
 
-class HiltAndroidConventionPlugin : Plugin<Project> {
+class ComposeAndroidLibraryPlugin : Plugin<Project> {
 
     override fun apply(target: Project) {
         with(target) {
-            pluginManager.apply("dagger.hilt.android.plugin")
-            pluginManager.apply("org.jetbrains.kotlin.kapt")
+            checkPlugin(ANDROID_LIBRARY_ALIAS)
 
-            dependencies {
-                add(IMPLEMENTATION, libs.findLibrary("hilt-android").get())
-                add(KAPT, libs.findLibrary("hilt-dagger-compiler").get())
-            }
+            val extension = extensions.getByType<LibraryExtension>()
+            extension.configureCompose(target)
         }
     }
 }

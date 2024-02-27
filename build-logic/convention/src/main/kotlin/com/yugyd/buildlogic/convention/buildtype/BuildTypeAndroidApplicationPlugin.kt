@@ -1,5 +1,5 @@
 /*
- *    Copyright 2023 Roman Likhachev
+ *    Copyright 2024 Roman Likhachev
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -14,40 +14,28 @@
  *    limitations under the License.
  */
 
+package com.yugyd.buildlogic.convention.buildtype
+
 import com.android.build.api.dsl.ApplicationExtension
 import com.android.build.api.variant.ApplicationAndroidComponentsExtension
-import com.yugyd.quiz.buildlogic.ANDROID_APPLICATION_PLUGIN_ID
-import com.yugyd.quiz.buildlogic.KOTLIN_ANDROID_PLUGIN_ID
-import com.yugyd.quiz.buildlogic.TARGET_SDK
-import com.yugyd.quiz.buildlogic.configureAndroid
-import com.yugyd.quiz.buildlogic.configureBuildTypes
-import com.yugyd.quiz.buildlogic.configureKotlin
-import com.yugyd.quiz.buildlogic.configureLint
+import com.yugyd.buildlogic.convention.core.ANDROID_APPLICATION_ALIAS
+import com.yugyd.buildlogic.convention.core.checkPlugin
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
 
-class AndroidApplicationConventionPlugin : Plugin<Project> {
+class BuildTypeAndroidApplicationPlugin : Plugin<Project> {
 
     companion object {
-        private val ACTIVE_PRODUCT_FLAVOR_VARIANTS = arrayOf("dev")
+        private val ACTIVE_PRODUCT_FLAVOR_VARIANTS = arrayOf("devDebug", "devStaging", "devRelease")
     }
 
     override fun apply(target: Project) {
         with(target) {
-            pluginManager.apply(ANDROID_APPLICATION_PLUGIN_ID)
-            pluginManager.apply(KOTLIN_ANDROID_PLUGIN_ID)
+            checkPlugin(ANDROID_APPLICATION_ALIAS)
 
             extensions.configure<ApplicationExtension> {
-                defaultConfig.targetSdk = TARGET_SDK
-
-                configureAndroid(this)
-
-                configureBuildTypes(this)
-
-                configureKotlin(this)
-
-                configureLint()
+                configureBuildTypes()
 
                 disableUnusedProductFlavorVariants()
             }
@@ -58,7 +46,7 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
         // https://developer.android.com/build/build-variants#filter-variants
         extensions.configure<ApplicationAndroidComponentsExtension> {
             beforeVariants { variantBuilder ->
-                if (!ACTIVE_PRODUCT_FLAVOR_VARIANTS.contains(variantBuilder.flavorName)) {
+                if (!ACTIVE_PRODUCT_FLAVOR_VARIANTS.contains(variantBuilder.name)) {
                     variantBuilder.enable = false
                 }
             }

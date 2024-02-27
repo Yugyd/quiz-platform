@@ -1,5 +1,5 @@
 /*
- *    Copyright 2023 Roman Likhachev
+ *    Copyright 2024 Roman Likhachev
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -14,13 +14,21 @@
  *    limitations under the License.
  */
 
-package com.yugyd.quiz.buildlogic
+package com.yugyd.buildlogic.convention.versionapk.tasks
 
-import com.android.build.api.dsl.BuildType
-import com.android.build.gradle.internal.dsl.BuildType as InternalBuild
+import com.yugyd.buildlogic.convention.versionapk.VERSION_CODE
+import org.gradle.api.DefaultTask
+import org.gradle.api.file.RegularFileProperty
+import org.gradle.api.tasks.OutputFile
+import org.gradle.api.tasks.TaskAction
 
-internal var BuildType.isDebuggable: Boolean
-    get() = (this as InternalBuild).isDebuggable
-    set(value) {
-        (this as InternalBuild).isDebuggable = value
+abstract class VersionCodeTask : DefaultTask() {
+
+    @get:OutputFile
+    abstract val outputFile: RegularFileProperty
+
+    @TaskAction
+    fun action() {
+        outputFile.get().asFile.writeText(VERSION_CODE)
     }
+}

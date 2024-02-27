@@ -1,5 +1,5 @@
 /*
- *    Copyright 2023 Roman Likhachev
+ *    Copyright 2024 Roman Likhachev
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -14,20 +14,24 @@
  *    limitations under the License.
  */
 
-import com.android.build.gradle.LibraryExtension
-import com.yugyd.quiz.buildlogic.ANDROID_LIBRARY_PLUGIN_ID
-import com.yugyd.quiz.buildlogic.configureCompose
+package com.yugyd.buildlogic.convention.lint
+
+import com.android.build.api.dsl.ApplicationExtension
+import com.yugyd.buildlogic.convention.core.ANDROID_APPLICATION_ALIAS
+import com.yugyd.buildlogic.convention.core.checkPlugin
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.kotlin.dsl.getByType
+import org.gradle.kotlin.dsl.configure
 
-class ComposeAndroidLibraryConventionPlugin : Plugin<Project> {
+class LintAndroidApplicationPlugin : Plugin<Project> {
+
     override fun apply(target: Project) {
         with(target) {
-            pluginManager.apply(ANDROID_LIBRARY_PLUGIN_ID)
+            checkPlugin(ANDROID_APPLICATION_ALIAS)
 
-            val extension = extensions.getByType<LibraryExtension>()
-            configureCompose(extension)
+            extensions.configure<ApplicationExtension> {
+                configureLint()
+            }
         }
     }
 }

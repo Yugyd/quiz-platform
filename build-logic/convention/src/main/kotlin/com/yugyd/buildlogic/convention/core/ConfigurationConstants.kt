@@ -1,5 +1,5 @@
 /*
- *    Copyright 2023 Roman Likhachev
+ *    Copyright 2024 Roman Likhachev
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -14,8 +14,9 @@
  *    limitations under the License.
  */
 
-package com.yugyd.quiz.buildlogic
+package com.yugyd.buildlogic.convention.core
 
-internal const val TARGET_SDK = 34
-internal const val COMPILE_SDK = 34
-internal const val MIN_SDK = 24
+internal const val DEBUG_IMPLEMENTATION = "debugImplementation"
+internal const val ANDROID_TEST_IMPLEMENTATION = "androidTestImplementation"
+internal const val IMPLEMENTATION = "implementation"
+internal const val KSP = "ksp"

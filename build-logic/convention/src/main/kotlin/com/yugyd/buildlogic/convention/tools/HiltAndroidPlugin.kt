@@ -1,5 +1,5 @@
 /*
- *    Copyright 2023 Roman Likhachev
+ *    Copyright 2024 Roman Likhachev
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -13,22 +13,27 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
+package com.yugyd.buildlogic.convention.tools
 
-import com.android.build.api.dsl.ApplicationExtension
-import com.yugyd.quiz.buildlogic.ANDROID_APPLICATION_PLUGIN_ID
-import com.yugyd.quiz.buildlogic.configureCompose
+import com.yugyd.buildlogic.convention.core.IMPLEMENTATION
+import com.yugyd.buildlogic.convention.core.KSP
+import com.yugyd.buildlogic.convention.core.findPluginId
+import com.yugyd.buildlogic.convention.core.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.kotlin.dsl.getByType
+import org.gradle.kotlin.dsl.dependencies
 
-class ComposeAndroidApplicationConventionPlugin : Plugin<Project> {
+class HiltAndroidPlugin : Plugin<Project> {
 
     override fun apply(target: Project) {
         with(target) {
-            pluginManager.apply(ANDROID_APPLICATION_PLUGIN_ID)
+            pluginManager.apply(libs.findPluginId("hilt-plugin"))
+            pluginManager.apply(libs.findPluginId("ksp"))
 
-            val extension = extensions.getByType<ApplicationExtension>()
-            configureCompose(extension)
+            dependencies {
+                add(IMPLEMENTATION, libs.findLibrary("hilt-android").get())
+                add(KSP, libs.findLibrary("hilt-dagger-compiler").get())
+            }
         }
     }
 }

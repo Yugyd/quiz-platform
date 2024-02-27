@@ -1,0 +1,33 @@
+# See https://developer.android.com/build/profile-your-build#profiling_different_gradle_plugin_versions
+
+default-scenarios = ["non_abi_change_agp_7_4_2"]
+
+non_abi_change_agp_7_4_2 {
+    title = "Non ABI change AGP 7.4.2"
+    versions = ["8.6"]
+    tasks = ["assembleDebug"]
+    gradle-args = ["--no-build-cache", "--no-configuration-cache"]
+    system-properties {
+        "agpVersion" = "8.1.0"
+    }
+    apply-non-abi-change-to = [
+        ".kt"
+    ]
+    warm-ups = 2
+    iterations = 10
+}
+
+non_abi_change_kotlin_1_8_22 {
+    title = "Non ABI change Kotlin 1.8.22"
+    versions = ["8.6"]
+    tasks = ["assembleDebug"]
+    gradle-args = ["--no-build-cache", "--no-configuration-cache"]
+    system-properties {
+        "kotlinVersion" = "1.8.22"
+    }
+    apply-non-abi-change-to = [
+        ".kt"
+    ]
+    warm-ups = 2
+    iterations = 10
+}

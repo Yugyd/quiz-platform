@@ -1,5 +1,5 @@
 /*
- *    Copyright 2023 Roman Likhachev
+ *    Copyright 2024 Roman Likhachev
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -14,38 +14,36 @@
  *    limitations under the License.
  */
 
+package com.yugyd.buildlogic.convention.android
+
 import com.android.build.api.variant.LibraryAndroidComponentsExtension
 import com.android.build.gradle.LibraryExtension
-import com.yugyd.quiz.buildlogic.ANDROID_LIBRARY_PLUGIN_ID
-import com.yugyd.quiz.buildlogic.KOTLIN_ANDROID_PLUGIN_ID
-import com.yugyd.quiz.buildlogic.TARGET_SDK
-import com.yugyd.quiz.buildlogic.configureAndroid
-import com.yugyd.quiz.buildlogic.configureBuildTypes
-import com.yugyd.quiz.buildlogic.configureKotlin
-import com.yugyd.quiz.buildlogic.configureLint
+import com.yugyd.buildlogic.convention.core.ANDROID_CACHE_FIX_ALIAS
+import com.yugyd.buildlogic.convention.core.ANDROID_LIBRARY_ALIAS
+import com.yugyd.buildlogic.convention.core.KOTLIN_ANDROID_ALIAS
+import com.yugyd.buildlogic.convention.core.configureKotlin
+import com.yugyd.buildlogic.convention.core.findPluginId
+import com.yugyd.buildlogic.convention.core.findVersionInt
+import com.yugyd.buildlogic.convention.core.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
 
-class AndroidLibraryConventionPlugin : Plugin<Project> {
+class AndroidLibraryPlugin : Plugin<Project> {
 
     override fun apply(target: Project) {
         with(target) {
-            pluginManager.apply(ANDROID_LIBRARY_PLUGIN_ID)
-            pluginManager.apply(KOTLIN_ANDROID_PLUGIN_ID)
+            pluginManager.apply(libs.findPluginId(ANDROID_LIBRARY_ALIAS))
+            pluginManager.apply(libs.findPluginId(KOTLIN_ANDROID_ALIAS))
+            pluginManager.apply(libs.findPluginId(ANDROID_CACHE_FIX_ALIAS))
 
             extensions.configure<LibraryExtension> {
-                defaultConfig.targetSdk = TARGET_SDK
+                defaultConfig.targetSdk = libs.findVersionInt("target-sdk")
+                configureAndroid(target)
 
-                configureAndroid(this)
-
-                configureBuildTypes(this)
-
-                configureKotlin(this)
+                configureKotlin()
 
                 disableReleaseVariants()
-
-                configureLint()
 
                 disableUnnecessaryAndroidTests()
             }
@@ -56,7 +54,7 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
         // https://developer.android.com/build/build-variants#filter-variants
         extensions.configure<LibraryAndroidComponentsExtension> {
             beforeVariants { variantBuilder ->
-                if (variantBuilder.buildType == "release" && project.name != "app") {
+                if ((variantBuilder.buildType == "release" || variantBuilder.buildType == "staging") && project.name != "app") {
                     variantBuilder.enable = false
                 }
             }

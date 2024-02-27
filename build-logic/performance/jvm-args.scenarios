@@ -1,0 +1,37 @@
+default-scenarios = ["clean_build_xmx_3g"]
+
+clean_build_xmx_3g {
+    title = "Clean build xmx 3g"
+    versions = ["8.6"]
+    tasks = ["assembleDebug"]
+    gradle-args = ["--no-build-cache", "--no-configuration-cache"]
+    jvm-args = ["-Xmx3g"]
+    cleanup-tasks = ["clean"]
+    daemon = none
+    warm-ups = 2
+    iterations = 10
+}
+
+clean_build_gc_parallel {
+    title = "Clean build ParallelGC"
+    versions = ["8.6"]
+    tasks = ["assembleDebug"]
+    gradle-args = ["--no-build-cache", "--no-configuration-cache"]
+    jvm-args = ["-XX:+UseParallelGC"]
+    cleanup-tasks = ["clean"]
+    daemon = none
+    warm-ups = 2
+    iterations = 10
+}
+
+clean_build_metaspace_512m {
+    title = "Clean build MaxMetaspaceSize 512m"
+    versions = ["8.6"]
+    tasks = ["assembleDebug"]
+    gradle-args = ["--no-build-cache", "--no-configuration-cache"]
+    jvm-args = ["-XX:MaxMetaspaceSize=512m"]
+    cleanup-tasks = ["clean"]
+    daemon = none
+    warm-ups = 2
+    iterations = 10
+}

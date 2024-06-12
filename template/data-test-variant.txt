@@ -1,0 +1,70 @@
+[category]
+
+1
+Theme А Variant
+Description А Variant
+
+2
+Theme B Variant
+Description B Variant
+
+3
+Theme C Variant
+Description C Variant
+https://raw.githubusercontent.com/Yugyd/quiz-platform/master/app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp
+
+[quest]
+
+Quest 1 Variant
+Answer 1
+Answer 2
+Answer 3
+Answer 4
+3
+1
+1
+
+Quest 2 Variant
+Answer 1
+Answer 2
+Answer 3
+Answer 4
+3
+2
+1
+
+Quest 3 Variant
+Answer 1
+Answer 2
+Answer 3
+Answer 4
+3
+2
+2
+
+Quest 4 Variant
+Answer 1
+Answer 2
+Answer 3
+Answer 4
+3
+3
+1
+
+Quest 5 Variant
+Answer 1
+Answer 2
+Answer 3
+Answer 4
+3
+3
+2
+
+Quest 6 Variant
+Answer 1
+Answer 2
+Answer 3
+Answer 4
+3
+3
+3

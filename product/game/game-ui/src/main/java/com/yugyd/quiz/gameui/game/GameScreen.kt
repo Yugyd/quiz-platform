@@ -66,6 +66,7 @@ import com.yugyd.quiz.gameui.game.GameView.State.AdBannerState
 import com.yugyd.quiz.gameui.game.GameView.State.NavigationState
 import com.yugyd.quiz.gameui.game.model.ConditionUiModel
 import com.yugyd.quiz.gameui.game.model.ControlUiModel
+import com.yugyd.quiz.gameui.game.model.GameStateUiModel
 import com.yugyd.quiz.gameui.game.model.HighlightUiModel
 import com.yugyd.quiz.gameui.game.model.QuestUiModel
 import com.yugyd.quiz.uikit.LoadingContent
@@ -639,13 +640,13 @@ internal fun NavigationHandler(
 @ThemePreviews
 @Composable
 private fun ContentPreview(
-    @PreviewParameter(GamePreviewParameterProvider::class) gameData: Pair<ControlUiModel, QuestUiModel>,
+    @PreviewParameter(GamePreviewParameterProvider::class) gameData: GameStateUiModel,
 ) {
     QuizApplicationTheme {
         QuizBackground {
             GameContent(
-                control = gameData.first,
-                quest = gameData.second,
+                control = gameData.control,
+                quest = gameData.quest,
                 scrollToTop = false,
                 isDebugMode = false,
                 bannerAdUnitId = "ad_unit",

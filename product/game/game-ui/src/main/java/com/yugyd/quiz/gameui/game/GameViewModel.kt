@@ -23,13 +23,13 @@ import com.yugyd.quiz.core.GlobalConfig
 import com.yugyd.quiz.core.Logger
 import com.yugyd.quiz.core.coroutinesutils.DispatchersProvider
 import com.yugyd.quiz.core.runCatch
-import com.yugyd.quiz.domain.api.model.game.ControlModel
 import com.yugyd.quiz.domain.api.model.game.HighlightModel
 import com.yugyd.quiz.domain.api.model.game.QuestModel
 import com.yugyd.quiz.domain.api.model.payload.GameEndPayload
 import com.yugyd.quiz.domain.game.GameInteractor
 import com.yugyd.quiz.domain.game.exception.FinishGameException
 import com.yugyd.quiz.domain.game.exception.RewardedGameException
+import com.yugyd.quiz.domain.game.model.GameState
 import com.yugyd.quiz.domain.options.OptionsInteractor
 import com.yugyd.quiz.featuretoggle.domain.FeatureManager
 import com.yugyd.quiz.featuretoggle.domain.model.FeatureToggle
@@ -265,15 +265,15 @@ internal class GameViewModel @Inject constructor(
     }
 
     private fun processGameData(
-        data: Pair<QuestModel, ControlModel>,
+        data: GameState,
         isAdFeatureEnabled: Boolean,
         isProFeatureEnabled: Boolean,
     ) {
-        val quest = data.first
+        val quest = data.quest
         screenState = screenState.copy(
             domainQuest = quest,
             quest = questUiMapper.map(quest),
-            control = controlUiMapper.map(data.second),
+            control = controlUiMapper.map(data.control),
             isAdFeatureEnabled = isAdFeatureEnabled,
             isProFeatureEnabled = isProFeatureEnabled,
             isWarning = false,

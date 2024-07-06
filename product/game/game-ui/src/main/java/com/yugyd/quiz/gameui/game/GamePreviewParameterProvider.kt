@@ -20,16 +20,20 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import com.yugyd.quiz.gameui.R
 import com.yugyd.quiz.gameui.game.model.ConditionUiModel
 import com.yugyd.quiz.gameui.game.model.ControlUiModel
+import com.yugyd.quiz.gameui.game.model.GameStateUiModel
 import com.yugyd.quiz.gameui.game.model.HighlightUiModel
 import com.yugyd.quiz.gameui.game.model.QuestUiModel
 import com.yugyd.quiz.uikit.theme.app_color_negative
 
 internal class GamePreviewParameterProvider :
-    PreviewParameterProvider<Pair<ControlUiModel, QuestUiModel>> {
+    PreviewParameterProvider<GameStateUiModel> {
 
-    override val values: Sequence<Pair<ControlUiModel, QuestUiModel>>
+    override val values: Sequence<GameStateUiModel>
         get() = sequenceOf(
-            createControl() to createQuest()
+            GameStateUiModel(
+                control = createControl(),
+                quest = createQuest(),
+            )
         )
 
     private fun createControl() = ControlUiModel(

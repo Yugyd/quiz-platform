@@ -37,6 +37,7 @@ import com.yugyd.quiz.domain.controller.RecordController
 import com.yugyd.quiz.domain.controller.SectionController
 import com.yugyd.quiz.domain.game.exception.FinishGameException
 import com.yugyd.quiz.domain.game.exception.RewardedGameException
+import com.yugyd.quiz.domain.game.model.GameState
 import com.yugyd.quiz.domain.utils.AbQuestParser
 import com.yugyd.quiz.domain.utils.SeparatorParser
 import kotlinx.coroutines.withContext
@@ -117,7 +118,10 @@ internal class GameInteractorImpl @Inject constructor(
             data = data.copy(steep = data.steep.inc())
             val nextQuest = nextQuest()
             val nextControl = nextControl()
-            Pair(nextQuest, nextControl)
+            GameState(
+                quest = nextQuest,
+                control = nextControl,
+            )
         } else {
             getFinishError()
         }

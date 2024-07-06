@@ -16,17 +16,18 @@
 
 package com.yugyd.quiz.domain.game
 
-import com.yugyd.quiz.domain.api.model.game.ControlModel
 import com.yugyd.quiz.domain.api.model.game.HighlightModel
 import com.yugyd.quiz.domain.api.model.game.QuestModel
 import com.yugyd.quiz.domain.api.model.payload.GameEndPayload
 import com.yugyd.quiz.domain.api.model.payload.GamePayload
+import com.yugyd.quiz.domain.game.model.GameState
 
 interface GameInteractor {
-    suspend fun startGame(payload: GamePayload): Pair<QuestModel, ControlModel>
-    suspend fun continueGame(): Pair<QuestModel, ControlModel>
+    suspend fun startGame(payload: GamePayload): GameState
+    suspend fun continueGame(): GameState
     suspend fun resultAnswer(quest: QuestModel, index: Int): HighlightModel
     suspend fun finishGame(): GameEndPayload
     suspend fun firstFinishGame()
     suspend fun onUserEarnedReward()
 }
+

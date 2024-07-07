@@ -6,6 +6,8 @@ import com.yugyd.quiz.data.database.content.ContentDatabase
 import com.yugyd.quiz.data.database.content.dao.ContentResetDao
 import com.yugyd.quiz.data.database.content.dao.QuestDao
 import com.yugyd.quiz.data.database.content.dao.ThemeDao
+import com.yugyd.quiz.data.database.content.migrations.MIGRATION_5_6
+import com.yugyd.quiz.featuretoggle.domain.model.LocalFeatureToggle
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -29,6 +31,16 @@ object ContentDatabaseModule {
             ContentDatabase::class.java,
             CONTENT_DB_NAME,
         )
+        .addMigrations(
+            MIGRATION_5_6,
+        )
+        .let {
+            if (LocalFeatureToggle.STANDALONE_APP.enabled) {
+                it.createFromAsset(CONTENT_DB_NAME)
+            } else {
+                it
+            }
+        }
         .fallbackToDestructiveMigration()
         .build()
 

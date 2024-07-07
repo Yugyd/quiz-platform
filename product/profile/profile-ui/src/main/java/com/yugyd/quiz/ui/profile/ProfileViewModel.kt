@@ -30,6 +30,7 @@ import com.yugyd.quiz.domain.options.OptionsInteractor
 import com.yugyd.quiz.featuretoggle.domain.FeatureManager
 import com.yugyd.quiz.featuretoggle.domain.RemoteConfigRepository
 import com.yugyd.quiz.featuretoggle.domain.model.FeatureToggle
+import com.yugyd.quiz.featuretoggle.domain.model.LocalFeatureToggle
 import com.yugyd.quiz.featuretoggle.domain.model.telegram.TelegramConfig
 import com.yugyd.quiz.ui.profile.ProfileView.Action
 import com.yugyd.quiz.ui.profile.ProfileView.State
@@ -108,12 +109,15 @@ internal class ProfileViewModel @Inject constructor(
     }
 
     private fun processContent(newContent: ContentModel?) {
-        val newItems = screenState.items.map {
+        val newItems = screenState.items.mapNotNull {
             if (
                 it.type == SELECT_CONTENT &&
                 it is ValueItemProfileUiModel
             ) {
-                profileUiMapper.mapContentToValueItem(contentTitle = newContent?.name)
+                profileUiMapper.mapContentToValueItem(
+                    contentTitle = newContent?.name,
+                    isContentEnabled = screenState.isProFeatureEnabled
+                )
             } else {
                 it
             }
@@ -264,6 +268,7 @@ internal class ProfileViewModel @Inject constructor(
                 telegramConfig = telegramConfig,
                 contentTitle = contentTitle,
                 isBasedOnPlatformApp = isBasedOnPlatformApp,
+                isContentFeatureEnabled = !LocalFeatureToggle.STANDALONE_APP.enabled,
             ),
             isWarning = false,
             isLoading = false

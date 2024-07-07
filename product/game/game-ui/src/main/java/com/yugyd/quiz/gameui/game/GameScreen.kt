@@ -18,20 +18,15 @@ package com.yugyd.quiz.gameui.game
 
 import androidx.annotation.DrawableRes
 import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Divider
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ProgressIndicatorDefaults
@@ -45,7 +40,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
@@ -59,6 +53,7 @@ import com.yugyd.quiz.commonui.utils.ProgressUtils
 import com.yugyd.quiz.core.AdIdProvider
 import com.yugyd.quiz.core.ResIdProvider
 import com.yugyd.quiz.domain.api.model.payload.GameEndPayload
+import com.yugyd.quiz.domain.game.api.exception.QuestTypeException
 import com.yugyd.quiz.gameui.R
 import com.yugyd.quiz.gameui.game.GameView.Action
 import com.yugyd.quiz.gameui.game.GameView.State
@@ -67,16 +62,17 @@ import com.yugyd.quiz.gameui.game.GameView.State.NavigationState
 import com.yugyd.quiz.gameui.game.model.ConditionUiModel
 import com.yugyd.quiz.gameui.game.model.ControlUiModel
 import com.yugyd.quiz.gameui.game.model.GameStateUiModel
-import com.yugyd.quiz.gameui.game.model.HighlightUiModel
-import com.yugyd.quiz.gameui.game.model.QuestUiModel
+import com.yugyd.quiz.ui.enterquest.EnterQuestContent
+import com.yugyd.quiz.ui.enterquest.EnterQuestUiModel
+import com.yugyd.quiz.ui.game.api.model.BaseQuestUiModel
+import com.yugyd.quiz.ui.simplequest.SimpleQuestContent
+import com.yugyd.quiz.ui.simplequest.SimpleQuestUiModel
 import com.yugyd.quiz.uikit.LoadingContent
 import com.yugyd.quiz.uikit.WarningContent
 import com.yugyd.quiz.uikit.common.ThemePreviews
 import com.yugyd.quiz.uikit.component.QuizBackground
 import com.yugyd.quiz.uikit.component.SimpleToolbar
 import com.yugyd.quiz.uikit.theme.QuizApplicationTheme
-import com.yugyd.quiz.uikit.theme.app_color_negative
-import com.yugyd.quiz.uikit.theme.app_color_positive
 import com.yugyd.quiz.uikit.R as UiKitR
 
 /**
@@ -130,12 +126,6 @@ internal fun GameRoute(
         onErrorVibrationEnded = {
             viewModel.onAction(Action.OnErrorVibrationEnded)
         },
-        onStartAutoTestClicked = {
-            viewModel.onAction(Action.OnAutoTestClicked)
-        },
-        onStopAutoTestClicked = {
-            viewModel.onAction(Action.OnAutoTestLongClicked)
-        },
         onProBannerClicked = {
             viewModel.onAction(Action.OnProBannerClicked)
         },
@@ -145,6 +135,9 @@ internal fun GameRoute(
         onBack = onBack,
         onNavigationHandled = {
             viewModel.onAction(Action.OnNavigationHandled)
+        },
+        onAnswerTextChanged = {
+            viewModel.onAction(Action.OnAnswerTextChanged(it))
         },
     )
 }
@@ -157,6 +150,7 @@ internal fun GameScreen(
     proMessage: String,
     onBackPressed: () -> Unit,
     onAnswerClicked: (Int) -> Unit,
+    onAnswerTextChanged: (String) -> Unit,
     onErrorDismissState: () -> Unit,
     onAdBannerAnimationEnded: () -> Unit,
     onDebugAnswerToastDismissed: () -> Unit,
@@ -165,8 +159,6 @@ internal fun GameScreen(
     onNegativeRewardDialogClicked: () -> Unit,
     onRewardDialogDismissed: () -> Unit,
     onErrorVibrationEnded: () -> Unit,
-    onStartAutoTestClicked: () -> Unit,
-    onStopAutoTestClicked: () -> Unit,
     onProBannerClicked: () -> Unit,
     onNavigateToProOnboarding: () -> Unit,
     onNavigateToProgressEnd: (GameEndPayload) -> Unit,
@@ -243,12 +235,12 @@ internal fun GameScreen(
                 WarningContent()
             }
 
-            else -> {
+            uiState.quest != null -> {
                 GameContent(
                     control = control,
                     quest = uiState.quest,
+                    manualAnswer = uiState.manualAnswer,
                     scrollToTop = uiState.scrollToTopAnimation,
-                    isDebugMode = uiState.isDebugMode,
                     bannerAdUnitId = bannerAdUnitId,
                     adBannerState = uiState.adBannerState,
                     proMessage = proMessage,
@@ -256,9 +248,8 @@ internal fun GameScreen(
                     isAdFeatureEnabled = uiState.isAdFeatureEnabled,
                     onAnswerClicked = onAnswerClicked,
                     onScrollToTopAnimationEnded = onScrollToTopAnimationEnded,
-                    onStartAutoTestClicked = onStartAutoTestClicked,
-                    onStopAutoTestClicked = onStopAutoTestClicked,
                     onProBannerClicked = onProBannerClicked,
+                    onAnswerTextChanged = onAnswerTextChanged,
                 )
             }
         }
@@ -297,13 +288,12 @@ internal fun GameToolbar(
     )
 }
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 internal fun GameContent(
     control: ControlUiModel,
-    quest: QuestUiModel,
+    quest: BaseQuestUiModel,
+    manualAnswer: String,
     scrollToTop: Boolean,
-    isDebugMode: Boolean,
     bannerAdUnitId: String,
     adBannerState: AdBannerState,
     proMessage: String,
@@ -311,17 +301,17 @@ internal fun GameContent(
     isAdFeatureEnabled: Boolean,
     onAnswerClicked: (Int) -> Unit,
     onScrollToTopAnimationEnded: () -> Unit,
-    onStartAutoTestClicked: () -> Unit,
-    onStopAutoTestClicked: () -> Unit,
     onProBannerClicked: () -> Unit,
+    onAnswerTextChanged: (String) -> Unit,
 ) {
     Column {
         val animatedProgress by animateFloatAsState(
             targetValue = ProgressUtils.toFloatPercent(control.progressPercent),
             animationSpec = ProgressIndicatorDefaults.ProgressAnimationSpec,
+            label = "ProgressFloatAnimation",
         )
         LinearProgressIndicator(
-            progress = animatedProgress,
+            progress = { animatedProgress },
             modifier = Modifier.fillMaxWidth(),
             color = control.progressColor,
         )
@@ -339,38 +329,29 @@ internal fun GameContent(
             modifier = Modifier
                 .weight(weight = 1F)
                 .verticalScroll(scrollState)
-                .padding(vertical = 16.dp)
+                .padding(vertical = 16.dp),
         ) {
-            Text(
-                text = quest.quest,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp)
-                    .run {
-                        if (isDebugMode) {
-                            combinedClickable(
-                                onClick = onStartAutoTestClicked,
-                                onLongClick = onStopAutoTestClicked
-                            )
-                        } else {
-                            this
-                        }
-                    },
-                color = MaterialTheme.colorScheme.onBackground,
-                style = MaterialTheme.typography.titleLarge,
-            )
+            when (quest) {
+                is SimpleQuestUiModel -> {
+                    SimpleQuestContent(
+                        quest = quest,
+                        onAnswerClicked = onAnswerClicked,
+                    )
+                }
 
-            Divider(Modifier.padding(vertical = 16.dp))
+                is EnterQuestUiModel -> {
+                    EnterQuestContent(
+                        quest = quest,
+                        manualAnswer = manualAnswer,
+                        onAnswerHandler = {
+                            onAnswerClicked(-1)
+                        },
+                        onAnswerTextChanged = onAnswerTextChanged,
+                    )
+                }
 
-            AnswerButtons(
-                highlight = control.highlight,
-                oneAnswer = quest.oneAnswer,
-                twoAnswer = quest.twoAnswer,
-                threeAnswer = quest.threeAnswer,
-                fourAnswer = quest.fourAnswer,
-                onAnswerClicked = onAnswerClicked,
-                answerButtonIsEnabled = control.answerButtonIsEnabled,
-            )
+                else -> throw QuestTypeException("Unknown quest type: $quest")
+            }
         }
 
         if (isAdContainerVisible) {
@@ -382,128 +363,6 @@ internal fun GameContent(
                 onProBannerClicked = onProBannerClicked,
             )
         }
-    }
-}
-
-private const val ONE_ANSWER_INDEX = 0
-private const val TWO_ANSWER_INDEX = 1
-private const val THREE_ANSWER_INDEX = 2
-private const val FOUR_ANSWER_INDEX = 3
-
-@Composable
-internal fun AnswerButtons(
-    highlight: HighlightUiModel,
-    oneAnswer: String,
-    twoAnswer: String,
-    threeAnswer: String,
-    fourAnswer: String,
-    answerButtonIsEnabled: Boolean,
-    onAnswerClicked: (Int) -> Unit,
-) {
-    AnswerButton(
-        answer = oneAnswer,
-        textColor = getButtonColor(highlight, ONE_ANSWER_INDEX),
-        isEnabled = answerButtonIsEnabled,
-        onAnswerClicked = {
-            onAnswerClicked(ONE_ANSWER_INDEX)
-        }
-    )
-
-    AnswerButton(
-        answer = twoAnswer,
-        textColor = getButtonColor(highlight, TWO_ANSWER_INDEX),
-        isEnabled = answerButtonIsEnabled,
-        onAnswerClicked = {
-            onAnswerClicked(TWO_ANSWER_INDEX)
-        }
-    )
-
-    AnswerButton(
-        answer = threeAnswer,
-        textColor = getButtonColor(highlight, THREE_ANSWER_INDEX),
-        isEnabled = answerButtonIsEnabled,
-        onAnswerClicked = {
-            onAnswerClicked(THREE_ANSWER_INDEX)
-        }
-    )
-
-    AnswerButton(
-        answer = fourAnswer,
-        textColor = getButtonColor(highlight, FOUR_ANSWER_INDEX),
-        isEnabled = answerButtonIsEnabled,
-        onAnswerClicked = {
-            onAnswerClicked(FOUR_ANSWER_INDEX)
-        }
-    )
-}
-
-private fun getButtonColor(
-    highlight: HighlightUiModel,
-    buttonIndex: Int,
-): Color? {
-    return when (highlight) {
-        HighlightUiModel.Default -> null
-
-        is HighlightUiModel.False -> {
-            when (buttonIndex) {
-                highlight.trueIndex -> {
-                    app_color_positive
-                }
-
-                highlight.falseIndex -> {
-                    app_color_negative
-                }
-
-                else -> {
-                    null
-                }
-            }
-        }
-
-        is HighlightUiModel.True -> {
-            if (buttonIndex == highlight.index) {
-                app_color_positive
-            } else {
-                null
-            }
-        }
-    }
-}
-
-@Composable
-internal fun AnswerButton(
-    answer: String,
-    textColor: Color?,
-    isEnabled: Boolean,
-    onAnswerClicked: () -> Unit,
-) {
-    val buttonColors = if (textColor != null) {
-        ButtonDefaults.textButtonColors(contentColor = textColor)
-    } else {
-        ButtonDefaults.textButtonColors()
-    }
-    val horizontalMargin = 16.dp
-    TextButton(
-        onClick = {
-            if (isEnabled) {
-                onAnswerClicked()
-            }
-        },
-        modifier = Modifier.fillMaxWidth(),
-        colors = buttonColors,
-        shape = RectangleShape,
-        contentPadding = PaddingValues(
-            start = horizontalMargin,
-            top = ButtonDefaults.TextButtonContentPadding.calculateTopPadding(),
-            end = horizontalMargin,
-            bottom = ButtonDefaults.TextButtonContentPadding.calculateBottomPadding(),
-        ),
-    ) {
-        Text(
-            text = answer,
-            modifier = Modifier.fillMaxWidth(),
-            style = MaterialTheme.typography.bodyLarge,
-        )
     }
 }
 
@@ -604,7 +463,7 @@ internal fun AdContainer(
 }
 
 @Composable
-fun PromoContent(proMessage: String) {
+internal fun PromoContent(proMessage: String) {
     Text(
         text = proMessage,
         color = MaterialTheme.colorScheme.onSurface,
@@ -647,8 +506,8 @@ private fun ContentPreview(
             GameContent(
                 control = gameData.control,
                 quest = gameData.quest,
+                manualAnswer = "Manual",
                 scrollToTop = false,
-                isDebugMode = false,
                 bannerAdUnitId = "ad_unit",
                 adBannerState = AdBannerState.PROMO,
                 proMessage = "Pro message",
@@ -656,9 +515,8 @@ private fun ContentPreview(
                 isAdFeatureEnabled = true,
                 onAnswerClicked = {},
                 onScrollToTopAnimationEnded = {},
-                onStartAutoTestClicked = {},
-                onStopAutoTestClicked = {},
                 onProBannerClicked = {},
+                onAnswerTextChanged = {},
             )
         }
     }

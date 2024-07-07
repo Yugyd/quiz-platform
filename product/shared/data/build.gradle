@@ -5,10 +5,19 @@ plugins {
     alias(libs.plugins.convention.library.lint)
     alias(libs.plugins.convention.library.test)
     alias(libs.plugins.convention.hilt)
+    alias(libs.plugins.room.plugin)
 }
 
 android {
     namespace 'com.yugyd.quiz.data'
+
+    sourceSets {
+        androidTest.assets.srcDirs += files("$projectDir/schemas".toString())
+    }
+}
+
+room {
+    schemaDirectory "$projectDir/schemas/"
 }
 
 dependencies {
@@ -17,6 +26,7 @@ dependencies {
     implementation project(':product:shared:domain-api')
     implementation project(':product:core')
     implementation project(':product:core:file')
+    implementation project(':product:game:game-bl-api')
 
     // Kotlin
     implementation libs.kotlinx.coroutines.android
@@ -27,6 +37,7 @@ dependencies {
     // Room
     implementation libs.room.runtime
     implementation libs.room.ktx
+    implementation project(':product:core:featuretoggle')
     ksp libs.room.compiler
 
     // Firebase: Analytics, Crashlytics
@@ -36,4 +47,11 @@ dependencies {
 
     // Logging
     implementation libs.timber
+
+    // Test
+    androidTestImplementation libs.kotlin.test
+    androidTestImplementation libs.androidx.test.core
+    androidTestImplementation libs.androidx.test.junit
+    androidTestImplementation libs.androidx.test.rules
+    androidTestImplementation libs.room.testing
 }

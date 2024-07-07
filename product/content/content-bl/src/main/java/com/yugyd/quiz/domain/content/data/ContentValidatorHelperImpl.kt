@@ -1,12 +1,12 @@
 package com.yugyd.quiz.domain.content.data
 
-import com.yugyd.quiz.domain.api.model.Quest
 import com.yugyd.quiz.domain.api.model.Theme
 import com.yugyd.quiz.domain.content.api.ContentDataModel
 import com.yugyd.quiz.domain.content.exceptions.DuplicateIdQuestsException
 import com.yugyd.quiz.domain.content.exceptions.DuplicateIdThemesException
 import com.yugyd.quiz.domain.content.exceptions.NotValidQuestsException
 import com.yugyd.quiz.domain.content.exceptions.NotValidThemesException
+import com.yugyd.quiz.domain.game.api.model.Quest
 import javax.inject.Inject
 
 internal class ContentValidatorHelperImpl @Inject constructor() : ContentValidatorHelper {

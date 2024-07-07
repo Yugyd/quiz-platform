@@ -22,7 +22,7 @@ import com.yugyd.buildlogic.convention.core.libs
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
 
-internal fun CommonExtension<*, *, *, *, *>.configureTest(target: Project) {
+internal fun CommonExtension<*, *, *, *, *, *>.configureTest(target: Project) {
     defaultConfig.testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
     target.dependencies {

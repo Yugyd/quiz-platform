@@ -17,6 +17,9 @@ dependencies {
     implementation project(':product:shared:domain-api')
     implementation project(':product:shared:domain-controller')
     implementation project(':product:shared:domain-utils')
+    implementation project(':product:game:game-bl-api')
+    implementation project(':product:game:enterquest-bl')
+    implementation project(':product:game:simplequest-bl')
 
     // Kotlin
     implementation libs.kotlinx.coroutines.android

@@ -23,8 +23,14 @@ dependencies {
     implementation project(':product:theme:theme-bl')
     implementation project(':product:errors:errors-bl')
     implementation project(':product:game:game-bl')
+    implementation project(':product:game:game-bl-api')
+    implementation project(':product:game:game-ui-api')
+    implementation project(':product:game:enterquest-ui')
+    implementation project(':product:game:simplequest-ui')
     implementation project(':product:shared:domain-api')
     implementation project(':product:options:options-bl')
+    implementation project(':product:game:enterquest-bl')
+    implementation project(':product:game:simplequest-bl')
 
     // UI - Compose
     implementation libs.compose.material3

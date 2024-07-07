@@ -18,20 +18,20 @@ package com.yugyd.quiz.gameui.game
 
 import com.google.android.gms.ads.LoadAdError
 import com.yugyd.quiz.core.GlobalConfig
-import com.yugyd.quiz.domain.api.model.game.QuestModel
 import com.yugyd.quiz.domain.api.model.payload.GameEndPayload
 import com.yugyd.quiz.domain.api.model.payload.GamePayload
+import com.yugyd.quiz.domain.game.api.BaseQuestDomainModel
 import com.yugyd.quiz.gameui.game.model.ControlUiModel
-import com.yugyd.quiz.gameui.game.model.QuestUiModel
 import com.yugyd.quiz.gameui.game.model.RewardedAdStatus
+import com.yugyd.quiz.ui.game.api.model.BaseQuestUiModel
 
 internal interface GameView {
 
     data class State(
         val payload: GamePayload,
-        val domainQuest: QuestModel = QuestModel(),
+        val domainQuest: BaseQuestDomainModel? = null,
         val rewardedAdStatus: RewardedAdStatus = RewardedAdStatus.NONE,
-        val quest: QuestUiModel = QuestUiModel(),
+        val quest: BaseQuestUiModel? = null,
         val control: ControlUiModel = ControlUiModel(),
         val adBannerState: AdBannerState = AdBannerState.LOADING,
         val error: Throwable? = null,
@@ -51,6 +51,7 @@ internal interface GameView {
         val startErrorVibration: Boolean = false,
         val isDebugMode: Boolean = GlobalConfig.DEBUG,
         val navigationState: NavigationState? = null,
+        val manualAnswer: String = "",
     ) {
 
         enum class AdBannerState {
@@ -78,8 +79,6 @@ internal interface GameView {
         object OnRewardAdClosed : Action
         object OnBannerAdLoaded : Action
         class OnBannerAdFailedToLoad(val adError: LoadAdError) : Action
-        object OnAutoTestClicked : Action
-        object OnAutoTestLongClicked : Action
         object OnSnackbarDismissed : Action
         object OnAdBannerAnimationEnded : Action
         object OnDebugAnswerToastDismissed : Action
@@ -87,5 +86,6 @@ internal interface GameView {
         object OnRewardDialogDismissed : Action
         object OnErrorVibrationEnded : Action
         object OnNavigationHandled : Action
+        data class OnAnswerTextChanged(val userAnswer: String) : Action
     }
 }

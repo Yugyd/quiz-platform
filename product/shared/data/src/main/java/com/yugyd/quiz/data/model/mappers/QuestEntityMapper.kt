@@ -17,13 +17,16 @@
 package com.yugyd.quiz.data.model.mappers
 
 import com.yugyd.quiz.data.crypto.CryptoHelper
-import com.yugyd.quiz.data.model.QuestEntity
-import com.yugyd.quiz.domain.api.model.Quest
+import com.yugyd.quiz.data.model.quest.QuestEntity
+import com.yugyd.quiz.data.model.quest.QuestTypeEntity
+import com.yugyd.quiz.domain.game.api.exception.QuestTypeException
+import com.yugyd.quiz.domain.game.api.model.Quest
+import com.yugyd.quiz.domain.game.api.model.QuestType
 import javax.inject.Inject
 
 class QuestEntityMapper @Inject constructor(private val cryptoHelper: CryptoHelper) {
 
-    fun mapQuestToDomain(entity: QuestEntity) = entity.run {
+    fun mapQuestToDomain(entity: QuestEntity): Quest = entity.run {
         Quest(
             id = id,
             quest = cryptoHelper.decrypt(quest),
@@ -37,7 +40,8 @@ class QuestEntityMapper @Inject constructor(private val cryptoHelper: CryptoHelp
             answer8 = cryptoHelper.decrypt(answer8),
             complexity = complexity,
             category = category,
-            section = section
+            section = section,
+            type = getQuestType(type),
         )
     }
 
@@ -56,6 +60,19 @@ class QuestEntityMapper @Inject constructor(private val cryptoHelper: CryptoHelp
             complexity = complexity,
             category = category,
             section = section,
+            type = getQuestEntityValue(type),
         )
+    }
+
+    private fun getQuestType(value: String) = when (value) {
+        QuestTypeEntity.SIMPLE.databaseValue -> QuestType.SIMPLE
+        QuestTypeEntity.ENTER_CODE.databaseValue -> QuestType.ENTER_CODE
+        else -> throw QuestTypeException("Unknown quest type: $value")
+    }
+
+    private fun getQuestEntityValue(type: QuestType) = when (type) {
+        QuestType.SIMPLE -> QuestTypeEntity.SIMPLE.databaseValue
+        QuestType.ENTER_CODE -> QuestTypeEntity.ENTER_CODE.databaseValue
+        else -> throw QuestTypeException("Unknown quest type: $type")
     }
 }

@@ -21,6 +21,7 @@ dependencies {
     implementation project(':product:shared:domain-api')
     implementation project(':product:shared:domain-utils')
     implementation project(':product:shared:data')
+    implementation project(':product:game:game-bl-api')
 
     // Threading
     implementation libs.kotlinx.coroutines.core

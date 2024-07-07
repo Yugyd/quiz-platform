@@ -16,7 +16,7 @@
 
 package com.yugyd.quiz.domain.utils
 
-import com.yugyd.quiz.domain.api.model.Quest
+import com.yugyd.quiz.domain.game.api.model.Quest
 import javax.inject.Inject
 
 class SeparatorParser @Inject constructor() {

@@ -16,8 +16,13 @@
 
 package com.yugyd.quiz.domain.api.repository
 
+data class SectionRange(
+    val startSectionId: Int,
+    val maxSectionId: Int,
+)
+
 interface SectionSource {
-    suspend fun getSectionCountByTheme(themeId: Int): Int
+    suspend fun getSectionCountByTheme(themeId: Int): SectionRange
     suspend fun updateSectionIds(questIds: List<Int>)
     suspend fun deleteSectionIds(questIds: List<Int>): Int
     suspend fun getSectionTotalProgress(questIds: IntArray): Int

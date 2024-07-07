@@ -17,10 +17,10 @@
 package com.yugyd.quiz.domain.errors
 
 import com.yugyd.quiz.core.coroutinesutils.DispatchersProvider
-import com.yugyd.quiz.domain.api.model.Quest
 import com.yugyd.quiz.domain.api.model.errorlist.ErrorModel
 import com.yugyd.quiz.domain.api.repository.ErrorSource
 import com.yugyd.quiz.domain.api.repository.QuestSource
+import com.yugyd.quiz.domain.game.api.model.Quest
 import com.yugyd.quiz.domain.utils.SeparatorParser
 import kotlinx.coroutines.withContext
 import javax.inject.Inject

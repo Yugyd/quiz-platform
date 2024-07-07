@@ -21,7 +21,7 @@ import com.android.build.api.dsl.BuildType
 import com.android.build.api.dsl.CommonExtension
 import com.android.build.gradle.internal.dsl.BuildType as InternalBuild
 
-internal fun CommonExtension<*, *, *, *, *>.configureBuildTypes() {
+internal fun CommonExtension<*, *, *, *, *, *>.configureBuildTypes() {
     buildTypes {
         getByName("debug") {
             if (this is ApplicationExtension) {

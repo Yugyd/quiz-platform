@@ -1,6 +1,6 @@
 package com.yugyd.quiz.domain.content.exceptions
 
-import com.yugyd.quiz.domain.api.model.Quest
+import com.yugyd.quiz.domain.game.api.model.Quest
 
 data class NotValidQuestsException(
     override val message: String,

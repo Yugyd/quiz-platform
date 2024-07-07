@@ -1,0 +1,17 @@
+plugins {
+    alias(libs.plugins.convention.library)
+    alias(libs.plugins.convention.library.buildtype)
+    alias(libs.plugins.convention.library.lint)
+}
+
+android {
+    namespace 'com.yugyd.quiz.ui.game.api'
+}
+
+dependencies {
+    // Module
+    implementation project(':product:game:game-bl-api')
+
+    // DI
+    implementation libs.javax.inject
+}

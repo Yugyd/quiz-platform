@@ -44,12 +44,13 @@ internal class ProfileUiMapper @Inject constructor(
         isVibration: Boolean,
         isProFeatureEnabled: Boolean,
         isTelegramFeatureEnabled: Boolean,
+        isContentFeatureEnabled: Boolean,
         telegramConfig: TelegramConfig?,
         contentTitle: String?,
         isBasedOnPlatformApp: Boolean,
     ) = listOfNotNull(
         header(content, isProFeatureEnabled),
-        mapContentToValueItem(contentTitle),
+        mapContentToValueItem(contentTitle, isContentFeatureEnabled),
         section(TypeProfile.SOCIAL_SECTION, R.string.title_social, isTelegramFeatureEnabled),
         social(TypeProfile.TELEGRAM_SOCIAL, isTelegramFeatureEnabled, telegramConfig),
         section(TypeProfile.SETTINGS_SECTION, R.string.title_settings),
@@ -68,12 +69,19 @@ internal class ProfileUiMapper @Inject constructor(
         getOpenSourceItem(isBasedOnPlatformApp),
     )
 
-    fun mapContentToValueItem(contentTitle: String?): ValueItemProfileUiModel {
-        return value(
-            TypeProfile.SELECT_CONTENT,
-            R.string.profile_title_content,
-            contentTitle ?: context.getString(R.string.profile_title_content_not_selected),
-        )
+    fun mapContentToValueItem(
+        contentTitle: String?,
+        isContentEnabled: Boolean,
+    ): ValueItemProfileUiModel? {
+        return if (isContentEnabled) {
+            value(
+                TypeProfile.SELECT_CONTENT,
+                R.string.profile_title_content,
+                contentTitle ?: context.getString(R.string.profile_title_content_not_selected),
+            )
+        } else {
+            null
+        }
     }
 
     private fun header(content: Content, isProFeatureEnabled: Boolean) = content.run {

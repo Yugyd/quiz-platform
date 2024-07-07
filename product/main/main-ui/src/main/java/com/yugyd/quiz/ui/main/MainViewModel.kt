@@ -27,6 +27,7 @@ import com.yugyd.quiz.domain.update.UpdateInteractor
 import com.yugyd.quiz.featuretoggle.domain.FeatureManager
 import com.yugyd.quiz.featuretoggle.domain.RemoteConfigRepository
 import com.yugyd.quiz.featuretoggle.domain.model.FeatureToggle
+import com.yugyd.quiz.featuretoggle.domain.model.LocalFeatureToggle
 import com.yugyd.quiz.ui.main.MainView.Action
 import com.yugyd.quiz.ui.main.MainView.State
 import com.yugyd.quiz.ui.main.MainView.State.NavigationState
@@ -124,7 +125,7 @@ internal class MainViewModel @Inject constructor(
                 )
             }
 
-            shouldStartContentScreen -> {
+            !LocalFeatureToggle.STANDALONE_APP.enabled && shouldStartContentScreen -> {
                 screenState = screenState.copy(
                     navigationState = NavigationState.NavigateToContent,
                 )

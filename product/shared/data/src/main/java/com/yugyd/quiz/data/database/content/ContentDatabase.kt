@@ -21,10 +21,10 @@ import androidx.room.RoomDatabase
 import com.yugyd.quiz.data.database.content.dao.ContentResetDao
 import com.yugyd.quiz.data.database.content.dao.QuestDao
 import com.yugyd.quiz.data.database.content.dao.ThemeDao
-import com.yugyd.quiz.data.model.QuestEntity
+import com.yugyd.quiz.data.model.quest.QuestEntity
 import com.yugyd.quiz.data.model.ThemeEntity
 
-private const val CONTENT_DB_VERSION = 5
+private const val CONTENT_DB_VERSION = 6
 
 @Database(
     entities = [
@@ -32,7 +32,7 @@ private const val CONTENT_DB_VERSION = 5
         QuestEntity::class
     ],
     version = CONTENT_DB_VERSION,
-    exportSchema = false
+    exportSchema = true,
 )
 internal abstract class ContentDatabase : RoomDatabase() {
     abstract fun themeDao(): ThemeDao

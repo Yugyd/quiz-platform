@@ -23,10 +23,10 @@ import com.yugyd.quiz.core.GlobalConfig
 import com.yugyd.quiz.core.Logger
 import com.yugyd.quiz.core.coroutinesutils.DispatchersProvider
 import com.yugyd.quiz.core.runCatch
-import com.yugyd.quiz.domain.api.model.game.HighlightModel
-import com.yugyd.quiz.domain.api.model.game.QuestModel
 import com.yugyd.quiz.domain.api.model.payload.GameEndPayload
 import com.yugyd.quiz.domain.game.GameInteractor
+import com.yugyd.quiz.domain.game.api.BaseQuestDomainModel
+import com.yugyd.quiz.domain.game.api.model.HighlightModel
 import com.yugyd.quiz.domain.game.exception.FinishGameException
 import com.yugyd.quiz.domain.game.exception.RewardedGameException
 import com.yugyd.quiz.domain.game.model.GameState
@@ -38,16 +38,13 @@ import com.yugyd.quiz.gameui.game.GameView.State
 import com.yugyd.quiz.gameui.game.GameView.State.NavigationState
 import com.yugyd.quiz.gameui.game.mapper.ControlUiMapper
 import com.yugyd.quiz.gameui.game.mapper.HighlightUiMapper
-import com.yugyd.quiz.gameui.game.mapper.QuestUiMapper
 import com.yugyd.quiz.gameui.game.model.ControlUiModel
-import com.yugyd.quiz.gameui.game.model.HighlightUiModel
-import com.yugyd.quiz.gameui.game.model.QuestUiModel
 import com.yugyd.quiz.gameui.game.model.RewardedAdStatus
+import com.yugyd.quiz.ui.game.api.model.BaseQuestUiModel
+import com.yugyd.quiz.ui.game.api.model.HighlightUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -56,11 +53,11 @@ internal class GameViewModel @Inject constructor(
     private val gameInteractor: GameInteractor,
     private val optionsInteractor: OptionsInteractor,
     private val controlUiMapper: ControlUiMapper,
-    private val questUiMapper: QuestUiMapper,
+    private val gameViewModelDelegateHolder: GameViewModelDelegateHolder,
     private val highlightUiMapper: HighlightUiMapper,
     private val featureManager: FeatureManager,
     logger: Logger,
-    private val dispatchersProvider: DispatchersProvider,
+    dispatchersProvider: DispatchersProvider,
 ) :
     BaseViewModel<State, Action>(
         logger = logger,
@@ -69,8 +66,6 @@ internal class GameViewModel @Inject constructor(
             payload = GamePayloadArgs(savedStateHandle).payload,
         )
     ) {
-
-    private var debugableAutoTestJob: Job? = null
 
     init {
         initData()
@@ -90,8 +85,6 @@ internal class GameViewModel @Inject constructor(
             Action.OnRewardAdLoad -> onRewardAdLoad()
             Action.OnRewardAdNotShowed -> onRewardAdNotShowed()
             Action.OnUserEarnedReward -> onUserEarnedReward()
-            Action.OnAutoTestClicked -> onAutoTestClicked()
-            Action.OnAutoTestLongClicked -> onAutoTestLongClicked()
             Action.OnAdBannerAnimationEnded -> {
                 screenState = screenState.copy(showAdBannerAnimation = false)
             }
@@ -125,6 +118,12 @@ internal class GameViewModel @Inject constructor(
             Action.OnNavigationHandled -> {
                 screenState = screenState.copy(navigationState = null)
             }
+
+            is Action.OnAnswerTextChanged -> {
+                screenState = screenState.copy(
+                    manualAnswer = action.userAnswer,
+                )
+            }
         }
     }
 
@@ -152,7 +151,11 @@ internal class GameViewModel @Inject constructor(
         vmScopeErrorHandled.launch {
             runCatch(
                 block = {
-                    val answerData = gameInteractor.resultAnswer(screenState.domainQuest, index)
+                    val answerData = gameInteractor.resultAnswer(
+                        quest = screenState.domainQuest!!,
+                        index = index,
+                        userAnswer = screenState.manualAnswer
+                    )
                     processAnswerData(answerData)
                 },
                 catch = ::processError
@@ -211,34 +214,13 @@ internal class GameViewModel @Inject constructor(
         )
     }
 
-    private fun onAutoTestClicked() {
-        if (GlobalConfig.DEBUG) {
-            debugableAutoTestJob?.cancel()
-            debugableAutoTestJob = vmScopeErrorHandled.launch {
-                repeat(Int.MAX_VALUE) {
-                    withContext(dispatchersProvider.default) {
-                        val delayTimeMills = optionsInteractor.transition.value.toLong() * 2000
-                        delay(delayTimeMills)
-                    }
-                    onAction(Action.OnAnswerClicked(screenState.domainQuest.trueAnswerIndex))
-                }
-            }
-        }
-    }
-
-    private fun onAutoTestLongClicked() {
-        if (GlobalConfig.DEBUG) {
-            debugableAutoTestJob?.cancel()
-        }
-    }
-
     private fun initData() {
         vmScopeErrorHandled.launch {
             screenState = screenState.copy(
                 isLoading = true,
                 isWarning = false,
-                domainQuest = QuestModel(),
-                quest = QuestUiModel(),
+                domainQuest = null,
+                quest = null,
                 control = ControlUiModel(),
             )
 
@@ -269,10 +251,18 @@ internal class GameViewModel @Inject constructor(
         isAdFeatureEnabled: Boolean,
         isProFeatureEnabled: Boolean,
     ) {
+        val highlight = HighlightUiModel.Default
+        val answerButtonIsEnabled = true
+
         val quest = data.quest
         screenState = screenState.copy(
             domainQuest = quest,
-            quest = questUiMapper.map(quest),
+            manualAnswer = "",
+            quest = getNewQuestState(
+                domainQuest = quest,
+                highlight = highlight,
+                answerButtonIsEnabled = answerButtonIsEnabled,
+            ),
             control = controlUiMapper.map(data.control),
             isAdFeatureEnabled = isAdFeatureEnabled,
             isProFeatureEnabled = isProFeatureEnabled,
@@ -313,28 +303,47 @@ internal class GameViewModel @Inject constructor(
                 isLoading = false,
                 isWarning = true,
                 showErrorMessage = true,
-                domainQuest = QuestModel(),
-                quest = QuestUiModel(),
+                domainQuest = null,
+                quest = null,
                 control = ControlUiModel(),
             )
         }
     }
 
     private fun processAnswerData(data: HighlightModel) {
-        val control = screenState.control.copy(
-            highlight = highlightUiMapper.map(data),
-            answerButtonIsEnabled = false
-        )
+        val highlight = highlightUiMapper.map(data)
+        val answerButtonIsEnabled = false
 
         screenState = screenState.copy(
-            control = control
+            quest = getNewQuestState(
+                domainQuest = requireNotNull(screenState.domainQuest),
+                highlight = highlight,
+                answerButtonIsEnabled = answerButtonIsEnabled
+            )
         )
 
-        if (isVibration(control.highlight)) {
+        if (isVibration(highlight)) {
             screenState = screenState.copy(startErrorVibration = true)
         }
 
         blockAnswer()
+    }
+
+    private fun getNewQuestState(
+        domainQuest: BaseQuestDomainModel,
+        highlight: HighlightUiModel,
+        answerButtonIsEnabled: Boolean,
+    ): BaseQuestUiModel {
+        val args = gameViewModelDelegateHolder.getArgs(
+            domainQuest = domainQuest,
+            userAnswer = screenState.manualAnswer,
+            answerButtonIsEnabled = answerButtonIsEnabled,
+        )
+        return gameViewModelDelegateHolder.getNewQuestState(
+            domainQuest = domainQuest,
+            highlight = highlight,
+            args = args,
+        )
     }
 
     private fun isVibration(highlight: HighlightUiModel) =
@@ -343,17 +352,19 @@ internal class GameViewModel @Inject constructor(
     private fun blockAnswer() {
         vmScopeErrorHandled.launch {
             delay(optionsInteractor.transition.value.toLong() * 1000)
+
             processBlockAnswer()
         }
     }
 
     private fun processBlockAnswer() {
-        val control = screenState.control.copy(
-            answerButtonIsEnabled = true,
-            highlight = HighlightUiModel.Default
+        screenState = screenState.copy(
+            quest = getNewQuestState(
+                domainQuest = requireNotNull(screenState.domainQuest),
+                highlight = HighlightUiModel.Default,
+                answerButtonIsEnabled = true,
+            ),
         )
-
-        screenState = screenState.copy(control = control)
 
         continueGame()
     }

@@ -17,10 +17,10 @@
 package com.yugyd.quiz.data
 
 import com.yugyd.quiz.data.database.content.dao.QuestDao
-import com.yugyd.quiz.data.model.QuestComplexitySubsetEntity
 import com.yugyd.quiz.data.model.mappers.QuestEntityMapper
-import com.yugyd.quiz.domain.api.model.Quest
+import com.yugyd.quiz.data.model.quest.QuestComplexitySubsetEntity
 import com.yugyd.quiz.domain.api.repository.QuestSource
+import com.yugyd.quiz.domain.game.api.model.Quest
 import javax.inject.Inject
 
 internal class QuestDataSource @Inject constructor(

@@ -16,8 +16,8 @@
 
 package com.yugyd.quiz.gameui.game.mapper
 
-import com.yugyd.quiz.domain.api.model.game.HighlightModel
-import com.yugyd.quiz.gameui.game.model.HighlightUiModel
+import com.yugyd.quiz.domain.game.api.model.HighlightModel
+import com.yugyd.quiz.ui.game.api.model.HighlightUiModel
 import javax.inject.Inject
 
 internal class HighlightUiMapper @Inject constructor() {

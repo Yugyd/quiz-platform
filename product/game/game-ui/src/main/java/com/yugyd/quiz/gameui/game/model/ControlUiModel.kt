@@ -20,6 +20,7 @@ import androidx.annotation.DrawableRes
 import androidx.compose.ui.graphics.Color
 import com.yugyd.quiz.gameui.R
 import com.yugyd.quiz.gameui.game.model.ConditionUiModel.NONE
+import com.yugyd.quiz.ui.game.api.model.HighlightUiModel
 import com.yugyd.quiz.uikit.theme.app_color_negative
 
 internal data class ControlUiModel(
@@ -32,7 +33,5 @@ internal data class ControlUiModel(
     val conditionIsVisible: Boolean = true,
     val progressPercent: Int = 0,
     val progressColor: Color = app_color_negative,
-    val highlight: HighlightUiModel = HighlightUiModel.Default,
     val isBanner: Boolean = true,
-    val answerButtonIsEnabled: Boolean = true
 )

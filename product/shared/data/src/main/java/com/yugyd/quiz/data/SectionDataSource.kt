@@ -20,6 +20,7 @@ import com.yugyd.quiz.data.database.content.dao.QuestDao
 import com.yugyd.quiz.data.database.user.dao.SectionDao
 import com.yugyd.quiz.data.database.user.dao.UserResetDao
 import com.yugyd.quiz.data.model.mappers.SectionEntityMapper
+import com.yugyd.quiz.domain.api.repository.SectionRange
 import com.yugyd.quiz.domain.api.repository.SectionSource
 import javax.inject.Inject
 
@@ -30,8 +31,12 @@ internal class SectionDataSource @Inject constructor(
     private val sectionEntityMapper: SectionEntityMapper
 ) : SectionSource {
 
-    override suspend fun getSectionCountByTheme(themeId: Int) = questDao
-        .getSectionCountByTheme(themeId)
+    override suspend fun getSectionCountByTheme(themeId: Int): SectionRange {
+        return SectionRange(
+            startSectionId = questDao.getMinSectionByTheme(themeId),
+            maxSectionId = questDao.getSectionCountByTheme(themeId),
+        )
+    }
 
     override suspend fun updateSectionIds(questIds: List<Int>) = sectionDao
         .insertAll(sectionEntityMapper.mapSectionToEntity(questIds))

@@ -48,7 +48,6 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.yugyd.quiz.domain.api.model.Quest
 import com.yugyd.quiz.domain.api.model.Theme
 import com.yugyd.quiz.domain.content.api.ContentModel
 import com.yugyd.quiz.domain.content.exceptions.ContentVerificationException
@@ -56,6 +55,7 @@ import com.yugyd.quiz.domain.content.exceptions.DuplicateIdQuestsException
 import com.yugyd.quiz.domain.content.exceptions.DuplicateIdThemesException
 import com.yugyd.quiz.domain.content.exceptions.NotValidQuestsException
 import com.yugyd.quiz.domain.content.exceptions.NotValidThemesException
+import com.yugyd.quiz.domain.game.api.model.Quest
 import com.yugyd.quiz.ui.content.ContentView.Action
 import com.yugyd.quiz.ui.content.ContentView.State
 import com.yugyd.quiz.ui.content.ContentView.State.NavigationState

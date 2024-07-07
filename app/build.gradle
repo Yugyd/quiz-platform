@@ -170,7 +170,6 @@ dependencies {
     implementation libs.firebase.messages
 
     // Play Services: Ads, Auth, Games
-    implementation libs.play.core
     implementation libs.play.ads
 
     // Work Manager

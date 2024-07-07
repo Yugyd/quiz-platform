@@ -14,6 +14,8 @@ plugins {
     alias(libs.plugins.gms) apply false
     // DI
     alias(libs.plugins.hilt.plugin) apply false
+    // Database
+    alias(libs.plugins.room.plugin) apply false
     // Build-Logic
     alias(libs.plugins.android.cache.fix) apply false
     // Convention

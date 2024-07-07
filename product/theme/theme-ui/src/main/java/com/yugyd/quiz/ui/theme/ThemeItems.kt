@@ -123,7 +123,7 @@ internal fun ThemeItem(
                     label = "ProgressFloatAnimation",
                 )
                 LinearProgressIndicator(
-                    progress = animatedProgress,
+                    progress = { animatedProgress },
                     modifier = Modifier
                         .height(height = progressIndicatorHeight)
                         .fillMaxWidth(),

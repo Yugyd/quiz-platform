@@ -24,7 +24,7 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-internal fun CommonExtension<*, *, *, *, *>.configureCompose(target: Project) {
+internal fun CommonExtension<*, *, *, *, *, *>.configureCompose(target: Project) {
     buildFeatures.compose = true
 
     composeOptions.kotlinCompilerExtensionVersion = target.libs.findVersion(

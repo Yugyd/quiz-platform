@@ -1,0 +1,17 @@
+plugins {
+    alias(libs.plugins.convention.library)
+    alias(libs.plugins.convention.library.buildtype)
+    alias(libs.plugins.convention.library.lint)
+}
+
+android {
+    namespace 'com.yugyd.quiz.domain.game.api'
+}
+
+dependencies {
+    // Kotlin
+    implementation libs.kotlinx.coroutines.android
+
+    // DI
+    implementation libs.javax.inject
+}

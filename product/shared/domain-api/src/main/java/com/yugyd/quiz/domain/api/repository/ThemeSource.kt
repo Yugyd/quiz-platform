@@ -21,6 +21,5 @@ import com.yugyd.quiz.domain.api.model.Theme
 interface ThemeSource {
     suspend fun getTheme(id: Int): Theme
     suspend fun getThemes(): List<Theme>
-    suspend fun getSectionCount(themeId: Int): Int
     suspend fun addThemes(themes: List<Theme>)
 }

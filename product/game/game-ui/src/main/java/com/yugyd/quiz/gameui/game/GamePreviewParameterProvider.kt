@@ -21,8 +21,8 @@ import com.yugyd.quiz.gameui.R
 import com.yugyd.quiz.gameui.game.model.ConditionUiModel
 import com.yugyd.quiz.gameui.game.model.ControlUiModel
 import com.yugyd.quiz.gameui.game.model.GameStateUiModel
-import com.yugyd.quiz.gameui.game.model.HighlightUiModel
-import com.yugyd.quiz.gameui.game.model.QuestUiModel
+import com.yugyd.quiz.ui.game.api.model.HighlightUiModel
+import com.yugyd.quiz.ui.simplequest.SimpleQuestUiModel
 import com.yugyd.quiz.uikit.theme.app_color_negative
 
 internal class GamePreviewParameterProvider :
@@ -46,17 +46,16 @@ internal class GamePreviewParameterProvider :
         conditionIsVisible = true,
         progressPercent = 30,
         progressColor = app_color_negative,
-        highlight = HighlightUiModel.False(1, 3),
         isBanner = true,
-        answerButtonIsEnabled = true,
     )
 
-    private fun createQuest() = QuestUiModel(
-        id = 1,
+    private fun createQuest() = SimpleQuestUiModel(
         quest = "Quest",
         oneAnswer = "One answer",
         twoAnswer = "Two answer",
         threeAnswer = "Three answer",
         fourAnswer = "Four answer",
+        answerButtonIsEnabled = false,
+        highlight = HighlightUiModel.Default,
     )
 }

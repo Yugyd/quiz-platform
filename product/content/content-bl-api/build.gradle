@@ -12,4 +12,5 @@ android {
 
 dependencies {
     implementation(project(":product:shared:domain-api"))
+    implementation project(':product:game:game-bl-api')
 }

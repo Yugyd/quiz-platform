@@ -22,7 +22,7 @@ import com.yugyd.buildlogic.convention.core.findVersionInt
 import com.yugyd.buildlogic.convention.core.libs
 import org.gradle.api.Project
 
-internal fun CommonExtension<*, *, *, *, *>.configureAndroid(target: Project) {
+internal fun CommonExtension<*, *, *, *, *, *>.configureAndroid(target: Project) {
     compileSdk = target.libs.findVersionInt("compile-sdk")
 
     defaultConfig {

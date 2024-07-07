@@ -20,8 +20,8 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.yugyd.quiz.data.model.QuestComplexitySubsetEntity
-import com.yugyd.quiz.data.model.QuestEntity
+import com.yugyd.quiz.data.model.quest.QuestComplexitySubsetEntity
+import com.yugyd.quiz.data.model.quest.QuestEntity
 
 @Dao
 interface QuestDao {
@@ -52,6 +52,9 @@ interface QuestDao {
 
     @Query("SELECT MAX(section) FROM quest WHERE category = :themeId")
     suspend fun getSectionCountByTheme(themeId: Int): Int
+
+    @Query("SELECT MIN(section) FROM quest WHERE category = :themeId")
+    suspend fun getMinSectionByTheme(themeId: Int): Int
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(quests: List<QuestEntity>)

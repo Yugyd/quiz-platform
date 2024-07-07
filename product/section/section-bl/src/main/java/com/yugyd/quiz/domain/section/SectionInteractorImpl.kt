@@ -19,6 +19,7 @@ package com.yugyd.quiz.domain.section
 import com.yugyd.quiz.core.calculatePercentage
 import com.yugyd.quiz.core.coroutinesutils.DispatchersProvider
 import com.yugyd.quiz.domain.api.repository.QuestSource
+import com.yugyd.quiz.domain.api.repository.SectionRange
 import com.yugyd.quiz.domain.api.repository.SectionSource
 import com.yugyd.quiz.domain.section.model.ProgressState
 import com.yugyd.quiz.domain.section.model.Section
@@ -38,11 +39,16 @@ internal class SectionInteractorImpl @Inject constructor(
             sections.defineLocked()
         }
 
-    private suspend fun mapCountToSections(themeId: Int, sectionCount: Int) =
-        List(sectionCount) { index ->
-            val sectionId = index.inc()
-            getSection(themeId = themeId, sectionId = sectionId)
+    private suspend fun mapCountToSections(
+        themeId: Int,
+        sectionRange: SectionRange
+    ): List<Section> {
+        val sections = arrayListOf<Section>()
+        for (sectionId in sectionRange.startSectionId..sectionRange.maxSectionId) {
+            sections.add(getSection(themeId = themeId, sectionId = sectionId))
         }
+        return sections.toList()
+    }
 
     private suspend fun getSection(themeId: Int, sectionId: Int) = questSource
         .getQuestIdsBySection(themeId, sectionId)

@@ -16,7 +16,6 @@
 
 package com.yugyd.quiz.data
 
-import com.yugyd.quiz.data.database.content.dao.QuestDao
 import com.yugyd.quiz.data.database.content.dao.ThemeDao
 import com.yugyd.quiz.data.model.mappers.ThemeEntityMapper
 import com.yugyd.quiz.domain.api.model.Theme
@@ -24,13 +23,9 @@ import com.yugyd.quiz.domain.api.repository.ThemeSource
 import javax.inject.Inject
 
 internal class ThemeDataSource @Inject constructor(
-    private val questDao: QuestDao,
     private val themeDao: ThemeDao,
     private val themeEntityMapper: ThemeEntityMapper
 ) : ThemeSource {
-
-    override suspend fun getSectionCount(themeId: Int) = questDao
-        .getSectionCountByTheme(themeId)
 
     override suspend fun addThemes(themes: List<Theme>) {
         val entities = themes.map(themeEntityMapper::mapThemeToEntity)

@@ -18,7 +18,7 @@ package com.yugyd.buildlogic.convention.lint
 
 import com.android.build.api.dsl.CommonExtension
 
-internal fun CommonExtension<*, *, *, *, *>.configureLint() = lint {
+internal fun CommonExtension<*, *, *, *, *, *>.configureLint() = lint {
     disable += mutableSetOf("VectorPath")
 
     // Disable lintVital, lint run in CI

@@ -59,6 +59,8 @@ captures/
 /.idea/jarRepositories.xml
 /.idea/compiler.xml
 /.idea/codeStyles/codeStyleConfig.xml
+/.idea/migrations.xml
+/.idea/androidTestResultsUserPreferences.xml
 
 # Keystore files
 upload.jks
@@ -94,4 +96,6 @@ lint/outputs/
 lint/tmp/
 
 .DS_Store
-/.idea/migrations.xml
+/.idea/other.xml
+/.idea/deploymentTargetSelector.xml
+/.idea/appInsightsSettings.xml

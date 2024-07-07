@@ -12,6 +12,8 @@ android {
 }
 
 dependencies {
+    implementation(project(":product:game:game-bl-api"))
+
     // Kotlin
     implementation libs.kotlinx.coroutines.android
 }

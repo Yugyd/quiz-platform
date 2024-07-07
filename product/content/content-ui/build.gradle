@@ -22,6 +22,7 @@ dependencies {
     implementation project(':product:core:file')
     implementation project(':product:content:content-bl')
     implementation project(':product:shared:domain-api')
+    implementation project(':product:game:game-bl-api')
 
     // UI Compose
     implementation libs.compose.material3

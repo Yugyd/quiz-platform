@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.convention.library)
     alias(libs.plugins.convention.library.buildtype)
     alias(libs.plugins.convention.library.jacoco)
+    alias(libs.plugins.convention.library.compose)
     alias(libs.plugins.convention.library.lint)
     alias(libs.plugins.convention.library.test)
 }

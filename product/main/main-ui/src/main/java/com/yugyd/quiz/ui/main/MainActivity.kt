@@ -21,13 +21,20 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.graphics.Color
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.fragment.app.FragmentActivity
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.google.android.gms.ads.MobileAds
-import com.yugyd.quiz.core.AdIdProvider
+import com.yugyd.quiz.ad.banner.AdViewFactory
+import com.yugyd.quiz.ad.banner.LocalAdViewFactory
+import com.yugyd.quiz.ad.interstitial.InterstitialAdFactory
+import com.yugyd.quiz.ad.interstitial.LocalInterstitialAdFactory
+import com.yugyd.quiz.ad.rewarded.LocalRewardAdFactory
+import com.yugyd.quiz.ad.rewarded.RewardedAdFactory
+import com.yugyd.quiz.commonui.providers.LocalResIdProvider
 import com.yugyd.quiz.core.ResIdProvider
 import com.yugyd.quiz.ui.main.MainView.Action
 import com.yugyd.quiz.uikit.theme.QuizApplicationTheme
@@ -38,7 +45,13 @@ import javax.inject.Inject
 internal class MainActivity : FragmentActivity() {
 
     @Inject
-    lateinit var adIdProvider: AdIdProvider
+    lateinit var adViewFactory: AdViewFactory
+
+    @Inject
+    lateinit var rewardedAdFactory: RewardedAdFactory
+
+    @Inject
+    lateinit var interstitialAdFactory: InterstitialAdFactory
 
     @Inject
     lateinit var resIdProvider: ResIdProvider
@@ -52,8 +65,7 @@ internal class MainActivity : FragmentActivity() {
 
         setContent {
             val systemUiController = rememberSystemUiController()
-            val darkTheme = isSystemInDarkTheme()
-            val useDarkIcons = !darkTheme
+            val useDarkIcons = !isSystemInDarkTheme()
 
             DisposableEffect(systemUiController, useDarkIcons) {
                 systemUiController.setSystemBarsColor(
@@ -64,12 +76,15 @@ internal class MainActivity : FragmentActivity() {
                 onDispose {}
             }
 
-            QuizApplicationTheme(darkTheme = darkTheme) {
-                MainApp(
-                    viewModel = viewModel,
-                    adIdProvider = adIdProvider,
-                    resIdProvider = resIdProvider,
-                )
+            CompositionLocalProvider(
+                LocalAdViewFactory provides adViewFactory,
+                LocalRewardAdFactory provides rewardedAdFactory,
+                LocalInterstitialAdFactory provides interstitialAdFactory,
+                LocalResIdProvider provides resIdProvider,
+            ) {
+                QuizApplicationTheme(darkTheme = isSystemInDarkTheme()) {
+                    MainApp(viewModel = viewModel)
+                }
             }
         }
 

@@ -18,7 +18,7 @@ package com.yugyd.quiz.core
 
 import androidx.annotation.StringRes
 
-interface AdIdProvider {
+interface AdIdProvider : AdIdJvmProvider {
 
     @StringRes
     fun idAdBannerGame(): Int

@@ -31,14 +31,14 @@ dependencies {
     implementation project(':product:options:options-bl')
     implementation project(':product:game:enterquest-bl')
     implementation project(':product:game:simplequest-bl')
+    implementation project(':product:services:ad-api')
+    implementation project(':product:core:ad')
 
     // UI - Compose
     implementation libs.compose.material3
     implementation libs.compose.viewmodel
     implementation libs.compose.lifecycle
+    implementation libs.compose.material3.adaptive
     // Navigation
     implementation libs.compose.hilt.navigation
-
-    // Play Services: Ads, Auth, Games
-    implementation libs.play.ads
 }

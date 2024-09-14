@@ -17,8 +17,11 @@
 package com.yugyd.quiz
 
 import android.app.Application
+import com.yugyd.quiz.ad.api.AdClient
+import com.yugyd.quiz.core.AdProviderType
 import com.yugyd.quiz.core.GlobalConfig
 import com.yugyd.quiz.core.Logger
+import com.yugyd.quiz.ext.isMainProcess
 import com.yugyd.quiz.push.PushManager
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
@@ -34,8 +37,12 @@ class QuizApplication : Application() {
     @Inject
     lateinit var pushManager: PushManager
 
+    @Inject
+    lateinit var adClient: AdClient
+
     init {
         with(GlobalConfig) {
+            AD_PROVIDER = AdProviderType.from(BuildConfig.AD_PROVIDER)
             DEBUG = BuildConfig.DEBUG
             APPLICATION_ID = BuildConfig.APPLICATION_ID
             PRO_APP_PACKAGE = BuildConfig.PRO_APP_PACKAGE
@@ -53,6 +60,10 @@ class QuizApplication : Application() {
         }
 
         initLogger(this)
+
+        if (isMainProcess()) {
+            adClient.initialize()
+        }
 
         pushManager.createChannels()
     }

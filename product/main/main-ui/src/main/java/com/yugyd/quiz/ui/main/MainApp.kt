@@ -51,8 +51,6 @@ import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
-import com.yugyd.quiz.core.AdIdProvider
-import com.yugyd.quiz.core.ResIdProvider
 import com.yugyd.quiz.correctui.navigateToCorrect
 import com.yugyd.quiz.navigation.SHOW_BOTTOM_BAR_ARG
 import com.yugyd.quiz.navigation.getTelegramIntent
@@ -71,17 +69,11 @@ import com.yugyd.quiz.update.navigateToUpdate
 import timber.log.Timber
 
 @Composable
-internal fun MainApp(
-    viewModel: MainViewModel,
-    adIdProvider: AdIdProvider,
-    resIdProvider: ResIdProvider,
-) {
+internal fun MainApp(viewModel: MainViewModel) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
     MainScreen(
         uiState = state,
-        adIdProvider = adIdProvider,
-        resIdProvider = resIdProvider,
         onTelegramHandled = {
             viewModel.onAction(Action.OnTelegramHandled)
         },
@@ -100,8 +92,6 @@ internal fun MainApp(
 @Composable
 internal fun MainScreen(
     uiState: State,
-    adIdProvider: AdIdProvider,
-    resIdProvider: ResIdProvider,
     onTelegramHandled: () -> Unit,
     onNavigationHandled: () -> Unit,
     onOnboardingClicked: () -> Unit,
@@ -170,8 +160,6 @@ internal fun MainScreen(
                 QuizNavHost(
                     navController = navController,
                     snackbarHostState = snackbarHostState,
-                    adIdProvider = adIdProvider,
-                    resIdProvider = resIdProvider,
                     navigateToExternalScreen = {
                         startActivityOrLogError(context, it)
                     },

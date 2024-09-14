@@ -16,14 +16,20 @@
 
 package com.yugyd.quiz.di
 
-import com.yugyd.quiz.AdIdProviderImpl
 import com.yugyd.quiz.ContentProviderImpl
+import com.yugyd.quiz.GoogleAdIdProviderImpl
 import com.yugyd.quiz.ResIdProviderImpl
+import com.yugyd.quiz.YandexAdProviderImpl
+import com.yugyd.quiz.core.AdIdJvmProvider
 import com.yugyd.quiz.core.AdIdProvider
+import com.yugyd.quiz.core.AdProviderType
 import com.yugyd.quiz.core.ContentProvider
+import com.yugyd.quiz.core.GlobalConfig
+import com.yugyd.quiz.core.ResIdJvmProvider
 import com.yugyd.quiz.core.ResIdProvider
 import dagger.Binds
 import dagger.Module
+import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 
@@ -32,11 +38,36 @@ import dagger.hilt.components.SingletonComponent
 abstract class ResourcesModule {
 
     @Binds
-    internal abstract fun bindAdIdProvider(impl: AdIdProviderImpl): AdIdProvider
-
-    @Binds
     internal abstract fun bindResIdProvider(impl: ResIdProviderImpl): ResIdProvider
 
     @Binds
+    internal abstract fun bindResIdJvmProvider(impl: ResIdProvider): ResIdJvmProvider
+
+    @Binds
     internal abstract fun bindContentProvider(impl: ContentProviderImpl): ContentProvider
+
+    companion object {
+
+        @Provides
+        internal fun bindAdIdProvider(
+            yandexImpl: YandexAdProviderImpl,
+            googleImpl: GoogleAdIdProviderImpl,
+        ): AdIdProvider {
+            return when (GlobalConfig.AD_PROVIDER) {
+                AdProviderType.YANDEX -> yandexImpl
+                AdProviderType.GOOGLE -> googleImpl
+            }
+        }
+
+        @Provides
+        internal fun bindAdIdJvmProvider(
+            yandexImpl: YandexAdProviderImpl,
+            googleImpl: GoogleAdIdProviderImpl,
+        ): AdIdJvmProvider {
+            return when (GlobalConfig.AD_PROVIDER) {
+                AdProviderType.YANDEX -> yandexImpl
+                AdProviderType.GOOGLE -> googleImpl
+            }
+        }
+    }
 }

@@ -12,6 +12,8 @@ android {
 }
 
 dependencies {
+    implementation project(':product:core')
+
     // UI - Compose
     implementation libs.compose.material3
     implementation libs.compose.lifecycle

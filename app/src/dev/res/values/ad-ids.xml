@@ -21,4 +21,10 @@
     <string name="id_ad_interstitial_game_end" translatable="false">ca-app-pub-3940256099942544/8691691433</string>
     <string name="id_ad_rewarded_theme" translatable="false">ca-app-pub-3940256099942544/5224354917</string>
     <string name="id_ad_rewarded_game" translatable="false">ca-app-pub-3940256099942544/5224354917</string>
+
+    <!-- Yandex AD -->
+    <string name="id_yandex_ad_banner_game" translatable="false">demo-banner-yandex</string>
+    <string name="id_yandex_ad_interstitial_game_end" translatable="false">demo-interstitial-yandex</string>
+    <string name="id_yandex_ad_rewarded_theme" translatable="false">demo-rewarded-yandex</string>
+    <string name="id_yandex_ad_rewarded_game" translatable="false">demo-rewarded-yandex</string>
 </resources>

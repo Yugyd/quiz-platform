@@ -17,6 +17,7 @@
 package com.yugyd.quiz
 
 import com.yugyd.quiz.core.ResIdProvider
+import com.yugyd.quiz.core.TextModel
 import javax.inject.Inject
 import com.yugyd.quiz.uikit.R as uiKitR
 
@@ -27,5 +28,6 @@ internal class ResIdProviderImpl @Inject constructor() : ResIdProvider {
     override fun appName() = R.string.app_name
     override fun msgProAdBanner() = R.string.msg_pro_ad_banner
     override fun appTelegramChat() = R.string.app_telegram_chat_name
+    override fun msgProAdBannerString() = TextModel.ResTextModel(res = msgProAdBanner())
     override fun appPrivacyPolicyLink() = R.string.app_privacy_policy_link
 }

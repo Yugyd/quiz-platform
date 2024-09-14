@@ -1,0 +1,9 @@
+plugins {
+    alias(libs.plugins.convention.library)
+    alias(libs.plugins.convention.library.buildtype)
+    alias(libs.plugins.convention.library.lint)
+}
+
+android {
+    namespace 'com.yugyd.quiz.ad.api'
+}

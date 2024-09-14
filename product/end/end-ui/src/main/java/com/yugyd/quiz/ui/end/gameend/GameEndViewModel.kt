@@ -17,7 +17,9 @@
 package com.yugyd.quiz.ui.end.gameend
 
 import androidx.lifecycle.SavedStateHandle
+import com.yugyd.quiz.ad.api.AdErrorDomainModel
 import com.yugyd.quiz.commonui.base.BaseViewModel
+import com.yugyd.quiz.core.AdIdJvmProvider
 import com.yugyd.quiz.core.Logger
 import com.yugyd.quiz.core.coroutinesutils.DispatchersProvider
 import com.yugyd.quiz.core.runCatch
@@ -34,6 +36,7 @@ import com.yugyd.quiz.featuretoggle.domain.model.FeatureToggle
 import com.yugyd.quiz.ui.end.EndArgs
 import com.yugyd.quiz.ui.end.gameend.GameEndView.Action
 import com.yugyd.quiz.ui.end.gameend.GameEndView.State
+import com.yugyd.quiz.ui.end.gameend.GameEndView.State.InterstitialAdState
 import com.yugyd.quiz.ui.end.gameend.GameEndView.State.NavigationState
 import com.yugyd.quiz.ui.end.gameend.model.GameEndUiMapper
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -46,8 +49,9 @@ internal class GameEndViewModel @Inject constructor(
     private val themeInteractor: ThemeInteractor,
     private val gameEndUiMapper: GameEndUiMapper,
     private val featureManager: FeatureManager,
-    logger: Logger,
+    private val logger: Logger,
     dispatchersProvider: DispatchersProvider,
+    private val adIdJvmProvider: AdIdJvmProvider,
 ) :
     BaseViewModel<State, Action>(
         logger = logger,
@@ -68,6 +72,25 @@ internal class GameEndViewModel @Inject constructor(
             Action.OnShowErrorsClicked -> onShowErrorsClicked()
             Action.OnNavigationHandled -> {
                 screenState = screenState.copy(navigationState = null)
+            }
+
+            Action.OnSnackbarDismissed -> {
+                screenState = screenState.copy(showInterstitialErrorMessage = false)
+            }
+
+            // Ad
+            Action.OnInterstitialAdClosed -> loadAd(screenState.isAdFeatureEnabled)
+
+            is Action.OnInterstitialAdFailedToLoad -> onInterstitialAdFailedToLoad(action.adError)
+
+            is Action.OnInterstitialAdFailedToShow -> onInterstitialAdFailedToLoad(action.adError)
+
+            Action.OnInterstitialAdLoaded -> {
+                screenState = screenState.copy(interstitialAdState = InterstitialAdState.IS_LOADED)
+            }
+
+            Action.OnInterstitialAdNotToLoad -> {
+                screenState = screenState.copy(interstitialAdState = InterstitialAdState.NOT_LOADED)
             }
         }
     }
@@ -105,9 +128,7 @@ internal class GameEndViewModel @Inject constructor(
                 }
             )
 
-            if (isAdFeatureEnabled) {
-                // TODO Implement logic with ads - https://yudyd.atlassian.net/browse/QUIZ-203
-            }
+            loadAd(isAdFeatureEnabled)
         }
     }
 
@@ -126,15 +147,43 @@ internal class GameEndViewModel @Inject constructor(
         screenState = state
     }
 
+    private fun loadAd(isAdFeatureEnabled: Boolean) {
+        if (isAdFeatureEnabled) {
+            screenState = screenState.copy(
+                interstitialAdState = InterstitialAdState.LOAD_AD,
+                interstitialAdUnitId = adIdJvmProvider.gameEndInterstitialAdId(),
+            )
+        }
+    }
+
     private fun navigateToBack() {
-        if (
-            screenState.isAdFeatureEnabled &&
-            !screenState.payload.isRewardedSuccess &&
-            !screenState.payload.isBlockedInterstitial
-        ) {
-            // TODO Implement logic with ads - https://yudyd.atlassian.net/browse/QUIZ-203
+        val adState = if (isAdEnabledAndLoaded()) {
+            InterstitialAdState.SHOW_AD
+        } else {
+            screenState.interstitialAdState
         }
 
-        screenState = screenState.copy(navigationState = NavigationState.Back)
+        screenState = screenState.copy(
+            navigationState = NavigationState.Back,
+            interstitialAdState = adState,
+        )
+    }
+
+    private fun isAdEnabledAndLoaded() = isAdEnabled() &&
+            screenState.interstitialAdState == InterstitialAdState.IS_LOADED
+
+    private fun isAdEnabled() = screenState.isAdFeatureEnabled &&
+            !screenState.payload.isRewardedSuccess &&
+            !screenState.payload.isBlockedInterstitial
+
+    private fun onInterstitialAdFailedToLoad(adError: AdErrorDomainModel? = null) {
+        adError?.let {
+            logger.print(TAG, "Reward ad is failed: $it")
+        }
+        screenState = screenState.copy(interstitialAdState = InterstitialAdState.NOT_LOADED)
+    }
+
+    companion object {
+        private const val TAG = "GameEndViewModel"
     }
 }

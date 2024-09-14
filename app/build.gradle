@@ -41,6 +41,8 @@ android {
         // Replace with your resource
         buildConfigField 'String', 'DEV_ID', '\"6210589965533125989\"'
         buildConfigField 'String', 'STORE_PACKAGE', "\"com.android.vending\""
+
+        buildConfigField 'String', 'AD_PROVIDER', "\"yandex\""
     }
 
     signingConfigs {
@@ -135,6 +137,8 @@ dependencies {
     implementation project(':product:content:content-bl')
     implementation project(':product:content:content-ui')
     implementation project(':product:core:coroutines-utils')
+    implementation project(':product:services:ad-impl')
+    implementation project(':product:core:ad')
 
     // Kotlin
     implementation libs.kotlinx.coroutines.android
@@ -176,6 +180,9 @@ dependencies {
 
     // Play Services: Ads, Auth, Games
     implementation libs.play.ads
+
+    // Ad
+    implementation libs.yandex.ads
 
     // Work Manager
     implementation libs.work.manager.ktx

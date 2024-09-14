@@ -19,6 +19,7 @@ package com.yugyd.quiz.core
 import kotlin.properties.Delegates
 
 object GlobalConfig {
+    var AD_PROVIDER by Delegates.notNull<AdProviderType>()
     var DEBUG by Delegates.notNull<Boolean>()
     var APPLICATION_ID by Delegates.notNull<String>()
     var PRO_APP_PACKAGE by Delegates.notNull<String>()

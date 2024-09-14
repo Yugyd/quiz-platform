@@ -16,9 +16,9 @@
 
 package com.yugyd.quiz.featuretoggle.domain.model
 
-enum class FeatureToggle(val key: String) {
-    AD("feature_ad"),
-    PRO("feature_pro"),
-    CORRECT("feature_correct"),
-    TELEGRAM("feature_telegram")
+enum class FeatureToggle(val key: String, val isLocal: Boolean, val localValue: Boolean = false) {
+    AD(key = "feature_ad", isLocal = true, localValue = true),
+    PRO(key = "feature_pro", isLocal = false),
+    CORRECT(key = "feature_correct", isLocal = false),
+    TELEGRAM(key = "feature_telegram", isLocal = false),
 }

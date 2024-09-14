@@ -43,13 +43,16 @@ import com.yugyd.quiz.uikit.theme.QuizApplicationTheme
 
 @Composable
 fun WarningContent(
+    modifier: Modifier = Modifier,
     isRetryButtonEnabled: Boolean = false,
     onRetryClicked: (() -> Unit)? = null,
 ) {
     Column(
-        modifier = Modifier
-            .padding(16.dp)
-            .fillMaxSize(),
+        modifier = modifier.then(
+            Modifier
+                .padding(16.dp)
+                .fillMaxSize(),
+        ),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {

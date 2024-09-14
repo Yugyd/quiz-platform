@@ -17,6 +17,8 @@
 package com.yugyd.quiz.ui.end.gameend
 
 import androidx.compose.ui.graphics.Color
+import com.yugyd.quiz.ad.api.AdErrorDomainModel
+import com.yugyd.quiz.core.TextModel
 import com.yugyd.quiz.domain.api.model.payload.GameEndPayload
 import com.yugyd.quiz.domain.api.payload.ErrorListPayload
 
@@ -28,13 +30,22 @@ internal interface GameEndView {
         val progress: Int = 0,
         val progressTitle: String = "",
         val progressColor: Color = Color.Unspecified,
-        val showErrorIsVisible: Boolean = false,
+        val isErrorVisible: Boolean = false,
         val isAdFeatureEnabled: Boolean = false,
         val isLoading: Boolean = false,
         val navigationState: NavigationState? = null,
-        val loadAd: Boolean = false,
-        val showInterstitialAd: Boolean = false,
+        // Ad
+        val interstitialAdState: InterstitialAdState? = null,
+        val interstitialAdUnitId: TextModel? = null,
+        val showInterstitialErrorMessage: Boolean = false,
     ) {
+
+        enum class InterstitialAdState {
+            LOAD_AD,
+            IS_LOADED,
+            NOT_LOADED,
+            SHOW_AD,
+        }
 
         sealed interface NavigationState {
             object Back : NavigationState
@@ -47,5 +58,17 @@ internal interface GameEndView {
         object OnNewGameClicked : Action
         object OnShowErrorsClicked : Action
         object OnNavigationHandled : Action
+        object OnSnackbarDismissed : Action
+
+        // Ad
+        class OnInterstitialAdFailedToLoad(val adError: AdErrorDomainModel? = null) : Action
+
+        class OnInterstitialAdFailedToShow(val adError: AdErrorDomainModel? = null) : Action
+
+        object OnInterstitialAdNotToLoad : Action
+
+        object OnInterstitialAdClosed : Action
+
+        object OnInterstitialAdLoaded : Action
     }
 }

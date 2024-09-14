@@ -1,4 +1,4 @@
-package com.yugyd.quiz.gameui.game
+package com.yugyd.quiz.gameui.game.di
 
 import com.yugyd.quiz.ui.enterquest.di.EnterGameViewModelModule
 import com.yugyd.quiz.ui.simplequest.di.SimpleGameViewModelModule

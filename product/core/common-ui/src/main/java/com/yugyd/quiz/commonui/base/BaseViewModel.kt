@@ -30,8 +30,10 @@ import kotlinx.coroutines.flow.asStateFlow
 abstract class BaseViewModel<State : Any, Action : Any> protected constructor(
     private val logger: Logger,
     dispatchersProvider: DispatchersProvider,
-    initialState: State
+    initialState: State,
 ) : ViewModel(), StateViewModel<State> {
+
+    private val tagNameWithClassName = this::class.simpleName.toString()
 
     private val coroutineExceptionHandler = CoroutineExceptionHandler { _, error ->
         processError(error)
@@ -46,13 +48,12 @@ abstract class BaseViewModel<State : Any, Action : Any> protected constructor(
     protected var screenState: State
         get() = _state.value
         set(value) {
-            logger.print("BaseViewModel", "New state is: $value")
+            logger.printIfDebug(tagNameWithClassName, "State: $value")
             _state.value = value
         }
 
     fun onAction(action: Action) {
-        // TODO Add only debug
-        logger.print(action.toString())
+        logger.printIfDebug(tagNameWithClassName, "Action: $action")
 
         handleAction(action)
     }
@@ -65,10 +66,5 @@ abstract class BaseViewModel<State : Any, Action : Any> protected constructor(
         }
 
         logger.recordError(error)
-    }
-
-    protected fun log(msg: String) {
-        if (msg.isEmpty()) return
-        logger.print(msg)
     }
 }

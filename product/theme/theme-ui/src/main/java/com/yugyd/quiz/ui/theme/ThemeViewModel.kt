@@ -16,10 +16,11 @@
 
 package com.yugyd.quiz.ui.theme
 
-import com.google.android.gms.ads.LoadAdError
+import com.yugyd.quiz.ad.api.AdErrorDomainModel
 import com.yugyd.quiz.commonui.base.BaseViewModel
 import com.yugyd.quiz.commonui.model.mode.ModeUiMapper
 import com.yugyd.quiz.commonui.model.mode.ModeUiModel
+import com.yugyd.quiz.core.AdIdJvmProvider
 import com.yugyd.quiz.core.ContentProvider
 import com.yugyd.quiz.core.Logger
 import com.yugyd.quiz.core.coroutinesutils.DispatchersProvider
@@ -37,6 +38,7 @@ import com.yugyd.quiz.featuretoggle.domain.model.FeatureToggle
 import com.yugyd.quiz.ui.theme.ThemeView.Action
 import com.yugyd.quiz.ui.theme.ThemeView.State
 import com.yugyd.quiz.ui.theme.ThemeView.State.NavigationState
+import com.yugyd.quiz.ui.theme.ThemeView.State.RewardAdState
 import com.yugyd.quiz.ui.theme.model.RewardDialogUiMapper
 import com.yugyd.quiz.ui.theme.model.RewardDialogUiModel
 import com.yugyd.quiz.ui.theme.model.RewardType
@@ -62,7 +64,8 @@ internal class ThemeViewModel @Inject constructor(
     private val rewardDialogUiMapper: RewardDialogUiMapper,
     private val featureManager: FeatureManager,
     dispatchersProvider: DispatchersProvider,
-    logger: Logger,
+    private val logger: Logger,
+    private val adIdJvmProvider: AdIdJvmProvider,
 ) :
     BaseViewModel<State, Action>(
         logger = logger,
@@ -109,9 +112,13 @@ internal class ThemeViewModel @Inject constructor(
         is Action.OnPositiveRewardDialogClicked -> onPositiveRewardDialogClicked(action.rewardDialog)
         Action.OnRewardAdClosed -> onRewardAdClosed()
         is Action.OnRewardAdFailedToLoad -> onRewardAdFailedToLoad(action.adError)
-        Action.OnRewardAdNotToLoad -> onRewardAdNotToLoad()
+        is Action.OnRewardAdFailedToShow -> onRewardAdFailedToLoad(action.adError)
+        Action.OnRewardAdNotToLoad -> {
+            screenState = screenState.copy(rewardAdState = RewardAdState.NOT_LOADED)
+        }
+
         is Action.OnStartClicked -> onStartClicked(action.model)
-        is Action.OnUserEarnedReward -> onUserEarnedReward(action.theme)
+        is Action.OnUserEarnedReward -> onUserEarnedReward(screenState.rewardedAdTheme)
         Action.OnSnackbarDismissed -> {
             screenState = screenState.copy(
                 showErrorMessage = false,
@@ -120,24 +127,15 @@ internal class ThemeViewModel @Inject constructor(
         }
 
         Action.OnInfoDialogDismissed -> {
-            screenState = screenState.copy(
-                showInfoDialog = false,
-                infoDialogTheme = null,
-            )
+            screenState = screenState.copy(showInfoDialog = null)
         }
 
         Action.OnResetDialogDismissed -> {
-            screenState = screenState.copy(
-                showResetDialog = false,
-                resetDialogTheme = null,
-            )
+            screenState = screenState.copy(showResetDialog = null)
         }
 
         Action.OnRewardDialogDialogDismissed -> {
-            screenState = screenState.copy(
-                showRewardedDialog = false,
-                rewardedDialogUiModel = null,
-            )
+            screenState = screenState.copy(showRewardedDialog = null)
         }
 
         Action.OnNavigationHandled -> {
@@ -145,10 +143,11 @@ internal class ThemeViewModel @Inject constructor(
         }
 
         Action.OnTelegramHandled -> {
-            screenState = screenState.copy(
-                showTelegram = false,
-                telegramLink = "",
-            )
+            screenState = screenState.copy(showTelegram = "")
+        }
+
+        Action.OnRewardAdLoaded -> {
+            screenState = screenState.copy(rewardAdState = RewardAdState.IS_LOADED)
         }
     }
 
@@ -164,34 +163,36 @@ internal class ThemeViewModel @Inject constructor(
 
     private fun onTrainStartNext(model: ThemeUiModel) {
         if (recordInteractor.isRecordReset(model.progressPercent)) {
-            screenState = screenState.copy(
-                showResetDialog = true,
-                resetDialogTheme = model,
-            )
+            screenState = screenState.copy(showResetDialog = model)
         } else {
-            if (screenState.isAdFeatureEnabled) {
-                loadAd(screenState.isAdFeatureEnabled)
-                val dialog = rewardDialogUiMapper.mapToAd(model)
-                screenState = screenState.copy(
-                    showRewardedDialog = true,
-                    rewardedDialogUiModel = dialog,
-                )
-            } else if (
-                screenState.isTelegramFeatureEnabled &&
-                !optionsInteractor.isTelegramSubscription
-            ) {
-                vmScopeErrorHandled.launch {
-                    val config = remoteConfigRepository.fetchTelegramConfig() ?: return@launch
+            showRewardDialog(model)
+        }
+    }
 
-                    val dialog = rewardDialogUiMapper.mapToTelegram(config, model)
-                    screenState = screenState.copy(
-                        showRewardedDialog = true,
-                        rewardedDialogUiModel = dialog,
-                    )
-                }
-            } else {
-                onNavigateNext(model)
-            }
+    private fun showRewardDialog(model: ThemeUiModel) {
+        when {
+            screenState.isAdFeatureEnabled -> showRewardedAdRewardDialog(model)
+            isTelegramEnabledAndNotSubscription() -> showTelegramRewardDialog(model)
+            else -> onNavigateNext(model)
+        }
+    }
+
+    private fun showRewardedAdRewardDialog(model: ThemeUiModel) {
+        val dialog = rewardDialogUiMapper.mapToAd(model)
+
+        screenState = screenState.copy(showRewardedDialog = dialog)
+    }
+
+    private fun isTelegramEnabledAndNotSubscription(): Boolean {
+        return screenState.isTelegramFeatureEnabled && !optionsInteractor.isTelegramSubscription
+    }
+
+    private fun showTelegramRewardDialog(model: ThemeUiModel) {
+        vmScopeErrorHandled.launch {
+            val config = remoteConfigRepository.fetchTelegramConfig() ?: return@launch
+
+            val dialog = rewardDialogUiMapper.mapToTelegram(config, model)
+            screenState = screenState.copy(showRewardedDialog = dialog)
         }
     }
 
@@ -202,10 +203,7 @@ internal class ThemeViewModel @Inject constructor(
     }
 
     private fun onInfoClicked(model: ThemeUiModel) {
-        screenState = screenState.copy(
-            showInfoDialog = true,
-            infoDialogTheme = model,
-        )
+        screenState = screenState.copy(showInfoDialog = model)
     }
 
     private fun onModeChanged(mode: ModeUiModel) {
@@ -229,10 +227,7 @@ internal class ThemeViewModel @Inject constructor(
     private fun onPositiveRewardDialogClicked(rewardDialog: RewardDialogUiModel) {
         when (rewardDialog.rewardType) {
             RewardType.Ad -> {
-                screenState = screenState.copy(
-                    showRewardedAd = true,
-                    rewardedAdTheme = rewardDialog.themeUiModel,
-                )
+                showRewardedAdOrNextIfAdNotLoaded(rewardDialog)
             }
 
             RewardType.Telegram -> {
@@ -240,34 +235,46 @@ internal class ThemeViewModel @Inject constructor(
                     optionsInteractor.isTelegramSubscription = true
 
                     val link = contentProvider.getTelegramChannel()
-                    screenState = screenState.copy(
-                        showTelegram = true,
-                        telegramLink = link,
-                    )
+                    screenState = screenState.copy(showTelegram = link)
                 }
             }
         }
     }
 
+    private fun showRewardedAdOrNextIfAdNotLoaded(rewardDialog: RewardDialogUiModel) {
+        if (screenState.rewardAdState != RewardAdState.IS_LOADED) {
+            showRewardAdError()
+            onNavigateNext(rewardDialog.themeUiModel)
+        } else {
+            screenState = screenState.copy(
+                rewardAdState = RewardAdState.SHOW_AD,
+                rewardedAdTheme = rewardDialog.themeUiModel,
+            )
+        }
+    }
+
     private fun onNegativeRewardDialogClicked() {
-        // TODO Implement logic with ads - https://yudyd.atlassian.net/browse/QUIZ-203
+        screenState = screenState.copy(showRewardedDialog = null)
     }
 
     private fun onPositiveResetDialogClicked(ignored: ThemeUiModel) {
         // TODO Implement logic with ads - https://yudyd.atlassian.net/browse/QUIZ-203
     }
 
-    private fun onUserEarnedReward(theme: ThemeUiModel) {
-        onNavigateNext(theme)
-    }
-
-    private fun onRewardAdFailedToLoad(adError: LoadAdError? = null) {
-        adError?.let {
-            log(it.message)
+    private fun onUserEarnedReward(theme: ThemeUiModel?) {
+        if (theme != null) {
+            onNavigateNext(theme)
         }
     }
 
-    private fun onRewardAdNotToLoad() {
+    private fun onRewardAdFailedToLoad(adError: AdErrorDomainModel? = null) {
+        adError?.let {
+            logger.print(TAG, "Reward ad is failed: $it")
+        }
+        screenState = screenState.copy(rewardAdState = RewardAdState.NOT_LOADED)
+    }
+
+    private fun showRewardAdError() {
         screenState = screenState.copy(showRewardedErrorMessage = true)
     }
 
@@ -366,7 +373,14 @@ internal class ThemeViewModel @Inject constructor(
 
     private fun loadAd(isAdFeatureEnabled: Boolean) {
         if (isAdFeatureEnabled) {
-            screenState = screenState.copy(loadAd = true)
+            screenState = screenState.copy(
+                rewardAdState = RewardAdState.LOAD_AD,
+                rewardAdUnitId = adIdJvmProvider.themeRewardedAdId(),
+            )
         }
+    }
+
+    companion object {
+        private const val TAG = "ThemeViewModel"
     }
 }

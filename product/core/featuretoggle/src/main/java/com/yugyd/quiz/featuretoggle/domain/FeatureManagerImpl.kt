@@ -25,6 +25,10 @@ internal class FeatureManagerImpl @Inject internal constructor(
 ) : FeatureManager {
 
     override suspend fun isFeatureEnabled(featureToggle: FeatureToggle): Boolean {
+        if (featureToggle.isLocal) {
+            return featureToggle.localValue
+        }
+
         val result = runCatching {
             remoteConfigRepository.fetchFeatureToggle(featureToggle)
         }

@@ -29,6 +29,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ProgressIndicatorDefaults
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -41,6 +42,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.yugyd.quiz.ad.api.AdErrorDomainModel
 import com.yugyd.quiz.commonui.utils.ProgressUtils
 import com.yugyd.quiz.domain.api.payload.ErrorListPayload
 import com.yugyd.quiz.ui.end.R
@@ -50,16 +52,15 @@ import com.yugyd.quiz.ui.end.gameend.GameEndView.State.NavigationState
 import com.yugyd.quiz.uikit.LoadingContent
 import com.yugyd.quiz.uikit.common.ThemePreviews
 import com.yugyd.quiz.uikit.component.QuizBackground
+import com.yugyd.quiz.uikit.extension.getText
 import com.yugyd.quiz.uikit.theme.QuizApplicationTheme
 import com.yugyd.quiz.uikit.theme.app_color_positive
 import com.yugyd.quiz.uikit.theme.progressIndicatorHeight
 
-/**
- * TODO Implement logic with ads - https://yudyd.atlassian.net/browse/QUIZ-203
- */
 @Composable
 internal fun GameEndRoute(
     viewModel: GameEndViewModel = hiltViewModel(),
+    snackbarHostState: SnackbarHostState,
     onNavigateToErrors: (ErrorListPayload) -> Unit,
     onBack: () -> Unit,
 ) {
@@ -67,6 +68,7 @@ internal fun GameEndRoute(
 
     GameEndScreen(
         uiState = state,
+        snackbarHostState = snackbarHostState,
         onNewGameButtonClicked = {
             viewModel.onAction(Action.OnNewGameClicked)
         },
@@ -78,18 +80,58 @@ internal fun GameEndRoute(
         onNavigationHandled = {
             viewModel.onAction(Action.OnNavigationHandled)
         },
+        onErrorDismissState = {
+            viewModel.onAction(Action.OnSnackbarDismissed)
+        },
+        onInterstitialAdLoaded = {
+            viewModel.onAction(Action.OnInterstitialAdLoaded)
+        },
+        onInterstitialAdFailedToLoad = {
+            viewModel.onAction(Action.OnInterstitialAdFailedToLoad(it))
+        },
+        onInterstitialAdDismissed = {
+            viewModel.onAction(Action.OnInterstitialAdClosed)
+        },
+        onInterstitialAdFailedToShow = {
+            viewModel.onAction(Action.OnInterstitialAdFailedToShow(it))
+        },
     )
 }
 
 @Composable
 internal fun GameEndScreen(
     uiState: State,
+    snackbarHostState: SnackbarHostState,
     onNewGameButtonClicked: () -> Unit,
     onShowErrorsButtonClicked: () -> Unit,
     onNavigateToErrors: (ErrorListPayload) -> Unit,
     onBack: () -> Unit,
     onNavigationHandled: () -> Unit,
+    onErrorDismissState: () -> Unit,
+    // Ad
+    onInterstitialAdLoaded: () -> Unit,
+    onInterstitialAdFailedToLoad: (AdErrorDomainModel) -> Unit,
+    onInterstitialAdDismissed: () -> Unit,
+    onInterstitialAdFailedToShow: (AdErrorDomainModel) -> Unit,
 ) {
+    val rewardedErrorMessage = stringResource(id = R.string.error_reward_not_loaded)
+    LaunchedEffect(key1 = uiState.showInterstitialErrorMessage) {
+        if (uiState.showInterstitialErrorMessage) {
+            snackbarHostState.showSnackbar(message = rewardedErrorMessage)
+
+            onErrorDismissState()
+        }
+    }
+
+    InterstitialAd(
+        adState = uiState.interstitialAdState,
+        adUnitId = uiState.interstitialAdUnitId?.getText(),
+        onAdLoaded = onInterstitialAdLoaded,
+        onAdFailedToLoad = onInterstitialAdFailedToLoad,
+        onAdFailedToShow = onInterstitialAdFailedToShow,
+        onAdDismissed = onInterstitialAdDismissed,
+    )
+
     when {
         uiState.isLoading -> {
             LoadingContent()
@@ -101,7 +143,7 @@ internal fun GameEndScreen(
                 progress = uiState.progress,
                 progressColor = uiState.progressColor,
                 progressTitle = uiState.progressTitle,
-                showErrorIsVisible = uiState.showErrorIsVisible,
+                isErrorVisible = uiState.isErrorVisible,
                 onNewGameButtonClicked = onNewGameButtonClicked,
                 onShowErrorsButtonClicked = onShowErrorsButtonClicked,
             )
@@ -122,7 +164,7 @@ internal fun GameEndContent(
     progress: Int,
     progressColor: Color,
     progressTitle: String,
-    showErrorIsVisible: Boolean,
+    isErrorVisible: Boolean,
     onNewGameButtonClicked: () -> Unit,
     onShowErrorsButtonClicked: () -> Unit,
 ) {
@@ -170,7 +212,7 @@ internal fun GameEndContent(
             Text(text = stringResource(id = R.string.action_new_game))
         }
 
-        if (showErrorIsVisible) {
+        if (isErrorVisible) {
             Spacer(modifier = Modifier.height(8.dp))
 
             Button(
@@ -211,7 +253,7 @@ private fun ContentPreview() {
                 progress = 90,
                 progressTitle = "90 of 100",
                 progressColor = app_color_positive,
-                showErrorIsVisible = true,
+                isErrorVisible = true,
                 onNewGameButtonClicked = {},
                 onShowErrorsButtonClicked = {},
             )

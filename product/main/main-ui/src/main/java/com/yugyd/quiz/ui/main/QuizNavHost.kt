@@ -22,8 +22,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import com.yugyd.quiz.core.AdIdProvider
-import com.yugyd.quiz.core.ResIdProvider
+import com.yugyd.quiz.commonui.providers.LocalResIdProvider
 import com.yugyd.quiz.correctui.correctScreen
 import com.yugyd.quiz.gameui.game.gameScreen
 import com.yugyd.quiz.gameui.game.navigateToGame
@@ -56,11 +55,10 @@ import com.yugyd.quiz.update.updateScreen
 internal fun QuizNavHost(
     navController: NavHostController,
     snackbarHostState: SnackbarHostState,
-    adIdProvider: AdIdProvider,
-    resIdProvider: ResIdProvider,
     navigateToExternalScreen: (Intent) -> Unit,
 ) {
     val context = LocalContext.current
+    val resIdProvider = LocalResIdProvider.current
 
     NavHost(
         navController = navController,
@@ -162,8 +160,6 @@ internal fun QuizNavHost(
 
         gameScreen(
             snackbarHostState = snackbarHostState,
-            adIdProvider = adIdProvider,
-            resIdProvider = resIdProvider,
             onNavigateToGameEnd = navController::navigateToGameEnd,
             onNavigateToProOnboarding = navController::navigateToProOnboarding,
             onNavigateToProgressEnd = navController::navigateToProgressEnd,
@@ -171,6 +167,7 @@ internal fun QuizNavHost(
         )
 
         gameEndScreen(
+            snackbarHostState = snackbarHostState,
             onNavigateToErrors = navController::navigateToErrorList,
             onBack = navController::popBackStack,
         )

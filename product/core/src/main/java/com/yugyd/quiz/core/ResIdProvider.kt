@@ -19,7 +19,7 @@ package com.yugyd.quiz.core
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 
-interface ResIdProvider {
+interface ResIdProvider : ResIdJvmProvider {
 
     @DrawableRes
     fun appIcon(): Int

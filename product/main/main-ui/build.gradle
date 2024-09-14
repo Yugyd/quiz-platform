@@ -38,6 +38,8 @@ dependencies {
     implementation project(':product:end:end-ui')
     implementation project(':product:errors:errors-ui')
     implementation project(':product:section:section-ui')
+    implementation project(':product:tasks:tasks-ui')
+    implementation project(':product:core:ad')
 
     // UI - Android X
     implementation libs.splashscreen
@@ -57,5 +59,4 @@ dependencies {
 
     // Logging
     implementation libs.timber
-    implementation project(':product:tasks:tasks-ui')
 }

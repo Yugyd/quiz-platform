@@ -17,10 +17,12 @@
 package com.yugyd.quiz.gameui.game
 
 import androidx.lifecycle.SavedStateHandle
-import com.google.android.gms.ads.LoadAdError
+import com.yugyd.quiz.ad.api.AdErrorDomainModel
 import com.yugyd.quiz.commonui.base.BaseViewModel
+import com.yugyd.quiz.core.AdIdJvmProvider
 import com.yugyd.quiz.core.GlobalConfig
 import com.yugyd.quiz.core.Logger
+import com.yugyd.quiz.core.ResIdJvmProvider
 import com.yugyd.quiz.core.coroutinesutils.DispatchersProvider
 import com.yugyd.quiz.core.runCatch
 import com.yugyd.quiz.domain.api.model.payload.GameEndPayload
@@ -35,6 +37,7 @@ import com.yugyd.quiz.featuretoggle.domain.FeatureManager
 import com.yugyd.quiz.featuretoggle.domain.model.FeatureToggle
 import com.yugyd.quiz.gameui.game.GameView.Action
 import com.yugyd.quiz.gameui.game.GameView.State
+import com.yugyd.quiz.gameui.game.GameView.State.BannerState
 import com.yugyd.quiz.gameui.game.GameView.State.NavigationState
 import com.yugyd.quiz.gameui.game.mapper.ControlUiMapper
 import com.yugyd.quiz.gameui.game.mapper.HighlightUiMapper
@@ -56,7 +59,9 @@ internal class GameViewModel @Inject constructor(
     private val gameViewModelDelegateHolder: GameViewModelDelegateHolder,
     private val highlightUiMapper: HighlightUiMapper,
     private val featureManager: FeatureManager,
-    logger: Logger,
+    private val adIdProvider: AdIdJvmProvider,
+    private val resIdProvider: ResIdJvmProvider,
+    private val logger: Logger,
     dispatchersProvider: DispatchersProvider,
 ) :
     BaseViewModel<State, Action>(
@@ -85,15 +90,9 @@ internal class GameViewModel @Inject constructor(
             Action.OnRewardAdLoad -> onRewardAdLoad()
             Action.OnRewardAdNotShowed -> onRewardAdNotShowed()
             Action.OnUserEarnedReward -> onUserEarnedReward()
-            Action.OnAdBannerAnimationEnded -> {
-                screenState = screenState.copy(showAdBannerAnimation = false)
-            }
 
             Action.OnDebugAnswerToastDismissed -> {
-                screenState = screenState.copy(
-                    showDebugAnswerToast = false,
-                    debugTrueAnswer = null,
-                )
+                screenState = screenState.copy(debugTrueAnswer = null)
             }
 
             Action.OnErrorVibrationEnded -> {
@@ -164,7 +163,7 @@ internal class GameViewModel @Inject constructor(
     }
 
     private fun onPositiveRewardDialogClicked() {
-        screenState = screenState.copy(showRewardedAd = true)
+        // TODO Add rewarded AD
     }
 
     private fun onNegativeRewardDialogClicked() = continueGame()
@@ -184,11 +183,11 @@ internal class GameViewModel @Inject constructor(
         screenState = screenState.copy(rewardedAdStatus = RewardedAdStatus.SUCCESS)
     }
 
-    private fun onRewardAdFailedToLoad(adError: LoadAdError? = null) {
+    private fun onRewardAdFailedToLoad(adError: AdErrorDomainModel? = null) {
         screenState = screenState.copy(rewardedAdStatus = RewardedAdStatus.ERROR)
 
         adError?.let {
-            log(it.message)
+            logger.print(TAG, "Reward ad is failed: $it")
         }
     }
 
@@ -201,17 +200,22 @@ internal class GameViewModel @Inject constructor(
 
     private fun onBannerAdLoaded() {
         screenState = screenState.copy(
-            adBannerState = State.AdBannerState.AD,
-            showAdBannerAnimation = true,
+            bannerState = BannerState.AdBannerState(
+                proMessage = resIdProvider.msgProAdBannerString(),
+                bannerAdUnitId = adIdProvider.gameBannerAdId(),
+            ),
         )
     }
 
-    private fun onBannerAdFailedToLoad(adError: LoadAdError) {
-        log(adError.message)
-        screenState = screenState.copy(
-            adBannerState = State.AdBannerState.PROMO,
-            showAdBannerAnimation = true,
-        )
+    private fun onBannerAdFailedToLoad(adError: AdErrorDomainModel) {
+        logger.print(TAG, "Banner ad is failed: $adError")
+
+        val bannerState = if (screenState.isProFeatureEnabled) {
+            BannerState.PromoBannerState(proMessage = resIdProvider.msgProAdBannerString())
+        } else {
+            null
+        }
+        screenState = screenState.copy(bannerState = bannerState)
     }
 
     private fun initData() {
@@ -237,9 +241,25 @@ internal class GameViewModel @Inject constructor(
                         isProFeatureEnabled = isProFeatureEnabled,
                     )
 
-                    if (isAdFeatureEnabled) {
-                        screenState = screenState.copy(loadAd = true)
+                    val bannerState = when {
+                        isAdFeatureEnabled -> {
+                            BannerState.AdBannerState(
+                                proMessage = resIdProvider.msgProAdBannerString(),
+                                bannerAdUnitId = adIdProvider.gameBannerAdId(),
+                            )
+                        }
+
+                        isProFeatureEnabled -> {
+                            BannerState.PromoBannerState(
+                                proMessage = resIdProvider.msgProAdBannerString(),
+                            )
+                        }
+
+                        else -> {
+                            null
+                        }
                     }
+                    screenState = screenState.copy(bannerState = bannerState)
                 },
                 catch = ::processGameError,
             )
@@ -272,7 +292,6 @@ internal class GameViewModel @Inject constructor(
 
         if (GlobalConfig.DEBUG) {
             screenState = screenState.copy(
-                showDebugAnswerToast = true,
                 debugTrueAnswer = quest.trueAnswer,
             )
         }
@@ -408,5 +427,9 @@ internal class GameViewModel @Inject constructor(
                 navigationState = NavigationState.NavigateToGameEnd(payload)
             )
         }
+    }
+
+    companion object {
+        private const val TAG = "GameViewModel"
     }
 }

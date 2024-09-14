@@ -23,8 +23,6 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.yugyd.quiz.core.AdIdProvider
-import com.yugyd.quiz.core.ResIdProvider
 import com.yugyd.quiz.domain.api.model.Mode
 import com.yugyd.quiz.domain.api.model.payload.GameEndPayload
 import com.yugyd.quiz.domain.api.model.payload.GamePayload
@@ -66,8 +64,6 @@ fun NavController.navigateToGame(payload: GamePayload) {
  */
 fun NavGraphBuilder.gameScreen(
     snackbarHostState: SnackbarHostState,
-    adIdProvider: AdIdProvider,
-    resIdProvider: ResIdProvider,
     onNavigateToProOnboarding: () -> Unit,
     onNavigateToProgressEnd: (GameEndPayload) -> Unit,
     onNavigateToGameEnd: (GameEndPayload) -> Unit,
@@ -92,8 +88,6 @@ fun NavGraphBuilder.gameScreen(
     ) {
         GameRoute(
             snackbarHostState = snackbarHostState,
-            adIdProvider = adIdProvider,
-            resIdProvider = resIdProvider,
             onNavigateToProOnboarding = onNavigateToProOnboarding,
             onNavigateToProgressEnd = onNavigateToProgressEnd,
             onNavigateToGameEnd = onNavigateToGameEnd,

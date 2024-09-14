@@ -18,6 +18,7 @@ package com.yugyd.quiz.core
 
 import kotlin.coroutines.cancellation.CancellationException
 
+@Deprecated("Use custom runCatching which throw CancellationException")
 inline fun <R> runCatch(
     block: () -> R,
     catch: (Throwable) -> Unit = {},

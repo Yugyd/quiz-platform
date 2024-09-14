@@ -33,12 +33,15 @@ import com.yugyd.quiz.uikit.theme.QuizApplicationTheme
 
 @Composable
 fun LoadingContent(
+    modifier: Modifier = Modifier,
     contentDesc: String? = null,
 ) {
     Column(
-        modifier = Modifier
-            .padding(16.dp)
-            .fillMaxSize(),
+        modifier = modifier.then(
+            Modifier
+                .padding(16.dp)
+                .fillMaxSize(),
+        ),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {

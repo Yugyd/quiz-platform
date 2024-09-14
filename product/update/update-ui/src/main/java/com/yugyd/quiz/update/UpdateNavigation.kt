@@ -19,6 +19,7 @@ package com.yugyd.quiz.update
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import com.yugyd.quiz.navigation.hideBottomBarArgument
 import com.yugyd.quiz.navigation.replaceCurrentScreenNavOptions
 
 private const val UPDATE_ROUTE = "update"
@@ -30,7 +31,10 @@ fun NavController.navigateToUpdate() {
 fun NavGraphBuilder.updateScreen(
     navigateToGooglePlay: () -> Unit,
 ) {
-    composable(route = UPDATE_ROUTE) {
+    composable(
+        route = UPDATE_ROUTE,
+        arguments = listOf(hideBottomBarArgument),
+    ) {
         UpdateRoute(
             navigateToGooglePlay = navigateToGooglePlay,
         )

@@ -16,6 +16,7 @@
 
 package com.yugyd.quiz.ui.end.gameend
 
+import androidx.compose.material3.SnackbarHostState
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import com.yugyd.quiz.domain.api.model.payload.GameEndPayload
@@ -35,11 +36,13 @@ fun NavController.navigateToGameEnd(payload: GameEndPayload) {
 }
 
 fun NavGraphBuilder.gameEndScreen(
+    snackbarHostState: SnackbarHostState,
     onNavigateToErrors: (ErrorListPayload) -> Unit,
     onBack: () -> Unit,
 ) {
     endScreen(routeModel) {
         GameEndRoute(
+            snackbarHostState = snackbarHostState,
             onNavigateToErrors = onNavigateToErrors,
             onBack = onBack,
         )

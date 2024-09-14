@@ -55,7 +55,7 @@ internal class GameEndUiMapper @Inject constructor(
             payload = payload,
             themeTitle = mappedThemeTitle,
             progress = progress,
-            showErrorIsVisible = payload.errorQuestIds.isNotEmpty(),
+            isErrorVisible = payload.errorQuestIds.isNotEmpty(),
             progressTitle = progressTitle,
             progressColor = progressColorUtils.getProgressColor(progress),
             isAdFeatureEnabled = isAdFeatureEnabled,

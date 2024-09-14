@@ -19,6 +19,7 @@ package com.yugyd.quiz.data
 import android.content.Context
 import com.google.firebase.FirebaseApp
 import com.google.firebase.crashlytics.FirebaseCrashlytics
+import com.yugyd.quiz.core.GlobalConfig
 import com.yugyd.quiz.core.Logger
 import dagger.hilt.android.qualifiers.ApplicationContext
 import timber.log.Timber
@@ -30,6 +31,15 @@ internal class LoggerImpl @Inject constructor(
 
     override fun print(tag: String, message: String) {
         Timber.tag(tag).d(message)
+    }
+
+    override fun printIfDebug(tag: String, message: String) {
+        if (GlobalConfig.DEBUG) {
+            print(
+                tag = tag,
+                message = message,
+            )
+        }
     }
 
     override fun print(message: String) {

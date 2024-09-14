@@ -34,6 +34,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.yugyd.quiz.ad.api.AdErrorDomainModel
+import com.yugyd.quiz.ad.rewarded.RewardDomainModel
 import com.yugyd.quiz.commonui.model.mode.ModeUiModel
 import com.yugyd.quiz.domain.api.model.payload.GamePayload
 import com.yugyd.quiz.domain.api.payload.SectionPayload
@@ -47,6 +49,7 @@ import com.yugyd.quiz.uikit.WarningContent
 import com.yugyd.quiz.uikit.common.ThemePreviews
 import com.yugyd.quiz.uikit.component.QuizBackground
 import com.yugyd.quiz.uikit.component.RootToolbar
+import com.yugyd.quiz.uikit.extension.getText
 import com.yugyd.quiz.uikit.theme.QuizApplicationTheme
 import com.yugyd.quiz.uikit.theme.app_color_positive
 import com.yugyd.quiz.uikit.R as UiKitR
@@ -103,6 +106,21 @@ internal fun ThemeRoute(
             viewModel.onAction(Action.OnTelegramHandled)
         },
         onNavigateToTelegram = onNavigateToTelegram,
+        onReward = {
+            viewModel.onAction(Action.OnUserEarnedReward)
+        },
+        onRewardAdLoaded = {
+            viewModel.onAction(Action.OnRewardAdLoaded)
+        },
+        onRewardAdFailedToLoad = {
+            viewModel.onAction(Action.OnRewardAdFailedToLoad(it))
+        },
+        onRewardAdDismissed = {
+            viewModel.onAction(Action.OnRewardAdClosed)
+        },
+        onRewardAdFailedToShow = {
+            viewModel.onAction(Action.OnRewardAdFailedToShow(it))
+        },
     )
 }
 
@@ -117,14 +135,20 @@ internal fun ThemeScreen(
     onInfoDialogDismissState: () -> Unit,
     onPositiveResetDialogClicked: (ThemeUiModel) -> Unit,
     onResetDialogDismissState: () -> Unit,
-    onPositiveRewardDialogClicked: (RewardDialogUiModel) -> Unit,
-    onNegativeRewardDialogClicked: () -> Unit,
-    onRewardDialogDismissState: () -> Unit,
     onNavigateToGame: (GamePayload) -> Unit,
     onNavigateToSection: (SectionPayload) -> Unit,
     onNavigationHandled: () -> Unit,
     onTelegramHandled: () -> Unit,
     onNavigateToTelegram: (String) -> Unit,
+    // Reward ad
+    onPositiveRewardDialogClicked: (RewardDialogUiModel) -> Unit,
+    onNegativeRewardDialogClicked: () -> Unit,
+    onRewardDialogDismissState: () -> Unit,
+    onRewardAdLoaded: () -> Unit,
+    onRewardAdFailedToLoad: (AdErrorDomainModel) -> Unit,
+    onReward: (RewardDomainModel) -> Unit,
+    onRewardAdDismissed: () -> Unit,
+    onRewardAdFailedToShow: (AdErrorDomainModel) -> Unit,
 ) {
     val errorMessage = stringResource(id = UiKitR.string.error_base)
     LaunchedEffect(key1 = uiState.showErrorMessage) {
@@ -144,42 +168,44 @@ internal fun ThemeScreen(
         }
     }
 
-    if (uiState.showInfoDialog && uiState.infoDialogTheme != null) {
+    if (uiState.showInfoDialog != null) {
         InfoDialog(
-            model = uiState.infoDialogTheme,
+            model = uiState.showInfoDialog,
             onStartClicked = onStartClicked,
             onInfoDialogDismissState = onInfoDialogDismissState,
         )
     }
 
-    if (uiState.loadAd) {
-        // TODO Implement logic with ads - https://yudyd.atlassian.net/browse/QUIZ-203
-    }
+    RewardedAd(
+        adState = uiState.rewardAdState,
+        adUnitId = uiState.rewardAdUnitId?.getText(),
+        onAdLoaded = onRewardAdLoaded,
+        onAdFailedToLoad = onRewardAdFailedToLoad,
+        onAdFailedToShow = onRewardAdFailedToShow,
+        onAdDismissed = onRewardAdDismissed,
+        onReward = onReward,
+    )
 
-    if (uiState.showRewardedAd) {
-        // TODO Implement logic with ads - https://yudyd.atlassian.net/browse/QUIZ-203
-    }
-
-    if (uiState.showRewardedDialog && uiState.rewardedDialogUiModel != null) {
+    if (uiState.showRewardedDialog != null) {
         RewardedDialog(
-            model = uiState.rewardedDialogUiModel,
+            model = uiState.showRewardedDialog,
             onPositiveRewardDialogClicked = onPositiveRewardDialogClicked,
             onNegativeRewardDialogClicked = onNegativeRewardDialogClicked,
             onRewardDialogDismissState = onRewardDialogDismissState,
         )
     }
 
-    if (uiState.showResetDialog && uiState.resetDialogTheme != null) {
+    if (uiState.showResetDialog != null) {
         ResetDialog(
-            model = uiState.resetDialogTheme,
+            model = uiState.showResetDialog,
             onPositiveResetDialogClicked = onPositiveResetDialogClicked,
             onResetDialogDismissState = onResetDialogDismissState,
         )
     }
 
     LaunchedEffect(key1 = uiState.showTelegram) {
-        if (uiState.showTelegram) {
-            onNavigateToTelegram(uiState.telegramLink)
+        if (uiState.showTelegram.isNotEmpty()) {
+            onNavigateToTelegram(uiState.showTelegram)
 
             onTelegramHandled()
         }

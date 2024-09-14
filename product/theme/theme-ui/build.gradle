@@ -26,6 +26,8 @@ dependencies {
     implementation project(':product:shared:domain-api')
     implementation project(':product:shared:domain-controller')
     implementation project(':product:options:options-bl')
+    implementation project(':product:core:ad')
+    implementation project(':product:services:ad-api')
 
     // UI - Compose
     implementation libs.compose.material3
@@ -39,4 +41,7 @@ dependencies {
 
     // Play Services: Ads
     implementation libs.play.ads
+
+    // Ad
+    implementation libs.yandex.ads
 }

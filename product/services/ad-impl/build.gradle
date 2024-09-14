@@ -1,0 +1,18 @@
+plugins {
+    alias(libs.plugins.convention.library)
+    alias(libs.plugins.convention.library.buildtype)
+    alias(libs.plugins.convention.library.lint)
+    alias(libs.plugins.convention.hilt)
+}
+
+android {
+    namespace 'com.yugyd.quiz.ad.impl'
+}
+
+dependencies {
+    implementation project(':product:core')
+    api project(':product:services:ad-api')
+
+    // Ad
+    implementation libs.yandex.ads
+}

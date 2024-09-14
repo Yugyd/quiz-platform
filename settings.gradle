@@ -21,6 +21,7 @@ rootProject.name = "QuizPlatform"
 include ':app'
 // Core
 include ':product:core'
+include ':product:core:ad'
 include ':product:core:common-ui'
 include ':product:core:common-ui-test'
 include ':product:core:coroutines-utils'
@@ -29,6 +30,8 @@ include ':product:core:file'
 include ':product:core:navigation'
 include ':product:core:test'
 // Services
+include ':product:services:ad-api'
+include ':product:services:ad-impl'
 include ':product:services:remoteconfig-api'
 include ':product:services:push'
 // Design system

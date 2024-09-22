@@ -14,27 +14,10 @@
  *    limitations under the License.
  */
 
-package com.yugyd.quiz.ui.profile.model
+package com.yugyd.quiz.domain.tasks
 
-internal enum class TypeProfile(val id: Int) {
-    TRANSITION(id = 1),
-    SORT_QUEST(id = 2),
-    VIBRATION(id = 3),
-    PRO(id = 4),
-    RESTORE_PURCHASE(id = 5),
-    RATE_APP(id = 6),
-    SHARE(id = 7),
-    OTHER_APPS(id = 8),
-    REPORT_ERROR(id = 9),
-    PRIVACY_POLICY(id = 10),
-    SETTINGS_SECTION(id = 11),
-    PURCHASES_SECTION(id = 12),
-    PLEASE_US_SECTION(id = 13),
-    FEEDBACK_SECTION(id = 14),
-    SOCIAL_SECTION(id = 15),
-    TELEGRAM_SOCIAL(id = 16),
-    SELECT_CONTENT(id = 17),
-    OPEN_SOURCE(id = 18),
-    TASKS(id = 19),
-    NONE(id = -1)
+import com.yugyd.quiz.domain.api.model.tasks.TaskModel
+
+interface TasksInteractor {
+    suspend fun getTaskModels(): List<TaskModel>
 }

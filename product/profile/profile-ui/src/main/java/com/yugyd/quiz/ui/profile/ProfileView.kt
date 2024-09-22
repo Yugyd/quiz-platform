@@ -43,6 +43,7 @@ internal interface ProfileView {
             object NavigateToContents : NavigationState
             object NavigateToExternalPlatformReportError : NavigationState
             object NavigateToExternalPlatformRate : NavigationState
+            object NavigateToTasks : NavigationState
         }
     }
 

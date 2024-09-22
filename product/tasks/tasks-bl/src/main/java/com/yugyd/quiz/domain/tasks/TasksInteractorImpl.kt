@@ -14,58 +14,39 @@
  *    limitations under the License.
  */
 
-package com.yugyd.quiz.domain.errors
+package com.yugyd.quiz.domain.tasks
 
 import com.yugyd.quiz.core.coroutinesutils.DispatchersProvider
 import com.yugyd.quiz.domain.api.model.tasks.TaskModel
-import com.yugyd.quiz.domain.api.repository.ErrorSource
 import com.yugyd.quiz.domain.api.repository.QuestSource
 import com.yugyd.quiz.domain.game.api.model.Quest
 import com.yugyd.quiz.domain.utils.SeparatorParser
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-internal class ErrorInteractorImpl @Inject constructor(
+internal class TasksInteractorImpl @Inject constructor(
     private val questSource: QuestSource,
-    private val errorSource: ErrorSource,
     private val separatorParser: SeparatorParser,
     private val dispatcherProvider: DispatchersProvider,
-) : ErrorInteractor {
+    private val queryUrlBuilder: QueryUrlBuilder,
+    private val queryFormatRepository: QueryFormatRepository,
+) : TasksInteractor {
 
-    override suspend fun getErrorsModels(errors: List<Int>) = withContext(dispatcherProvider.io) {
-        questSource
-            .getQuestIdsByErrors(errors.toIntArray())
-            .let(::mapQuests)
+    override suspend fun getTaskModels(): List<TaskModel> = withContext(dispatcherProvider.io) {
+        val queryFormat = queryFormatRepository.getFormatFromRemoteConfig()
+        val quests = questSource.getQuests()
+        mapQuests(quests, queryFormat)
     }
 
-    override suspend fun getErrors() = withContext(dispatcherProvider.io) {
-        errorSource.getErrors()
-    }
-
-    override suspend fun isHaveErrors() = withContext(dispatcherProvider.io) {
-        errorSource.isHaveErrors()
-    }
-
-    override suspend fun addErrors(errors: List<Int>) = withContext(dispatcherProvider.io) {
-        errorSource.addErrors(errors)
-    }
-
-    override suspend fun removeErrors(errors: List<Int>) = withContext(dispatcherProvider.io) {
-        errorSource.removeErrors(errors)
-    }
-
-    private fun mapQuests(quests: List<Quest>) = quests
+    private fun mapQuests(quests: List<Quest>, queryFormat: String) = quests
         .map(separatorParser::parseErrorQuest)
-        .map { it.toErrorModel() }
+        .map { it.toTaskModel(queryFormat) }
 
-    private fun Quest.toErrorModel() = TaskModel(
+    private fun Quest.toTaskModel(queryFormat: String) = TaskModel(
         id = id,
         quest = quest,
         trueAnswer = trueAnswer,
-        queryLink = "$GOOGLE_SEARCH_URL$quest$trueAnswer"
+        queryLink = queryUrlBuilder.buildUrl(this, queryFormat),
     )
-
-    companion object {
-        private const val GOOGLE_SEARCH_URL = "https://www.google.ru/search?q="
-    }
 }
+

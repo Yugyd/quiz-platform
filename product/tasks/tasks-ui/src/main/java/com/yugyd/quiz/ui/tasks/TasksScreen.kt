@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.yugyd.quiz.ui.errors
+package com.yugyd.quiz.ui.tasks
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -34,14 +34,13 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.yugyd.quiz.domain.api.model.tasks.TaskModel
-import com.yugyd.quiz.ui.errors.ErrorListView.Action
-import com.yugyd.quiz.ui.errors.ErrorListView.State.NavigationState
+import com.yugyd.quiz.ui.tasks.TasksView.Action
+import com.yugyd.quiz.ui.tasks.TasksView.State.NavigationState
 import com.yugyd.quiz.uikit.LoadingContent
 import com.yugyd.quiz.uikit.WarningContent
 import com.yugyd.quiz.uikit.common.ThemePreviews
@@ -51,22 +50,22 @@ import com.yugyd.quiz.uikit.theme.QuizApplicationTheme
 import com.yugyd.quiz.uikit.R as UiKitR
 
 @Composable
-internal fun ErrorListRoute(
-    viewModel: ErrorListViewModel = hiltViewModel(),
+internal fun TasksRoute(
+    viewModel: TasksViewModel = hiltViewModel(),
     snackbarHostState: SnackbarHostState,
     onBack: () -> Unit,
     onNavigateToBrowser: (String) -> Unit
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
-    ErrorListScreen(
+    TasksScreen(
         uiState = state,
         snackbarHostState = snackbarHostState,
         onBackPressed = {
             viewModel.onAction(Action.OnBackClicked)
         },
         onItemClicked = {
-            viewModel.onAction(Action.OnErrorClicked(it))
+            viewModel.onAction(Action.OnTaskClicked(it))
         },
         onErrorDismissState = {
             viewModel.onAction(Action.OnSnackbarDismissed)
@@ -80,8 +79,8 @@ internal fun ErrorListRoute(
 }
 
 @Composable
-internal fun ErrorListScreen(
-    uiState: ErrorListView.State,
+internal fun TasksScreen(
+    uiState: TasksView.State,
     snackbarHostState: SnackbarHostState,
     onBackPressed: () -> Unit,
     onItemClicked: (TaskModel) -> Unit,
@@ -101,7 +100,7 @@ internal fun ErrorListScreen(
 
     Column {
         SimpleToolbar(
-            title = stringResource(id = R.string.title_error_list),
+            title = stringResource(id = R.string.tasks_title_error_list),
             onBackPressed = onBackPressed,
         )
 
@@ -115,7 +114,7 @@ internal fun ErrorListScreen(
             }
 
             else -> {
-                ErrorListContent(
+                TasksContent(
                     items = uiState.items,
                     onItemClicked = onItemClicked,
                 )
@@ -132,7 +131,7 @@ internal fun ErrorListScreen(
 }
 
 @Composable
-internal fun ErrorListContent(
+internal fun TasksContent(
     items: List<TaskModel>,
     onItemClicked: (TaskModel) -> Unit,
 ) {
@@ -165,28 +164,12 @@ internal fun ErrorItem(
                 .padding(all = 16.dp),
         ) {
             Text(
-                text = stringResource(id = R.string.title_quest),
-                style = MaterialTheme.typography.bodyLarge,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                color = MaterialTheme.colorScheme.onSurface
-            )
-
-            Text(
                 text = model.quest,
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
+                style = MaterialTheme.typography.bodyLarge,
+                color = MaterialTheme.colorScheme.onSurface
             )
 
             Spacer(modifier = Modifier.height(8.dp))
-
-            Text(
-                text = stringResource(id = R.string.title_true_answer),
-                style = MaterialTheme.typography.bodyLarge,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                color = MaterialTheme.colorScheme.onSurface
-            )
 
             Text(
                 text = model.trueAnswer,
@@ -220,11 +203,11 @@ internal fun NavigationHandler(
 @ThemePreviews
 @Composable
 private fun ContentPreview(
-    @PreviewParameter(ErrorListPreviewParameterProvider::class) items: List<TaskModel>,
+    @PreviewParameter(TasksPreviewParameterProvider::class) items: List<TaskModel>,
 ) {
     QuizApplicationTheme {
         QuizBackground {
-            ErrorListContent(
+            TasksContent(
                 items = items,
                 onItemClicked = {},
             )

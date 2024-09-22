@@ -14,35 +14,31 @@
  *    limitations under the License.
  */
 
-package com.yugyd.quiz.ui.errors
+package com.yugyd.quiz.ui.tasks
 
-import androidx.lifecycle.SavedStateHandle
 import com.yugyd.quiz.commonui.base.BaseViewModel
 import com.yugyd.quiz.core.Logger
 import com.yugyd.quiz.core.coroutinesutils.DispatchersProvider
 import com.yugyd.quiz.core.runCatch
 import com.yugyd.quiz.domain.api.model.tasks.TaskModel
-import com.yugyd.quiz.domain.errors.ErrorInteractor
-import com.yugyd.quiz.ui.errors.ErrorListView.Action
-import com.yugyd.quiz.ui.errors.ErrorListView.State
-import com.yugyd.quiz.ui.errors.ErrorListView.State.NavigationState
+import com.yugyd.quiz.domain.tasks.TasksInteractor
+import com.yugyd.quiz.ui.tasks.TasksView.Action
+import com.yugyd.quiz.ui.tasks.TasksView.State
+import com.yugyd.quiz.ui.tasks.TasksView.State.NavigationState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-internal class ErrorListViewModel @Inject constructor(
-    savedStateHandle: SavedStateHandle,
-    private val errorInteractor: ErrorInteractor,
+internal class TasksViewModel @Inject constructor(
+    private val tasksInteractor: TasksInteractor,
     logger: Logger,
     dispatchersProvider: DispatchersProvider,
 ) :
     BaseViewModel<State, Action>(
         logger = logger,
         dispatchersProvider = dispatchersProvider,
-        initialState = State(
-            payload = ErrorListArgs(savedStateHandle).errorListPayload,
-        )
+        initialState = State(),
     ) {
 
     init {
@@ -52,7 +48,7 @@ internal class ErrorListViewModel @Inject constructor(
     override fun handleAction(action: Action) {
         when (action) {
             Action.OnBackClicked -> onBackClicked()
-            is Action.OnErrorClicked -> onErrorClicked(action.item)
+            is Action.OnTaskClicked -> onTaskClicked(action.item)
             Action.OnSnackbarDismissed -> {
                 screenState = screenState.copy(showErrorMessage = false)
             }
@@ -67,10 +63,14 @@ internal class ErrorListViewModel @Inject constructor(
         screenState = screenState.copy(navigationState = NavigationState.Back)
     }
 
-    private fun onErrorClicked(item: TaskModel) {
-        screenState = screenState.copy(
-            navigationState = NavigationState.NavigateToExternalBrowser(item.queryLink),
-        )
+    private fun onTaskClicked(item: TaskModel) {
+        screenState = if (item.queryLink.isNotEmpty()) {
+            screenState.copy(
+                navigationState = NavigationState.NavigateToExternalBrowser(item.queryLink),
+            )
+        } else {
+            screenState.copy(showErrorMessage = true)
+        }
     }
 
     private fun loadData() {
@@ -83,8 +83,7 @@ internal class ErrorListViewModel @Inject constructor(
 
             runCatch(
                 block = {
-                    val state = errorInteractor
-                        .getErrorsModels(screenState.payload.errorQuestIds)
+                    val state = tasksInteractor.getTaskModels()
                     processData(state)
                 },
                 catch = ::processDataError,

@@ -46,6 +46,10 @@ internal class QuestDataSource @Inject constructor(
             questDao.getIdsBySection(themeId, sectionId).shuffled()
         }
 
+    override suspend fun getQuests(): List<Quest> = questDao
+        .getAll()
+        .map(questEntityMapper::mapQuestToDomain)
+
     override suspend fun getQuestIdsByErrors(errorIds: IntArray) = questDao
         .loadAllByIds(errorIds)
         .map(questEntityMapper::mapQuestToDomain)

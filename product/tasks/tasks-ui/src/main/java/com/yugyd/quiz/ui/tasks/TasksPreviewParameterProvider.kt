@@ -14,12 +14,12 @@
  *    limitations under the License.
  */
 
-package com.yugyd.quiz.ui.errors
+package com.yugyd.quiz.ui.tasks
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import com.yugyd.quiz.domain.api.model.tasks.TaskModel
 
-internal class ErrorListPreviewParameterProvider : PreviewParameterProvider<List<TaskModel>> {
+internal class TasksPreviewParameterProvider : PreviewParameterProvider<List<TaskModel>> {
 
     companion object {
         private const val TEST_ITEM_COUNT = 5

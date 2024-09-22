@@ -50,6 +50,7 @@ internal class ProfileUiMapper @Inject constructor(
         isBasedOnPlatformApp: Boolean,
     ) = listOfNotNull(
         header(content, isProFeatureEnabled),
+        item(TypeProfile.TASKS, R.string.profile_tasks),
         mapContentToValueItem(contentTitle, isContentFeatureEnabled),
         section(TypeProfile.SOCIAL_SECTION, R.string.title_social, isTelegramFeatureEnabled),
         social(TypeProfile.TELEGRAM_SOCIAL, isTelegramFeatureEnabled, telegramConfig),

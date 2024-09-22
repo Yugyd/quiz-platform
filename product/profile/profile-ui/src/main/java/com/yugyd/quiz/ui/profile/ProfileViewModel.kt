@@ -38,6 +38,7 @@ import com.yugyd.quiz.ui.profile.ProfileView.State.NavigationState
 import com.yugyd.quiz.ui.profile.model.ProfileUiMapper
 import com.yugyd.quiz.ui.profile.model.ProfileUiModel
 import com.yugyd.quiz.ui.profile.model.SwitchItemProfileUiModel
+import com.yugyd.quiz.ui.profile.model.TypeProfile
 import com.yugyd.quiz.ui.profile.model.TypeProfile.FEEDBACK_SECTION
 import com.yugyd.quiz.ui.profile.model.TypeProfile.NONE
 import com.yugyd.quiz.ui.profile.model.TypeProfile.OPEN_SOURCE
@@ -205,6 +206,10 @@ internal class ProfileViewModel @Inject constructor(
         SORT_QUEST, VIBRATION, OPEN_SOURCE -> Unit
 
         SETTINGS_SECTION, PURCHASES_SECTION, PLEASE_US_SECTION, FEEDBACK_SECTION, SOCIAL_SECTION, NONE -> Unit
+
+        TypeProfile.TASKS -> {
+            navigateToScreen(NavigationState.NavigateToTasks)
+        }
     }
 
     private fun onProfileItemChecked(item: SwitchItemProfileUiModel, isChecked: Boolean) =

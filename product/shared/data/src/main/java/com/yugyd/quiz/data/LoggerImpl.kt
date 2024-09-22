@@ -40,6 +40,10 @@ internal class LoggerImpl @Inject constructor(
         Timber.e(error)
     }
 
+    override fun logError(tag: String, error: Throwable) {
+        Timber.tag(tag).e(error)
+    }
+
     override fun recordError(error: Throwable) {
         Timber.e(error)
         sendErrorToFirebase(error)

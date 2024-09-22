@@ -44,6 +44,8 @@ import com.yugyd.quiz.ui.errors.navigateToErrorList
 import com.yugyd.quiz.ui.profile.profileScreen
 import com.yugyd.quiz.ui.section.navigateToSection
 import com.yugyd.quiz.ui.section.sectionScreen
+import com.yugyd.quiz.ui.tasks.navigateToTasks
+import com.yugyd.quiz.ui.tasks.tasksScreen
 import com.yugyd.quiz.ui.theme.THEME_ROUTE
 import com.yugyd.quiz.ui.theme.themeScreen
 import com.yugyd.quiz.ui.transition.navigateToTransition
@@ -137,6 +139,9 @@ internal fun QuizNavHost(
             onNavigateToExternalPlatformReportError = {
                 navigateToExternalScreen(GlobalScreens.platformGitHubIssues(context))
             },
+            onNavigateToTasks = {
+                navController.navigateToTasks()
+            }
         )
 
         proOnboardingScreen(
@@ -183,6 +188,14 @@ internal fun QuizNavHost(
         correctScreen(
             snackbarHostState = snackbarHostState,
             onNavigateToGame = navController::navigateToGame,
+        )
+
+        tasksScreen(
+            snackbarHostState = snackbarHostState,
+            onBack = navController::popBackStack,
+            onNavigateToBrowser = {
+                navigateToExternalScreen(GlobalScreens.externalBrowser(it))
+            },
         )
     }
 }

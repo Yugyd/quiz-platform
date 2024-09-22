@@ -53,6 +53,7 @@ internal fun ProfileRoute(
     onNavigateToContents: () -> Unit,
     onNavigateToExternalPlatformRate: () -> Unit,
     onNavigateToExternalPlatformReportError: () -> Unit,
+    onNavigateToTasks: () -> Unit,
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
@@ -87,6 +88,7 @@ internal fun ProfileRoute(
         onNavigationHandled = {
             viewModel.onAction(Action.OnNavigationHandled)
         },
+        onNavigateToTasks = onNavigateToTasks,
     )
 }
 
@@ -110,6 +112,7 @@ internal fun ProfileScreen(
     onNavigateToExternalPlatformReportError: () -> Unit,
     onTelegramHandled: () -> Unit,
     onNavigationHandled: () -> Unit,
+    onNavigateToTasks: () -> Unit,
 ) {
     LaunchedEffect(key1 = uiState.showTelegram) {
         if (uiState.showTelegram) {
@@ -157,6 +160,7 @@ internal fun ProfileScreen(
         onNavigateToContents = onNavigateToContents,
         onNavigateToExternalPlatformRate = onNavigateToExternalPlatformRate,
         onNavigateToExternalPlatformReportError = onNavigateToExternalPlatformReportError,
+        onNavigateToTasks = onNavigateToTasks,
         onNavigationHandled = onNavigationHandled,
     )
 }
@@ -198,6 +202,7 @@ internal fun NavigationHandler(
     onNavigateToContents: () -> Unit,
     onNavigateToExternalPlatformRate: () -> Unit,
     onNavigateToExternalPlatformReportError: () -> Unit,
+    onNavigateToTasks: () -> Unit,
     onNavigationHandled: () -> Unit,
 ) {
     LaunchedEffect(key1 = navigationState) {
@@ -212,6 +217,7 @@ internal fun NavigationHandler(
             NavigationState.NavigateToContents -> onNavigateToContents()
             NavigationState.NavigateToExternalPlatformRate -> onNavigateToExternalPlatformRate()
             NavigationState.NavigateToExternalPlatformReportError -> onNavigateToExternalPlatformReportError()
+            NavigationState.NavigateToTasks -> onNavigateToTasks()
             null -> Unit
         }
 

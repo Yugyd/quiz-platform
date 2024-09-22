@@ -57,4 +57,5 @@ dependencies {
 
     // Logging
     implementation libs.timber
+    implementation project(':product:tasks:tasks-ui')
 }

@@ -39,6 +39,7 @@ fun NavGraphBuilder.profileScreen(
     onNavigateToContents: () -> Unit,
     onNavigateToExternalPlatformRate: () -> Unit,
     onNavigateToExternalPlatformReportError: () -> Unit,
+    onNavigateToTasks: () -> Unit,
 ) {
     composable(route = PROFILE_ROUTE) {
         ProfileRoute(
@@ -53,6 +54,7 @@ fun NavGraphBuilder.profileScreen(
             onNavigateToContents = onNavigateToContents,
             onNavigateToExternalPlatformRate = onNavigateToExternalPlatformRate,
             onNavigateToExternalPlatformReportError = onNavigateToExternalPlatformReportError,
+            onNavigateToTasks = onNavigateToTasks,
         )
     }
 }

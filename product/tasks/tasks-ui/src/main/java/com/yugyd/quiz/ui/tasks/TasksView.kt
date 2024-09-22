@@ -14,15 +14,13 @@
  *    limitations under the License.
  */
 
-package com.yugyd.quiz.ui.errors
+package com.yugyd.quiz.ui.tasks
 
 import com.yugyd.quiz.domain.api.model.tasks.TaskModel
-import com.yugyd.quiz.domain.api.payload.ErrorListPayload
 
-internal interface ErrorListView {
+internal interface TasksView {
 
     data class State(
-        val payload: ErrorListPayload = ErrorListPayload(),
         val items: List<TaskModel> = emptyList(),
         val isWarning: Boolean = false,
         val isLoading: Boolean = false,
@@ -38,7 +36,7 @@ internal interface ErrorListView {
 
     sealed interface Action {
         object OnBackClicked : Action
-        class OnErrorClicked(val item: TaskModel) : Action
+        class OnTaskClicked(val item: TaskModel) : Action
         object OnSnackbarDismissed : Action
         object OnNavigationHandled : Action
     }

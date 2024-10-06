@@ -17,9 +17,9 @@
 package com.yugyd.quiz.domain.tasks
 
 import com.yugyd.quiz.core.coroutinesutils.DispatchersProvider
-import com.yugyd.quiz.domain.api.model.tasks.TaskModel
 import com.yugyd.quiz.domain.api.repository.QuestSource
 import com.yugyd.quiz.domain.game.api.model.Quest
+import com.yugyd.quiz.domain.tasks.model.TaskModel
 import com.yugyd.quiz.domain.utils.SeparatorParser
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -47,6 +47,7 @@ internal class TasksInteractorImpl @Inject constructor(
         quest = quest,
         trueAnswer = trueAnswer,
         queryLink = queryUrlBuilder.buildUrl(this, queryFormat),
+        complexity = complexity,
     )
 }
 

@@ -16,17 +16,27 @@
 
 package com.yugyd.quiz.ui.tasks
 
-import com.yugyd.quiz.domain.api.model.tasks.TaskModel
+import androidx.annotation.StringRes
+import com.yugyd.quiz.domain.tasks.model.FilterModel
+import com.yugyd.quiz.domain.tasks.model.TaskModel
+import com.yugyd.quiz.ui.tasks.TasksView.State.FilterUiModel
 
 internal interface TasksView {
 
     data class State(
-        val items: List<TaskModel> = emptyList(),
+        val allItems: List<TaskModel> = emptyList(),
         val isWarning: Boolean = false,
         val isLoading: Boolean = false,
+        val allFilters: List<FilterUiModel> = emptyList(),
+        val showFilters: Boolean = false,
         val showErrorMessage: Boolean = false,
         val navigationState: NavigationState? = null,
     ) {
+
+        data class FilterUiModel(
+            val filterModel: FilterModel,
+            @StringRes val titleRes: Int,
+        )
 
         sealed interface NavigationState {
             object Back : NavigationState
@@ -36,8 +46,12 @@ internal interface TasksView {
 
     sealed interface Action {
         object OnBackClicked : Action
+        object OnShowFilterClicked : Action
         class OnTaskClicked(val item: TaskModel) : Action
+        class OnFavoriteClicked(val item: TaskModel) : Action
+        class OnFilterClicked(val item: FilterUiModel) : Action
         object OnSnackbarDismissed : Action
+        object OnFiltersDismissed : Action
         object OnNavigationHandled : Action
     }
 }

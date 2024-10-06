@@ -39,6 +39,7 @@ internal interface ErrorListView {
     sealed interface Action {
         object OnBackClicked : Action
         class OnErrorClicked(val item: TaskModel) : Action
+        class OnFavoriteClicked(val item: TaskModel) : Action
         object OnSnackbarDismissed : Action
         object OnNavigationHandled : Action
     }

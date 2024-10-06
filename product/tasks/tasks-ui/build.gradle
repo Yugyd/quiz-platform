@@ -21,14 +21,16 @@ dependencies {
     implementation project(':product:designsystem:uikit')
     implementation project(':product:tasks:tasks-bl')
     implementation project(':product:shared:domain-api')
+    implementation project(':product:favorites:favorites-bl')
+    implementation project(':product:favorites:favorites-ui')
+    implementation project(':product:errors:errors-bl')
 
     // UI - Compose
     implementation libs.compose.material3
+    implementation libs.compose.material.icons
     implementation libs.compose.viewmodel
     implementation libs.compose.lifecycle
     // Navigation
     implementation libs.compose.hilt.navigation
 
-    // Play Services: Ads, Auth, Games
-    implementation libs.play.ads
 }

@@ -16,7 +16,7 @@
 
 package com.yugyd.quiz.domain.tasks
 
-import com.yugyd.quiz.domain.api.model.tasks.TaskModel
+import com.yugyd.quiz.domain.tasks.model.TaskModel
 
 interface TasksInteractor {
     suspend fun getTaskModels(): List<TaskModel>

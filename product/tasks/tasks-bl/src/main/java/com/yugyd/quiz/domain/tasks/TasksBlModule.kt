@@ -1,5 +1,6 @@
 package com.yugyd.quiz.domain.tasks
 
+import com.yugyd.quiz.domain.tasks.data.QueryFormatRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -11,6 +12,9 @@ abstract class TasksBlModule {
 
     @Binds
     internal abstract fun bindTasksInteractor(impl: TasksInteractorImpl): TasksInteractor
+
+    @Binds
+    internal abstract fun bindFilterInteractor(impl: FilterInteractorImpl): FilterInteractor
 
     @Binds
     internal abstract fun bindQueryUrlBuilder(impl: QuestQueryUrlBuilderImpl): QueryUrlBuilder

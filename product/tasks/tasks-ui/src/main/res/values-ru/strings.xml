@@ -21,4 +21,9 @@
     <string name="tasks_title_true_answer">Правильный ответ</string>
     <string name="tasks_title_error_list">Список заданий</string>
 
+    <!-- Filters Bottom Sheet -->
+    <string name="tasks_filters">Фильтры</string>
+    <string name="tasks_errors">Ошибки</string>
+    <string name="tasks_favorites">Избранное</string>
+
 </resources>

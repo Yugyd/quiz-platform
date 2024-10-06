@@ -17,7 +17,7 @@
 package com.yugyd.quiz.ui.tasks
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import com.yugyd.quiz.domain.api.model.tasks.TaskModel
+import com.yugyd.quiz.domain.tasks.model.TaskModel
 
 internal class TasksPreviewParameterProvider : PreviewParameterProvider<List<TaskModel>> {
 

@@ -58,6 +58,7 @@ lifecycle-viewmodel-ktx = { module = 'androidx.lifecycle:lifecycle-viewmodel-ktx
 lifecycle-runtime-ktx = { module = 'androidx.lifecycle:lifecycle-runtime-ktx', version.ref = 'lifecycleVersion' }
 lifecycle-process = { module = 'androidx.lifecycle:lifecycle-process', version.ref = 'lifecycleVersion' }
 splashscreen = { module = 'androidx.core:core-splashscreen', version = '1.0.1' }
+datastore = { module = 'androidx.datastore:datastore-preferences', version = '1.1.1' }
 # Compose
 compose-bom = { module = 'androidx.compose:compose-bom', version.ref = 'compose-bom' }
 # Material Design 3

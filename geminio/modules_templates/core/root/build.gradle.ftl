@@ -1,7 +1,7 @@
 plugins {
-    id 'quiz.android.library'
+    alias(libs.plugins.convention.library)
 <#if enableDi>
-    id 'quiz.android.hilt'
+    alias(libs.plugins.convention.hilt)
 </#if>
 }
 

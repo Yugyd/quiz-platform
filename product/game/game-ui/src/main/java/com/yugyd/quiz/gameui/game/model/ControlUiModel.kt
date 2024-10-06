@@ -16,18 +16,18 @@
 
 package com.yugyd.quiz.gameui.game.model
 
-import androidx.annotation.DrawableRes
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.ui.graphics.Color
-import com.yugyd.quiz.gameui.R
+import androidx.compose.ui.graphics.vector.ImageVector
 import com.yugyd.quiz.gameui.game.model.ConditionUiModel.NONE
-import com.yugyd.quiz.ui.game.api.model.HighlightUiModel
 import com.yugyd.quiz.uikit.theme.app_color_negative
 
 internal data class ControlUiModel(
     val id: Int = 0,
     val countTitle: String = "",
     val conditionTitle: String = "",
-    @DrawableRes val conditionIcon: Int = R.drawable.ic_heart,
+    val conditionIcon: ImageVector = Icons.Filled.Favorite,
     val conditionTintColor: Color = app_color_negative,
     val conditionUiModel: ConditionUiModel = NONE,
     val conditionIsVisible: Boolean = true,

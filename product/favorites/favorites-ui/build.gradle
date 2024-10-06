@@ -1,0 +1,17 @@
+plugins {
+    alias(libs.plugins.convention.library)
+    alias(libs.plugins.convention.library.compose)
+}
+
+android {
+    namespace 'com.yugyd.quiz.ui.favorites'
+}
+
+dependencies {
+    // Module
+    implementation project(':product:core:common-ui')
+    implementation project(':product:designsystem:uikit')
+
+    // UI - Compose
+    implementation libs.compose.material3
+}

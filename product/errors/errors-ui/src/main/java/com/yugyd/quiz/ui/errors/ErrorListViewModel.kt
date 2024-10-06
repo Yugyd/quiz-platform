@@ -23,6 +23,7 @@ import com.yugyd.quiz.core.coroutinesutils.DispatchersProvider
 import com.yugyd.quiz.core.runCatch
 import com.yugyd.quiz.domain.api.model.tasks.TaskModel
 import com.yugyd.quiz.domain.errors.ErrorInteractor
+import com.yugyd.quiz.domain.favorites.FavoritesInteractor
 import com.yugyd.quiz.ui.errors.ErrorListView.Action
 import com.yugyd.quiz.ui.errors.ErrorListView.State
 import com.yugyd.quiz.ui.errors.ErrorListView.State.NavigationState
@@ -34,6 +35,7 @@ import javax.inject.Inject
 internal class ErrorListViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val errorInteractor: ErrorInteractor,
+    private val favoritesInteractor: FavoritesInteractor,
     logger: Logger,
     dispatchersProvider: DispatchersProvider,
 ) :
@@ -60,6 +62,8 @@ internal class ErrorListViewModel @Inject constructor(
             Action.OnNavigationHandled -> {
                 screenState = screenState.copy(navigationState = null)
             }
+
+            is Action.OnFavoriteClicked -> onFavoriteClicked(action.item)
         }
     }
 
@@ -83,9 +87,17 @@ internal class ErrorListViewModel @Inject constructor(
 
             runCatch(
                 block = {
-                    val state = errorInteractor
-                        .getErrorsModels(screenState.payload.errorQuestIds)
-                    processData(state)
+                    val errorQuestIds = screenState.payload.errorQuestIds
+                    val errors = errorInteractor.getErrorsModels(errorQuestIds)
+                    val favorites = favoritesInteractor.getFavorites(errorQuestIds)
+                    val taskModels = errors.map { task ->
+                        if (favorites.contains(task.id)) {
+                            task.copy(isFavorite = true)
+                        } else {
+                            task
+                        }
+                    }
+                    processData(taskModels)
                 },
                 catch = ::processDataError,
             )
@@ -108,5 +120,33 @@ internal class ErrorListViewModel @Inject constructor(
             showErrorMessage = true,
         )
         processError(error)
+    }
+
+    private fun onFavoriteClicked(item: TaskModel) {
+        vmScopeErrorHandled.launch {
+            runCatch(
+                block = {
+                    screenState = screenState.copy(
+                        items = screenState.items.map { task ->
+                            if (task.id == item.id) {
+                                task.copy(isFavorite = task.isFavorite.not())
+                            } else {
+                                task
+                            }
+                        }
+                    )
+
+                    val currentTask = screenState.items.first { it.id == item.id }
+                    favoritesInteractor.updateTask(
+                        id = currentTask.id,
+                        isFavorite = currentTask.isFavorite,
+                    )
+                },
+                catch = {
+                    processError(it)
+                    screenState = screenState.copy(showErrorMessage = true)
+                }
+            )
+        }
     }
 }

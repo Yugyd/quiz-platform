@@ -19,6 +19,7 @@ package com.yugyd.quiz.progressui.specificprogress
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Icon
 import androidx.compose.material3.SnackbarHostState
@@ -201,7 +202,7 @@ private fun SpecificProgressToolbar(
     SimpleToolbar(
         title = themeTitle,
         onBackPressed = onBackPressed,
-        rightIcon = R.drawable.ic_trash_outline,
+        rightIcon = Icons.Outlined.Delete,
         rightIconButtonEnabled = rightIconButtonEnabled,
         onRightIconClicked = onRightIconClicked
     )

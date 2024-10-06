@@ -21,4 +21,9 @@
     <string name="tasks_title_true_answer">Right answer</string>
     <string name="tasks_title_error_list">List of tasks</string>
 
+    <!-- Filters Bottom Sheet -->
+    <string name="tasks_filters">Filters</string>
+    <string name="tasks_errors">Errors</string>
+    <string name="tasks_favorites">Favorites</string>
+
 </resources>

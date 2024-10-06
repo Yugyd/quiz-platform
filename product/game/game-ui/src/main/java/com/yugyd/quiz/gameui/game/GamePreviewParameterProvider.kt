@@ -16,8 +16,9 @@
 
 package com.yugyd.quiz.gameui.game
 
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import com.yugyd.quiz.gameui.R
 import com.yugyd.quiz.gameui.game.model.ConditionUiModel
 import com.yugyd.quiz.gameui.game.model.ControlUiModel
 import com.yugyd.quiz.gameui.game.model.GameStateUiModel
@@ -39,7 +40,7 @@ internal class GamePreviewParameterProvider :
     private fun createControl() = ControlUiModel(
         id = 1,
         countTitle = "1",
-        conditionIcon = R.drawable.ic_heart,
+        conditionIcon = Icons.Filled.Favorite,
         conditionTitle = "",
         conditionTintColor = app_color_negative,
         conditionUiModel = ConditionUiModel.LIFE,

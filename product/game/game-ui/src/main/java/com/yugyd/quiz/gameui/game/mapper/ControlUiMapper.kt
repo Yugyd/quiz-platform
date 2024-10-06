@@ -16,12 +16,14 @@
 
 package com.yugyd.quiz.gameui.game.mapper
 
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.ui.graphics.Color
 import com.yugyd.quiz.commonui.utils.ProgressColorUtils
 import com.yugyd.quiz.core.percent
 import com.yugyd.quiz.domain.api.model.Mode
 import com.yugyd.quiz.domain.api.model.game.ControlModel
-import com.yugyd.quiz.gameui.R
 import com.yugyd.quiz.gameui.game.model.ConditionUiModel
 import com.yugyd.quiz.gameui.game.model.ControlUiModel
 import javax.inject.Inject
@@ -41,9 +43,9 @@ internal class ControlUiMapper @Inject constructor(private val progressColorUtil
         }
 
         val conditionIcon = if (condition == MIN_CONDITION) {
-            R.drawable.ic_heart_outline
+            Icons.Filled.Favorite
         } else {
-            R.drawable.ic_heart
+            Icons.Outlined.Favorite
         }
 
         ControlUiModel(

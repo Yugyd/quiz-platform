@@ -1,7 +1,7 @@
 plugins {
-    id 'quiz.android.library'
-    id 'quiz.android.hilt'
-    id 'quiz.android.compose.library'
+    alias(libs.plugins.convention.library)
+    alias(libs.plugins.convention.hilt)
+    alias(libs.plugins.convention.library.compose)
 }
 
 android {

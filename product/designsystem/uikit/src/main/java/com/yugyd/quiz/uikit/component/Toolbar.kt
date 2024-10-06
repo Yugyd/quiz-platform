@@ -16,7 +16,6 @@
 
 package com.yugyd.quiz.uikit.component
 
-import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -25,6 +24,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
@@ -35,6 +36,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -77,7 +79,7 @@ fun RootToolbar(
 fun SimpleToolbar(
     title: String,
     onBackPressed: () -> Unit,
-    @DrawableRes rightIcon: Int? = null,
+    rightIcon: ImageVector? = null,
     rightIconButtonEnabled: Boolean = true,
     rightIconColor: Color? = null,
     onRightIconClicked: (() -> Unit)? = null,
@@ -123,7 +125,7 @@ fun SimpleToolbar(
                     enabled = rightIconButtonEnabled,
                 ) {
                     Icon(
-                        painter = painterResource(id = rightIcon),
+                        imageVector = rightIcon,
                         contentDescription = null,
                     )
                 }
@@ -148,7 +150,7 @@ private fun SimpleToolbarPreview() {
     QuizApplicationTheme {
         SimpleToolbar(
             title = "Simple toolbar",
-            rightIcon = R.drawable.ic_back,
+            rightIcon = Icons.AutoMirrored.Filled.ArrowBack,
             onBackPressed = {},
             onRightIconClicked = {}
         )

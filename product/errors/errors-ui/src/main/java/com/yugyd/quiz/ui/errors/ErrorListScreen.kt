@@ -18,10 +18,12 @@ package com.yugyd.quiz.ui.errors
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Divider
@@ -42,6 +44,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.yugyd.quiz.domain.api.model.tasks.TaskModel
 import com.yugyd.quiz.ui.errors.ErrorListView.Action
 import com.yugyd.quiz.ui.errors.ErrorListView.State.NavigationState
+import com.yugyd.quiz.ui.favorites.FavoriteIcon
 import com.yugyd.quiz.uikit.LoadingContent
 import com.yugyd.quiz.uikit.WarningContent
 import com.yugyd.quiz.uikit.common.ThemePreviews
@@ -68,6 +71,9 @@ internal fun ErrorListRoute(
         onItemClicked = {
             viewModel.onAction(Action.OnErrorClicked(it))
         },
+        onFavoriteClicked = {
+            viewModel.onAction(Action.OnFavoriteClicked(it))
+        },
         onErrorDismissState = {
             viewModel.onAction(Action.OnSnackbarDismissed)
         },
@@ -85,6 +91,7 @@ internal fun ErrorListScreen(
     snackbarHostState: SnackbarHostState,
     onBackPressed: () -> Unit,
     onItemClicked: (TaskModel) -> Unit,
+    onFavoriteClicked: (TaskModel) -> Unit,
     onErrorDismissState: () -> Unit,
     onBack: () -> Unit,
     onNavigateToBrowser: (String) -> Unit,
@@ -118,6 +125,7 @@ internal fun ErrorListScreen(
                 ErrorListContent(
                     items = uiState.items,
                     onItemClicked = onItemClicked,
+                    onFavoriteClicked = onFavoriteClicked,
                 )
             }
         }
@@ -135,6 +143,7 @@ internal fun ErrorListScreen(
 internal fun ErrorListContent(
     items: List<TaskModel>,
     onItemClicked: (TaskModel) -> Unit,
+    onFavoriteClicked: (TaskModel) -> Unit,
 ) {
     LazyColumn {
         items(
@@ -143,6 +152,7 @@ internal fun ErrorListContent(
             ErrorItem(
                 model = it,
                 onItemClicked = onItemClicked,
+                onFavoriteClicked = onFavoriteClicked,
             )
         }
     }
@@ -151,12 +161,13 @@ internal fun ErrorListContent(
 @Composable
 internal fun ErrorItem(
     model: TaskModel,
+    onFavoriteClicked: (TaskModel) -> Unit,
     onItemClicked: (TaskModel) -> Unit,
 ) {
     Surface(
         color = MaterialTheme.colorScheme.surface,
     ) {
-        Column(
+        Row(
             modifier = Modifier
                 .clickable {
                     onItemClicked(model)
@@ -164,34 +175,47 @@ internal fun ErrorItem(
                 .fillMaxWidth()
                 .padding(all = 16.dp),
         ) {
-            Text(
-                text = stringResource(id = R.string.title_quest),
-                style = MaterialTheme.typography.bodyLarge,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                color = MaterialTheme.colorScheme.onSurface
-            )
+            Column(
+                modifier = Modifier.weight(weight = 1F),
+            ) {
+                Text(
+                    text = stringResource(id = R.string.title_quest),
+                    style = MaterialTheme.typography.bodyLarge,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    color = MaterialTheme.colorScheme.onSurface
+                )
 
-            Text(
-                text = model.quest,
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
+                Text(
+                    text = model.quest,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
 
-            Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(8.dp))
 
-            Text(
-                text = stringResource(id = R.string.title_true_answer),
-                style = MaterialTheme.typography.bodyLarge,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                color = MaterialTheme.colorScheme.onSurface
-            )
+                Text(
+                    text = stringResource(id = R.string.title_true_answer),
+                    style = MaterialTheme.typography.bodyLarge,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    color = MaterialTheme.colorScheme.onSurface
+                )
 
-            Text(
-                text = model.trueAnswer,
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
+                Text(
+                    text = model.trueAnswer,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+
+            Spacer(modifier = Modifier.width(width = 8.dp))
+
+            FavoriteIcon(
+                isFavorite = model.isFavorite,
+                onFavoriteClicked = {
+                    onFavoriteClicked(model)
+                },
             )
         }
     }
@@ -227,6 +251,7 @@ private fun ContentPreview(
             ErrorListContent(
                 items = items,
                 onItemClicked = {},
+                onFavoriteClicked = {},
             )
         }
     }

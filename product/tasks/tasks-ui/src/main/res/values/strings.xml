@@ -26,4 +26,8 @@
     <string name="tasks_errors">Errors</string>
     <string name="tasks_favorites">Favorites</string>
 
+    <!-- Tasks Empty State -->
+    <string name="tasks_empty_state_title">No results found</string>
+    <string name="tasks_empty_state_message">Try changing your filters</string>
+
 </resources>

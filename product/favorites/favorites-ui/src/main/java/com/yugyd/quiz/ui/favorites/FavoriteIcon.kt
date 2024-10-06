@@ -22,7 +22,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.outlined.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Surface
@@ -47,7 +47,7 @@ fun FavoriteIcon(
         val icon = if (isFavorite) {
             Icons.Filled.Favorite
         } else {
-            Icons.Outlined.Favorite
+            Icons.Filled.FavoriteBorder
         }
 
         Icon(
@@ -71,6 +71,25 @@ private fun FavoriteIconPreview() {
             ) {
                 FavoriteIcon(
                     isFavorite = true,
+                    onFavoriteClicked = {},
+                )
+            }
+        }
+    }
+}
+
+@ThemePreviews
+@Composable
+private fun FalseFavoriteIconPreview() {
+    QuizApplicationTheme {
+        Surface {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(all = 16.dp)
+            ) {
+                FavoriteIcon(
+                    isFavorite = false,
                     onFavoriteClicked = {},
                 )
             }

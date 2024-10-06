@@ -17,10 +17,12 @@
 package com.yugyd.quiz.ui.tasks
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.defaultMinSize
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -39,8 +41,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -138,6 +142,10 @@ internal fun TasksScreen(
             onRightIconClicked = onShowFilterClicked,
         )
 
+        val showedItems = remember(uiState.allItems) {
+            uiState.allItems.filter(TaskModel::isShow)
+        }
+
         when {
             uiState.isLoading -> {
                 LoadingContent()
@@ -147,11 +155,11 @@ internal fun TasksScreen(
                 WarningContent()
             }
 
-            else -> {
-                val showedItems = remember(uiState.allItems) {
-                    uiState.allItems.filter(TaskModel::isShow)
-                }
+            showedItems.isEmpty() -> {
+                EmptyStateContent()
+            }
 
+            else -> {
                 TasksContent(
                     items = showedItems,
                     onItemClicked = onItemClicked,
@@ -167,6 +175,33 @@ internal fun TasksScreen(
         onNavigateToBrowser = onNavigateToBrowser,
         onNavigationHandled = onNavigationHandled,
     )
+}
+
+@Composable
+private fun EmptyStateContent() {
+    Column(
+        modifier = Modifier
+            .padding(16.dp)
+            .fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        Text(
+            text = stringResource(id = R.string.tasks_empty_state_title),
+            style = MaterialTheme.typography.headlineSmall,
+            textAlign = TextAlign.Center,
+            color = MaterialTheme.colorScheme.onBackground,
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Text(
+            text = stringResource(id = R.string.tasks_empty_state_message),
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            textAlign = TextAlign.Center,
+            style = MaterialTheme.typography.bodyLarge,
+        )
+    }
 }
 
 @Composable

@@ -18,7 +18,7 @@ package com.yugyd.quiz.gameui.game.mapper
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.outlined.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.ui.graphics.Color
 import com.yugyd.quiz.commonui.utils.ProgressColorUtils
 import com.yugyd.quiz.core.percent
@@ -43,9 +43,9 @@ internal class ControlUiMapper @Inject constructor(private val progressColorUtil
         }
 
         val conditionIcon = if (condition == MIN_CONDITION) {
-            Icons.Filled.Favorite
+            Icons.Filled.FavoriteBorder
         } else {
-            Icons.Outlined.Favorite
+            Icons.Filled.Favorite
         }
 
         ControlUiModel(

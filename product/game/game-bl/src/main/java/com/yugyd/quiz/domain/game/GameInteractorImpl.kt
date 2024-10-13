@@ -32,6 +32,7 @@ import com.yugyd.quiz.domain.api.repository.TrainSource
 import com.yugyd.quiz.domain.controller.ErrorController
 import com.yugyd.quiz.domain.controller.RecordController
 import com.yugyd.quiz.domain.controller.SectionController
+import com.yugyd.quiz.domain.favorites.FavoritesSource
 import com.yugyd.quiz.domain.game.api.BaseQuestDomainModel
 import com.yugyd.quiz.domain.game.api.model.HighlightModel
 import com.yugyd.quiz.domain.game.api.model.Quest
@@ -56,6 +57,7 @@ internal class GameInteractorImpl @Inject constructor(
     private val sectionController: SectionController,
     private val errorController: ErrorController,
     private val dispatcherProvider: DispatchersProvider,
+    private val favoritesSource: FavoritesSource,
 ) : GameInteractor {
 
     private lateinit var payload: GamePayload
@@ -182,7 +184,7 @@ internal class GameInteractorImpl @Inject constructor(
     }
 
     private fun getConditionValue(mode: Mode) = when (mode) {
-        Mode.ARCADE, Mode.MARATHON, Mode.TRAIN, Mode.ERROR -> LIFE_CONDITION
+        Mode.ARCADE, Mode.MARATHON, Mode.TRAIN, Mode.ERROR, Mode.FAVORITE -> LIFE_CONDITION
         Mode.NONE -> 0
     }
 
@@ -192,6 +194,7 @@ internal class GameInteractorImpl @Inject constructor(
             Mode.MARATHON -> getQuestIdsByTheme(theme, isSort)
             Mode.TRAIN -> getQuestIdsByTrainMode(theme, isSort)
             Mode.ERROR -> getQuestIdsByErrors()
+            Mode.FAVORITE -> getQuestIdsByFavorites()
             Mode.NONE -> emptyList()
         }
 
@@ -212,6 +215,8 @@ internal class GameInteractorImpl @Inject constructor(
         }
 
     private suspend fun getQuestIdsByErrors() = errorSource.getErrors().shuffled()
+
+    private suspend fun getQuestIdsByFavorites() = favoritesSource.getTaskIds().shuffled()
 
     private fun isNext(ids: List<Int>) {
         if (ids.isEmpty()) throw FinishGameException()
@@ -248,7 +253,7 @@ internal class GameInteractorImpl @Inject constructor(
 
     private fun decrementCondition(mode: Mode) {
         val fine = when (mode) {
-            Mode.ARCADE, Mode.MARATHON, Mode.ERROR -> LIFE_FINE
+            Mode.ARCADE, Mode.MARATHON, Mode.ERROR, Mode.FAVORITE -> LIFE_FINE
             Mode.TRAIN -> INFINITY_FINE
             Mode.NONE -> 0
         }
@@ -303,7 +308,7 @@ internal class GameInteractorImpl @Inject constructor(
         when (mode) {
             Mode.ARCADE -> saveSectionData()
             Mode.TRAIN -> saveTrainData()
-            Mode.MARATHON, Mode.ERROR, Mode.NONE -> Unit
+            Mode.MARATHON, Mode.ERROR, Mode.FAVORITE, Mode.NONE -> Unit
         }
 
         saveRecord(mode)
@@ -314,7 +319,7 @@ internal class GameInteractorImpl @Inject constructor(
             point != 0
         }
 
-        Mode.ARCADE, Mode.MARATHON, Mode.ERROR -> {
+        Mode.ARCADE, Mode.MARATHON, Mode.ERROR, Mode.FAVORITE -> {
             point > record
         }
 
@@ -365,14 +370,14 @@ internal class GameInteractorImpl @Inject constructor(
             trainSource.getTotalProgress(allIds.toIntArray())
         }
 
-        Mode.MARATHON, Mode.ERROR, Mode.NONE -> {
+        Mode.MARATHON, Mode.ERROR, Mode.FAVORITE, Mode.NONE -> {
             point
         }
     }
 
     private fun isSavedRecordMode(mode: Mode) = when (mode) {
         Mode.ARCADE, Mode.MARATHON, Mode.TRAIN -> true
-        Mode.ERROR, Mode.NONE -> false
+        Mode.ERROR, Mode.FAVORITE, Mode.NONE -> false
     }
 
     private suspend fun updateController() = withContext(dispatcherProvider.main) {
@@ -386,7 +391,7 @@ internal class GameInteractorImpl @Inject constructor(
                 recordController.notifyListeners()
             }
 
-            Mode.ERROR, Mode.NONE -> Unit
+            Mode.ERROR, Mode.FAVORITE, Mode.NONE -> Unit
         }
 
         errorController.notifyListeners()

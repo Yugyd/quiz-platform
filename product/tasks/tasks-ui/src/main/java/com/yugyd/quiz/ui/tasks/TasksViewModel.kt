@@ -20,6 +20,8 @@ import com.yugyd.quiz.commonui.base.BaseViewModel
 import com.yugyd.quiz.core.Logger
 import com.yugyd.quiz.core.coroutinesutils.DispatchersProvider
 import com.yugyd.quiz.core.runCatch
+import com.yugyd.quiz.domain.api.model.Mode
+import com.yugyd.quiz.domain.api.model.payload.GamePayload
 import com.yugyd.quiz.domain.errors.ErrorInteractor
 import com.yugyd.quiz.domain.favorites.FavoritesInteractor
 import com.yugyd.quiz.domain.tasks.FilterInteractor
@@ -77,6 +79,7 @@ internal class TasksViewModel @Inject constructor(
             }
 
             is Action.OnFilterClicked -> onFilterClicked(action.item)
+            Action.OnStartGameClicked -> onStartGameClicked()
         }
     }
 
@@ -212,7 +215,46 @@ internal class TasksViewModel @Inject constructor(
             val newShowItems = screenState.allItems.map { task ->
                 task.copy(isShow = newShowItemIds.contains(task.id))
             }
-            screenState = screenState.copy(allItems = newShowItems)
+            val enabledFilters = screenState.allFilters.count {
+                it.filterModel.isChecked
+            }
+            screenState = screenState.copy(
+                allItems = newShowItems,
+                showStartGameButton = enabledFilters == 1,
+            )
         }
+    }
+
+    private fun onStartGameClicked() {
+        val enabledFilters = screenState.allFilters.filter {
+            it.filterModel.isChecked
+        }
+
+        when {
+            enabledFilters.isEmpty() -> {
+                screenState = screenState.copy(showErrorMessage = true)
+                return
+            }
+
+            enabledFilters.size > 1 -> {
+                screenState = screenState.copy(showErrorMessage = true)
+                return
+            }
+
+            else -> {
+                val filterType = enabledFilters.first().filterModel.id
+                startGame(filterType)
+            }
+        }
+    }
+
+    private fun startGame(filterType: FilterType) {
+        val mode = when (filterType) {
+            FilterType.ERRORS -> Mode.ERROR
+            FilterType.FAVORITES -> Mode.FAVORITE
+        }
+
+        val payload = GamePayload(mode = mode)
+        screenState = screenState.copy(navigationState = NavigationState.NavigateToGame(payload))
     }
 }

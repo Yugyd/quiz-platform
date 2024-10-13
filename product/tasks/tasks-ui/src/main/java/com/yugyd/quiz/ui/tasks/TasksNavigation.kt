@@ -20,6 +20,7 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import com.yugyd.quiz.domain.api.model.payload.GamePayload
 
 private const val TASKS_ROUTE = "tasks"
 
@@ -31,12 +32,14 @@ fun NavGraphBuilder.tasksScreen(
     snackbarHostState: SnackbarHostState,
     onBack: () -> Unit,
     onNavigateToBrowser: (String) -> Unit,
+    onNavigateToGame: (GamePayload) -> Unit,
 ) {
     composable(route = TASKS_ROUTE) {
         TasksRoute(
             snackbarHostState = snackbarHostState,
             onBack = onBack,
             onNavigateToBrowser = onNavigateToBrowser,
+            onNavigateToGame = onNavigateToGame,
         )
     }
 }

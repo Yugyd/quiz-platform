@@ -26,6 +26,7 @@ class ModeEntityMapper @Inject constructor() {
         Mode.MARATHON.id -> Mode.MARATHON
         Mode.TRAIN.id -> Mode.TRAIN
         Mode.ERROR.id -> Mode.ERROR
+        Mode.FAVORITE.id -> Mode.FAVORITE
         Mode.NONE.id -> Mode.NONE
         else -> throw IllegalArgumentException()
     }

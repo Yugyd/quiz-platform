@@ -24,5 +24,6 @@ enum class ModeUiModel(@StringRes val title: Int) {
     MARATHON(uiKitR.string.title_marathon),
     TRAIN(uiKitR.string.title_train),
     ERROR(uiKitR.string.title_correct),
+    FAVORITE(uiKitR.string.title_favorites),
     NONE(uiKitR.string.title_unknown)
 }

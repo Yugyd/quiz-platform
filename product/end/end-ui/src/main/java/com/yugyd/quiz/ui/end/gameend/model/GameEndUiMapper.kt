@@ -39,6 +39,7 @@ internal class GameEndUiMapper @Inject constructor(
         val mappedThemeTitle = when (payload.mode) {
             Mode.ARCADE, Mode.MARATHON, Mode.TRAIN -> themeTitle
             Mode.ERROR -> context.getString(uiKitR.string.title_work_error)
+            Mode.FAVORITE -> context.getString(uiKitR.string.title_work_favorites)
             Mode.NONE -> ""
         }
 

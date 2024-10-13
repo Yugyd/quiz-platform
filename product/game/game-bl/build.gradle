@@ -20,6 +20,7 @@ dependencies {
     implementation project(':product:game:game-bl-api')
     implementation project(':product:game:enterquest-bl')
     implementation project(':product:game:simplequest-bl')
+    implementation project(':product:favorites:favorites-bl')
 
     // Kotlin
     implementation libs.kotlinx.coroutines.android

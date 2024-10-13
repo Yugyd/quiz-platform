@@ -17,6 +17,7 @@
 package com.yugyd.quiz.ui.tasks
 
 import androidx.annotation.StringRes
+import com.yugyd.quiz.domain.api.model.payload.GamePayload
 import com.yugyd.quiz.domain.tasks.model.FilterModel
 import com.yugyd.quiz.domain.tasks.model.TaskModel
 import com.yugyd.quiz.ui.tasks.TasksView.State.FilterUiModel
@@ -29,6 +30,7 @@ internal interface TasksView {
         val isLoading: Boolean = false,
         val allFilters: List<FilterUiModel> = emptyList(),
         val showFilters: Boolean = false,
+        val showStartGameButton: Boolean = false,
         val showErrorMessage: Boolean = false,
         val navigationState: NavigationState? = null,
     ) {
@@ -41,6 +43,7 @@ internal interface TasksView {
         sealed interface NavigationState {
             object Back : NavigationState
             data class NavigateToExternalBrowser(val url: String) : NavigationState
+            data class NavigateToGame(val payload: GamePayload) : NavigationState
         }
     }
 
@@ -51,6 +54,7 @@ internal interface TasksView {
         class OnFavoriteClicked(val item: TaskModel) : Action
         class OnFilterClicked(val item: FilterUiModel) : Action
         object OnSnackbarDismissed : Action
+        object OnStartGameClicked : Action
         object OnFiltersDismissed : Action
         object OnNavigationHandled : Action
     }

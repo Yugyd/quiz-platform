@@ -196,6 +196,7 @@ internal fun QuizNavHost(
             onNavigateToBrowser = {
                 navigateToExternalScreen(GlobalScreens.externalBrowser(it))
             },
+            onNavigateToGame = navController::navigateToGame,
         )
     }
 }

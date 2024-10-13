@@ -29,6 +29,7 @@
     <string name="title_marathon">Марафон</string>
     <string name="title_train">Тренировка</string>
     <string name="title_unknown">Неизвестно</string>
+    <string name="title_favorites">Избранное</string>
 
     <string name="title_content_lite">Лайт</string>
     <string name="title_content_pro">Про</string>
@@ -48,5 +49,6 @@
     <string name="title_empty_state">Упс, нет данных</string>
     <string name="title_empty_state_description">Попробуйте перезагрузить экран</string>
     <string name="title_empty_state_retry">Повторить</string>
+    <string name="title_work_favorites">Работа над избранным</string>
 
 </resources>

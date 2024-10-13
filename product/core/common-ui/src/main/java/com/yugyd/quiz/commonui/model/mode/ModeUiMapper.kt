@@ -25,6 +25,7 @@ class ModeUiMapper @Inject constructor() {
         Mode.MARATHON -> ModeUiModel.MARATHON
         Mode.TRAIN -> ModeUiModel.TRAIN
         Mode.ERROR -> ModeUiModel.ERROR
+        Mode.FAVORITE -> ModeUiModel.FAVORITE
         Mode.NONE -> ModeUiModel.NONE
     }
 
@@ -33,6 +34,7 @@ class ModeUiMapper @Inject constructor() {
         ModeUiModel.MARATHON -> Mode.MARATHON
         ModeUiModel.TRAIN -> Mode.TRAIN
         ModeUiModel.ERROR -> Mode.ERROR
+        ModeUiModel.FAVORITE -> Mode.FAVORITE
         ModeUiModel.NONE -> Mode.NONE
     }
 }

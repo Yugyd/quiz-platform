@@ -23,6 +23,7 @@ import com.yugyd.quiz.core.coroutinesutils.DispatchersProvider
 import com.yugyd.quiz.core.runCatch
 import com.yugyd.quiz.domain.api.model.Mode.ARCADE
 import com.yugyd.quiz.domain.api.model.Mode.ERROR
+import com.yugyd.quiz.domain.api.model.Mode.FAVORITE
 import com.yugyd.quiz.domain.api.model.Mode.MARATHON
 import com.yugyd.quiz.domain.api.model.Mode.NONE
 import com.yugyd.quiz.domain.api.model.Mode.TRAIN
@@ -118,7 +119,7 @@ internal class GameEndViewModel @Inject constructor(
             }.orEmpty()
         }
 
-        ERROR, NONE -> ""
+        ERROR, FAVORITE, NONE -> ""
     }
 
 

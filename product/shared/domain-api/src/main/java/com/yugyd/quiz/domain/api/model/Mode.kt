@@ -21,6 +21,7 @@ enum class Mode(val id: Int) {
     MARATHON(id = 0),
     TRAIN(id = 2),
     ERROR(id = 3),
+    FAVORITE(id = 5),
     NONE(id = -1);
 
     companion object {
@@ -30,6 +31,7 @@ enum class Mode(val id: Int) {
                 MARATHON.id -> MARATHON
                 TRAIN.id -> TRAIN
                 ERROR.id -> ERROR
+                FAVORITE.id -> FAVORITE
                 else -> NONE
             }
         }

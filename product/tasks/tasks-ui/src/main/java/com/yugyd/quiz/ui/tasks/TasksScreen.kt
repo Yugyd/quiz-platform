@@ -18,6 +18,7 @@ package com.yugyd.quiz.ui.tasks
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -30,9 +31,12 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Tune
 import androidx.compose.material3.Badge
 import androidx.compose.material3.Divider
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
@@ -49,6 +53,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.yugyd.quiz.domain.api.model.payload.GamePayload
 import com.yugyd.quiz.domain.tasks.model.TaskModel
 import com.yugyd.quiz.ui.favorites.FavoriteIcon
 import com.yugyd.quiz.ui.tasks.TasksView.Action
@@ -67,7 +72,8 @@ internal fun TasksRoute(
     viewModel: TasksViewModel = hiltViewModel(),
     snackbarHostState: SnackbarHostState,
     onBack: () -> Unit,
-    onNavigateToBrowser: (String) -> Unit
+    onNavigateToBrowser: (String) -> Unit,
+    onNavigateToGame: (GamePayload) -> Unit,
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
@@ -89,6 +95,9 @@ internal fun TasksRoute(
         onFilterClicked = {
             viewModel.onAction(Action.OnFilterClicked(it))
         },
+        onStartGameClicked = {
+            viewModel.onAction(Action.OnStartGameClicked)
+        },
         onFiltersDismissState = {
             viewModel.onAction(Action.OnFiltersDismissed)
         },
@@ -97,6 +106,7 @@ internal fun TasksRoute(
         },
         onBack = onBack,
         onNavigateToBrowser = onNavigateToBrowser,
+        onNavigateToGame = onNavigateToGame,
         onNavigationHandled = {
             viewModel.onAction(Action.OnNavigationHandled)
         },
@@ -113,9 +123,11 @@ internal fun TasksScreen(
     onFavoriteClicked: (TaskModel) -> Unit,
     onFilterClicked: (FilterUiModel) -> Unit,
     onFiltersDismissState: () -> Unit,
+    onStartGameClicked: () -> Unit,
     onErrorDismissState: () -> Unit,
     onBack: () -> Unit,
     onNavigateToBrowser: (String) -> Unit,
+    onNavigateToGame: (GamePayload) -> Unit,
     onNavigationHandled: () -> Unit,
 ) {
     val errorMessage = stringResource(id = UiKitR.string.error_base)
@@ -160,11 +172,30 @@ internal fun TasksScreen(
             }
 
             else -> {
-                TasksContent(
-                    items = showedItems,
-                    onItemClicked = onItemClicked,
-                    onFavoriteClicked = onFavoriteClicked,
-                )
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize(),
+                ) {
+                    TasksContent(
+                        items = showedItems,
+                        onItemClicked = onItemClicked,
+                        onFavoriteClicked = onFavoriteClicked,
+                    )
+
+                    if (uiState.showStartGameButton) {
+                        FloatingActionButton(
+                            modifier = Modifier
+                                .align(Alignment.BottomEnd)
+                                .padding(all = 16.dp),
+                            onClick = onStartGameClicked,
+                        ) {
+                            Icon(
+                                imageVector = Icons.Filled.PlayArrow,
+                                contentDescription = "Start game from tasks.",
+                            )
+                        }
+                    }
+                }
             }
         }
     }
@@ -173,6 +204,7 @@ internal fun TasksScreen(
         navigationState = uiState.navigationState,
         onBack = onBack,
         onNavigateToBrowser = onNavigateToBrowser,
+        onNavigateToGame = onNavigateToGame,
         onNavigationHandled = onNavigationHandled,
     )
 }
@@ -287,12 +319,14 @@ internal fun NavigationHandler(
     onBack: () -> Unit,
     onNavigateToBrowser: (String) -> Unit,
     onNavigationHandled: () -> Unit,
+    onNavigateToGame: (GamePayload) -> Unit,
 ) {
     LaunchedEffect(key1 = navigationState) {
         when (navigationState) {
             NavigationState.Back -> onBack()
             is NavigationState.NavigateToExternalBrowser -> onNavigateToBrowser(navigationState.url)
             null -> Unit
+            is NavigationState.NavigateToGame -> onNavigateToGame(navigationState.payload)
         }
 
         navigationState?.let { onNavigationHandled() }

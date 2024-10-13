@@ -29,12 +29,14 @@
     <string name="title_marathon">Marathon</string>
     <string name="title_train">Train</string>
     <string name="title_unknown">Unknown</string>
+    <string name="title_favorites">Favorites</string>
 
     <string name="title_content_lite">Lite</string>
     <string name="title_content_pro">Pro</string>
 
     <!-- Game End -->
     <string name="title_work_error">Work on mistakes</string>
+    <string name="title_work_favorites">Work on favorites</string>
 
     <string name="format_record_progress">%1$d of %2$d</string>
 

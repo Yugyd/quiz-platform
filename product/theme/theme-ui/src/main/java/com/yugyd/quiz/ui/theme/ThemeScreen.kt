@@ -322,7 +322,7 @@ private fun ContentPreview() {
     QuizApplicationTheme {
         QuizBackground {
             ThemeContent(
-                modes = listOf(ModeUiModel.ARCADE, ModeUiModel.MARATHON, ModeUiModel.TRAIN),
+                modes = listOf(ModeUiModel.ARCADE, ModeUiModel.TRAIN),
                 selectedMode = ModeUiModel.TRAIN,
                 items = themes,
                 onTabChanged = {},

@@ -22,7 +22,6 @@ import javax.inject.Inject
 class ModeUiMapper @Inject constructor() {
     fun map(model: Mode) = when (model) {
         Mode.ARCADE -> ModeUiModel.ARCADE
-        Mode.MARATHON -> ModeUiModel.MARATHON
         Mode.TRAIN -> ModeUiModel.TRAIN
         Mode.ERROR -> ModeUiModel.ERROR
         Mode.FAVORITE -> ModeUiModel.FAVORITE
@@ -31,7 +30,6 @@ class ModeUiMapper @Inject constructor() {
 
     fun mapToDomain(model: ModeUiModel) = when (model) {
         ModeUiModel.ARCADE -> Mode.ARCADE
-        ModeUiModel.MARATHON -> Mode.MARATHON
         ModeUiModel.TRAIN -> Mode.TRAIN
         ModeUiModel.ERROR -> Mode.ERROR
         ModeUiModel.FAVORITE -> Mode.FAVORITE

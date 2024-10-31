@@ -21,7 +21,6 @@ import com.yugyd.quiz.uikit.R as uiKitR
 
 enum class ModeUiModel(@StringRes val title: Int) {
     ARCADE(uiKitR.string.title_arcade),
-    MARATHON(uiKitR.string.title_marathon),
     TRAIN(uiKitR.string.title_train),
     ERROR(uiKitR.string.title_correct),
     FAVORITE(uiKitR.string.title_favorites),

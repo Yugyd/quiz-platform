@@ -31,7 +31,6 @@ internal interface ThemeView {
         val mode: ModeUiModel = ModeUiModel.ARCADE,
         val modes: List<ModeUiModel> = listOf(
             ModeUiModel.ARCADE,
-            ModeUiModel.MARATHON,
             ModeUiModel.TRAIN
         ),
         val items: List<ThemeUiModel> = emptyList(),

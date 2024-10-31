@@ -23,7 +23,6 @@ class ModeEntityMapper @Inject constructor() {
 
     fun mapToDomain(id: Int) = when (id) {
         Mode.ARCADE.id -> Mode.ARCADE
-        Mode.MARATHON.id -> Mode.MARATHON
         Mode.TRAIN.id -> Mode.TRAIN
         Mode.ERROR.id -> Mode.ERROR
         Mode.FAVORITE.id -> Mode.FAVORITE

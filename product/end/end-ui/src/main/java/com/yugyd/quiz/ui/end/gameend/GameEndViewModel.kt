@@ -24,7 +24,6 @@ import com.yugyd.quiz.core.runCatch
 import com.yugyd.quiz.domain.api.model.Mode.ARCADE
 import com.yugyd.quiz.domain.api.model.Mode.ERROR
 import com.yugyd.quiz.domain.api.model.Mode.FAVORITE
-import com.yugyd.quiz.domain.api.model.Mode.MARATHON
 import com.yugyd.quiz.domain.api.model.Mode.NONE
 import com.yugyd.quiz.domain.api.model.Mode.TRAIN
 import com.yugyd.quiz.domain.api.model.payload.GameEndPayload
@@ -113,7 +112,7 @@ internal class GameEndViewModel @Inject constructor(
     }
 
     private suspend fun getThemeTitle(payload: GameEndPayload) = when (payload.mode) {
-        ARCADE, MARATHON, TRAIN -> {
+        ARCADE, TRAIN -> {
             payload.themeId?.let { themeId ->
                 themeInteractor.getTheme(themeId).name
             }.orEmpty()

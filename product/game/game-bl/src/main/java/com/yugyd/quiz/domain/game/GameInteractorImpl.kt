@@ -184,14 +184,13 @@ internal class GameInteractorImpl @Inject constructor(
     }
 
     private fun getConditionValue(mode: Mode) = when (mode) {
-        Mode.ARCADE, Mode.MARATHON, Mode.TRAIN, Mode.ERROR, Mode.FAVORITE -> LIFE_CONDITION
+        Mode.ARCADE, Mode.TRAIN, Mode.ERROR, Mode.FAVORITE -> LIFE_CONDITION
         Mode.NONE -> 0
     }
 
     private suspend fun getQuestIds(mode: Mode, theme: Int, section: Int, isSort: Boolean) =
         when (mode) {
             Mode.ARCADE -> getQuestIdsBySection(theme, section, isSort)
-            Mode.MARATHON -> getQuestIdsByTheme(theme, isSort)
             Mode.TRAIN -> getQuestIdsByTrainMode(theme, isSort)
             Mode.ERROR -> getQuestIdsByErrors()
             Mode.FAVORITE -> getQuestIdsByFavorites()
@@ -253,8 +252,8 @@ internal class GameInteractorImpl @Inject constructor(
 
     private fun decrementCondition(mode: Mode) {
         val fine = when (mode) {
-            Mode.ARCADE, Mode.MARATHON, Mode.ERROR, Mode.FAVORITE -> LIFE_FINE
-            Mode.TRAIN -> INFINITY_FINE
+            Mode.ARCADE, Mode.ERROR -> LIFE_FINE
+            Mode.TRAIN, Mode.FAVORITE -> INFINITY_FINE
             Mode.NONE -> 0
         }
         data = data.copy(condition = condition.minus(fine))
@@ -308,7 +307,7 @@ internal class GameInteractorImpl @Inject constructor(
         when (mode) {
             Mode.ARCADE -> saveSectionData()
             Mode.TRAIN -> saveTrainData()
-            Mode.MARATHON, Mode.ERROR, Mode.FAVORITE, Mode.NONE -> Unit
+            Mode.ERROR, Mode.FAVORITE, Mode.NONE -> Unit
         }
 
         saveRecord(mode)
@@ -319,7 +318,7 @@ internal class GameInteractorImpl @Inject constructor(
             point != 0
         }
 
-        Mode.ARCADE, Mode.MARATHON, Mode.ERROR, Mode.FAVORITE -> {
+        Mode.ARCADE, Mode.ERROR, Mode.FAVORITE -> {
             point > record
         }
 
@@ -370,13 +369,13 @@ internal class GameInteractorImpl @Inject constructor(
             trainSource.getTotalProgress(allIds.toIntArray())
         }
 
-        Mode.MARATHON, Mode.ERROR, Mode.FAVORITE, Mode.NONE -> {
+        Mode.ERROR, Mode.FAVORITE, Mode.NONE -> {
             point
         }
     }
 
     private fun isSavedRecordMode(mode: Mode) = when (mode) {
-        Mode.ARCADE, Mode.MARATHON, Mode.TRAIN -> true
+        Mode.ARCADE, Mode.TRAIN -> true
         Mode.ERROR, Mode.FAVORITE, Mode.NONE -> false
     }
 
@@ -387,7 +386,7 @@ internal class GameInteractorImpl @Inject constructor(
                 sectionController.notifyListeners()
             }
 
-            Mode.MARATHON, Mode.TRAIN -> {
+            Mode.TRAIN -> {
                 recordController.notifyListeners()
             }
 

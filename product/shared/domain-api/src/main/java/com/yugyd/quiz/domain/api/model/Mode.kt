@@ -16,9 +16,11 @@
 
 package com.yugyd.quiz.domain.api.model
 
+/**
+ * @param id id in database. Don't use 0 and 1 in id, they is legacy modes.
+ */
 enum class Mode(val id: Int) {
     ARCADE(id = 4),
-    MARATHON(id = 0),
     TRAIN(id = 2),
     ERROR(id = 3),
     FAVORITE(id = 5),
@@ -28,7 +30,6 @@ enum class Mode(val id: Int) {
         fun fromId(id: Int): Mode {
             return when (id) {
                 ARCADE.id -> ARCADE
-                MARATHON.id -> MARATHON
                 TRAIN.id -> TRAIN
                 ERROR.id -> ERROR
                 FAVORITE.id -> FAVORITE
@@ -38,5 +39,5 @@ enum class Mode(val id: Int) {
     }
 }
 
-val recordModes by lazy { arrayOf(Mode.ARCADE, Mode.MARATHON, Mode.TRAIN) }
+val recordModes by lazy { arrayOf(Mode.ARCADE, Mode.TRAIN) }
 val recordModeCount by lazy { recordModes.size }

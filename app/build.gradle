@@ -85,6 +85,7 @@ android {
             buildConfigField 'String', 'PRO_APP_PACKAGE', "\"DEPRECATED\""
             // Replace with your resource
             buildConfigField 'String', 'PRIVACY_POLICY_LINK', "\"https://sites.google.com/view/yugyd/privacy-policy/quiz-platform\""
+            // App use predefined database from assets
             buildConfigField 'boolean', 'IS_BASED_ON_PLATFORM_APP', "false"
 
             if (isGoogleServicesExists) {

@@ -1,7 +1,7 @@
 non_abi_change {
     title = "Non ABI change"
     tasks = ["assembleDebug"]
-    versions = ["8.6"]
+    versions = ["8.10.2"]
     # gradle-args = ["--no-build-cache", "--no-configuration-cache"]
     apply-non-abi-change-to = [
         ".kt"
@@ -13,7 +13,7 @@ non_abi_change {
 abi_change {
     title = "ABI change"
     tasks = ["assembleDebug"]
-    versions = ["8.6"]
+    versions = ["8.10.2"]
     # gradle-args = ["--no-build-cache", "--no-configuration-cache"]
     apply-abi-change-to = [
         ".kt"
@@ -25,7 +25,7 @@ abi_change {
 layout_change {
     title = "Layout change"
     tasks = ["assembleDebug"]
-    versions = ["8.6"]
+    versions = ["8.10.2"]
     # gradle-args = ["--no-build-cache", "--no-configuration-cache"]
     apply-android-layout-change-to = ".xml"
     warm-ups = 2
@@ -35,7 +35,7 @@ layout_change {
 string_resource_change {
     title = "String resource change"
     tasks = ["assembleDebug"]
-    versions = ["8.6"]
+    versions = ["8.10.2"]
     # gradle-args = ["--no-build-cache", "--no-configuration-cache"]
     apply-android-resource-value-change-to = ".xml"
     warm-ups = 2

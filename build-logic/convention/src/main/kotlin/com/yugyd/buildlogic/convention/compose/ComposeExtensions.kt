@@ -27,10 +27,6 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 internal fun CommonExtension<*, *, *, *, *, *>.configureCompose(target: Project) {
     buildFeatures.compose = true
 
-    composeOptions.kotlinCompilerExtensionVersion = target.libs.findVersion(
-        "compose-compiler",
-    ).get().toString()
-
     target.dependencies {
         val bom = target.libs.findLibrary("compose-bom").get()
         add(IMPLEMENTATION, platform(bom))

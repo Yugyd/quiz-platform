@@ -579,5 +579,6 @@ class ContentViewModelTest {
             name = "Name $index",
             filePath = filePath ?: "file://data/${index}.txt",
             isChecked = isChecked,
+            contentMarker = "Foo",
         )
 }

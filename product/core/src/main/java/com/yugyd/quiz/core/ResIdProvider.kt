@@ -38,4 +38,7 @@ interface ResIdProvider {
 
     @StringRes
     fun appTelegramChat(): Int
+
+    @StringRes
+    fun appPrivacyPolicyLink(): Int
 }

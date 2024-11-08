@@ -23,7 +23,6 @@ object GlobalConfig {
     var APPLICATION_ID by Delegates.notNull<String>()
     var PRO_APP_PACKAGE by Delegates.notNull<String>()
     var DEV_ID by Delegates.notNull<String>()
-    var PRIVACY_POLICY_LINK by Delegates.notNull<String>()
     var VERSION_CODE by Delegates.notNull<Int>()
     var IS_BASED_ON_PLATFORM_APP by Delegates.notNull<Boolean>()
 }

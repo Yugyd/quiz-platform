@@ -351,7 +351,8 @@ internal class GameViewModel @Inject constructor(
 
     private fun blockAnswer() {
         vmScopeErrorHandled.launch {
-            delay(optionsInteractor.transition.value.toLong() * 1000)
+            val secondDelay = optionsInteractor.transition.value * 1000
+            delay(secondDelay.toLong())
 
             processBlockAnswer()
         }

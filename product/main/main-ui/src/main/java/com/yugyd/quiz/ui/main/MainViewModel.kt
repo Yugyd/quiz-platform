@@ -18,6 +18,7 @@ package com.yugyd.quiz.ui.main
 
 import com.yugyd.quiz.commonui.base.BaseViewModel
 import com.yugyd.quiz.core.ContentProvider
+import com.yugyd.quiz.core.GlobalConfig
 import com.yugyd.quiz.core.Logger
 import com.yugyd.quiz.core.coroutinesutils.DispatchersProvider
 import com.yugyd.quiz.domain.api.payload.OnboardingPayload
@@ -27,7 +28,6 @@ import com.yugyd.quiz.domain.update.UpdateInteractor
 import com.yugyd.quiz.featuretoggle.domain.FeatureManager
 import com.yugyd.quiz.featuretoggle.domain.RemoteConfigRepository
 import com.yugyd.quiz.featuretoggle.domain.model.FeatureToggle
-import com.yugyd.quiz.featuretoggle.domain.model.LocalFeatureToggle
 import com.yugyd.quiz.ui.main.MainView.Action
 import com.yugyd.quiz.ui.main.MainView.State
 import com.yugyd.quiz.ui.main.MainView.State.NavigationState
@@ -125,7 +125,7 @@ internal class MainViewModel @Inject constructor(
                 )
             }
 
-            !LocalFeatureToggle.STANDALONE_APP.enabled && shouldStartContentScreen -> {
+            !GlobalConfig.IS_BASED_ON_PLATFORM_APP && shouldStartContentScreen -> {
                 screenState = screenState.copy(
                     navigationState = NavigationState.NavigateToContent,
                 )

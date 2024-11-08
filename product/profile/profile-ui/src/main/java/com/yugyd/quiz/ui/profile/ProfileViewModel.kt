@@ -30,7 +30,6 @@ import com.yugyd.quiz.domain.options.OptionsInteractor
 import com.yugyd.quiz.featuretoggle.domain.FeatureManager
 import com.yugyd.quiz.featuretoggle.domain.RemoteConfigRepository
 import com.yugyd.quiz.featuretoggle.domain.model.FeatureToggle
-import com.yugyd.quiz.featuretoggle.domain.model.LocalFeatureToggle
 import com.yugyd.quiz.featuretoggle.domain.model.telegram.TelegramConfig
 import com.yugyd.quiz.ui.profile.ProfileView.Action
 import com.yugyd.quiz.ui.profile.ProfileView.State
@@ -273,7 +272,7 @@ internal class ProfileViewModel @Inject constructor(
                 telegramConfig = telegramConfig,
                 contentTitle = contentTitle,
                 isBasedOnPlatformApp = isBasedOnPlatformApp,
-                isContentFeatureEnabled = !LocalFeatureToggle.STANDALONE_APP.enabled,
+                isContentFeatureEnabled = !GlobalConfig.IS_BASED_ON_PLATFORM_APP,
             ),
             isWarning = false,
             isLoading = false

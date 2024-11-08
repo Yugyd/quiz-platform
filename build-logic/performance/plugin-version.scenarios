@@ -4,7 +4,7 @@ default-scenarios = ["non_abi_change_agp_7_4_2"]
 
 non_abi_change_agp_7_4_2 {
     title = "Non ABI change AGP 7.4.2"
-    versions = ["8.6"]
+    versions = ["8.10.2"]
     tasks = ["assembleDebug"]
     gradle-args = ["--no-build-cache", "--no-configuration-cache"]
     system-properties {
@@ -19,7 +19,7 @@ non_abi_change_agp_7_4_2 {
 
 non_abi_change_kotlin_1_8_22 {
     title = "Non ABI change Kotlin 1.8.22"
-    versions = ["8.6"]
+    versions = ["8.10.2"]
     tasks = ["assembleDebug"]
     gradle-args = ["--no-build-cache", "--no-configuration-cache"]
     system-properties {

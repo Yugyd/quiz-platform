@@ -19,6 +19,8 @@ package com.yugyd.buildlogic.convention.compose
 import com.android.build.gradle.LibraryExtension
 import com.yugyd.buildlogic.convention.core.ANDROID_LIBRARY_ALIAS
 import com.yugyd.buildlogic.convention.core.checkPlugin
+import com.yugyd.buildlogic.convention.core.findPluginId
+import com.yugyd.buildlogic.convention.core.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.getByType
@@ -28,6 +30,7 @@ class ComposeAndroidLibraryPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             checkPlugin(ANDROID_LIBRARY_ALIAS)
+            pluginManager.apply(libs.findPluginId("compose-compiler-plugin"))
 
             val extension = extensions.getByType<LibraryExtension>()
             extension.configureCompose(target)

@@ -1,6 +1,6 @@
 clean_build {
     title = "Clean build"
-    versions = ["8.6"]
+    versions = ["8.10.2"]
     tasks = ["assembleDebug"]
     gradle-args = ["--no-build-cache", "--no-configuration-cache"]
     cleanup-tasks = ["clean"]

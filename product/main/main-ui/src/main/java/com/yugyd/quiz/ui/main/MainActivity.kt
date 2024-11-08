@@ -80,7 +80,7 @@ internal class MainActivity : FragmentActivity() {
         }
     }
 
-    override fun onNewIntent(intent: Intent?) {
+    override fun onNewIntent(intent: Intent) {
         processPush(intent)
         super.onNewIntent(intent)
     }

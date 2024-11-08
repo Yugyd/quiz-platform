@@ -14,10 +14,10 @@
   ~    limitations under the License.
   -->
 
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <string name="title_show_answer">Viewing the answer</string>
     <string name="format_time_second">%1$.1f sec.</string>
-    <string name="format_round_time_second">%1$d sec.</string>
+    <string name="format_round_time_second" tools:ignore="PluralsCandidate">%1$d sec.</string>
 
 </resources>

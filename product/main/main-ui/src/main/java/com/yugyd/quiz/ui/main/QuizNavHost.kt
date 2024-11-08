@@ -124,7 +124,8 @@ internal fun QuizNavHost(
                 navigateToExternalScreen(GlobalScreens.otherApps())
             },
             onNavigateToPrivacyPolicy = {
-                navigateToExternalScreen(GlobalScreens.privacyPolicy())
+                val privacyPolicy = context.getString(resIdProvider.appPrivacyPolicyLink())
+                navigateToExternalScreen(GlobalScreens.privacyPolicy(privacyPolicy))
             },
             onNavigateToProOnboarding = navController::navigateToProOnboarding,
             onNavigateToShare = {

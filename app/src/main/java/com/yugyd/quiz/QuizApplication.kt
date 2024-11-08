@@ -40,7 +40,6 @@ class QuizApplication : Application() {
             APPLICATION_ID = BuildConfig.APPLICATION_ID
             PRO_APP_PACKAGE = BuildConfig.PRO_APP_PACKAGE
             DEV_ID = BuildConfig.DEV_ID
-            PRIVACY_POLICY_LINK = BuildConfig.PRIVACY_POLICY_LINK
             VERSION_CODE = BuildConfig.VERSION_CODE
             IS_BASED_ON_PLATFORM_APP = BuildConfig.IS_BASED_ON_PLATFORM_APP
         }

@@ -24,6 +24,8 @@
     <string name="app_site_patch_prefix" translatable="false">/view/yugyd/quiz/quiz-platform</string>
     <!-- Replace with your resource -->
     <string name="app_telegram_chat_name" translatable="false">quizplatformapp</string>
+    <!-- Replace with your resource -->
+    <string name="app_privacy_policy_link" translatable="false">https://sites.google.com/view/yugyd/privacy-policy/quiz-platform</string>
 
     <!-- Messages -->
     <string name="msg_pro_dialog">

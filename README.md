@@ -74,6 +74,36 @@ https://docs.gradle.org/current/userguide/build_environment.html#sec:gradle_envi
 - `./gradlew clean bundleProdRelease`
 - Manual upload to Google Play
 
+# Build a standalone app
+
+## Code integration
+
+* Switch the `IS_BASED_ON_PLATFORM_APP` property to `true` in the [build.gradle](app/build.gradle)
+  file.
+* Add the path to the [google-services.json](app/src/dev/google-services.json) file to
+  the `isGoogleServicesExists` method in the [build.gradle](app/build.gradle) file.
+* Add the [product flavor](https://developer.android.com/build/build-variants#product-flavors)
+  implementation in the [build.gradle](app/build.gradle) file. For example, `dev`, which comes by
+  default, can be made following its example.
+* Add the Firebase App Distribution credential file `firebase-credentials.json` to
+  the [secret](secret) directory. For
+  example, [firebase-credentials.json](secret/firebase-credentials.json). This step is optional.
+
+## Resource integration
+
+* Add a new directory with the flavor name to [build.gradle](app/src). For
+  example, [dev](app/src/dev), the same name will be used in the examples below.
+* Add the database file to your flavor's `assets`. Note that the file name must
+  be `content-encode-pro.db`. For example, [assets](app/src/dev/assets/content-encode-pro.db)
+* Add `strings.xml` to `res/values` of your flavor. This file contains string values specific to
+  your application. For example, [res/values](app/src/dev/res/values/strings.xml)
+* Add `ad-ids.xml` to `res/values` of your flavor. This file contains ad identifiers for your app.
+  For example, [res/values](app/src/dev/res/values/strings.xml). This step is optional.
+* Add category images to your flavor's `assets`. Note that the file format must be `jpg` or `png`.
+  Example, [assets](app/src/dev/assets/) folder. This step is optional.
+* Add a `google-services.json` file to connect to Firebase services in the flavor name directory.
+  For example, [google-services.json](app/src/dev/google-services.json). This step is optional.
+
 # License
 
 ```

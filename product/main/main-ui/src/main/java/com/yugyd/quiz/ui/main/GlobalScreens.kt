@@ -45,7 +45,7 @@ internal object GlobalScreens {
         url = "$DEV_URL_STORE${GlobalConfig.DEV_ID}"
     )
 
-    fun privacyPolicy() = externalBrowser(GlobalConfig.PRIVACY_POLICY_LINK)
+    fun privacyPolicy(privacyPolicyLink: String) = externalBrowser(url = privacyPolicyLink)
 
     private fun externalStore(url: String) = Intent(Intent.ACTION_VIEW).apply {
         data = Uri.parse(url)

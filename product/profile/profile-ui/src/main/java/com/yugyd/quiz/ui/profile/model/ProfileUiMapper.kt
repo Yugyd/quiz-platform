@@ -52,7 +52,14 @@ internal class ProfileUiMapper @Inject constructor(
         header(content, isProFeatureEnabled),
         item(TypeProfile.TASKS, R.string.profile_tasks),
         mapContentToValueItem(contentTitle, isContentFeatureEnabled),
-        section(TypeProfile.SOCIAL_SECTION, R.string.title_social, isTelegramFeatureEnabled),
+        section(
+            type = TypeProfile.SOCIAL_SECTION,
+            titleRes = R.string.title_social,
+            isSectionEnabled = isTelegramEnabledAndTelegramConfigNotNull(
+                isTelegramFeatureEnabled = isTelegramFeatureEnabled,
+                telegramConfig = telegramConfig,
+            ),
+        ),
         social(TypeProfile.TELEGRAM_SOCIAL, isTelegramFeatureEnabled, telegramConfig),
         section(TypeProfile.SETTINGS_SECTION, R.string.title_settings),
         value(TypeProfile.TRANSITION, R.string.title_show_answer, transition.value),
@@ -148,8 +155,10 @@ internal class ProfileUiMapper @Inject constructor(
         isTelegramFeatureEnabled: Boolean,
         telegramConfig: TelegramConfig?
     ): SocialItemProfileUiModel? {
-        return if (isTelegramFeatureEnabled && telegramConfig != null) {
-            val telegramTitle = telegramConfig.profileCell.title.ifBlank {
+        return if (
+            isTelegramEnabledAndTelegramConfigNotNull(isTelegramFeatureEnabled, telegramConfig)
+        ) {
+            val telegramTitle = requireNotNull(telegramConfig).profileCell.title.ifBlank {
                 context.getString(R.string.profile_title_telegram)
             }
             val telegramMsg = telegramConfig.profileCell.message.ifBlank {
@@ -166,6 +175,11 @@ internal class ProfileUiMapper @Inject constructor(
             null
         }
     }
+
+    private fun isTelegramEnabledAndTelegramConfigNotNull(
+        isTelegramFeatureEnabled: Boolean,
+        telegramConfig: TelegramConfig?,
+    ) = isTelegramFeatureEnabled && telegramConfig != null
 
     private fun getPurchaseSection(isProFeatureEnabled: Boolean): SelectItemProfileUiModel? {
         return if (isProFeatureEnabled) {

@@ -18,9 +18,11 @@ package com.yugyd.quiz.featuretoggle.domain
 
 import com.yugyd.quiz.featuretoggle.domain.model.FeatureToggle
 import com.yugyd.quiz.featuretoggle.domain.model.telegram.TelegramConfig
+import com.yugyd.quiz.featuretoggle.domain.model.update.UpdateConfig
 
 interface RemoteConfigRepository {
     suspend fun fetchFeatureToggle(featureToggle: FeatureToggle): Boolean
     suspend fun fetchForceUpdateVersion(): Int
     suspend fun fetchTelegramConfig(): TelegramConfig?
+    suspend fun fetchUpdateConfig(): UpdateConfig?
 }

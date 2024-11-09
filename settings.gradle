@@ -28,6 +28,7 @@ include ':product:core:coroutines-utils'
 include ':product:core:featuretoggle'
 include ':product:core:file'
 include ':product:core:navigation'
+include ':product:core:search-utils'
 include ':product:core:test'
 // Services
 include ':product:services:ad-api'

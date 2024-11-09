@@ -17,6 +17,9 @@
 package com.yugyd.quiz.domain.tasks
 
 import com.yugyd.quiz.core.coroutinesutils.DispatchersProvider
+import com.yugyd.quiz.core.searchutils.QueryFormatRepository
+import com.yugyd.quiz.core.searchutils.QueryUrlBuilder
+import com.yugyd.quiz.core.searchutils.SearchQuest
 import com.yugyd.quiz.domain.api.repository.QuestSource
 import com.yugyd.quiz.domain.game.api.model.Quest
 import com.yugyd.quiz.domain.tasks.model.TaskModel
@@ -46,8 +49,13 @@ internal class TasksInteractorImpl @Inject constructor(
         id = id,
         quest = quest,
         trueAnswer = trueAnswer,
-        queryLink = queryUrlBuilder.buildUrl(this, queryFormat),
+        queryLink = queryUrlBuilder.buildUrl(this.toSearchQuest(), queryFormat),
         complexity = complexity,
+    )
+
+    private fun Quest.toSearchQuest() = SearchQuest(
+        quest = quest,
+        trueAnswer = trueAnswer,
     )
 }
 

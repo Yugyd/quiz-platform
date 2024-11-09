@@ -19,6 +19,7 @@ dependencies {
     implementation project(':product:shared:domain-utils')
     implementation project(':product:services:remoteconfig-api')
     implementation project(':product:game:game-bl-api')
+    implementation project(':product:core:search-utils')
 
     // Kotlin
     implementation libs.kotlinx.coroutines.android

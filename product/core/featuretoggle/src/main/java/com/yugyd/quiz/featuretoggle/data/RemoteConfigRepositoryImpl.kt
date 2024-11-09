@@ -18,10 +18,13 @@ package com.yugyd.quiz.featuretoggle.data
 
 import android.content.Context
 import com.yugyd.quiz.featuretoggle.data.mapper.TelegramConfigMapper
+import com.yugyd.quiz.featuretoggle.data.mapper.UpdateConfigMapper
 import com.yugyd.quiz.featuretoggle.data.model.TelegramConfigDto
+import com.yugyd.quiz.featuretoggle.data.model.UpdateConfigDto
 import com.yugyd.quiz.featuretoggle.domain.RemoteConfigRepository
 import com.yugyd.quiz.featuretoggle.domain.model.FeatureToggle
 import com.yugyd.quiz.featuretoggle.domain.model.telegram.TelegramConfig
+import com.yugyd.quiz.featuretoggle.domain.model.update.UpdateConfig
 import com.yugyd.quiz.remoteconfig.api.RemoteConfig
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.serialization.json.Json
@@ -33,6 +36,8 @@ internal class RemoteConfigRepositoryImpl @Inject internal constructor(
     @ApplicationContext private val context: Context,
     private val remoteConfig: RemoteConfig,
     private val telegramConfigMapper: TelegramConfigMapper,
+    private val updateConfigMapper: UpdateConfigMapper,
+    private val json: Json,
 ) : RemoteConfigRepository {
 
     override suspend fun fetchFeatureToggle(
@@ -45,7 +50,7 @@ internal class RemoteConfigRepositoryImpl @Inject internal constructor(
     override suspend fun fetchTelegramConfig(): TelegramConfig? {
         return try {
             val dtoList = remoteConfig.fetchStringValue(CONFIG_TELEGRAM_KEY).run {
-                Json.decodeFromString<List<TelegramConfigDto>>(this)
+                json.decodeFromString<List<TelegramConfigDto>>(this)
             }
 
             val mappedDtoList = dtoList.map(telegramConfigMapper::map)
@@ -63,8 +68,30 @@ internal class RemoteConfigRepositoryImpl @Inject internal constructor(
         }
     }
 
+    override suspend fun fetchUpdateConfig(): UpdateConfig? {
+        return try {
+            val dtoList = remoteConfig.fetchStringValue(CONFIG_UPDATE_KEY).run {
+                json.decodeFromString<List<UpdateConfigDto>>(this)
+            }
+
+            val mappedDtoList = dtoList.map(updateConfigMapper::map)
+
+            val currentLocale = context.resources.configuration.locales.get(0)
+
+            mappedDtoList.firstOrNull {
+                it.locale == currentLocale
+            } ?: mappedDtoList.firstOrNull {
+                it.locale == Locale.ENGLISH
+            }
+        } catch (expected: Throwable) {
+            Timber.e(expected)
+            null
+        }
+    }
+
     companion object {
         private const val FORCE_UPDATE_KEY = "force_update_version"
         private const val CONFIG_TELEGRAM_KEY = "config_telegram"
+        private const val CONFIG_UPDATE_KEY = "config_update"
     }
 }

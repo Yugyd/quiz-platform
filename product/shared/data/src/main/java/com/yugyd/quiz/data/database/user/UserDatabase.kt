@@ -15,7 +15,7 @@ import com.yugyd.quiz.data.model.RecordEntity
 import com.yugyd.quiz.data.model.SectionEntity
 import com.yugyd.quiz.data.model.TrainEntity
 
-private const val USER_DB_VERSION = 1
+private const val USER_DB_VERSION = 2
 
 @Database(
     entities = [
@@ -27,7 +27,7 @@ private const val USER_DB_VERSION = 1
         ContentEntity::class,
     ],
     version = USER_DB_VERSION,
-    exportSchema = false
+    exportSchema = true
 )
 internal abstract class UserDatabase : RoomDatabase() {
     abstract fun errorDao(): ErrorDao

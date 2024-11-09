@@ -16,17 +16,35 @@
 
 package com.yugyd.quiz.data.crypto
 
+import java.util.concurrent.locks.ReentrantLock
 import javax.inject.Inject
+import javax.inject.Singleton
+import kotlin.concurrent.withLock
 
+@Singleton
 internal class CryptoHelperImpl @Inject constructor() : CryptoHelper {
 
+    private val lock = ReentrantLock()
+
     override fun decrypt(encrypted: String?): String {
-        // Add your encrypted logic
-        return encrypted.orEmpty()
+        return if (encrypted?.isNotEmpty() == true) {
+            lock.withLock {
+                // Add your encrypted logic
+                encrypted
+            }
+        } else {
+            ""
+        }
     }
 
     override fun encrypt(decrypted: String?): String {
-        // Add your encrypted logic
-        return decrypted.orEmpty()
+        return if (decrypted?.isNotEmpty() == true) {
+            lock.withLock {
+                // Add your encrypted logic
+                decrypted
+            }
+        } else {
+            ""
+        }
     }
 }

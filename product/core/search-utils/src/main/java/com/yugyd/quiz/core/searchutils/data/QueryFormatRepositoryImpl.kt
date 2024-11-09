@@ -1,7 +1,7 @@
-package com.yugyd.quiz.domain.tasks.data
+package com.yugyd.quiz.core.searchutils.data
 
 import com.yugyd.quiz.core.coroutinesutils.DispatchersProvider
-import com.yugyd.quiz.domain.tasks.QueryFormatRepository
+import com.yugyd.quiz.core.searchutils.QueryFormatRepository
 import com.yugyd.quiz.remoteconfig.api.RemoteConfig
 import kotlinx.coroutines.withContext
 import javax.inject.Inject

@@ -18,4 +18,5 @@ package com.yugyd.quiz.core
 
 interface ContentProvider {
     suspend fun getTelegramChannel(): String
+    suspend fun getUpdateLink(): String?
 }

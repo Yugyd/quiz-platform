@@ -30,12 +30,14 @@ fun NavController.navigateToUpdate() {
 
 fun NavGraphBuilder.updateScreen(
     navigateToGooglePlay: () -> Unit,
+    navigateToBrowser: (String) -> Unit,
 ) {
     composable(
         route = UPDATE_ROUTE,
         arguments = listOf(hideBottomBarArgument),
     ) {
         UpdateRoute(
+            navigateToBrowser = navigateToBrowser,
             navigateToGooglePlay = navigateToGooglePlay,
         )
     }

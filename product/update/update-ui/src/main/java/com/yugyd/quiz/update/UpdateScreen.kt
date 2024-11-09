@@ -28,30 +28,53 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.yugyd.quiz.uikit.common.ThemePreviews
 import com.yugyd.quiz.uikit.component.QuizBackground
 import com.yugyd.quiz.uikit.theme.QuizApplicationTheme
+import com.yugyd.quiz.update.UpdateView.Action
+import com.yugyd.quiz.update.UpdateView.State
+import com.yugyd.quiz.update.UpdateView.State.NavigationState
+import com.yugyd.quiz.update.UpdateView.State.UpdateConfigUiModel
 import com.yugyd.quiz.uikit.R as UiKitR
 
 @Composable
-fun UpdateRoute(
+internal fun UpdateRoute(
+    viewModel: UpdateViewModel = hiltViewModel(),
     navigateToGooglePlay: () -> Unit,
+    navigateToBrowser: (String) -> Unit,
 ) {
+    val state by viewModel.state.collectAsStateWithLifecycle()
+
     UpdateScreen(
+        model = state,
         navigateToGooglePlay = navigateToGooglePlay,
+        navigateToBrowser = navigateToBrowser,
+        onUpdateClicked = {
+            viewModel.onAction(Action.OnUpdateClicked)
+        },
+        onNavigationHandled = {
+            viewModel.onAction(Action.OnNavigationHandled)
+        }
     )
 }
 
 @Composable
 internal fun UpdateScreen(
+    model: State,
     navigateToGooglePlay: () -> Unit,
+    navigateToBrowser: (String) -> Unit,
+    onUpdateClicked: () -> Unit,
+    onNavigationHandled: () -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -72,7 +95,7 @@ internal fun UpdateScreen(
         Spacer(modifier = Modifier.height(32.dp))
 
         Text(
-            text = stringResource(id = R.string.title_update),
+            text = model.updateConfig.title,
             style = MaterialTheme.typography.headlineSmall,
             color = MaterialTheme.colorScheme.onBackground,
         )
@@ -80,7 +103,7 @@ internal fun UpdateScreen(
         Spacer(modifier = Modifier.height(16.dp))
 
         Text(
-            text = stringResource(id = R.string.title_update_description),
+            text = model.updateConfig.message,
             color = MaterialTheme.colorScheme.onBackground,
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.bodyLarge,
@@ -89,10 +112,42 @@ internal fun UpdateScreen(
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(
-            onClick = navigateToGooglePlay,
+            onClick = onUpdateClicked,
         ) {
-            Text(text = stringResource(id = R.string.action_update))
+            Text(text = model.updateConfig.buttonTitle)
         }
+    }
+
+    NavigationHandler(
+        navigationState = model.navigationState,
+        onNavigationHandled = onNavigationHandled,
+        navigateToGooglePlay = navigateToGooglePlay,
+        navigateToBrowser = navigateToBrowser,
+    )
+}
+
+@Composable
+internal fun NavigationHandler(
+    navigationState: NavigationState?,
+    navigateToGooglePlay: () -> Unit,
+    navigateToBrowser: (String) -> Unit,
+    onNavigationHandled: () -> Unit,
+) {
+    LaunchedEffect(key1 = navigationState) {
+        when (navigationState) {
+            is NavigationState.NavigateToGooglePlay -> {
+                if (!navigationState.storeLink.isNullOrEmpty()) {
+                    navigateToBrowser(navigationState.storeLink)
+                } else {
+                    navigateToGooglePlay()
+
+                }
+            }
+
+            null -> Unit
+        }
+
+        navigationState?.let { onNavigationHandled() }
     }
 }
 
@@ -102,7 +157,19 @@ private fun UpdateScreenPreview() {
     QuizApplicationTheme {
         QuizBackground {
             UpdateScreen(
-                navigateToGooglePlay = {}
+                State(
+                    updateConfig = UpdateConfigUiModel(
+                        buttonTitle = "Button",
+                        message = "Message",
+                        title = "Title",
+                    ),
+                    isLoading = false,
+                    navigationState = null,
+                ),
+                onNavigationHandled = {},
+                onUpdateClicked = {},
+                navigateToGooglePlay = {},
+                navigateToBrowser = {},
             )
         }
     }

@@ -23,7 +23,6 @@ import com.yugyd.quiz.core.ResIdProvider
 import com.yugyd.quiz.featuretoggle.domain.RemoteConfigRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
-import javax.inject.Singleton
 
 internal class ContentProviderImpl @Inject constructor(
     @ApplicationContext private val context: Context,
@@ -39,5 +38,15 @@ internal class ContentProviderImpl @Inject constructor(
                 GlobalConfig.APPLICATION_ID.contains(it.packageX)
             }
             ?.link ?: context.getString(resIdProvider.appTelegramChat())
+    }
+
+    override suspend fun getUpdateLink(): String? {
+        val config = remoteConfigRepository.fetchUpdateConfig()
+        return config
+            ?.links
+            ?.firstOrNull {
+                GlobalConfig.APPLICATION_ID.contains(it.packageX)
+            }
+            ?.link
     }
 }

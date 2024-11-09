@@ -232,7 +232,8 @@ internal class GameViewModel @Inject constructor(
                 block = {
                     val gameData = gameInteractor.startGame(screenState.payload)
 
-                    val isAdFeatureEnabled = featureManager.isFeatureEnabled(FeatureToggle.AD)
+                    val isAdFeatureEnabled = featureManager.isFeatureEnabled(FeatureToggle.AD) &&
+                            featureManager.isFeatureEnabled(FeatureToggle.AD_BANNER_GAME)
                     val isProFeatureEnabled = featureManager.isFeatureEnabled(FeatureToggle.PRO)
 
                     processGameData(

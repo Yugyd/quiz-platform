@@ -110,7 +110,8 @@ internal class GameEndViewModel @Inject constructor(
         vmScopeErrorHandled.launch {
             screenState = screenState.copy(isLoading = true)
 
-            val isAdFeatureEnabled = featureManager.isFeatureEnabled(FeatureToggle.AD)
+            val isAdFeatureEnabled = featureManager.isFeatureEnabled(FeatureToggle.AD) &&
+                    featureManager.isFeatureEnabled(FeatureToggle.AD_INTERSTITIAL_GAME_END)
 
             runCatch(
                 block = {

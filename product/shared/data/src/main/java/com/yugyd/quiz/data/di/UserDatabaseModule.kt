@@ -9,6 +9,7 @@ import com.yugyd.quiz.data.database.user.dao.RecordDao
 import com.yugyd.quiz.data.database.user.dao.SectionDao
 import com.yugyd.quiz.data.database.user.dao.TrainDao
 import com.yugyd.quiz.data.database.user.dao.UserResetDao
+import com.yugyd.quiz.data.database.user.migrations.MIGRATION_1_2
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -28,6 +29,7 @@ object UserDatabaseModule {
         @ApplicationContext appContext: Context
     ) = Room
         .databaseBuilder(appContext, UserDatabase::class.java, USER_DB_NAME)
+        .addMigrations(MIGRATION_1_2)
         .fallbackToDestructiveMigration()
         .build()
 

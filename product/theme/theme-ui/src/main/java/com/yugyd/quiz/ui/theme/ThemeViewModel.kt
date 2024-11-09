@@ -80,7 +80,8 @@ internal class ThemeViewModel @Inject constructor(
         recordController.subscribe(this)
 
         vmScopeErrorHandled.launch {
-            val isAdFeatureEnabled = featureManager.isFeatureEnabled(FeatureToggle.AD)
+            val isAdFeatureEnabled = featureManager.isFeatureEnabled(FeatureToggle.AD) &&
+                    featureManager.isFeatureEnabled(FeatureToggle.AD_REWARDED_THEME)
             val isTelegramFeatureEnabled = featureManager.isFeatureEnabled(FeatureToggle.TELEGRAM)
 
             loadData(

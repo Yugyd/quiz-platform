@@ -1,3 +1,5 @@
 /build
 # Hide sensitive information for production ads ids
 /src/**/res/values/ad-ids.xml
+!src/main/res/values/ad-ids.xml
+!src/dev/res/values/ad-ids.xml

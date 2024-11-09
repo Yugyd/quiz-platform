@@ -187,6 +187,9 @@ dependencies {
     // Work Manager
     implementation libs.work.manager.ktx
 
+    // Serialization
+    implementation libs.kotlinx.serialization
+
     // Logging
     implementation libs.timber
 }

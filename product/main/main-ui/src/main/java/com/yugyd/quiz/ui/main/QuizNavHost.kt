@@ -76,6 +76,9 @@ internal fun QuizNavHost(
             navigateToGooglePlay = {
                 navigateToExternalScreen(GlobalScreens.rate())
             },
+            navigateToBrowser = {
+                navigateToExternalScreen(GlobalScreens.externalBrowser(it))
+            },
         )
 
         sectionScreen(

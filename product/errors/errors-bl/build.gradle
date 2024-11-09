@@ -14,6 +14,7 @@ android {
 dependencies {
     // Modules
     implementation project(":product:core:coroutines-utils")
+    implementation project(':product:core:search-utils')
     implementation project(':product:shared:domain-api')
     implementation project(':product:shared:domain-utils')
     implementation project(':product:game:game-bl-api')

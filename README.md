@@ -59,6 +59,10 @@ https://docs.gradle.org/current/userguide/build_environment.html#sec:gradle_envi
 
 # Build
 
+## Build debug
+
+- `./gradlew clean assembleDevDebug`
+
 ## Deploy debug to Firebase App Distribution
 
 - `./gradlew clean bundleDevDebug`
@@ -78,6 +82,8 @@ https://docs.gradle.org/current/userguide/build_environment.html#sec:gradle_envi
 
 ## Code integration
 
+* Switch the `isProductFlavorFilterEnabled` property to `false` in the
+  [BuildTypeAndroidApplicationPlugin.kt](build-logic/convention/src/main/kotlin/com/yugyd/buildlogic/convention/buildtype/BuildTypeAndroidApplicationPlugin.kt)
 * Switch the `IS_BASED_ON_PLATFORM_APP` property to `true` in the [build.gradle](app/build.gradle)
   file.
 * Add the path to the [google-services.json](app/src/dev/google-services.json) file to

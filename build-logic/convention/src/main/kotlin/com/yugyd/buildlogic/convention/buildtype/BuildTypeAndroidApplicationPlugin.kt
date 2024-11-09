@@ -30,6 +30,8 @@ class BuildTypeAndroidApplicationPlugin : Plugin<Project> {
         private val ACTIVE_PRODUCT_FLAVOR_VARIANTS = arrayOf("devDebug", "devStaging", "devRelease")
     }
 
+    private val isProductFlavorFilterEnabled = true
+
     override fun apply(target: Project) {
         with(target) {
             checkPlugin(ANDROID_APPLICATION_ALIAS)
@@ -46,7 +48,10 @@ class BuildTypeAndroidApplicationPlugin : Plugin<Project> {
         // https://developer.android.com/build/build-variants#filter-variants
         extensions.configure<ApplicationAndroidComponentsExtension> {
             beforeVariants { variantBuilder ->
-                if (!ACTIVE_PRODUCT_FLAVOR_VARIANTS.contains(variantBuilder.name)) {
+                if (
+                    isProductFlavorFilterEnabled &&
+                    !ACTIVE_PRODUCT_FLAVOR_VARIANTS.contains(variantBuilder.name)
+                ) {
                     variantBuilder.enable = false
                 }
             }

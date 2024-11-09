@@ -17,7 +17,10 @@
 package com.yugyd.quiz.featuretoggle.domain.model
 
 enum class FeatureToggle(val key: String, val isLocal: Boolean, val localValue: Boolean = false) {
-    AD(key = "feature_ad", isLocal = true, localValue = true),
+    AD(key = "feature_ad", isLocal = false),
+    AD_INTERSTITIAL_GAME_END(key = "feature_ad_interstitial_game_end", isLocal = false),
+    AD_BANNER_GAME(key = "feature_ad_banner_game", isLocal = false),
+    AD_REWARDED_THEME(key = "feature_ad_rewarded_theme", isLocal = false),
     PRO(key = "feature_pro", isLocal = false),
     CORRECT(key = "feature_correct", isLocal = false),
     TELEGRAM(key = "feature_telegram", isLocal = false),

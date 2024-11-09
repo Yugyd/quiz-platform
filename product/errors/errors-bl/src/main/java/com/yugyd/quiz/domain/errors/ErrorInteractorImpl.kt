@@ -17,6 +17,9 @@
 package com.yugyd.quiz.domain.errors
 
 import com.yugyd.quiz.core.coroutinesutils.DispatchersProvider
+import com.yugyd.quiz.core.searchutils.QueryFormatRepository
+import com.yugyd.quiz.core.searchutils.QueryUrlBuilder
+import com.yugyd.quiz.core.searchutils.SearchQuest
 import com.yugyd.quiz.domain.api.model.tasks.TaskModel
 import com.yugyd.quiz.domain.api.repository.ErrorSource
 import com.yugyd.quiz.domain.api.repository.QuestSource
@@ -30,12 +33,14 @@ internal class ErrorInteractorImpl @Inject constructor(
     private val errorSource: ErrorSource,
     private val separatorParser: SeparatorParser,
     private val dispatcherProvider: DispatchersProvider,
+    private val queryUrlBuilder: QueryUrlBuilder,
+    private val queryFormatRepository: QueryFormatRepository,
 ) : ErrorInteractor {
 
     override suspend fun getErrorsModels(errors: List<Int>) = withContext(dispatcherProvider.io) {
-        questSource
-            .getQuestIdsByErrors(errors.toIntArray())
-            .let(::mapQuests)
+        val queryFormat = queryFormatRepository.getFormatFromRemoteConfig()
+        val errorsModels = questSource.getQuestIdsByErrors(errors.toIntArray())
+        mapQuests(errorsModels, queryFormat)
     }
 
     override suspend fun getErrors() = withContext(dispatcherProvider.io) {
@@ -54,18 +59,19 @@ internal class ErrorInteractorImpl @Inject constructor(
         errorSource.removeErrors(errors)
     }
 
-    private fun mapQuests(quests: List<Quest>) = quests
+    private fun mapQuests(quests: List<Quest>, queryFormat: String) = quests
         .map(separatorParser::parseErrorQuest)
-        .map { it.toErrorModel() }
+        .map { it.toErrorModel(queryFormat) }
 
-    private fun Quest.toErrorModel() = TaskModel(
+    private fun Quest.toErrorModel(queryFormat: String) = TaskModel(
         id = id,
         quest = quest,
         trueAnswer = trueAnswer,
-        queryLink = "$GOOGLE_SEARCH_URL$quest$trueAnswer"
+        queryLink = queryUrlBuilder.buildUrl(this.toSearchQuest(), queryFormat),
     )
 
-    companion object {
-        private const val GOOGLE_SEARCH_URL = "https://www.google.ru/search?q="
-    }
+    private fun Quest.toSearchQuest() = SearchQuest(
+        quest = quest,
+        trueAnswer = trueAnswer,
+    )
 }

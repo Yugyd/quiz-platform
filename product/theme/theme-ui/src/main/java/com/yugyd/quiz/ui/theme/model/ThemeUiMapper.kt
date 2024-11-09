@@ -28,8 +28,13 @@ internal class ThemeUiMapper @Inject constructor(
 
     fun map(model: Theme) = model.run {
         val progressPercent = percent(progress, count)
+
         val imageUri = if (model.image != null) {
-            Uri.parse(image)
+            if (model.image!!.isHttpUrl()) {
+                Uri.parse(model.image)
+            } else {
+                Uri.parse("file:///android_asset/${model.image}")
+            }
         } else {
             null
         }
@@ -42,5 +47,9 @@ internal class ThemeUiMapper @Inject constructor(
             progressColor = progressColorUtils.getProgressColor(progressPercent),
             record = progress
         )
+    }
+
+    private fun String.isHttpUrl(): Boolean {
+        return startsWith("http://") || startsWith("https://")
     }
 }

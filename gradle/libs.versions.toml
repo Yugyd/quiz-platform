@@ -6,7 +6,7 @@ kotlin = '2.0.21'
 # UI
 appcompat = '1.7.0'
 material = '1.12.0'
-compose-bom = '2024.10.01'
+compose-bom = '2024.11.00'
 # DI
 hilt = '2.52'
 # Annotation processor
@@ -21,13 +21,13 @@ androidxTest = '1.6.1'
 core-ktx = '1.15.0'
 roomVersion = '2.6.1'
 workManagerVersion = '2.10.0'
-firebaseVersion = '33.5.1'
+firebaseVersion = '33.6.0'
 accompanistVersion = '0.36.0'
 versionsUpdates = '0.51.0'
 # Build logic
 compile-sdk = '35'
 target-sdk = '35'
-min-sdk = '24'
+min-sdk = '26'
 convention = "1.0.0"
 
 [libraries]
@@ -74,8 +74,8 @@ compose-activity = { module = 'androidx.activity:activity-compose', version = '1
 compose-viewmodel = { module = 'androidx.lifecycle:lifecycle-viewmodel-compose', version = '2.8.7' }
 compose-lifecycle = { module = 'androidx.lifecycle:lifecycle-runtime-compose', version = '2.8.7' }
 # Navigation
-navigation-runtime = { module = 'androidx.navigation:navigation-runtime-ktx', version = '2.8.3' }
-compose-navigation = { module = 'androidx.navigation:navigation-compose', version = '2.8.3' }
+navigation-runtime = { module = 'androidx.navigation:navigation-runtime-ktx', version = '2.8.4' }
+compose-navigation = { module = 'androidx.navigation:navigation-compose', version = '2.8.4' }
 compose-hilt-navigation = { module = 'androidx.hilt:hilt-navigation-compose', version = '1.2.0' }
 # Accompanist
 accompanist-drawablepainter = { module = 'com.google.accompanist:accompanist-drawablepainter', version.ref = 'accompanistVersion' }

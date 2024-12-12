@@ -26,6 +26,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
@@ -71,6 +72,49 @@ fun RootToolbar(
                 overflow = TextOverflow.Ellipsis,
                 style = MaterialTheme.typography.titleLarge,
             )
+        }
+    }
+}
+
+@Composable
+fun RootSearchToolbar(
+    title: String,
+    onSearchClicked: () -> Unit,
+) {
+    Surface(
+        color = MaterialTheme.colorScheme.surface,
+        shadowElevation = 4.dp,
+    ) {
+        Row(
+            modifier = Modifier
+                .defaultMinSize(minHeight = defaultToolbarHeight)
+                .fillMaxWidth()
+                .padding(horizontal = 4.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center,
+        ) {
+            Spacer(modifier = Modifier.size(48.dp))
+
+            Text(
+                modifier = Modifier
+                    .weight(weight = 1F)
+                    .padding(horizontal = 16.dp),
+                text = title,
+                color = MaterialTheme.colorScheme.onSurface,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                style = MaterialTheme.typography.titleLarge,
+                textAlign = TextAlign.Center,
+            )
+
+            IconButton(
+                onClick = onSearchClicked,
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Search,
+                    contentDescription = null,
+                )
+            }
         }
     }
 }
@@ -141,6 +185,17 @@ fun SimpleToolbar(
 private fun RootToolbarPreview() {
     QuizApplicationTheme {
         RootToolbar(title = "Toolbar")
+    }
+}
+
+@ThemePreviews
+@Composable
+private fun RootSearchToolbarPreview() {
+    QuizApplicationTheme {
+        RootSearchToolbar(
+            title = "Toolbar",
+            onSearchClicked = {},
+        )
     }
 }
 

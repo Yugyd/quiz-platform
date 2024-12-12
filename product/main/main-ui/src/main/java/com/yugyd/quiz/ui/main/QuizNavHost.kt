@@ -34,6 +34,9 @@ import com.yugyd.quiz.proui.proonboarding.navigateToProOnboarding
 import com.yugyd.quiz.proui.proonboarding.proOnboardingScreen
 import com.yugyd.quiz.ui.content.contentScreen
 import com.yugyd.quiz.ui.content.navigateToContent
+import com.yugyd.quiz.ui.coursedetails.courseDetailsScreen
+import com.yugyd.quiz.ui.coursedetails.navigateToCourseDetails
+import com.yugyd.quiz.ui.courses.courseListScreen
 import com.yugyd.quiz.ui.end.gameend.gameEndScreen
 import com.yugyd.quiz.ui.end.gameend.navigateToGameEnd
 import com.yugyd.quiz.ui.end.progressend.navigateToProgressEnd
@@ -41,8 +44,12 @@ import com.yugyd.quiz.ui.end.progressend.progressEndScreen
 import com.yugyd.quiz.ui.errors.errorListScreen
 import com.yugyd.quiz.ui.errors.navigateToErrorList
 import com.yugyd.quiz.ui.profile.profileScreen
+import com.yugyd.quiz.ui.searchcourses.navigateToSearchCourse
+import com.yugyd.quiz.ui.searchcourses.searchCourseScreen
 import com.yugyd.quiz.ui.section.navigateToSection
 import com.yugyd.quiz.ui.section.sectionScreen
+import com.yugyd.quiz.ui.subcourses.navigateToSubCourseList
+import com.yugyd.quiz.ui.subcourses.subCourseListScreen
 import com.yugyd.quiz.ui.tasks.navigateToTasks
 import com.yugyd.quiz.ui.tasks.tasksScreen
 import com.yugyd.quiz.ui.theme.THEME_ROUTE
@@ -189,6 +196,55 @@ internal fun QuizNavHost(
         correctScreen(
             snackbarHostState = snackbarHostState,
             onNavigateToGame = navController::navigateToGame,
+        )
+
+        courseListScreen(
+            snackbarHostState = snackbarHostState,
+            onNavigateToSearch = {
+                navController.navigateToSearchCourse()
+            },
+            onNavigateToSubCourse = {
+                navController.navigateToSubCourseList(it)
+            },
+            onNavigateToCourseDetails = {
+                navController.navigateToCourseDetails(it)
+            },
+        )
+
+        subCourseListScreen(
+            snackbarHostState = snackbarHostState,
+            onBack = navController::popBackStack,
+            onNavigateToSearch = {
+                navController.navigateToSearchCourse()
+            },
+            onNavigateToSubCourse = {
+                navController.navigateToSubCourseList(it)
+            },
+            onNavigateToCourseDetails = {
+                navController.navigateToCourseDetails(it)
+            },
+        )
+
+        searchCourseScreen(
+            snackbarHostState = snackbarHostState,
+            onBack = navController::popBackStack,
+            onNavigateToSubCourse = {
+                navController.navigateToSubCourseList(it)
+            },
+            onNavigateToCourseDetails = {
+                navController.navigateToCourseDetails(it)
+            },
+        )
+
+        courseDetailsScreen(
+            snackbarHostState = snackbarHostState,
+            onBack = navController::popBackStack,
+            onNavigateToAiTasks = {
+                // TODO Add navigation to ai tasks
+            },
+            onNavigateToExternalReportError = {
+                navigateToExternalScreen(GlobalScreens.externalReportError(context))
+            },
         )
 
         tasksScreen(

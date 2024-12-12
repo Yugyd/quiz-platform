@@ -57,6 +57,7 @@ import com.yugyd.quiz.navigation.getTelegramIntent
 import com.yugyd.quiz.newversiononboarding.OnboardingBottomSheet
 import com.yugyd.quiz.progressui.progress.navigateToProgress
 import com.yugyd.quiz.ui.content.navigateToContent
+import com.yugyd.quiz.ui.courses.navigateToCourseList
 import com.yugyd.quiz.ui.main.MainView.Action
 import com.yugyd.quiz.ui.main.MainView.State
 import com.yugyd.quiz.ui.main.MainView.State.NavigationState
@@ -257,6 +258,7 @@ fun NavController.navigateToTopLevelDestination(topDestination: TopDestination) 
         TopDestination.CORRECT -> navigateToCorrect()
         TopDestination.PROGRESS -> navigateToProgress()
         TopDestination.PROFILE -> navigateToProfile()
+        TopDestination.COURSES -> navigateToCourseList()
     }
 }
 

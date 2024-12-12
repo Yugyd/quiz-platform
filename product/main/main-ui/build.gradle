@@ -40,6 +40,10 @@ dependencies {
     implementation project(':product:section:section-ui')
     implementation project(':product:tasks:tasks-ui')
     implementation project(':product:core:ad')
+    implementation project(':product:courses:courses-ui')
+    implementation project(':product:courses:subcourses-ui')
+    implementation project(':product:courses:searchcourses-ui')
+    implementation project(':product:courses:coursedetails-ui')
 
     // UI - Android X
     implementation libs.splashscreen

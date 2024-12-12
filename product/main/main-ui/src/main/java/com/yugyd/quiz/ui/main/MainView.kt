@@ -22,7 +22,8 @@ internal interface MainView {
 
     data class State(
         val isCorrectFeatureEnabled: Boolean = false,
-        val topDestinations: List<TopDestination> = TopDestination.values().asList(),
+        val isCoursesFeatureEnabled: Boolean = false,
+        val topDestinations: List<TopDestination> = TopDestination.entries,
         val requestPushPermission: Boolean = false,
         val showOnboarding: Boolean = false,
         val onboardingPayload: OnboardingPayload? = null,

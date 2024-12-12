@@ -21,6 +21,7 @@
 
     <!-- Share -->
     <string name="title_theme">Темы</string>
+    <string name="title_courses">Курсы</string>
     <string name="title_correct">Правка</string>
     <string name="title_progress">Прогресс</string>
     <string name="title_profile">Профиль</string>

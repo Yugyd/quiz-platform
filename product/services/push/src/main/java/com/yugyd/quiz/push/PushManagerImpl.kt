@@ -17,7 +17,6 @@
 package com.yugyd.quiz.push
 
 import android.Manifest
-import android.annotation.TargetApi
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -25,7 +24,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.media.RingtoneManager
-import android.os.Build
 import android.os.SystemClock
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
@@ -52,9 +50,7 @@ internal class PushManagerImpl @Inject constructor(
         get() = context.packageManager.getLaunchIntentForPackage(context.packageName)
 
     override fun createChannels() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            notificationManager.createNotificationChannel(createNotificationChannel())
-        }
+        notificationManager.createNotificationChannel(createNotificationChannel())
         logger.print(TAG, "Notification channels is created")
     }
 
@@ -77,7 +73,6 @@ internal class PushManagerImpl @Inject constructor(
         }
     }
 
-    @TargetApi(Build.VERSION_CODES.O)
     private fun createNotificationChannel(): NotificationChannel {
         val name = context.getString(R.string.default_channel_name)
         val description = context.getString(R.string.default_channel_description)

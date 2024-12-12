@@ -16,6 +16,7 @@
 
 package com.yugyd.quiz.uikit
 
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -47,6 +48,25 @@ fun WarningContent(
     isRetryButtonEnabled: Boolean = false,
     onRetryClicked: (() -> Unit)? = null,
 ) {
+    WarningContent(
+        icon = R.drawable.ic_cloud_off_24,
+        title = stringResource(id = R.string.title_empty_state),
+        message = stringResource(id = R.string.title_empty_state_description),
+        modifier = modifier,
+        isRetryButtonEnabled = isRetryButtonEnabled,
+        onRetryClicked = onRetryClicked,
+    )
+}
+
+@Composable
+fun WarningContent(
+    @DrawableRes icon: Int,
+    message: String,
+    modifier: Modifier = Modifier,
+    title: String = stringResource(id = R.string.title_empty_state),
+    isRetryButtonEnabled: Boolean = false,
+    onRetryClicked: (() -> Unit)? = null,
+) {
     Column(
         modifier = modifier.then(
             Modifier
@@ -58,7 +78,7 @@ fun WarningContent(
     ) {
         Image(
             modifier = Modifier.size(64.dp),
-            painter = painterResource(id = R.drawable.ic_cloud_off_24),
+            painter = painterResource(id = icon),
             colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onBackground),
             contentDescription = null,
         )
@@ -66,7 +86,7 @@ fun WarningContent(
         Spacer(modifier = Modifier.height(48.dp))
 
         Text(
-            text = stringResource(id = R.string.title_empty_state),
+            text = title,
             modifier = Modifier.fillMaxWidth(),
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.titleMedium,
@@ -76,7 +96,7 @@ fun WarningContent(
         Spacer(modifier = Modifier.height(8.dp))
 
         Text(
-            text = stringResource(id = R.string.title_empty_state_description),
+            text = message,
             modifier = Modifier.fillMaxWidth(),
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.bodyMedium,

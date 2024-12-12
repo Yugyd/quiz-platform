@@ -16,6 +16,7 @@
 
 package com.yugyd.quiz.featuretoggle.domain
 
+import com.yugyd.quiz.core.GlobalConfig
 import com.yugyd.quiz.featuretoggle.domain.model.FeatureToggle
 import timber.log.Timber
 import javax.inject.Inject
@@ -25,16 +26,20 @@ internal class FeatureManagerImpl @Inject internal constructor(
 ) : FeatureManager {
 
     override suspend fun isFeatureEnabled(featureToggle: FeatureToggle): Boolean {
-        if (featureToggle.isLocal) {
-            return featureToggle.localValue
-        }
+        return when {
+            GlobalConfig.DEBUG && featureToggle.isLocal -> featureToggle.localValue
 
-        val result = runCatching {
-            remoteConfigRepository.fetchFeatureToggle(featureToggle)
-        }
-        return result.getOrElse {
-            Timber.w(it)
-            FEATURE_DISABLED
+            !GlobalConfig.DEBUG && featureToggle.isLocal -> false
+
+            else -> {
+                val result = runCatching {
+                    remoteConfigRepository.fetchFeatureToggle(featureToggle)
+                }
+                result.getOrElse {
+                    Timber.w(it)
+                    FEATURE_DISABLED
+                }
+            }
         }
     }
 

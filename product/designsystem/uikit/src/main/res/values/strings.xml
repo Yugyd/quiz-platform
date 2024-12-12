@@ -21,6 +21,7 @@
 
     <!-- Share -->
     <string name="title_theme">Themes</string>
+    <string name="title_courses">Courses</string>
     <string name="title_correct">Correct</string>
     <string name="title_progress">Progress</string>
     <string name="title_profile">Profile</string>

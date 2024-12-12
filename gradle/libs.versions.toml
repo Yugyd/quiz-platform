@@ -24,6 +24,8 @@ workManagerVersion = '2.10.0'
 firebaseVersion = '33.6.0'
 accompanistVersion = '0.36.0'
 versionsUpdates = '0.51.0'
+# Third-Party
+markdown-compose = '0.27.0'
 # Build logic
 compile-sdk = '35'
 target-sdk = '35'
@@ -108,6 +110,9 @@ firebase-messages = { module = 'com.google.firebase:firebase-messaging-ktx' }
 firebase-config = { module = 'com.google.firebase:firebase-config-ktx' }
 # Coil
 coil-compose = { module = 'io.coil-kt:coil-compose', version = '2.7.0' }
+# Third-Party - Replace after MVP release
+markdown-compose-android = { module = 'com.mikepenz:multiplatform-markdown-renderer-android', version.ref = 'markdown-compose' }
+markdown-compose-m3 = { module = 'com.mikepenz:multiplatform-markdown-renderer-m3', version.ref = 'markdown-compose' }
 # Test
 junit-core = { module = 'junit:junit', version = '4.13.2' }
 kotlin-test = { module = 'org.jetbrains.kotlin:kotlin-test', version.ref = 'kotlin' }

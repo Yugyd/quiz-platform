@@ -14,6 +14,11 @@ enum class TopDestination(
         com.yugyd.quiz.commonui.R.drawable.ic_menu_book,
     ),
 
+    COURSES(
+        R.string.title_courses,
+        com.yugyd.quiz.commonui.R.drawable.ic_school,
+    ),
+
     CORRECT(
         R.string.title_correct,
         com.yugyd.quiz.commonui.R.drawable.ic_check_circle,

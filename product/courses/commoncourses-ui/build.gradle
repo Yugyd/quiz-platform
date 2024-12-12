@@ -1,0 +1,20 @@
+plugins {
+    alias(libs.plugins.convention.library)
+    alias(libs.plugins.convention.library.buildtype)
+    alias(libs.plugins.convention.library.compose)
+    alias(libs.plugins.convention.library.lint)
+}
+
+android {
+    namespace 'com.yugyd.quiz.ui.commoncourses'
+}
+
+dependencies {
+    // Module
+    implementation project(':product:core')
+    implementation project(':product:core:common-ui')
+    implementation project(':product:designsystem:uikit')
+
+    // UI - Compose
+    implementation libs.compose.material3
+}

@@ -91,6 +91,9 @@ internal class MainViewModel @Inject constructor(
             val isCorrectFeatureEnabledDeferred = async {
                 featureManager.isFeatureEnabled(FeatureToggle.CORRECT)
             }
+            val isAICoursesFeatureEnabledDeferred = async {
+                featureManager.isFeatureEnabled(FeatureToggle.AI_COURSES)
+            }
             val shouldForceUpdateAppDeferred = async { updateInteractor.shouldForceUpdateApp() }
             val shouldStartContentScreenDeferred = async { !contentInteractor.isSelected() }
             val shouldTelegramOnboardingDeferred = async {
@@ -100,6 +103,7 @@ internal class MainViewModel @Inject constructor(
 
             processData(
                 isCorrectFeatureEnabled = isCorrectFeatureEnabledDeferred.await(),
+                isCoursesFeatureEnabled = isAICoursesFeatureEnabledDeferred.await(),
                 shouldForceUpdateApp = shouldForceUpdateAppDeferred.await(),
                 shouldStartContentScreen = shouldStartContentScreenDeferred.await(),
                 shouldTelegramOnboarding = shouldTelegramOnboardingDeferred.await(),
@@ -109,12 +113,35 @@ internal class MainViewModel @Inject constructor(
 
     private suspend fun processData(
         isCorrectFeatureEnabled: Boolean,
+        isCoursesFeatureEnabled: Boolean,
         shouldForceUpdateApp: Boolean,
         shouldStartContentScreen: Boolean,
         shouldTelegramOnboarding: Boolean,
     ) {
+        val topDestinations = TopDestination.entries
+        val finalTopDestination = when {
+            !isCoursesFeatureEnabled && !isCorrectFeatureEnabled -> {
+                topDestinations.filter {
+                    it != TopDestination.COURSES && it != TopDestination.CORRECT
+                }
+            }
+
+            !isCoursesFeatureEnabled -> {
+                topDestinations.filter { it != TopDestination.COURSES }
+            }
+
+            !isCorrectFeatureEnabled -> {
+                topDestinations.filter { it != TopDestination.CORRECT }
+            }
+
+            else -> {
+                topDestinations
+            }
+        }
         screenState = screenState.copy(
+            topDestinations = finalTopDestination,
             isCorrectFeatureEnabled = isCorrectFeatureEnabled,
+            isCoursesFeatureEnabled = isCoursesFeatureEnabled,
             requestPushPermission = true,
         )
 

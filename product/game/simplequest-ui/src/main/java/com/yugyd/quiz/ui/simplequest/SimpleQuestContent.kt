@@ -19,9 +19,7 @@ package com.yugyd.quiz.ui.simplequest
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -31,6 +29,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
+import com.yugyd.quiz.ui.commonquest.QuestComponent
 import com.yugyd.quiz.ui.game.api.model.HighlightUiModel
 import com.yugyd.quiz.uikit.common.ThemePreviews
 import com.yugyd.quiz.uikit.component.QuizBackground
@@ -38,85 +37,42 @@ import com.yugyd.quiz.uikit.theme.QuizApplicationTheme
 import com.yugyd.quiz.uikit.theme.app_color_negative
 import com.yugyd.quiz.uikit.theme.app_color_positive
 
+private const val THEME_IMAGER_RATIO = 1.77F
+
 @Composable
 fun SimpleQuestContent(
     quest: SimpleQuestUiModel,
-    onAnswerClicked: (Int) -> Unit,
+    onAnswerClicked: (String) -> Unit,
 ) {
     Column {
-        Text(
-            text = quest.quest,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp),
-            color = MaterialTheme.colorScheme.onBackground,
-            style = MaterialTheme.typography.titleLarge,
-        )
-
-        HorizontalDivider(Modifier.padding(vertical = 16.dp))
+        QuestComponent(quest = quest.questModel)
 
         AnswerButtons(
             highlight = quest.highlight,
-            oneAnswer = quest.oneAnswer,
-            twoAnswer = quest.twoAnswer,
-            threeAnswer = quest.threeAnswer,
-            fourAnswer = quest.fourAnswer,
+            answers = quest.answers,
             onAnswerClicked = onAnswerClicked,
             answerButtonIsEnabled = quest.answerButtonIsEnabled,
         )
     }
 }
 
-private const val ONE_ANSWER_INDEX = 0
-private const val TWO_ANSWER_INDEX = 1
-private const val THREE_ANSWER_INDEX = 2
-private const val FOUR_ANSWER_INDEX = 3
-
 @Composable
 internal fun AnswerButtons(
     highlight: HighlightUiModel,
-    oneAnswer: String,
-    twoAnswer: String,
-    threeAnswer: String,
-    fourAnswer: String,
+    answers: List<String>,
     answerButtonIsEnabled: Boolean,
-    onAnswerClicked: (Int) -> Unit,
+    onAnswerClicked: (String) -> Unit,
 ) {
-    AnswerButton(
-        answer = oneAnswer,
-        textColor = getButtonColor(highlight, ONE_ANSWER_INDEX),
-        isEnabled = answerButtonIsEnabled,
-        onAnswerClicked = {
-            onAnswerClicked(ONE_ANSWER_INDEX)
-        }
-    )
-
-    AnswerButton(
-        answer = twoAnswer,
-        textColor = getButtonColor(highlight, TWO_ANSWER_INDEX),
-        isEnabled = answerButtonIsEnabled,
-        onAnswerClicked = {
-            onAnswerClicked(TWO_ANSWER_INDEX)
-        }
-    )
-
-    AnswerButton(
-        answer = threeAnswer,
-        textColor = getButtonColor(highlight, THREE_ANSWER_INDEX),
-        isEnabled = answerButtonIsEnabled,
-        onAnswerClicked = {
-            onAnswerClicked(THREE_ANSWER_INDEX)
-        }
-    )
-
-    AnswerButton(
-        answer = fourAnswer,
-        textColor = getButtonColor(highlight, FOUR_ANSWER_INDEX),
-        isEnabled = answerButtonIsEnabled,
-        onAnswerClicked = {
-            onAnswerClicked(FOUR_ANSWER_INDEX)
-        }
-    )
+    answers.forEachIndexed { buttonIndex, answer ->
+        AnswerButton(
+            answer = answer,
+            textColor = getButtonColor(highlight, buttonIndex),
+            isEnabled = answerButtonIsEnabled,
+            onAnswerClicked = {
+                onAnswerClicked(answer)
+            },
+        )
+    }
 }
 
 private fun getButtonColor(
@@ -128,22 +84,14 @@ private fun getButtonColor(
 
         is HighlightUiModel.False -> {
             when (buttonIndex) {
-                highlight.trueIndex -> {
-                    app_color_positive
-                }
-
-                highlight.falseIndex -> {
-                    app_color_negative
-                }
-
-                else -> {
-                    null
-                }
+                highlight.trueAnswerIndexes.first() -> app_color_positive
+                highlight.falseIndexes.first() -> app_color_negative
+                else -> null
             }
         }
 
         is HighlightUiModel.True -> {
-            if (buttonIndex == highlight.index) {
+            if (buttonIndex == highlight.trueAnswerIndexes.first()) {
                 app_color_positive
             } else {
                 null

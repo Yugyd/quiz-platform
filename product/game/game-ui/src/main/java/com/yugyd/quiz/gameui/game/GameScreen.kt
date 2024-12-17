@@ -31,6 +31,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -42,7 +43,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.yugyd.quiz.ad.api.AdErrorDomainModel
 import com.yugyd.quiz.commonui.utils.ProgressUtils
 import com.yugyd.quiz.domain.api.model.payload.GameEndPayload
-import com.yugyd.quiz.domain.game.api.exception.QuestTypeException
 import com.yugyd.quiz.gameui.R
 import com.yugyd.quiz.gameui.game.GameView.Action
 import com.yugyd.quiz.gameui.game.GameView.State
@@ -51,9 +51,20 @@ import com.yugyd.quiz.gameui.game.GameView.State.NavigationState
 import com.yugyd.quiz.gameui.game.model.ConditionUiModel
 import com.yugyd.quiz.gameui.game.model.ControlUiModel
 import com.yugyd.quiz.gameui.game.model.GameStateUiModel
+import com.yugyd.quiz.ui.enteraiquest.EnterAiQuestContent
+import com.yugyd.quiz.ui.enteraiquest.EnterAiQuestUiModel
 import com.yugyd.quiz.ui.enterquest.EnterQuestContent
 import com.yugyd.quiz.ui.enterquest.EnterQuestUiModel
 import com.yugyd.quiz.ui.game.api.model.BaseQuestUiModel
+import com.yugyd.quiz.ui.game.api.model.QuestUiType
+import com.yugyd.quiz.ui.hintenterquest.EnterWithHintQuestContent
+import com.yugyd.quiz.ui.hintenterquest.EnterWithHintQuestUiModel
+import com.yugyd.quiz.ui.selectboolquest.SelectBoolQuestContent
+import com.yugyd.quiz.ui.selectboolquest.SelectBoolQuestUiModel
+import com.yugyd.quiz.ui.selectmanualquest.SelectManualQuestContent
+import com.yugyd.quiz.ui.selectmanualquest.SelectManualQuestUiModel
+import com.yugyd.quiz.ui.selectquest.SelectQuestContent
+import com.yugyd.quiz.ui.selectquest.SelectQuestUiModel
 import com.yugyd.quiz.ui.simplequest.SimpleQuestContent
 import com.yugyd.quiz.ui.simplequest.SimpleQuestUiModel
 import com.yugyd.quiz.uikit.LoadingContent
@@ -85,7 +96,18 @@ internal fun GameRoute(
             viewModel.onAction(Action.OnBackPressed)
         },
         onAnswerClicked = {
-            viewModel.onAction(Action.OnAnswerClicked(it))
+            viewModel.onAction(Action.OnAnswerClicked)
+        },
+        onAnswerTextChanged = {
+            viewModel.onAction(Action.OnAnswerTextChanged(it))
+        },
+        onAnswerSelected = { answer, isSelected ->
+            viewModel.onAction(
+                Action.OnAnswerSelected(
+                    userAnswer = answer,
+                    isSelected = isSelected,
+                ),
+            )
         },
         onErrorDismissState = {
             viewModel.onAction(Action.OnSnackbarDismissed)
@@ -118,9 +140,6 @@ internal fun GameRoute(
         onNavigationHandled = {
             viewModel.onAction(Action.OnNavigationHandled)
         },
-        onAnswerTextChanged = {
-            viewModel.onAction(Action.OnAnswerTextChanged(it))
-        },
         onBannerAdLoaded = {
             viewModel.onAction(Action.OnBannerAdLoaded)
         },
@@ -135,8 +154,9 @@ internal fun GameScreen(
     uiState: State,
     snackbarHostState: SnackbarHostState,
     onBackPressed: () -> Unit,
-    onAnswerClicked: (Int) -> Unit,
+    onAnswerClicked: () -> Unit,
     onAnswerTextChanged: (String) -> Unit,
+    onAnswerSelected: (String, Boolean) -> Unit,
     onErrorDismissState: () -> Unit,
     onDebugAnswerToastDismissed: () -> Unit,
     onScrollToTopAnimationEnded: () -> Unit,
@@ -219,8 +239,9 @@ internal fun GameScreen(
                     manualAnswer = uiState.manualAnswer,
                     scrollToTop = uiState.scrollToTopAnimation,
                     onAnswerClicked = onAnswerClicked,
-                    onScrollToTopAnimationEnded = onScrollToTopAnimationEnded,
                     onAnswerTextChanged = onAnswerTextChanged,
+                    onAnswerSelected = onAnswerSelected,
+                    onScrollToTopAnimationEnded = onScrollToTopAnimationEnded,
                 )
             }
         }
@@ -290,11 +311,11 @@ internal fun GameContent(
     modifier: Modifier = Modifier,
     control: ControlUiModel,
     quest: BaseQuestUiModel,
-    manualAnswer: String,
-    scrollToTop: Boolean,
-    onAnswerClicked: (Int) -> Unit,
-    onScrollToTopAnimationEnded: () -> Unit,
+    manualAnswer: String, scrollToTop: Boolean,
+    onAnswerClicked: () -> Unit,
+    onAnswerSelected: (String, Boolean) -> Unit,
     onAnswerTextChanged: (String) -> Unit,
+    onScrollToTopAnimationEnded: () -> Unit,
 ) {
     Column(modifier = modifier) {
         val animatedProgress by animateFloatAsState(
@@ -321,28 +342,85 @@ internal fun GameContent(
             modifier = Modifier
                 .weight(weight = 1F)
                 .verticalScroll(scrollState)
-                .padding(vertical = 16.dp),
+                .padding(top = 16.dp, bottom = 24.dp),
         ) {
-            when (quest) {
-                is SimpleQuestUiModel -> {
+            when (quest.type) {
+                QuestUiType.SIMPLE -> {
+                    val uiModel = remember(quest) {
+                        quest as SimpleQuestUiModel
+                    }
                     SimpleQuestContent(
-                        quest = quest,
-                        onAnswerClicked = onAnswerClicked,
+                        quest = uiModel,
+                        onAnswerClicked = {
+                            onAnswerSelected(it, true)
+                            onAnswerClicked()
+                        },
                     )
                 }
 
-                is EnterQuestUiModel -> {
+                QuestUiType.ENTER -> {
+                    val uiModel = remember(quest) {
+                        quest as EnterQuestUiModel
+                    }
                     EnterQuestContent(
-                        quest = quest,
+                        quest = uiModel,
                         manualAnswer = manualAnswer,
-                        onAnswerHandler = {
-                            onAnswerClicked(-1)
-                        },
+                        onAnswerHandler = onAnswerClicked,
                         onAnswerTextChanged = onAnswerTextChanged,
                     )
                 }
 
-                else -> throw QuestTypeException("Unknown quest type: $quest")
+                QuestUiType.ENTER_WITH_HINT -> {
+                    val uiModel = remember(quest) {
+                        quest as EnterWithHintQuestUiModel
+                    }
+                    EnterWithHintQuestContent(
+                        quest = uiModel,
+                        manualAnswer = manualAnswer,
+                        onAnswerHandler = onAnswerClicked,
+                        onAnswerTextChanged = onAnswerTextChanged,
+                    )
+                }
+
+                QuestUiType.SELECT_MANUAL -> {
+                    SelectManualQuestContent(
+                        quest = quest as SelectManualQuestUiModel,
+                        onAnswerClicked = onAnswerClicked,
+                        onAnswerSelected = onAnswerSelected,
+                    )
+                }
+
+                QuestUiType.SELECT -> {
+                    SelectQuestContent(
+                        quest = quest as SelectQuestUiModel,
+                        onAnswerSelected = onAnswerSelected,
+                    )
+                }
+
+                QuestUiType.ENTER_AI -> {
+                    val uiModel = remember(quest) {
+                        quest as EnterAiQuestUiModel
+                    }
+                    EnterAiQuestContent(
+                        quest = uiModel,
+                        manualAnswer = manualAnswer,
+                        onAnswerHandler = onAnswerClicked,
+                        onAnswerTextChanged = onAnswerTextChanged,
+                    )
+                }
+
+                QuestUiType.SELECT_BOOL -> {
+                    val uiModel = remember(quest) {
+                        quest as SelectBoolQuestUiModel
+                    }
+                    SelectBoolQuestContent(
+                        quest = uiModel,
+                        onAnswerClicked = {
+                            onAnswerSelected(it, true)
+                            onAnswerClicked()
+                        },
+                    )
+                }
             }
         }
     }
@@ -415,18 +493,20 @@ internal fun NavigationHandler(
 @ThemePreviews
 @Composable
 private fun ContentPreview(
-    @PreviewParameter(GamePreviewParameterProvider::class) gameData: GameStateUiModel,
+    @PreviewParameter(GamePreviewParameterProvider::class) gameData: List<GameStateUiModel>,
 ) {
     QuizApplicationTheme {
         QuizBackground {
+            val gameDataItem = gameData.first { it.quest.type == QuestUiType.SELECT_BOOL }
             GameContent(
-                control = gameData.control,
-                quest = gameData.quest,
+                control = gameDataItem.control,
+                quest = gameDataItem.quest,
                 manualAnswer = "Manual",
                 scrollToTop = false,
                 onAnswerClicked = {},
                 onScrollToTopAnimationEnded = {},
                 onAnswerTextChanged = {},
+                onAnswerSelected = { _, _ -> },
             )
         }
     }

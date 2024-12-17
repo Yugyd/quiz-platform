@@ -5,6 +5,7 @@ import com.yugyd.quiz.domain.game.api.exception.QuestTypeException
 import com.yugyd.quiz.ui.game.api.GameViewModelDelegate.GameViewModelDelegateArgs
 import com.yugyd.quiz.ui.game.api.model.BaseQuestUiModel
 import com.yugyd.quiz.ui.game.api.model.HighlightUiModel
+import com.yugyd.quiz.ui.game.api.model.ProcessAnswerResultModel
 import javax.inject.Inject
 
 class UnknownGameViewModelDelegate @Inject constructor() : GameViewModelDelegate {
@@ -13,8 +14,29 @@ class UnknownGameViewModelDelegate @Inject constructor() : GameViewModelDelegate
         throw QuestTypeException("Unknown quest model")
     }
 
-    override fun getNewQuestState(
+    override fun getUserAnswers(
         domainQuest: BaseQuestDomainModel,
+        quest: BaseQuestUiModel,
+    ): Set<String> {
+        throw QuestTypeException("Unknown quest model")
+    }
+
+    override fun processUserAnswer(
+        domainQuest: BaseQuestDomainModel,
+        quest: BaseQuestUiModel,
+        userAnswer: String,
+        isSelected: Boolean
+    ): ProcessAnswerResultModel {
+        throw QuestTypeException("Unknown quest model")
+    }
+
+    override fun getQuestUiModel(domainQuest: BaseQuestDomainModel): BaseQuestUiModel {
+        throw QuestTypeException("Unknown quest model")
+    }
+
+    override fun updateQuestUiModel(
+        domainQuest: BaseQuestDomainModel,
+        quest: BaseQuestUiModel,
         highlight: HighlightUiModel,
         args: GameViewModelDelegateArgs?
     ): BaseQuestUiModel {

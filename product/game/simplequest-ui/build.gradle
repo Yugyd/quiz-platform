@@ -20,8 +20,12 @@ dependencies {
     implementation project(':product:game:game-ui-api')
     implementation project(':product:game:game-bl-api')
     implementation project(':product:game:simplequest-bl')
+    implementation project(':product:game:commonquest-ui')
 
     // UI - Compose
     implementation libs.compose.material3
     implementation libs.compose.material.icons
+
+    // Image
+    implementation libs.coil.compose
 }

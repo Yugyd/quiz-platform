@@ -73,45 +73,50 @@ internal interface GameView {
     sealed interface Action {
 
         // Ad Banner
-        object OnProBannerClicked : Action
+        data object OnProBannerClicked : Action
 
-        object OnBannerAdLoaded : Action
+        data object OnBannerAdLoaded : Action
 
-        class OnBannerAdFailedToLoad(val adError: AdErrorDomainModel) : Action
+        data class OnBannerAdFailedToLoad(val adError: AdErrorDomainModel) : Action
 
         // Ad Reward
-        object OnUserEarnedReward : Action
+        data object OnUserEarnedReward : Action
 
-        object OnRewardAdLoad : Action
+        data object OnRewardAdLoad : Action
 
-        class OnRewardAdFailedToLoad(val adError: AdErrorDomainModel? = null) : Action
+        data class OnRewardAdFailedToLoad(val adError: AdErrorDomainModel? = null) : Action
 
-        object OnRewardAdNotShowed : Action
+        data object OnRewardAdNotShowed : Action
 
-        object OnRewardAdClosed : Action
+        data object OnRewardAdClosed : Action
 
         // Reward dialog
-        object OnPositiveRewardDialogClicked : Action
+        data object OnPositiveRewardDialogClicked : Action
 
-        object OnNegativeRewardDialogClicked : Action
+        data object OnNegativeRewardDialogClicked : Action
 
-        object OnRewardDialogDismissed : Action
+        data object OnRewardDialogDismissed : Action
 
         // Screen
-        object OnBackPressed : Action
+        data object OnBackPressed : Action
 
-        class OnAnswerClicked(val index: Int) : Action
+        data object OnAnswerClicked : Action
 
-        object OnSnackbarDismissed : Action
+        data object OnSnackbarDismissed : Action
 
-        object OnDebugAnswerToastDismissed : Action
+        data object OnDebugAnswerToastDismissed : Action
 
-        object OnScrollToTopAnimationEnded : Action
+        data object OnScrollToTopAnimationEnded : Action
 
-        object OnErrorVibrationEnded : Action
+        data object OnErrorVibrationEnded : Action
 
-        object OnNavigationHandled : Action
+        data object OnNavigationHandled : Action
 
         data class OnAnswerTextChanged(val userAnswer: String) : Action
+
+        data class OnAnswerSelected(
+            val userAnswer: String,
+            val isSelected: Boolean,
+        ) : Action
     }
 }

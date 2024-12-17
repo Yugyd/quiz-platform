@@ -2,6 +2,7 @@ package com.yugyd.quiz.domain.simplequest
 
 import com.yugyd.quiz.domain.game.api.BaseQuestDomainModel
 import com.yugyd.quiz.domain.game.api.QuestInteractor
+import com.yugyd.quiz.domain.game.api.TrueAnswerResultModel
 import com.yugyd.quiz.domain.game.api.model.HighlightModel
 import com.yugyd.quiz.domain.game.api.model.Quest
 import com.yugyd.quiz.domain.game.api.model.QuestType
@@ -19,12 +20,13 @@ class SimpleQuestInteractor @Inject constructor(
         return quest is SimpleQuestModel
     }
 
-    override fun isTrueAnswer(
+    override suspend fun isTrueAnswer(
         quest: BaseQuestDomainModel,
-        index: Int,
-        userAnswer: String
-    ): Boolean {
-        return (quest as SimpleQuestModel).trueAnswerIndex == index
+        selectedUserAnswers: Set<String>,
+        enteredUserAnswer: String
+    ): TrueAnswerResultModel {
+        val isValid = selectedUserAnswers == (quest as SimpleQuestModel).trueAnswers
+        return TrueAnswerResultModel(isValid = isValid)
     }
 
     override fun getQuestModel(quest: Quest): BaseQuestDomainModel {
@@ -45,16 +47,15 @@ class SimpleQuestInteractor @Inject constructor(
         val simpleQuest = SimpleQuestModel(
             id = quest.id,
             quest = quest.quest,
-            trueAnswer = quest.trueAnswer,
+            trueAnswers = setOf(quest.trueAnswer),
             answers = answers,
-            trueAnswerIndex = answers.indexOf(quest.trueAnswer),
         )
         return abQuestParser.parse(simpleQuest)
     }
 
     override fun getHighlightModel(
         quest: BaseQuestDomainModel,
-        index: Int,
+        selectedUserAnswers: Set<String>,
         isSuccess: Boolean
     ): HighlightModel {
         val highlightModel = if (isSuccess) {
@@ -63,10 +64,14 @@ class SimpleQuestInteractor @Inject constructor(
             HighlightModel.State.FALSE
         }
 
+        val trueAnswerIndexes = (quest as SimpleQuestModel).trueAnswers
+            .map(quest.answers::indexOf)
+            .toSet()
+
         return HighlightModel(
             state = highlightModel,
-            trueAnswerIndex = (quest as SimpleQuestModel).trueAnswerIndex,
-            selectedAnswerIndex = index,
+            trueAnswerIndexes = trueAnswerIndexes,
+            selectedAnswerIndex = selectedUserAnswers.map(quest.answers::indexOf).toSet(),
         )
     }
 }

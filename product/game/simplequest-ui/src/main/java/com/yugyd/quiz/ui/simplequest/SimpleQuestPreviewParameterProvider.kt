@@ -18,17 +18,16 @@ package com.yugyd.quiz.ui.simplequest
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import com.yugyd.quiz.ui.game.api.model.HighlightUiModel
+import com.yugyd.quiz.ui.game.api.model.QuestValueUiModel
 
 internal class SimpleQuestPreviewParameterProvider : PreviewParameterProvider<SimpleQuestUiModel> {
 
     override val values: Sequence<SimpleQuestUiModel> = sequenceOf(createQuest())
 
     private fun createQuest() = SimpleQuestUiModel(
-        quest = "Quest",
-        oneAnswer = "One",
-        twoAnswer = "Two",
-        threeAnswer = "Three",
-        fourAnswer = "Four",
+        questModel = QuestValueUiModel("Quest"),
+        answers = listOf("One", "Two", "Three", "Four"),
+        selectedAnswer = "Four",
         highlight = HighlightUiModel.Default,
         answerButtonIsEnabled = true,
     )

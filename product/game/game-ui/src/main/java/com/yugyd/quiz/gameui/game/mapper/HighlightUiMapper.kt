@@ -25,14 +25,14 @@ internal class HighlightUiMapper @Inject constructor() {
     fun map(model: HighlightModel) = when (model.state) {
         HighlightModel.State.TRUE -> {
             HighlightUiModel.True(
-                index = model.selectedAnswerIndex
+                trueAnswerIndexes = model.selectedAnswerIndex
             )
         }
 
         HighlightModel.State.FALSE -> {
             HighlightUiModel.False(
-                trueIndex = model.trueAnswerIndex,
-                falseIndex = model.selectedAnswerIndex
+                trueAnswerIndexes = model.trueAnswerIndexes,
+                falseIndexes = model.selectedAnswerIndex
             )
         }
 

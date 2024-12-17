@@ -26,13 +26,19 @@ dependencies {
     implementation project(':product:game:game-bl-api')
     implementation project(':product:game:game-ui-api')
     implementation project(':product:game:enterquest-ui')
+    implementation project(':product:game:hintenterquest-ui')
     implementation project(':product:game:simplequest-ui')
+    implementation project(':product:game:selectmanualquest-ui')
     implementation project(':product:shared:domain-api')
     implementation project(':product:options:options-bl')
     implementation project(':product:game:enterquest-bl')
     implementation project(':product:game:simplequest-bl')
+    implementation project(':product:game:selectmanualquest-bl')
     implementation project(':product:services:ad-api')
     implementation project(':product:core:ad')
+    implementation project(':product:game:selectquest-ui')
+    implementation project(':product:game:enteraiquest-ui')
+    implementation project(':product:game:selectboolquest-ui')
 
     // UI - Compose
     implementation libs.compose.material3

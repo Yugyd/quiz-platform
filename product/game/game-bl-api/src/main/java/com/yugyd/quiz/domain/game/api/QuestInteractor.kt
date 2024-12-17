@@ -10,17 +10,17 @@ interface QuestInteractor {
 
     fun isQuestHandled(quest: BaseQuestDomainModel): Boolean
 
-    fun isTrueAnswer(
+    suspend fun isTrueAnswer(
         quest: BaseQuestDomainModel,
-        index: Int,
-        userAnswer: String
-    ): Boolean
+        selectedUserAnswers: Set<String>,
+        enteredUserAnswer: String,
+    ): TrueAnswerResultModel
 
     fun getQuestModel(quest: Quest): BaseQuestDomainModel
 
     fun getHighlightModel(
         quest: BaseQuestDomainModel,
-        index: Int,
+        selectedUserAnswers: Set<String>,
         isSuccess: Boolean,
     ): HighlightModel
 }

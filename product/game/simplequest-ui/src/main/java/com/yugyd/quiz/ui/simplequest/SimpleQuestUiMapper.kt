@@ -20,6 +20,7 @@ import com.yugyd.quiz.domain.simplequest.SimpleQuestModel
 import com.yugyd.quiz.ui.game.api.mapper.BaseQuestUiMapper
 import com.yugyd.quiz.ui.game.api.mapper.UiMapperArgs
 import com.yugyd.quiz.ui.game.api.model.HighlightUiModel
+import com.yugyd.quiz.ui.game.api.model.QuestValueUiModel
 import com.yugyd.quiz.ui.simplequest.SimpleQuestUiMapper.SimpleArgs
 import javax.inject.Inject
 
@@ -28,11 +29,12 @@ class SimpleQuestUiMapper @Inject constructor() :
 
     override fun map(model: SimpleQuestModel, args: SimpleArgs): SimpleQuestUiModel {
         return SimpleQuestUiModel(
-            quest = model.quest,
-            oneAnswer = model.answers[ONE_ANSWER],
-            twoAnswer = model.answers[TWO_ANSWER],
-            threeAnswer = model.answers[THREE_ANSWER],
-            fourAnswer = model.answers[FOUR_ANSWER],
+            questModel = QuestValueUiModel(
+                questText = model.quest,
+                imageUri = model.image,
+            ),
+            answers = model.answers,
+            selectedAnswer = null,
             answerButtonIsEnabled = args.answerButtonIsEnabled,
             highlight = args.highlight,
         )

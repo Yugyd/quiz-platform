@@ -21,7 +21,7 @@ import com.yugyd.quiz.domain.game.api.BaseQuestDomainModel
 data class SimpleQuestModel(
     override val id: Int = -1,
     override val quest: String = "",
-    override val trueAnswer: String = "",
+    override val image: String? = null,
+    override val trueAnswers: Set<String> = emptySet(),
     val answers: List<String> = emptyList(),
-    val trueAnswerIndex: Int = -1,
 ) : BaseQuestDomainModel

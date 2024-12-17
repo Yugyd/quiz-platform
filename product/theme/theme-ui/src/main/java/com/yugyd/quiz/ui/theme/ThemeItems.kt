@@ -32,7 +32,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.ElevatedCard
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
@@ -59,7 +58,6 @@ import com.yugyd.quiz.uikit.R as UiKitR
 
 private const val THEME_IMAGER_RATIO = 1.77F
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun ThemeItem(
     model: ThemeUiModel,

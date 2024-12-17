@@ -78,7 +78,7 @@ internal class GameViewModel @Inject constructor(
 
     override fun handleAction(action: Action) {
         when (action) {
-            is Action.OnAnswerClicked -> onAnswerClicked(action.index)
+            Action.OnAnswerClicked -> processAnswer()
             Action.OnBackPressed -> onBackPressed()
             is Action.OnBannerAdFailedToLoad -> onBannerAdFailedToLoad(action.adError)
             Action.OnBannerAdLoaded -> onBannerAdLoaded()
@@ -119,10 +119,27 @@ internal class GameViewModel @Inject constructor(
             }
 
             is Action.OnAnswerTextChanged -> {
-                screenState = screenState.copy(
-                    manualAnswer = action.userAnswer,
-                )
+                onAnswerTextChanged(newAnswer = action.userAnswer)
             }
+
+            is Action.OnAnswerSelected -> {
+                onAnswerSelected(action)
+            }
+        }
+    }
+
+    private fun onAnswerSelected(action: Action.OnAnswerSelected) {
+        val processAnswerResultModel = gameViewModelDelegateHolder.processUserAnswer(
+            domainQuest = screenState.domainQuest!!,
+            quest = screenState.quest!!,
+            userAnswer = action.userAnswer,
+            isSelected = action.isSelected,
+        )
+        val newQuest = processAnswerResultModel.quest
+        screenState = screenState.copy(quest = newQuest)
+
+        if (processAnswerResultModel.isLastAnswer) {
+            processAnswer()
         }
     }
 
@@ -146,13 +163,17 @@ internal class GameViewModel @Inject constructor(
         }
     }
 
-    private fun onAnswerClicked(index: Int) {
+    private fun processAnswer() {
         vmScopeErrorHandled.launch {
             runCatch(
                 block = {
+                    val selectedUserAnswers = gameViewModelDelegateHolder.getUserAnswers(
+                        domainQuest = screenState.domainQuest!!,
+                        quest = screenState.quest!!,
+                    )
                     val answerData = gameInteractor.resultAnswer(
                         quest = screenState.domainQuest!!,
-                        index = index,
+                        selectedUserAnswers = selectedUserAnswers,
                         userAnswer = screenState.manualAnswer
                     )
                     processAnswerData(answerData)
@@ -272,18 +293,11 @@ internal class GameViewModel @Inject constructor(
         isAdFeatureEnabled: Boolean,
         isProFeatureEnabled: Boolean,
     ) {
-        val highlight = HighlightUiModel.Default
-        val answerButtonIsEnabled = true
-
         val quest = data.quest
         screenState = screenState.copy(
             domainQuest = quest,
             manualAnswer = "",
-            quest = getNewQuestState(
-                domainQuest = quest,
-                highlight = highlight,
-                answerButtonIsEnabled = answerButtonIsEnabled,
-            ),
+            quest = getQuestUiModel(domainQuest = quest),
             control = controlUiMapper.map(data.control),
             isAdFeatureEnabled = isAdFeatureEnabled,
             isProFeatureEnabled = isProFeatureEnabled,
@@ -293,7 +307,7 @@ internal class GameViewModel @Inject constructor(
 
         if (GlobalConfig.DEBUG) {
             screenState = screenState.copy(
-                debugTrueAnswer = quest.trueAnswer,
+                debugTrueAnswer = quest.trueAnswers.joinToString(),
             )
         }
 
@@ -335,7 +349,7 @@ internal class GameViewModel @Inject constructor(
         val answerButtonIsEnabled = false
 
         screenState = screenState.copy(
-            quest = getNewQuestState(
+            quest = updateQuestUiModel(
                 domainQuest = requireNotNull(screenState.domainQuest),
                 highlight = highlight,
                 answerButtonIsEnabled = answerButtonIsEnabled
@@ -349,7 +363,7 @@ internal class GameViewModel @Inject constructor(
         blockAnswer()
     }
 
-    private fun getNewQuestState(
+    private fun updateQuestUiModel(
         domainQuest: BaseQuestDomainModel,
         highlight: HighlightUiModel,
         answerButtonIsEnabled: Boolean,
@@ -359,11 +373,16 @@ internal class GameViewModel @Inject constructor(
             userAnswer = screenState.manualAnswer,
             answerButtonIsEnabled = answerButtonIsEnabled,
         )
-        return gameViewModelDelegateHolder.getNewQuestState(
+        return gameViewModelDelegateHolder.updateQuestUiModel(
             domainQuest = domainQuest,
+            quest = screenState.quest!!,
             highlight = highlight,
             args = args,
         )
+    }
+
+    private fun getQuestUiModel(domainQuest: BaseQuestDomainModel): BaseQuestUiModel {
+        return gameViewModelDelegateHolder.getQuestUiModel(domainQuest = domainQuest)
     }
 
     private fun isVibration(highlight: HighlightUiModel) =
@@ -380,7 +399,7 @@ internal class GameViewModel @Inject constructor(
 
     private fun processBlockAnswer() {
         screenState = screenState.copy(
-            quest = getNewQuestState(
+            quest = updateQuestUiModel(
                 domainQuest = requireNotNull(screenState.domainQuest),
                 highlight = HighlightUiModel.Default,
                 answerButtonIsEnabled = true,
@@ -430,7 +449,16 @@ internal class GameViewModel @Inject constructor(
         }
     }
 
+    private fun onAnswerTextChanged(newAnswer: String) {
+        if (newAnswer.count() > FREE_FORM_ANSWER_LIMIT_COUNT) {
+            return
+        }
+
+        screenState = screenState.copy(manualAnswer = newAnswer)
+    }
+
     companion object {
         private const val TAG = "GameViewModel"
+        private const val FREE_FORM_ANSWER_LIMIT_COUNT = 400
     }
 }

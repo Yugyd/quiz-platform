@@ -18,5 +18,10 @@ package com.yugyd.quiz.domain.game.api.model
 
 enum class QuestType {
     SIMPLE,
-    ENTER_CODE,
+    ENTER,
+    ENTER_WITH_HINT,
+    SELECT_MANUAL,
+    SELECT,
+    ENTER_AI,
+    SELECT_BOOL,
 }

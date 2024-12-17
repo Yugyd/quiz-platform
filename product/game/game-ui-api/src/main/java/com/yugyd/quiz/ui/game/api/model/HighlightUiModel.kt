@@ -17,7 +17,14 @@
 package com.yugyd.quiz.ui.game.api.model
 
 sealed class HighlightUiModel {
-    data class True(val index: Int) : HighlightUiModel()
-    data class False(val trueIndex: Int, val falseIndex: Int) : HighlightUiModel()
-    object Default : HighlightUiModel()
+    data class True(
+        val trueAnswerIndexes: Set<Int>,
+    ) : HighlightUiModel()
+
+    data class False(
+        val trueAnswerIndexes: Set<Int>,
+        val falseIndexes: Set<Int>,
+    ) : HighlightUiModel()
+
+    data object Default : HighlightUiModel()
 }

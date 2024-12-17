@@ -1,0 +1,15 @@
+plugins {
+    alias(libs.plugins.convention.library)
+    alias(libs.plugins.convention.library.buildtype)
+    alias(libs.plugins.convention.library.lint)
+    alias(libs.plugins.convention.hilt)
+}
+
+android {
+    namespace 'com.yugyd.quiz.domain.hintenterquest'
+}
+
+dependencies {
+    implementation project(':product:game:game-bl-api')
+    implementation project(':product:ai:questai-bl')
+}

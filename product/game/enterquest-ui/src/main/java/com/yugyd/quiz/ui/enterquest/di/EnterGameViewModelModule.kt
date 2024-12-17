@@ -1,6 +1,6 @@
 package com.yugyd.quiz.ui.enterquest.di
 
-import com.yugyd.quiz.ui.enterquest.EnterCodeGameViewModelDelegate
+import com.yugyd.quiz.ui.enterquest.EnterGameViewModelDelegate
 import com.yugyd.quiz.ui.game.api.GameViewModelDelegate
 import dagger.Binds
 import dagger.Module
@@ -14,5 +14,5 @@ interface EnterGameViewModelModule {
 
     @Binds
     @IntoSet
-    fun bindsGameViewModelDelegate(impl: EnterCodeGameViewModelDelegate): GameViewModelDelegate
+    fun bindsGameViewModelDelegate(impl: EnterGameViewModelDelegate): GameViewModelDelegate
 }

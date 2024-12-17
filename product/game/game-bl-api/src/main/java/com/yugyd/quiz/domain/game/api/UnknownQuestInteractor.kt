@@ -15,17 +15,17 @@ class UnknownQuestInteractor @Inject constructor() : QuestInteractor {
         throw QuestTypeException("Unknown quest model")
     }
 
-    override fun isTrueAnswer(
+    override suspend fun isTrueAnswer(
         quest: BaseQuestDomainModel,
-        index: Int,
-        userAnswer: String
+        selectedUserAnswers: Set<String>,
+        enteredUserAnswer: String
     ) = throw QuestTypeException("Unknown quest model")
 
     override fun getQuestModel(quest: Quest) = throw QuestTypeException("Unknown quest model")
 
     override fun getHighlightModel(
         quest: BaseQuestDomainModel,
-        index: Int,
+        selectedUserAnswers: Set<String>,
         isSuccess: Boolean
     ) = throw QuestTypeException("Unknown quest model")
 }

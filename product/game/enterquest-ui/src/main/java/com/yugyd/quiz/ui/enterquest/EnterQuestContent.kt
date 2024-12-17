@@ -33,14 +33,13 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextFieldColors
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -58,6 +57,39 @@ fun EnterQuestContent(
     onAnswerHandler: () -> Unit,
     onAnswerTextChanged: (String) -> Unit,
 ) {
+    EnterQuestContentInternal(
+        quest = quest.questModel.questText,
+        isNumberKeyboard = quest.isNumberKeyboard,
+        trailingIcon = remember(quest.answerState) {
+            when (quest.answerState) {
+                AnswerState.SUCCESS -> Icons.Rounded.Done
+                AnswerState.FAILED -> Icons.Rounded.Error
+                AnswerState.NONE -> Icons.Rounded.Cancel
+            }
+        },
+        questHint = stringResource(id = R.string.enter_code_correct_answer),
+        manualAnswer = manualAnswer,
+        trueAnswer = quest.trueAnswer,
+        isErrorSupportingText = quest.answerState == AnswerState.FAILED,
+        isFieldEnabled = quest.isFieldEnabled,
+        onAnswerHandler = onAnswerHandler,
+        onAnswerTextChanged = onAnswerTextChanged,
+    )
+}
+
+@Composable
+fun EnterQuestContentInternal(
+    quest: String,
+    isNumberKeyboard: Boolean,
+    trailingIcon: ImageVector,
+    manualAnswer: String,
+    trueAnswer: String,
+    questHint: String,
+    isErrorSupportingText: Boolean,
+    isFieldEnabled: Boolean,
+    onAnswerHandler: () -> Unit,
+    onAnswerTextChanged: (String) -> Unit,
+) {
     val focusRequester = remember {
         FocusRequester()
     }
@@ -70,7 +102,7 @@ fun EnterQuestContent(
             .padding(horizontal = 16.dp)
 
         Text(
-            text = quest.quest,
+            text = quest,
             modifier = controlModifier,
             color = MaterialTheme.colorScheme.onBackground,
             style = MaterialTheme.typography.titleLarge,
@@ -78,7 +110,7 @@ fun EnterQuestContent(
 
         HorizontalDivider(modifier = Modifier.padding(vertical = 16.dp))
 
-        val keyboardType = if (quest.isNumberKeyboard) {
+        val keyboardType = if (isNumberKeyboard) {
             KeyboardType.Number
         } else {
             KeyboardType.Text
@@ -88,7 +120,7 @@ fun EnterQuestContent(
             value = manualAnswer,
             onValueChange = onAnswerTextChanged,
             label = {
-                Text(text = stringResource(id = R.string.enter_code_correct_answer))
+                Text(text = questHint)
             },
             keyboardOptions = KeyboardOptions(
                 keyboardType = keyboardType,
@@ -106,25 +138,17 @@ fun EnterQuestContent(
                         onAnswerTextChanged(CLEAR_TEXT_VALUE)
                     }
                 ) {
-                    val icon = when (quest.answerState) {
-                        AnswerState.SUCCESS -> Icons.Rounded.Done
-                        AnswerState.FAILED -> Icons.Rounded.Error
-                        AnswerState.NONE -> Icons.Rounded.Cancel
-                    }
                     Icon(
-                        imageVector = icon,
+                        imageVector = trailingIcon,
                         contentDescription = null,
                     )
                 }
             },
-            isError = when (quest.answerState) {
-                AnswerState.SUCCESS, AnswerState.NONE -> false
-                AnswerState.FAILED -> true
-            },
+            isError = isErrorSupportingText,
             supportingText = {
-                Text(text = quest.trueAnswer)
+                Text(text = trueAnswer)
             },
-            readOnly = !quest.isFieldEnabled,
+            readOnly = !isFieldEnabled,
         )
 
         Spacer(

@@ -33,3 +33,13 @@ inline fun <R> runCatch(
 } finally {
     finally()
 }
+
+inline fun <T, R> T.result(block: T.() -> R): Result<R> {
+    return try {
+        Result.success(block())
+    } catch (throwable: CancellationException) {
+        throw throwable
+    } catch (throwable: Throwable) {
+        Result.failure(throwable)
+    }
+}

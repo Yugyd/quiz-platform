@@ -2,6 +2,7 @@ package com.yugyd.quiz.domain.game.quest
 
 import com.yugyd.quiz.domain.game.api.BaseQuestDomainModel
 import com.yugyd.quiz.domain.game.api.QuestInteractor
+import com.yugyd.quiz.domain.game.api.TrueAnswerResultModel
 import com.yugyd.quiz.domain.game.api.UnknownQuestInteractor
 import com.yugyd.quiz.domain.game.api.model.HighlightModel
 import com.yugyd.quiz.domain.game.api.model.Quest
@@ -17,12 +18,16 @@ class QuestInteractorHolder @Inject constructor(
 
     override fun isQuestHandled(quest: BaseQuestDomainModel) = true
 
-    override fun isTrueAnswer(
+    override suspend fun isTrueAnswer(
         quest: BaseQuestDomainModel,
-        index: Int,
-        userAnswer: String
-    ): Boolean {
-        return getQuestInteractor(quest).isTrueAnswer(quest, index, userAnswer)
+        selectedUserAnswers: Set<String>,
+        enteredUserAnswer: String
+    ): TrueAnswerResultModel {
+        return getQuestInteractor(quest).isTrueAnswer(
+            quest = quest,
+            selectedUserAnswers = selectedUserAnswers,
+            enteredUserAnswer = enteredUserAnswer,
+        )
     }
 
     override fun getQuestModel(quest: Quest): BaseQuestDomainModel {
@@ -31,10 +36,14 @@ class QuestInteractorHolder @Inject constructor(
 
     override fun getHighlightModel(
         quest: BaseQuestDomainModel,
-        index: Int,
+        selectedUserAnswers: Set<String>,
         isSuccess: Boolean
     ): HighlightModel {
-        return getQuestInteractor(quest).getHighlightModel(quest, index, isSuccess)
+        return getQuestInteractor(quest).getHighlightModel(
+            quest = quest,
+            selectedUserAnswers = selectedUserAnswers,
+            isSuccess = isSuccess,
+        )
     }
 
     private fun getQuestInteractor(quest: Quest): QuestInteractor {

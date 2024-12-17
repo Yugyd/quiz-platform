@@ -6,6 +6,7 @@ import com.yugyd.quiz.ui.game.api.GameViewModelDelegate.GameViewModelDelegateArg
 import com.yugyd.quiz.ui.game.api.UnknownGameViewModelDelegate
 import com.yugyd.quiz.ui.game.api.model.BaseQuestUiModel
 import com.yugyd.quiz.ui.game.api.model.HighlightUiModel
+import com.yugyd.quiz.ui.game.api.model.ProcessAnswerResultModel
 import javax.inject.Inject
 
 class GameViewModelDelegateHolder @Inject constructor(
@@ -17,13 +18,40 @@ class GameViewModelDelegateHolder @Inject constructor(
         return getDelegate(domainQuest).isTypeHandled(domainQuest)
     }
 
-    override fun getNewQuestState(
+    override fun getUserAnswers(
         domainQuest: BaseQuestDomainModel,
+        quest: BaseQuestUiModel,
+    ): Set<String> {
+        return getDelegate(domainQuest).getUserAnswers(domainQuest, quest)
+    }
+
+    override fun processUserAnswer(
+        domainQuest: BaseQuestDomainModel,
+        quest: BaseQuestUiModel,
+        userAnswer: String,
+        isSelected: Boolean
+    ): ProcessAnswerResultModel {
+        return getDelegate(domainQuest).processUserAnswer(
+            domainQuest = domainQuest,
+            quest = quest,
+            userAnswer = userAnswer,
+            isSelected = isSelected,
+        )
+    }
+
+    override fun getQuestUiModel(domainQuest: BaseQuestDomainModel): BaseQuestUiModel {
+        return getDelegate(domainQuest).getQuestUiModel(domainQuest = domainQuest)
+    }
+
+    override fun updateQuestUiModel(
+        domainQuest: BaseQuestDomainModel,
+        quest: BaseQuestUiModel,
         highlight: HighlightUiModel,
         args: GameViewModelDelegateArgs?
     ): BaseQuestUiModel {
-        return getDelegate(domainQuest).getNewQuestState(
+        return getDelegate(domainQuest).updateQuestUiModel(
             domainQuest = domainQuest,
+            quest = quest,
             highlight = highlight,
             args = args,
         )
@@ -34,7 +62,11 @@ class GameViewModelDelegateHolder @Inject constructor(
         userAnswer: String,
         answerButtonIsEnabled: Boolean
     ): GameViewModelDelegateArgs? {
-        return getDelegate(domainQuest).getArgs(domainQuest, userAnswer, answerButtonIsEnabled)
+        return getDelegate(domainQuest).getArgs(
+            domainQuest = domainQuest,
+            userAnswer = userAnswer,
+            answerButtonIsEnabled = answerButtonIsEnabled,
+        )
     }
 
     private fun getDelegate(domainQuest: BaseQuestDomainModel): GameViewModelDelegate {

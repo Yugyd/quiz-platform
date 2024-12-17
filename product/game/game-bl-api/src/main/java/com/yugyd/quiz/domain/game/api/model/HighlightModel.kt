@@ -18,8 +18,8 @@ package com.yugyd.quiz.domain.game.api.model
 
 data class HighlightModel(
     val state: State = State.NONE,
-    val trueAnswerIndex: Int = -1,
-    val selectedAnswerIndex: Int = -1
+    val trueAnswerIndexes: Set<Int> = setOf(-1),
+    val selectedAnswerIndex: Set<Int> = setOf(-1),
 ) {
 
     enum class State {

@@ -19,6 +19,7 @@ package com.yugyd.quiz.domain.game.api.model
 data class Quest(
     val id: Int = 0,
     val quest: String = "",
+    val image: String? = null,
     val trueAnswer: String = "",
     val answer2: String = "",
     val answer3: String = "",

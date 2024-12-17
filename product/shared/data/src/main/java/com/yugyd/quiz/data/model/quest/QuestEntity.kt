@@ -24,6 +24,7 @@ import androidx.room.PrimaryKey
 data class QuestEntity(
     @PrimaryKey @ColumnInfo(name = "_id") val id: Int,
     @ColumnInfo(name = "quest") val quest: String,
+    @ColumnInfo(name = "image") val image: String?,
     @ColumnInfo(name = "true_answer") val trueAnswer: String,
     @ColumnInfo(name = "answer2") val answer2: String?,
     @ColumnInfo(name = "answer3") val answer3: String?,
@@ -38,5 +39,5 @@ data class QuestEntity(
     @ColumnInfo(
         name = "type",
         defaultValue = QuestTypeEntityConstants.SIMPLE_TYPE_DATABASE_VALUE,
-    ) val type: String,
+    ) val type: QuestTypeEntity,
 )

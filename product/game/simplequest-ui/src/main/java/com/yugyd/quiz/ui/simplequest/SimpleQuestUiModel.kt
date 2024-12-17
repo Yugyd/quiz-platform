@@ -18,13 +18,16 @@ package com.yugyd.quiz.ui.simplequest
 
 import com.yugyd.quiz.ui.game.api.model.BaseQuestUiModel
 import com.yugyd.quiz.ui.game.api.model.HighlightUiModel
+import com.yugyd.quiz.ui.game.api.model.QuestUiType
+import com.yugyd.quiz.ui.game.api.model.QuestValueUiModel
 
-class SimpleQuestUiModel(
-    override val quest: String,
-    val oneAnswer: String,
-    val twoAnswer: String,
-    val threeAnswer: String,
-    val fourAnswer: String,
+data class SimpleQuestUiModel(
+    override val questModel: QuestValueUiModel,
+    val answers: List<String>,
     val answerButtonIsEnabled: Boolean,
+    val selectedAnswer: String?,
     val highlight: HighlightUiModel,
-) : BaseQuestUiModel
+) : BaseQuestUiModel(
+    questModel = questModel,
+    type = QuestUiType.SIMPLE,
+)

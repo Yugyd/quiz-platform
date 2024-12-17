@@ -21,5 +21,6 @@ import com.yugyd.quiz.domain.game.api.BaseQuestDomainModel
 data class EnterQuestModel(
     override val id: Int,
     override val quest: String,
-    override val trueAnswer: String,
+    override val image: String? = null,
+    override val trueAnswers: Set<String>,
 ) : BaseQuestDomainModel

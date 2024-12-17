@@ -18,13 +18,15 @@ package com.yugyd.quiz.data.database.content
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import com.yugyd.quiz.data.database.content.converters.QuestTypeEntityConverter
 import com.yugyd.quiz.data.database.content.dao.ContentResetDao
 import com.yugyd.quiz.data.database.content.dao.QuestDao
 import com.yugyd.quiz.data.database.content.dao.ThemeDao
-import com.yugyd.quiz.data.model.quest.QuestEntity
 import com.yugyd.quiz.data.model.ThemeEntity
+import com.yugyd.quiz.data.model.quest.QuestEntity
 
-private const val CONTENT_DB_VERSION = 6
+private const val CONTENT_DB_VERSION = 7
 
 @Database(
     entities = [
@@ -34,6 +36,7 @@ private const val CONTENT_DB_VERSION = 6
     version = CONTENT_DB_VERSION,
     exportSchema = true,
 )
+@TypeConverters(QuestTypeEntityConverter::class)
 internal abstract class ContentDatabase : RoomDatabase() {
     abstract fun themeDao(): ThemeDao
     abstract fun questDao(): QuestDao

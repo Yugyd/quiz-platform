@@ -17,16 +17,16 @@
 package com.yugyd.quiz.ui.enterquest
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
+import com.yugyd.quiz.ui.game.api.model.QuestValueUiModel
 
 internal class EnterQuestPreviewParameterProvider : PreviewParameterProvider<EnterQuestUiModel> {
 
     override val values: Sequence<EnterQuestUiModel> = sequenceOf(createQuest())
 
     private fun createQuest() = EnterQuestUiModel(
-        quest = "Quest",
+        questModel = QuestValueUiModel("Quest"),
         userAnswer = "User answer",
         isNumberKeyboard = true,
-        isButtonEnabled = true,
         answerState = EnterQuestUiModel.AnswerState.FAILED,
         trueAnswer = "True answer",
         isFieldEnabled = false,

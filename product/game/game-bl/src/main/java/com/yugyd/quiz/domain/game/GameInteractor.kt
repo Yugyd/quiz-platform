@@ -23,16 +23,21 @@ import com.yugyd.quiz.domain.game.api.model.HighlightModel
 import com.yugyd.quiz.domain.game.model.GameState
 
 interface GameInteractor {
+
     suspend fun startGame(payload: GamePayload): GameState
+
     suspend fun continueGame(): GameState
+
     suspend fun resultAnswer(
         quest: BaseQuestDomainModel,
-        index: Int,
+        selectedUserAnswers: Set<String>,
         userAnswer: String,
     ): HighlightModel
 
     suspend fun finishGame(): GameEndPayload
+
     suspend fun firstFinishGame()
+
     suspend fun onUserEarnedReward()
 }
 

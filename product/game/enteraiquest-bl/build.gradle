@@ -1,0 +1,20 @@
+plugins {
+    alias(libs.plugins.convention.library)
+    alias(libs.plugins.convention.library.buildtype)
+    alias(libs.plugins.convention.library.lint)
+    alias(libs.plugins.convention.hilt)
+}
+
+android {
+    namespace 'com.yugyd.quiz.domain.enterai'
+}
+
+dependencies {
+    implementation project(":product:core")
+    implementation project(":product:core:coroutines-utils")
+    implementation project(':product:game:game-bl-api')
+    implementation project(':product:ai:questai-bl')
+
+    // Kotlin
+    implementation libs.kotlinx.coroutines.core
+}

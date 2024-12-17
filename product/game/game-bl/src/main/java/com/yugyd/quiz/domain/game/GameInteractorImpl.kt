@@ -34,6 +34,7 @@ import com.yugyd.quiz.domain.controller.RecordController
 import com.yugyd.quiz.domain.controller.SectionController
 import com.yugyd.quiz.domain.favorites.FavoritesSource
 import com.yugyd.quiz.domain.game.api.BaseQuestDomainModel
+import com.yugyd.quiz.domain.game.api.TrueAnswerResultModel
 import com.yugyd.quiz.domain.game.api.model.HighlightModel
 import com.yugyd.quiz.domain.game.api.model.Quest
 import com.yugyd.quiz.domain.game.exception.FinishGameException
@@ -131,30 +132,41 @@ internal class GameInteractorImpl @Inject constructor(
 
     override suspend fun resultAnswer(
         quest: BaseQuestDomainModel,
-        index: Int,
+        selectedUserAnswers: Set<String>,
         userAnswer: String,
     ) = withContext(dispatcherProvider.io) {
-        if (
-            isTrueAnswer(
-                quest = quest,
-                index = index,
-                userAnswer = userAnswer,
-            )
-        ) {
+        val trueAnswerResult = isTrueAnswer(
+            quest = quest,
+            selectedUserAnswers = selectedUserAnswers,
+            userAnswer = userAnswer,
+        )
+        if (trueAnswerResult.isValid) {
             addRightQuest(gameMode, quest.id)
             incrementPoint()
             addSectionQuest(gameMode, quest.id)
             addTrainQuest(gameMode, quest.id)
-            getHighlightModel(quest, index, true)
+            getHighlightModel(quest, selectedUserAnswers, true)
         } else {
             addErrorQuest(gameMode, quest.id)
             decrementCondition(gameMode)
-            getHighlightModel(quest, index, false)
+            getHighlightModel(
+                quest = quest,
+                selectedUserAnswers = selectedUserAnswers,
+                isSuccess = false,
+            )
         }
     }
 
-    private fun isTrueAnswer(quest: BaseQuestDomainModel, index: Int, userAnswer: String): Boolean {
-        return interactorHolder.isTrueAnswer(quest, index, userAnswer)
+    private suspend fun isTrueAnswer(
+        quest: BaseQuestDomainModel,
+        selectedUserAnswers: Set<String>,
+        userAnswer: String,
+    ): TrueAnswerResultModel {
+        return interactorHolder.isTrueAnswer(
+            quest = quest,
+            selectedUserAnswers = selectedUserAnswers,
+            enteredUserAnswer = userAnswer,
+        )
     }
 
     override suspend fun finishGame() = withContext(dispatcherProvider.io) {
@@ -198,18 +210,31 @@ internal class GameInteractorImpl @Inject constructor(
         }
 
     private suspend fun getQuestIdsByTheme(theme: Int, isSort: Boolean) =
-        questSource.getQuestIds(theme, isSort)
+        questSource.getQuestIds(
+            themeId = theme,
+            isSort = isSort,
+        )
 
     private suspend fun getQuestIdsBySection(theme: Int, section: Int, isSort: Boolean) =
-        questSource.getQuestIdsBySection(theme, section, isSort)
+        questSource.getQuestIdsBySection(
+            themeId = theme,
+            sectionId = section,
+            isSort = isSort,
+        )
 
     private suspend fun getQuestIdsByTrainMode(theme: Int, isSort: Boolean) = trainSource
         .getAll()
         .let { trainIds ->
             if (trainIds.isNotEmpty()) {
-                getQuestIdsByTheme(theme, isSort).filterNot(trainIds::contains)
+                getQuestIdsByTheme(
+                    theme = theme,
+                    isSort = isSort,
+                ).filterNot(trainIds::contains)
             } else {
-                getQuestIdsByTheme(theme, isSort)
+                getQuestIdsByTheme(
+                    theme = theme,
+                    isSort = isSort,
+                )
             }
         }
 
@@ -286,10 +311,14 @@ internal class GameInteractorImpl @Inject constructor(
 
     private fun getHighlightModel(
         quest: BaseQuestDomainModel,
-        index: Int,
+        selectedUserAnswers: Set<String>,
         isSuccess: Boolean,
     ): HighlightModel {
-        return interactorHolder.getHighlightModel(quest, index, isSuccess)
+        return interactorHolder.getHighlightModel(
+            quest = quest,
+            selectedUserAnswers = selectedUserAnswers,
+            isSuccess = isSuccess,
+        )
     }
 
     private fun getFinishError(): Nothing {
@@ -326,7 +355,10 @@ internal class GameInteractorImpl @Inject constructor(
     }
 
     private suspend fun saveSectionData() {
-        val resetIds = questSource.getQuestIdsBySection(themeId, sectionId)
+        val resetIds = questSource.getQuestIdsBySection(
+            themeId = themeId,
+            sectionId = sectionId,
+        )
         sectionSource.deleteSectionIds(resetIds)
         sectionSource.updateSectionIds(sectionIds.toList())
     }

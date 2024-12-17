@@ -1,0 +1,34 @@
+plugins {
+    alias(libs.plugins.convention.library)
+    alias(libs.plugins.convention.library.buildtype)
+    alias(libs.plugins.convention.library.compose)
+    alias(libs.plugins.convention.library.lint)
+    alias(libs.plugins.convention.hilt)
+}
+
+android {
+    namespace 'com.yugyd.quiz.ui.enteraiquest'
+}
+
+dependencies {
+    // Module
+    implementation project(':product:core:common-ui')
+    implementation project(':product:designsystem:uikit')
+    implementation project(':product:core:navigation')
+    implementation project(':product:core')
+    implementation project(':product:shared:domain-api')
+    implementation project(':product:game:game-ui-api')
+    implementation project(':product:game:game-bl-api')
+    implementation project(':product:game:enteraiquest-bl')
+    implementation project(':product:game:enterquest-ui')
+
+    // UI - Compose
+    implementation libs.compose.material3
+    implementation libs.compose.material.icons
+
+    // DI
+    implementation(libs.javax.inject)
+
+    // UI - Android X
+    implementation libs.core.ktx
+}

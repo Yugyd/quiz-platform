@@ -18,24 +18,24 @@ package com.yugyd.quiz.ui.enterquest
 
 import androidx.core.text.isDigitsOnly
 import com.yugyd.quiz.domain.enterquest.EnterQuestModel
-import com.yugyd.quiz.ui.enterquest.EnterQuestUiMapper.EnterCodeArgs
+import com.yugyd.quiz.ui.enterquest.EnterQuestUiMapper.EnterArgs
 import com.yugyd.quiz.ui.game.api.mapper.BaseQuestUiMapper
 import com.yugyd.quiz.ui.game.api.mapper.UiMapperArgs
 import com.yugyd.quiz.ui.game.api.model.HighlightUiModel
+import com.yugyd.quiz.ui.game.api.model.QuestValueUiModel
 import javax.inject.Inject
 
 class EnterQuestUiMapper @Inject constructor() :
-    BaseQuestUiMapper<EnterQuestModel, EnterQuestUiModel, EnterCodeArgs> {
+    BaseQuestUiMapper<EnterQuestModel, EnterQuestUiModel, EnterArgs> {
 
-    override fun map(model: EnterQuestModel, args: EnterCodeArgs): EnterQuestUiModel {
-        val isNumberKeyboard = model.trueAnswer.isDigitsOnly()
+    override fun map(model: EnterQuestModel, args: EnterArgs): EnterQuestUiModel {
+        val isNumberKeyboard = model.trueAnswers.first().isDigitsOnly()
 
         return EnterQuestUiModel(
-            quest = model.quest,
+            questModel = QuestValueUiModel(model.quest),
             userAnswer = args.userAnswer,
             isNumberKeyboard = isNumberKeyboard,
             isFieldEnabled = args.highlightModel == HighlightUiModel.Default,
-            isButtonEnabled = args.userAnswer.isEmpty(),
             answerState = when (args.highlightModel) {
                 HighlightUiModel.Default -> EnterQuestUiModel.AnswerState.NONE
                 is HighlightUiModel.False -> EnterQuestUiModel.AnswerState.FAILED
@@ -43,12 +43,12 @@ class EnterQuestUiMapper @Inject constructor() :
             },
             trueAnswer = when (args.highlightModel) {
                 HighlightUiModel.Default, is HighlightUiModel.True -> ""
-                is HighlightUiModel.False -> model.trueAnswer
+                is HighlightUiModel.False -> model.trueAnswers.first()
             },
         )
     }
 
-    data class EnterCodeArgs(
+    data class EnterArgs(
         val userAnswer: String,
         val highlightModel: HighlightUiModel,
     ) : UiMapperArgs

@@ -30,6 +30,7 @@ class QuestEntityMapper @Inject constructor(private val cryptoHelper: CryptoHelp
         Quest(
             id = id,
             quest = cryptoHelper.decrypt(quest),
+            image = image,
             trueAnswer = cryptoHelper.decrypt(trueAnswer),
             answer2 = cryptoHelper.decrypt(answer2),
             answer3 = cryptoHelper.decrypt(answer3),
@@ -49,6 +50,7 @@ class QuestEntityMapper @Inject constructor(private val cryptoHelper: CryptoHelp
         QuestEntity(
             id = id,
             quest = cryptoHelper.encrypt(quest),
+            image = image,
             trueAnswer = cryptoHelper.encrypt(trueAnswer),
             answer2 = cryptoHelper.encrypt(answer2),
             answer3 = cryptoHelper.encrypt(answer3),
@@ -64,15 +66,24 @@ class QuestEntityMapper @Inject constructor(private val cryptoHelper: CryptoHelp
         )
     }
 
-    private fun getQuestType(value: String) = when (value) {
-        QuestTypeEntity.SIMPLE.databaseValue -> QuestType.SIMPLE
-        QuestTypeEntity.ENTER_CODE.databaseValue -> QuestType.ENTER_CODE
-        else -> throw QuestTypeException("Unknown quest type: $value")
+    private fun getQuestType(value: QuestTypeEntity) = when (value) {
+        QuestTypeEntity.SIMPLE -> QuestType.SIMPLE
+        QuestTypeEntity.ENTER -> QuestType.ENTER
+        QuestTypeEntity.ENTER_WITH_HINT -> QuestType.ENTER_WITH_HINT
+        QuestTypeEntity.SELECT_MANUAL -> QuestType.SELECT_MANUAL
+        QuestTypeEntity.SELECT -> QuestType.SELECT
+        QuestTypeEntity.ENTER_AI -> QuestType.ENTER_AI
+        QuestTypeEntity.SELECT_BOOL -> QuestType.SELECT_BOOL
+        QuestTypeEntity.NONE -> throw QuestTypeException("Unknown quest type: $value")
     }
 
     private fun getQuestEntityValue(type: QuestType) = when (type) {
-        QuestType.SIMPLE -> QuestTypeEntity.SIMPLE.databaseValue
-        QuestType.ENTER_CODE -> QuestTypeEntity.ENTER_CODE.databaseValue
-        else -> throw QuestTypeException("Unknown quest type: $type")
+        QuestType.SIMPLE -> QuestTypeEntity.SIMPLE
+        QuestType.ENTER -> QuestTypeEntity.ENTER
+        QuestType.ENTER_WITH_HINT -> QuestTypeEntity.ENTER_WITH_HINT
+        QuestType.SELECT_MANUAL -> QuestTypeEntity.SELECT_MANUAL
+        QuestType.SELECT -> QuestTypeEntity.SELECT
+        QuestType.ENTER_AI -> QuestTypeEntity.ENTER_AI
+        QuestType.SELECT_BOOL -> QuestTypeEntity.SELECT_BOOL
     }
 }

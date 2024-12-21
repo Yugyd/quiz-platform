@@ -26,6 +26,7 @@ dependencies {
     implementation project(':product:game:selectmanualquest-bl')
     implementation project(':product:game:selectquest-bl')
     implementation project(':product:game:enteraiquest-bl')
+    implementation project(':product:ai:ai-tasks-bl')
 
     // Kotlin
     implementation libs.kotlinx.coroutines.android

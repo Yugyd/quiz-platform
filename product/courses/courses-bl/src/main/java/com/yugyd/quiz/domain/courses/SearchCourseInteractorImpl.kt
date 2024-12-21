@@ -17,13 +17,13 @@
 package com.yugyd.quiz.domain.courses
 
 import com.yugyd.quiz.core.coroutinesutils.DispatchersProvider
-import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
+import javax.inject.Singleton
 
-@ViewModelScoped
+@Singleton
 internal class SearchCourseInteractorImpl @Inject constructor(
     private val courseInteractor: CourseInteractor,
     private val searchCourseLocalSource: SearchCourseLocalSource,

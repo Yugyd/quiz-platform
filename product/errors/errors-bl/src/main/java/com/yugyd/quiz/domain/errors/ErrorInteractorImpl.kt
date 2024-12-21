@@ -20,6 +20,7 @@ import com.yugyd.quiz.core.coroutinesutils.DispatchersProvider
 import com.yugyd.quiz.core.searchutils.QueryFormatRepository
 import com.yugyd.quiz.core.searchutils.QueryUrlBuilder
 import com.yugyd.quiz.core.searchutils.SearchQuest
+import com.yugyd.quiz.domain.aitasks.AiTasksInteractor
 import com.yugyd.quiz.domain.api.model.tasks.TaskModel
 import com.yugyd.quiz.domain.api.repository.ErrorSource
 import com.yugyd.quiz.domain.api.repository.QuestSource
@@ -35,11 +36,23 @@ internal class ErrorInteractorImpl @Inject constructor(
     private val dispatcherProvider: DispatchersProvider,
     private val queryUrlBuilder: QueryUrlBuilder,
     private val queryFormatRepository: QueryFormatRepository,
+    private val aiTasksInteractor: AiTasksInteractor,
 ) : ErrorInteractor {
 
     override suspend fun getErrorsModels(errors: List<Int>) = withContext(dispatcherProvider.io) {
         val queryFormat = queryFormatRepository.getFormatFromRemoteConfig()
         val errorsModels = questSource.getQuestIdsByErrors(errors.toIntArray())
+        mapQuests(errorsModels, queryFormat)
+    }
+
+    override suspend fun getErrorModelsFromAiTasks(
+        themeId: Int,
+        errors: List<Int>,
+    ) = withContext(dispatcherProvider.io) {
+        val queryFormat = queryFormatRepository.getFormatFromRemoteConfig()
+        val errorsModels = aiTasksInteractor
+            .getQuests(aiThemeId = themeId)
+            .filter { it.id in errors }
         mapQuests(errorsModels, queryFormat)
     }
 

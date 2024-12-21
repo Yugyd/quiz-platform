@@ -47,11 +47,27 @@ internal class ProfileUiMapper @Inject constructor(
         isContentFeatureEnabled: Boolean,
         telegramConfig: TelegramConfig?,
         contentTitle: String?,
+        currentAiTitle: String?,
         isBasedOnPlatformApp: Boolean,
+        isAiEnabled: Boolean,
+        isAiFeatureEnabled: Boolean,
     ) = listOfNotNull(
         header(content, isProFeatureEnabled),
         item(TypeProfile.TASKS, R.string.profile_tasks),
-        mapContentToValueItem(contentTitle, isContentFeatureEnabled),
+        mapContentToValueItem(
+            contentTitle = contentTitle,
+            isContentEnabled = isContentFeatureEnabled,
+        ),
+        section(
+            type = TypeProfile.AI_SECTION,
+            titleRes = R.string.profile_title_section_ai,
+            isSectionEnabled = isAiFeatureEnabled,
+        ),
+        mapAiToValueItem(
+            aiName = currentAiTitle,
+            isAiEnabled = isAiEnabled,
+            isAiFeatureEnabled = isAiFeatureEnabled,
+        ),
         section(
             type = TypeProfile.SOCIAL_SECTION,
             titleRes = R.string.title_social,
@@ -86,6 +102,28 @@ internal class ProfileUiMapper @Inject constructor(
                 TypeProfile.SELECT_CONTENT,
                 R.string.profile_title_content,
                 contentTitle ?: context.getString(R.string.profile_title_content_not_selected),
+            )
+        } else {
+            null
+        }
+    }
+
+    fun mapAiToValueItem(
+        aiName: String?,
+        isAiEnabled: Boolean,
+        isAiFeatureEnabled: Boolean,
+    ): ValueItemProfileUiModel? {
+        return if (isAiFeatureEnabled) {
+            val aiValueName = when {
+                isAiEnabled && aiName != null -> aiName
+                isAiEnabled -> context.getString(R.string.profile_title_ai_not_connected)
+                else -> context.getString(R.string.profile_title_ai_off)
+            }
+
+            value(
+                type = TypeProfile.AI_CONNECTION,
+                titleRes = R.string.profile_title_ai,
+                value = aiValueName,
             )
         } else {
             null

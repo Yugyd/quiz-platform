@@ -22,4 +22,5 @@ data class TaskModel(
     val trueAnswer: String = "",
     val queryLink: String = "",
     val isFavorite: Boolean = false,
+    val isFavoriteEnabled: Boolean = true,
 )

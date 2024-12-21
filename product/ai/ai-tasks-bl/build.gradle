@@ -1,0 +1,27 @@
+plugins {
+    alias(libs.plugins.convention.library)
+    alias(libs.plugins.convention.library.buildtype)
+    alias(libs.plugins.convention.library.jacoco)
+    alias(libs.plugins.convention.library.lint)
+    alias(libs.plugins.convention.library.test)
+    alias(libs.plugins.convention.hilt)
+}
+
+android {
+    namespace 'com.yugyd.quiz.domain.tasks'
+}
+
+dependencies {
+    // Modules
+    implementation project(':product:core')
+    implementation project(":product:core:coroutines-utils")
+    implementation project(':product:shared:domain-api')
+    implementation project(':product:shared:domain-utils')
+    implementation project(':product:services:remoteconfig-api')
+    implementation project(':product:game:game-bl-api')
+    implementation project(':product:core:search-utils')
+    implementation project(':product:ai:ai-quiz-bl')
+
+    // Kotlin
+    implementation libs.kotlinx.coroutines.android
+}

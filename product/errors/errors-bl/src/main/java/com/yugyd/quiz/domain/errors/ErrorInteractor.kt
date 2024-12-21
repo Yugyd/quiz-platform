@@ -20,6 +20,7 @@ import com.yugyd.quiz.domain.api.model.tasks.TaskModel
 
 interface ErrorInteractor {
     suspend fun getErrorsModels(errors: List<Int>): List<TaskModel>
+    suspend fun getErrorModelsFromAiTasks(themeId: Int, errors: List<Int>): List<TaskModel>
     suspend fun getErrors(): List<Int>
     suspend fun isHaveErrors(): Boolean
     suspend fun addErrors(errors: List<Int>)

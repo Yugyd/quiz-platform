@@ -18,6 +18,7 @@ dependencies {
     implementation project(':product:shared:domain-api')
     implementation project(':product:shared:domain-utils')
     implementation project(':product:game:game-bl-api')
+    implementation project(':product:ai:ai-tasks-bl')
 
     // Kotlin
     implementation libs.kotlinx.coroutines.android

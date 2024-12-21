@@ -16,12 +16,14 @@
 
 package com.yugyd.quiz.ui.profile
 
+import com.yugyd.quiz.ai.connection.api.model.AiConnectionModel
 import com.yugyd.quiz.commonui.base.BaseViewModel
 import com.yugyd.quiz.core.ContentProvider
 import com.yugyd.quiz.core.GlobalConfig
 import com.yugyd.quiz.core.Logger
 import com.yugyd.quiz.core.coroutinesutils.DispatchersProvider
 import com.yugyd.quiz.core.runCatch
+import com.yugyd.quiz.domain.aiconnection.AiConnectionInteractor
 import com.yugyd.quiz.domain.api.repository.ContentSource
 import com.yugyd.quiz.domain.content.ContentInteractor
 import com.yugyd.quiz.domain.content.api.ContentModel
@@ -37,7 +39,8 @@ import com.yugyd.quiz.ui.profile.ProfileView.State.NavigationState
 import com.yugyd.quiz.ui.profile.model.ProfileUiMapper
 import com.yugyd.quiz.ui.profile.model.ProfileUiModel
 import com.yugyd.quiz.ui.profile.model.SwitchItemProfileUiModel
-import com.yugyd.quiz.ui.profile.model.TypeProfile
+import com.yugyd.quiz.ui.profile.model.TypeProfile.AI_CONNECTION
+import com.yugyd.quiz.ui.profile.model.TypeProfile.AI_SECTION
 import com.yugyd.quiz.ui.profile.model.TypeProfile.FEEDBACK_SECTION
 import com.yugyd.quiz.ui.profile.model.TypeProfile.NONE
 import com.yugyd.quiz.ui.profile.model.TypeProfile.OPEN_SOURCE
@@ -54,6 +57,7 @@ import com.yugyd.quiz.ui.profile.model.TypeProfile.SETTINGS_SECTION
 import com.yugyd.quiz.ui.profile.model.TypeProfile.SHARE
 import com.yugyd.quiz.ui.profile.model.TypeProfile.SOCIAL_SECTION
 import com.yugyd.quiz.ui.profile.model.TypeProfile.SORT_QUEST
+import com.yugyd.quiz.ui.profile.model.TypeProfile.TASKS
 import com.yugyd.quiz.ui.profile.model.TypeProfile.TELEGRAM_SOCIAL
 import com.yugyd.quiz.ui.profile.model.TypeProfile.TRANSITION
 import com.yugyd.quiz.ui.profile.model.TypeProfile.VIBRATION
@@ -61,6 +65,8 @@ import com.yugyd.quiz.ui.profile.model.ValueItemProfileUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -74,6 +80,7 @@ internal class ProfileViewModel @Inject constructor(
     private val remoteConfigRepository: RemoteConfigRepository,
     private val contentProvider: ContentProvider,
     private val contentInteractor: ContentInteractor,
+    private val aiConnectionInteractor: AiConnectionInteractor,
     logger: Logger,
     dispatchersProvider: DispatchersProvider,
 ) :
@@ -92,6 +99,8 @@ internal class ProfileViewModel @Inject constructor(
         initData()
 
         loadContent()
+
+        loadAiConnection()
     }
 
     private fun loadContent() {
@@ -123,6 +132,45 @@ internal class ProfileViewModel @Inject constructor(
             }
         }
         screenState = screenState.copy(items = newItems)
+    }
+
+    private fun loadAiConnection() {
+        vmScopeErrorHandled.launch {
+            aiConnectionInteractor
+                .subscribeCurrentAiConnection()
+                .combine(aiConnectionInteractor.subscribeToAiEnabled()) { aiConnection, isAiEnabled ->
+                    LoadAiConnectionResult(
+                        currentAiConnection = aiConnection,
+                        isAiEnabled = isAiEnabled,
+                    )
+                }
+                .catch {
+                    processError(it)
+                }
+                .collect {
+                    processAiConnection(it)
+                }
+        }
+    }
+
+    private fun processAiConnection(loadAiConnectionResult: LoadAiConnectionResult) {
+        val newItems = screenState.items.mapNotNull {
+            if (
+                it.type == AI_CONNECTION &&
+                it is ValueItemProfileUiModel
+            ) {
+                profileUiMapper.mapAiToValueItem(
+                    aiName = loadAiConnectionResult.currentAiConnection?.name,
+                    isAiFeatureEnabled = screenState.isAiFeatureEnabled,
+                    isAiEnabled = loadAiConnectionResult.isAiEnabled,
+                )
+            } else {
+                it
+            }
+        }
+        screenState = screenState.copy(
+            items = newItems,
+        )
     }
 
     override fun onCleared() {
@@ -204,10 +252,20 @@ internal class ProfileViewModel @Inject constructor(
 
         SORT_QUEST, VIBRATION, OPEN_SOURCE -> Unit
 
-        SETTINGS_SECTION, PURCHASES_SECTION, PLEASE_US_SECTION, FEEDBACK_SECTION, SOCIAL_SECTION, NONE -> Unit
+        SETTINGS_SECTION,
+        PURCHASES_SECTION,
+        PLEASE_US_SECTION,
+        FEEDBACK_SECTION,
+        SOCIAL_SECTION,
+        AI_SECTION,
+        NONE -> Unit
 
-        TypeProfile.TASKS -> {
+        TASKS -> {
             navigateToScreen(NavigationState.NavigateToTasks)
+        }
+
+        AI_CONNECTION -> {
+            navigateToScreen(NavigationState.NavigateToAiSettings)
         }
     }
 
@@ -234,18 +292,31 @@ internal class ProfileViewModel @Inject constructor(
         vmScopeErrorHandled.launch {
             runCatch(
                 block = {
+                    val isAiFeatureEnabled = featureManager.isFeatureEnabled(FeatureToggle.AI)
                     val isProEnabled = featureManager.isFeatureEnabled(FeatureToggle.PRO)
                     val isTelegramEnabled = featureManager.isFeatureEnabled(FeatureToggle.TELEGRAM)
                     val telegramConfig = remoteConfigRepository.fetchTelegramConfig()
                     val contentTitle = contentInteractor.getSelectedContent()?.name
                     val isBasedOnPlatformApp = GlobalConfig.IS_BASED_ON_PLATFORM_APP
+                    val aiConnection = aiConnectionInteractor
+                        .subscribeCurrentAiConnection()
+                        .firstOrNull()
+                    val isAiEnabled = aiConnectionInteractor
+                        .subscribeToAiEnabled()
+                        .firstOrNull() ?: false
+                    val aiConnectionResult = LoadAiConnectionResult(
+                        currentAiConnection = aiConnection,
+                        isAiEnabled = isAiEnabled,
+                    )
 
                     processState(
+                        isAiFeatureEnabled = isAiFeatureEnabled,
                         isProEnabled = isProEnabled,
                         isTelegramEnabled = isTelegramEnabled,
                         telegramConfig = telegramConfig,
                         contentTitle = contentTitle,
                         isBasedOnPlatformApp = isBasedOnPlatformApp,
+                        aiConnectionResult = aiConnectionResult,
                     )
                 },
                 catch = ::processDataError
@@ -254,14 +325,17 @@ internal class ProfileViewModel @Inject constructor(
     }
 
     private fun processState(
+        isAiFeatureEnabled: Boolean,
         isProEnabled: Boolean,
         isTelegramEnabled: Boolean,
         telegramConfig: TelegramConfig?,
         contentTitle: String?,
         isBasedOnPlatformApp: Boolean,
+        aiConnectionResult: LoadAiConnectionResult,
     ) {
         screenState = screenState.copy(
             isProFeatureEnabled = isProEnabled,
+            isAiFeatureEnabled = isAiFeatureEnabled,
             items = profileUiMapper.map(
                 content = contentSource.getContent(),
                 transition = optionsInteractor.transition,
@@ -273,6 +347,9 @@ internal class ProfileViewModel @Inject constructor(
                 contentTitle = contentTitle,
                 isBasedOnPlatformApp = isBasedOnPlatformApp,
                 isContentFeatureEnabled = !GlobalConfig.IS_BASED_ON_PLATFORM_APP,
+                isAiFeatureEnabled = isAiFeatureEnabled,
+                currentAiTitle = aiConnectionResult.currentAiConnection?.name,
+                isAiEnabled = aiConnectionResult.isAiEnabled,
             ),
             isWarning = false,
             isLoading = false
@@ -334,4 +411,9 @@ internal class ProfileViewModel @Inject constructor(
             )
         }
     }
+
+    private data class LoadAiConnectionResult(
+        val currentAiConnection: AiConnectionModel?,
+        val isAiEnabled: Boolean,
+    )
 }

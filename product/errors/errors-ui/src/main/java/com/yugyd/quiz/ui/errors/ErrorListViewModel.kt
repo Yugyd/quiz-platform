@@ -21,6 +21,8 @@ import com.yugyd.quiz.commonui.base.BaseViewModel
 import com.yugyd.quiz.core.Logger
 import com.yugyd.quiz.core.coroutinesutils.DispatchersProvider
 import com.yugyd.quiz.core.runCatch
+import com.yugyd.quiz.domain.aitasks.AiTasksInteractor
+import com.yugyd.quiz.domain.api.model.Mode
 import com.yugyd.quiz.domain.api.model.tasks.TaskModel
 import com.yugyd.quiz.domain.errors.ErrorInteractor
 import com.yugyd.quiz.domain.favorites.FavoritesInteractor
@@ -36,6 +38,7 @@ internal class ErrorListViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val errorInteractor: ErrorInteractor,
     private val favoritesInteractor: FavoritesInteractor,
+    private val aiTasksInteractor: AiTasksInteractor,
     logger: Logger,
     dispatchersProvider: DispatchersProvider,
 ) :
@@ -88,15 +91,37 @@ internal class ErrorListViewModel @Inject constructor(
             runCatch(
                 block = {
                     val errorQuestIds = screenState.payload.errorQuestIds
-                    val errors = errorInteractor.getErrorsModels(errorQuestIds)
-                    val favorites = favoritesInteractor.getFavorites(errorQuestIds)
-                    val taskModels = errors.map { task ->
-                        if (favorites.contains(task.id)) {
-                            task.copy(isFavorite = true)
-                        } else {
-                            task
+                    val themeId = screenState.payload.themeId
+                    val taskModels = when (screenState.payload.mode) {
+                        Mode.ARCADE, Mode.TRAIN, Mode.ERROR, Mode.FAVORITE -> {
+                            val errors = errorInteractor.getErrorsModels(errorQuestIds)
+                            val favorites = favoritesInteractor.getFavorites(errorQuestIds)
+                            errors.map { task ->
+                                if (favorites.contains(task.id)) {
+                                    task.copy(isFavorite = true)
+                                } else {
+                                    task
+                                }
+                            }
                         }
+
+                        Mode.AI_TASKS -> {
+                            if (themeId != null) {
+                                errorInteractor
+                                    .getErrorModelsFromAiTasks(
+                                        themeId = themeId,
+                                        errors = errorQuestIds,
+                                    )
+                                    .map { it.copy(isFavoriteEnabled = false) }
+                            } else {
+                                emptyList()
+                            }
+                        }
+
+                        Mode.NONE -> error("Mode not valid")
                     }
+
+
                     processData(taskModels)
                 },
                 catch = ::processDataError,

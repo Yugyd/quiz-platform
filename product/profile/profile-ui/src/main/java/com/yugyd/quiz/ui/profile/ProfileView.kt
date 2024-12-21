@@ -25,6 +25,7 @@ internal interface ProfileView {
         val items: List<ProfileUiModel> = emptyList(),
         val error: Throwable? = null,
         val isProFeatureEnabled: Boolean = false,
+        val isAiFeatureEnabled: Boolean = false,
         val isWarning: Boolean = false,
         val isLoading: Boolean = false,
         val showTelegram: Boolean = false,
@@ -44,6 +45,7 @@ internal interface ProfileView {
             object NavigateToExternalPlatformReportError : NavigationState
             object NavigateToExternalPlatformRate : NavigationState
             object NavigateToTasks : NavigationState
+            object NavigateToAiSettings : NavigationState
         }
     }
 

@@ -24,7 +24,7 @@ interface CourseInteractor {
 
     suspend fun getCourses(parentCourseId: Int): List<CourseModel>
 
-    suspend fun getCurrentCourse(): CourseModel?
+    suspend fun getCurrentCourse(): CourseDetailModel?
 
     suspend fun setCurrentCourse(courseModel: CourseDetailModel)
 

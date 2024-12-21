@@ -11,5 +11,5 @@ android {
 
 dependencies {
     implementation project(':product:game:game-bl-api')
-    implementation project(':product:ai:questai-bl')
+    implementation project(':product:ai:ai-quiz-bl')
 }

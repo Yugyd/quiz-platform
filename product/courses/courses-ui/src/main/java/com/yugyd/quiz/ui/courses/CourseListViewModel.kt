@@ -22,6 +22,7 @@ import com.yugyd.quiz.core.coroutinesutils.DispatchersProvider
 import com.yugyd.quiz.core.runCatch
 import com.yugyd.quiz.domain.courses.CourseInteractor
 import com.yugyd.quiz.domain.courses.SearchCourseInteractor
+import com.yugyd.quiz.domain.courses.model.CourseDetailModel
 import com.yugyd.quiz.domain.courses.model.CourseModel
 import com.yugyd.quiz.ui.commoncourses.models.ContinueCourseBannerUiModel
 import com.yugyd.quiz.ui.courses.CourseListView.Action
@@ -113,7 +114,7 @@ internal class CourseListViewModel @Inject constructor(
 
     private fun processData(
         courses: List<CourseModel>,
-        current: CourseModel?,
+        current: CourseDetailModel?,
     ) {
         val continueCourseBanner = current?.let {
             ContinueCourseBannerUiModel(

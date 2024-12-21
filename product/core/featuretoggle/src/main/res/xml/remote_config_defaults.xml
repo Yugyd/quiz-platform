@@ -63,4 +63,13 @@
         <key>config_update</key>
         <value>[{"locale":"en","mainScreen":{"title":"Update is out","message":"New features and content available to you","buttonTitle":"Update"},"links":[{"package":"com.yugyd.quiz","link":""}]},{"locale":"ru-RU","mainScreen":{"title":"Вышло обновление","message":"Новые функции и контент доступны для вас","buttonTitle":"Обновить"},"links":[{"package":"com.yugyd.quiz","link":""}]}]</value>
     </entry>
+    <entry>
+        <key>api_key_instruction_url</key>
+        <value>[{"id":"yandex","text":"Yandex GPT","url":"https://yandex.cloud/en/docs/iam/operations/api-key/create#console_1"},{"id":"chat-gpt","text":"Chat GPT","url":"https://platform.openai.com/api-keys"}]
+        </value>
+    </entry>
+    <entry>
+        <key>ai_privacy_url</key>
+        <value>https://www.replaceme.com/ai-terms-conditions</value>
+    </entry>
 </defaults>

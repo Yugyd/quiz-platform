@@ -25,6 +25,7 @@ dependencies {
     implementation project(':product:shared:domain-api')
     implementation project(':product:core:ad')
     implementation project(':product:services:ad-api')
+    implementation project(':product:ai:ai-quiz-bl')
 
     // UI - Compose
     implementation libs.compose.material3

@@ -16,6 +16,7 @@
 
 package com.yugyd.quiz.ui.subcourses
 
+import android.net.Uri
 import androidx.compose.material3.SnackbarHostState
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavController
@@ -39,7 +40,9 @@ internal class SubCourseArgs(
     constructor(savedStateHandle: SavedStateHandle) : this(
         subCoursePayload = SubCoursePayload(
             courseId = checkNotNull(savedStateHandle[COURSE_ID_ARG]),
-            courseTitle = checkNotNull(savedStateHandle[COURSE_TITLE_ARG]),
+            courseTitle = checkNotNull(
+                savedStateHandle.get<String>(COURSE_TITLE_ARG)?.let(Uri::decode),
+            ),
             isHideContinueBanner = checkNotNull(savedStateHandle[COURSE_HIDE_CONTINUE_BANNER_ARG]),
         ),
     )
@@ -50,8 +53,9 @@ fun NavController.navigateToSubCourseList(
     payload: SubCoursePayload,
     navOptions: NavOptions? = null,
 ) {
+    val encodedTitle = Uri.encode(payload.courseTitle)
     navigate(
-        route = "$COURSE_LIST_ROUTE${payload.courseId}&${payload.courseTitle}&${payload.isHideContinueBanner}",
+        route = "$COURSE_LIST_ROUTE${payload.courseId}&${encodedTitle}&${payload.isHideContinueBanner}",
         navOptions = navOptions,
     )
 }

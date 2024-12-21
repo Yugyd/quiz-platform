@@ -13,7 +13,7 @@ dependencies {
     implementation project(":product:core")
     implementation project(":product:core:coroutines-utils")
     implementation project(':product:game:game-bl-api')
-    implementation project(':product:ai:questai-bl')
+    implementation project(':product:ai:ai-quiz-bl')
 
     // Kotlin
     implementation libs.kotlinx.coroutines.core

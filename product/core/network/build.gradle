@@ -1,0 +1,29 @@
+plugins {
+    alias(libs.plugins.convention.library)
+    alias(libs.plugins.convention.library.buildtype)
+    alias(libs.plugins.convention.library.jacoco)
+    alias(libs.plugins.convention.library.lint)
+    alias(libs.plugins.convention.library.test)
+    alias(libs.plugins.convention.hilt)
+}
+
+android {
+    namespace 'com.yugyd.quiz.core.searchutils'
+}
+
+dependencies {
+    implementation project(':product:ai:ai-connection-quiz')
+
+    // Logging
+    implementation libs.timber
+
+    // Serialization
+    implementation libs.kotlinx.serialization
+
+    // Network
+    implementation libs.retrofit
+    implementation libs.retrofit.converter.kotlinx.serialization
+    implementation platform(libs.okhttp3.bom)
+    implementation libs.okhttp3
+    implementation libs.okhttp3.logging.interceptor
+}

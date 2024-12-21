@@ -32,9 +32,10 @@ class EnterAiQuestInteractor @Inject constructor(
         quest as EnterAiQuestModel
 
         return result {
-            val aiResult = aiQuestInteractor.checkAnswer(
+            val aiResult = aiQuestInteractor.verifyTask(
                 userAnswer = enteredUserAnswer,
                 trueAnswer = quest.trueAnswers.first(),
+                quest = quest.quest,
             )
 
             TrueAnswerResultModel(

@@ -16,6 +16,7 @@
 
 package com.yugyd.quiz.ui.coursedetails
 
+import android.net.Uri
 import androidx.compose.material3.SnackbarHostState
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavController
@@ -38,7 +39,9 @@ internal class CourseDetailsArgs(
     constructor(savedStateHandle: SavedStateHandle) : this(
         courseDetailsPayload = CourseDetailsPayload(
             courseId = checkNotNull(savedStateHandle[COURSE_DETAILS_ID_ARG]),
-            courseTitle = checkNotNull(savedStateHandle[COURSE_DETAILS_TITLE_ARG]),
+            courseTitle = checkNotNull(
+                savedStateHandle.get<String>(COURSE_DETAILS_TITLE_ARG)?.let(Uri::decode),
+            ),
         ),
     )
 }
@@ -46,7 +49,8 @@ internal class CourseDetailsArgs(
 fun NavController.navigateToCourseDetails(
     payload: CourseDetailsPayload,
 ) {
-    navigate("$COURSE_DETAILS_ROUTE${payload.courseId}&${payload.courseTitle}")
+    val encodedTitle = Uri.encode(payload.courseTitle)
+    navigate("$COURSE_DETAILS_ROUTE${payload.courseId}&$encodedTitle")
 }
 
 fun NavGraphBuilder.courseDetailsScreen(

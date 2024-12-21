@@ -24,6 +24,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.yugyd.quiz.commonui.providers.LocalResIdProvider
 import com.yugyd.quiz.correctui.correctScreen
+import com.yugyd.quiz.domain.api.model.Mode
+import com.yugyd.quiz.domain.api.model.payload.GamePayload
 import com.yugyd.quiz.gameui.game.gameScreen
 import com.yugyd.quiz.gameui.game.navigateToGame
 import com.yugyd.quiz.navigation.getTelegramIntent
@@ -32,6 +34,10 @@ import com.yugyd.quiz.progressui.specificprogress.navigateToSpecificProgress
 import com.yugyd.quiz.progressui.specificprogress.specificProgressScreen
 import com.yugyd.quiz.proui.proonboarding.navigateToProOnboarding
 import com.yugyd.quiz.proui.proonboarding.proOnboardingScreen
+import com.yugyd.quiz.ui.aiconnectiondetails.aiConnectionDetailsScreen
+import com.yugyd.quiz.ui.aiconnectiondetails.navigateToAiConnectionDetails
+import com.yugyd.quiz.ui.aisettings.aiSettingsScreen
+import com.yugyd.quiz.ui.aisettings.navigateToAiSettings
 import com.yugyd.quiz.ui.content.contentScreen
 import com.yugyd.quiz.ui.content.navigateToContent
 import com.yugyd.quiz.ui.coursedetails.courseDetailsScreen
@@ -148,9 +154,8 @@ internal fun QuizNavHost(
             onNavigateToExternalPlatformReportError = {
                 navigateToExternalScreen(GlobalScreens.platformGitHubIssues(context))
             },
-            onNavigateToTasks = {
-                navController.navigateToTasks()
-            }
+            onNavigateToTasks = navController::navigateToTasks,
+            onNavigateToAiSettings = navController::navigateToAiSettings,
         )
 
         proOnboardingScreen(
@@ -240,7 +245,13 @@ internal fun QuizNavHost(
             snackbarHostState = snackbarHostState,
             onBack = navController::popBackStack,
             onNavigateToAiTasks = {
-                // TODO Add navigation to ai tasks
+                // TODO Replace to navigate to ai tasks overview screen, after navigate to game
+                navController.navigateToGame(
+                    payload = GamePayload(
+                        mode = Mode.AI_TASKS,
+                        themeId = it.courseId,
+                    )
+                )
             },
             onNavigateToExternalReportError = {
                 navigateToExternalScreen(GlobalScreens.externalReportError(context))
@@ -254,6 +265,23 @@ internal fun QuizNavHost(
                 navigateToExternalScreen(GlobalScreens.externalBrowser(it))
             },
             onNavigateToGame = navController::navigateToGame,
+        )
+
+        aiSettingsScreen(
+            snackbarHostState = snackbarHostState,
+            onBack = navController::popBackStack,
+            onNavigateToAiConnectionDetails = navController::navigateToAiConnectionDetails,
+            onNavigateToBrowser = {
+                navigateToExternalScreen(GlobalScreens.externalBrowser(it))
+            },
+        )
+
+        aiConnectionDetailsScreen(
+            snackbarHostState = snackbarHostState,
+            onBack = navController::popBackStack,
+            onNavigateToBrowser = {
+                navigateToExternalScreen(GlobalScreens.externalBrowser(it))
+            },
         )
     }
 }

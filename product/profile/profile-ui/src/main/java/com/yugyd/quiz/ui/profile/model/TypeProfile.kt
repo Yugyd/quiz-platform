@@ -36,5 +36,7 @@ internal enum class TypeProfile(val id: Int) {
     SELECT_CONTENT(id = 17),
     OPEN_SOURCE(id = 18),
     TASKS(id = 19),
+    AI_SECTION(id = 20),
+    AI_CONNECTION(id = 21),
     NONE(id = -1)
 }

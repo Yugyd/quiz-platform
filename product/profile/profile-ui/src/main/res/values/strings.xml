@@ -50,4 +50,10 @@
     <string name="format_time_second">%1$.1f sec.</string>
     <string name="format_round_time_second" tools:ignore="PluralsCandidate">%1$d sec.</string>
 
+    <!-- AI -->
+    <string name="profile_title_section_ai">AI</string>
+    <string name="profile_title_ai">AI Beta</string>
+    <string name="profile_title_ai_not_connected">None</string>
+    <string name="profile_title_ai_off">Off</string>
+
 </resources>

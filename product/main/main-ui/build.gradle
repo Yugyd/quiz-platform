@@ -44,6 +44,8 @@ dependencies {
     implementation project(':product:courses:subcourses-ui')
     implementation project(':product:courses:searchcourses-ui')
     implementation project(':product:courses:coursedetails-ui')
+    implementation project(':product:ai:ai-settings-ui')
+    implementation project(':product:ai:ai-connection-details-ui')
 
     // UI - Android X
     implementation libs.splashscreen

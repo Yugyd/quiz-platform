@@ -1,0 +1,28 @@
+plugins {
+    alias(libs.plugins.convention.library)
+    alias(libs.plugins.convention.library.buildtype)
+    alias(libs.plugins.convention.library.jacoco)
+    alias(libs.plugins.convention.library.lint)
+    alias(libs.plugins.convention.library.test)
+    alias(libs.plugins.convention.hilt)
+    alias(libs.plugins.kotlin.serialization)
+}
+
+android {
+    namespace 'com.yugyd.quiz.ai.connection.api'
+}
+
+dependencies {
+    // Modules
+    implementation project(":product:core:coroutines-utils")
+    implementation project(":product:core")
+
+    // Kotlin
+    implementation libs.kotlinx.coroutines.android
+
+    // Android X
+    implementation libs.datastore
+
+    // Serialization
+    implementation libs.kotlinx.serialization
+}

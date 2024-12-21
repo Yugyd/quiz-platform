@@ -157,7 +157,11 @@ internal class ThemeViewModel @Inject constructor(
             onTrainStartNext(model)
         }
 
-        ModeUiModel.ARCADE, ModeUiModel.NONE, ModeUiModel.ERROR, ModeUiModel.FAVORITE -> {
+        ModeUiModel.ARCADE,
+        ModeUiModel.NONE,
+        ModeUiModel.ERROR,
+        ModeUiModel.FAVORITE,
+        ModeUiModel.AI_TASKS -> {
             onNavigateNext(model)
         }
     }
@@ -200,7 +204,7 @@ internal class ThemeViewModel @Inject constructor(
     private fun onNavigateNext(model: ThemeUiModel) = when (screenState.mode) {
         ModeUiModel.ARCADE -> navigateToSections(model.id, model.title)
         ModeUiModel.TRAIN -> navigateToGame(model.id, model.record)
-        ModeUiModel.NONE, ModeUiModel.ERROR, ModeUiModel.FAVORITE -> Unit
+        ModeUiModel.NONE, ModeUiModel.ERROR, ModeUiModel.FAVORITE, ModeUiModel.AI_TASKS -> Unit
     }
 
     private fun onInfoClicked(model: ThemeUiModel) {

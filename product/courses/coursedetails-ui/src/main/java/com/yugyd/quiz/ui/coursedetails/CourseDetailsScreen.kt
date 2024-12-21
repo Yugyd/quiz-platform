@@ -46,6 +46,7 @@ import com.yugyd.quiz.ui.coursedetails.CourseDetailsView.Action
 import com.yugyd.quiz.ui.coursedetails.CourseDetailsView.State
 import com.yugyd.quiz.ui.coursedetails.CourseDetailsView.State.CourseDetailsDomainState
 import com.yugyd.quiz.ui.coursedetails.CourseDetailsView.State.NavigationState
+import com.yugyd.quiz.ui.coursedetails.CourseDetailsView.State.SnackbarMessage
 import com.yugyd.quiz.uikit.LoadingContent
 import com.yugyd.quiz.uikit.WarningContent
 import com.yugyd.quiz.uikit.common.ThemePreviews
@@ -103,11 +104,26 @@ internal fun CourseDetailsScreen(
 ) {
     val errorMessage = stringResource(id = UiKitR.string.error_base)
     LaunchedEffect(key1 = uiState.showErrorMessage) {
-        if (uiState.showErrorMessage) {
-            snackbarHostState.showSnackbar(message = errorMessage)
+        when (uiState.showErrorMessage) {
+            SnackbarMessage.ERROR -> {
+                snackbarHostState.showSnackbar(message = errorMessage)
+            }
 
-            onErrorDismissState()
+            SnackbarMessage.AI_TASKS_ERROR, SnackbarMessage.AI_TASKS_EMPTY -> {
+                snackbarHostState.showSnackbar(message = errorMessage)
+            }
+
+            SnackbarMessage.AI_UNAUTHORIZED -> {
+                snackbarHostState.showSnackbar(
+                    message = errorMessage,
+                    withDismissAction = true,
+                )
+            }
+
+            null -> Unit
         }
+
+        uiState.showErrorMessage?.let { onErrorDismissState() }
     }
 
     Column {

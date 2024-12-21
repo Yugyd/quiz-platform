@@ -23,13 +23,10 @@ import com.yugyd.quiz.core.AdIdJvmProvider
 import com.yugyd.quiz.core.Logger
 import com.yugyd.quiz.core.coroutinesutils.DispatchersProvider
 import com.yugyd.quiz.core.runCatch
-import com.yugyd.quiz.domain.api.model.Mode.ARCADE
-import com.yugyd.quiz.domain.api.model.Mode.ERROR
-import com.yugyd.quiz.domain.api.model.Mode.FAVORITE
-import com.yugyd.quiz.domain.api.model.Mode.NONE
-import com.yugyd.quiz.domain.api.model.Mode.TRAIN
+import com.yugyd.quiz.domain.api.model.Mode
 import com.yugyd.quiz.domain.api.model.payload.GameEndPayload
 import com.yugyd.quiz.domain.api.payload.ErrorListPayload
+import com.yugyd.quiz.domain.questai.AiQuestInteractor
 import com.yugyd.quiz.domain.theme.ThemeInteractor
 import com.yugyd.quiz.featuretoggle.domain.FeatureManager
 import com.yugyd.quiz.featuretoggle.domain.model.FeatureToggle
@@ -52,6 +49,7 @@ internal class GameEndViewModel @Inject constructor(
     private val logger: Logger,
     dispatchersProvider: DispatchersProvider,
     private val adIdJvmProvider: AdIdJvmProvider,
+    private val aiQuestInteractor: AiQuestInteractor,
 ) :
     BaseViewModel<State, Action>(
         logger = logger,
@@ -100,7 +98,11 @@ internal class GameEndViewModel @Inject constructor(
     private fun onNewGameClicked() = navigateToBack()
 
     private fun onShowErrorsClicked() {
-        val payload = ErrorListPayload(errorQuestIds = screenState.payload.errorQuestIds)
+        val payload = ErrorListPayload(
+            mode = screenState.payload.mode,
+            themeId = screenState.payload.themeId,
+            errorQuestIds = screenState.payload.errorQuestIds,
+        )
         screenState = screenState.copy(
             navigationState = NavigationState.NavigateToErrorList(payload),
         )
@@ -134,13 +136,19 @@ internal class GameEndViewModel @Inject constructor(
     }
 
     private suspend fun getThemeTitle(payload: GameEndPayload) = when (payload.mode) {
-        ARCADE, TRAIN -> {
+        Mode.ARCADE, Mode.TRAIN -> {
             payload.themeId?.let { themeId ->
                 themeInteractor.getTheme(themeId).name
             }.orEmpty()
         }
 
-        ERROR, FAVORITE, NONE -> ""
+        Mode.AI_TASKS -> {
+            payload.themeId?.let { themeId ->
+                aiQuestInteractor.getThemeDetail(themeId).name
+            }.orEmpty()
+        }
+
+        Mode.ERROR, Mode.FAVORITE, Mode.NONE -> ""
     }
 
 

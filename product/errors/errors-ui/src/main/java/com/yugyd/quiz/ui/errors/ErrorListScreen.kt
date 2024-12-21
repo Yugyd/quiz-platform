@@ -209,14 +209,16 @@ internal fun ErrorItem(
                 )
             }
 
-            Spacer(modifier = Modifier.width(width = 8.dp))
+            if (model.isFavoriteEnabled) {
+                Spacer(modifier = Modifier.width(width = 8.dp))
 
-            FavoriteIcon(
-                isFavorite = model.isFavorite,
-                onFavoriteClicked = {
-                    onFavoriteClicked(model)
-                },
-            )
+                FavoriteIcon(
+                    isFavorite = model.isFavorite,
+                    onFavoriteClicked = {
+                        onFavoriteClicked(model)
+                    },
+                )
+            }
         }
     }
 

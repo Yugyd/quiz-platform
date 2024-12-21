@@ -28,9 +28,13 @@ internal interface CourseDetailsView {
         val isActionsVisible: Boolean = false,
         val isWarning: Boolean = false,
         val isLoading: Boolean = false,
-        val showErrorMessage: Boolean = false,
+        val showErrorMessage: SnackbarMessage? = null,
         val navigationState: NavigationState? = null,
     ) {
+
+        enum class SnackbarMessage {
+            ERROR, AI_TASKS_EMPTY, AI_TASKS_ERROR, AI_UNAUTHORIZED,
+        }
 
         @Immutable
         data class CourseDetailsDomainState(

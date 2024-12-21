@@ -17,7 +17,12 @@
 package com.yugyd.quiz.domain.api.payload
 
 import android.os.Parcelable
+import com.yugyd.quiz.domain.api.model.Mode
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class ErrorListPayload(val errorQuestIds: List<Int> = emptyList()) : Parcelable
+data class ErrorListPayload(
+    val mode: Mode = Mode.NONE,
+    val themeId: Int? = null,
+    val errorQuestIds: List<Int> = emptyList()
+) : Parcelable

@@ -16,6 +16,7 @@
 
 package com.yugyd.quiz.progressui.specificprogress
 
+import android.net.Uri
 import androidx.compose.material3.SnackbarHostState
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavController
@@ -46,7 +47,9 @@ internal class SpecificProgressArgs(
     constructor(savedStateHandle: SavedStateHandle) : this(
         payload = SpecificProgressPayload(
             themeId = checkNotNull(savedStateHandle[THEME_ID_ARG]),
-            themeTitle = checkNotNull(savedStateHandle[THEME_TITLE_ARG]),
+            themeTitle = checkNotNull(
+                savedStateHandle.get<String>(THEME_TITLE_ARG)?.let(Uri::decode),
+            ),
         )
     )
 }
@@ -55,7 +58,7 @@ fun NavController.navigateToSpecificProgress(payload: SpecificProgressPayload) {
     val route = specificProgressRouteModel.getRouteWithArguments {
         when (it) {
             THEME_ID_ARG -> payload.themeId.toString()
-            THEME_TITLE_ARG -> payload.themeTitle
+            THEME_TITLE_ARG -> Uri.encode(payload.themeTitle)
             else -> error("Argument not founded")
         }
     }

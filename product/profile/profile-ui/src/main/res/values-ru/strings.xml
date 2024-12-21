@@ -50,4 +50,10 @@
     <string name="format_time_second">%1$.1f сек.</string>
     <string name="format_round_time_second">%1$d сек.</string>
 
+    <!-- AI -->
+    <string name="profile_title_section_ai">Искусственный интеллект</string>
+    <string name="profile_title_ai">ИИ Бета</string>
+    <string name="profile_title_ai_not_connected">Доступные подключения</string>
+    <string name="profile_title_ai_off">Выключено</string>
+
 </resources>

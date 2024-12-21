@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~    Copyright 2024 Roman Likhachev
+  ~
+  ~    Licensed under the Apache License, Version 2.0 (the "License");
+  ~    you may not use this file except in compliance with the License.
+  ~    You may obtain a copy of the License at
+  ~
+  ~        http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~    Unless required by applicable law or agreed to in writing, software
+  ~    distributed under the License is distributed on an "AS IS" BASIS,
+  ~    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~    See the License for the specific language governing permissions and
+  ~    limitations under the License.
+  -->
+
+<resources>
+
+    <string name="ai_connection_title_add">New AI connection</string>
+    <string name="ai_connection_title_edit">Edit AI connection</string>
+
+    <!-- Ai Setting -->
+    <string name="ai_connection_details_title">API key generation instructions</string>
+    <string name="ai_connection_details_description">Generate the API key using the official documentation of the AI provider</string>
+    <string name="ai_connection_details_open">Learn more</string>
+
+    <!-- Fields -->
+    <string name="ai_connection_details_name">Name</string>
+    <string name="ai_connection_details_provider">Provider AI</string>
+    <string name="ai_connection_details_api_key">Api key</string>
+    <string name="ai_connection_details_project_folder">Project folder</string>
+
+    <!-- Action -->
+    <string name="ai_connection_details_action_save">Save</string>
+    <string name="ai_connection_details_action_delete">Delete</string>
+
+</resources>

@@ -30,6 +30,7 @@
     <string name="title_train">Train</string>
     <string name="title_unknown">Unknown</string>
     <string name="title_favorites">Favorites</string>
+    <string name="title_ai_tasks">AI Tasks</string>
 
     <string name="title_content_lite">Lite</string>
     <string name="title_content_pro">Pro</string>
@@ -45,6 +46,7 @@
 
     <!-- Error -->
     <string name="error_base">Something went wrong</string>
+    <string name="error_fields">Please fill in all fields</string>
 
     <!-- Empty state -->
     <string name="title_empty_state">Oops, no data</string>

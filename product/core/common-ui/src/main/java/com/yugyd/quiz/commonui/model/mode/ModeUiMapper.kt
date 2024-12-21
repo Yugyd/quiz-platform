@@ -26,6 +26,7 @@ class ModeUiMapper @Inject constructor() {
         Mode.ERROR -> ModeUiModel.ERROR
         Mode.FAVORITE -> ModeUiModel.FAVORITE
         Mode.NONE -> ModeUiModel.NONE
+        Mode.AI_TASKS -> ModeUiModel.AI_TASKS
     }
 
     fun mapToDomain(model: ModeUiModel) = when (model) {
@@ -34,5 +35,6 @@ class ModeUiMapper @Inject constructor() {
         ModeUiModel.ERROR -> Mode.ERROR
         ModeUiModel.FAVORITE -> Mode.FAVORITE
         ModeUiModel.NONE -> Mode.NONE
+        ModeUiModel.AI_TASKS -> Mode.AI_TASKS
     }
 }

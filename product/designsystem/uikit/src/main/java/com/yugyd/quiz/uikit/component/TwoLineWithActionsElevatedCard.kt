@@ -26,10 +26,10 @@ fun TwoLineWithActionsElevatedCard(
     title: String,
     subtitle: String,
     confirm: String,
-    cancel: String,
     onConfirmClicked: () -> Unit,
-    onCancelClicked: () -> Unit,
     modifier: Modifier = Modifier,
+    cancel: String? = null,
+    onCancelClicked: (() -> Unit)? = null,
 ) {
     ElevatedCard(
         modifier = modifier,
@@ -56,19 +56,20 @@ fun TwoLineWithActionsElevatedCard(
             Spacer(modifier = Modifier.height(16.dp))
 
             Row(
-                modifier = Modifier
-                    .align(Alignment.End),
+                modifier = Modifier.align(Alignment.End),
                 horizontalArrangement = Arrangement.End,
             ) {
-                OutlinedButton(
-                    onClick = onCancelClicked,
-                ) {
-                    Text(
-                        text = cancel,
-                    )
-                }
+                if (cancel != null && onCancelClicked != null) {
+                    OutlinedButton(
+                        onClick = onCancelClicked,
+                    ) {
+                        Text(
+                            text = cancel,
+                        )
+                    }
 
-                Spacer(modifier = Modifier.width(width = 8.dp))
+                    Spacer(modifier = Modifier.width(width = 8.dp))
+                }
 
                 Button(
                     onClick = onConfirmClicked,

@@ -17,6 +17,7 @@
 package com.yugyd.quiz.domain.game
 
 import com.yugyd.quiz.core.coroutinesutils.DispatchersProvider
+import com.yugyd.quiz.domain.aitasks.AiTasksInteractor
 import com.yugyd.quiz.domain.api.model.Mode
 import com.yugyd.quiz.domain.api.model.Record
 import com.yugyd.quiz.domain.api.model.game.ControlModel
@@ -59,6 +60,7 @@ internal class GameInteractorImpl @Inject constructor(
     private val errorController: ErrorController,
     private val dispatcherProvider: DispatchersProvider,
     private val favoritesSource: FavoritesSource,
+    private val aiTasksInteractor: AiTasksInteractor,
 ) : GameInteractor {
 
     private lateinit var payload: GamePayload
@@ -196,7 +198,7 @@ internal class GameInteractorImpl @Inject constructor(
     }
 
     private fun getConditionValue(mode: Mode) = when (mode) {
-        Mode.ARCADE, Mode.TRAIN, Mode.ERROR, Mode.FAVORITE -> LIFE_CONDITION
+        Mode.ARCADE, Mode.TRAIN, Mode.ERROR, Mode.FAVORITE, Mode.AI_TASKS -> LIFE_CONDITION
         Mode.NONE -> 0
     }
 
@@ -206,6 +208,7 @@ internal class GameInteractorImpl @Inject constructor(
             Mode.TRAIN -> getQuestIdsByTrainMode(theme, isSort)
             Mode.ERROR -> getQuestIdsByErrors()
             Mode.FAVORITE -> getQuestIdsByFavorites()
+            Mode.AI_TASKS -> getQuestIdsByAiTasks(aiThemeId = themeId)
             Mode.NONE -> emptyList()
         }
 
@@ -242,11 +245,18 @@ internal class GameInteractorImpl @Inject constructor(
 
     private suspend fun getQuestIdsByFavorites() = favoritesSource.getTaskIds().shuffled()
 
+    private suspend fun getQuestIdsByAiTasks(aiThemeId: Int) = aiTasksInteractor.getQuestIds(
+        aiThemeId = aiThemeId,
+    ).shuffled()
+
     private fun isNext(ids: List<Int>) {
         if (ids.isEmpty()) throw FinishGameException()
     }
 
-    private suspend fun nextQuest() = getQuest(getQuestId())
+    private suspend fun nextQuest() = getQuest(
+        themeId = themeId,
+        questId = getQuestId()
+    )
         .let(::getQuestModel)
 
     private fun nextControl() = ControlModel(
@@ -263,9 +273,26 @@ internal class GameInteractorImpl @Inject constructor(
         return id
     }
 
-    private suspend fun getQuest(id: Int) = questSource
-        .getQuest(id)
-        .let(separatorParser::parse)
+    private suspend fun getQuest(themeId: Int, questId: Int): Quest {
+        return when (gameMode) {
+            Mode.ARCADE, Mode.TRAIN, Mode.ERROR, Mode.FAVORITE -> {
+                questSource
+                    .getQuest(questId)
+                    .let(separatorParser::parse)
+            }
+
+            Mode.AI_TASKS -> {
+                aiTasksInteractor
+                    .getQuest(
+                        aiThemeId = themeId,
+                        aiQuestId = questId,
+                    )
+                    .let(separatorParser::parse)
+            }
+
+            Mode.NONE -> error("Invalid game mode")
+        }
+    }
 
     private fun getQuestModel(quest: Quest): BaseQuestDomainModel {
         return interactorHolder.getQuestModel(quest)
@@ -278,14 +305,19 @@ internal class GameInteractorImpl @Inject constructor(
     private fun decrementCondition(mode: Mode) {
         val fine = when (mode) {
             Mode.ARCADE, Mode.ERROR -> LIFE_FINE
-            Mode.TRAIN, Mode.FAVORITE -> INFINITY_FINE
+            Mode.TRAIN, Mode.FAVORITE, Mode.AI_TASKS -> INFINITY_FINE
             Mode.NONE -> 0
         }
         data = data.copy(condition = condition.minus(fine))
     }
 
     private suspend fun addErrorQuest(mode: Mode, id: Int) {
-        if (mode != Mode.ERROR) {
+        val isAddError = when (mode) {
+            Mode.ERROR, Mode.AI_TASKS, Mode.NONE -> false
+            Mode.ARCADE, Mode.TRAIN, Mode.FAVORITE -> true
+        }
+
+        if (isAddError) {
             data = data.copy(errorIds = errorIds.plus(id))
             errorSource.addError(id)
         }
@@ -336,7 +368,7 @@ internal class GameInteractorImpl @Inject constructor(
         when (mode) {
             Mode.ARCADE -> saveSectionData()
             Mode.TRAIN -> saveTrainData()
-            Mode.ERROR, Mode.FAVORITE, Mode.NONE -> Unit
+            Mode.ERROR, Mode.FAVORITE, Mode.AI_TASKS, Mode.NONE -> Unit
         }
 
         saveRecord(mode)
@@ -347,7 +379,7 @@ internal class GameInteractorImpl @Inject constructor(
             point != 0
         }
 
-        Mode.ARCADE, Mode.ERROR, Mode.FAVORITE -> {
+        Mode.ARCADE, Mode.ERROR, Mode.FAVORITE, Mode.AI_TASKS -> {
             point > record
         }
 
@@ -401,14 +433,14 @@ internal class GameInteractorImpl @Inject constructor(
             trainSource.getTotalProgress(allIds.toIntArray())
         }
 
-        Mode.ERROR, Mode.FAVORITE, Mode.NONE -> {
+        Mode.ERROR, Mode.FAVORITE, Mode.AI_TASKS, Mode.NONE -> {
             point
         }
     }
 
     private fun isSavedRecordMode(mode: Mode) = when (mode) {
         Mode.ARCADE, Mode.TRAIN -> true
-        Mode.ERROR, Mode.FAVORITE, Mode.NONE -> false
+        Mode.ERROR, Mode.FAVORITE, Mode.AI_TASKS, Mode.NONE -> false
     }
 
     private suspend fun updateController() = withContext(dispatcherProvider.main) {
@@ -422,7 +454,7 @@ internal class GameInteractorImpl @Inject constructor(
                 recordController.notifyListeners()
             }
 
-            Mode.ERROR, Mode.FAVORITE, Mode.NONE -> Unit
+            Mode.ERROR, Mode.FAVORITE, Mode.AI_TASKS, Mode.NONE -> Unit
         }
 
         errorController.notifyListeners()

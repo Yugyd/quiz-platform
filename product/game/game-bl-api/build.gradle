@@ -9,8 +9,7 @@ android {
 }
 
 dependencies {
-    implementation project(':product:ai:questai-bl')
-
+    implementation project(':product:ai:ai-quiz-bl')
     // Kotlin
     implementation libs.kotlinx.coroutines.android
 

@@ -16,6 +16,7 @@
 
 package com.yugyd.quiz.ui.section
 
+import android.net.Uri
 import androidx.compose.material3.SnackbarHostState
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavController
@@ -37,13 +38,16 @@ internal class SectionsArgs(
     constructor(savedStateHandle: SavedStateHandle) : this(
         payload = SectionPayload(
             themeId = checkNotNull(savedStateHandle[THEME_ID_ARG]),
-            themeTitle = checkNotNull(savedStateHandle[THEME_TITLE_ARG]),
+            themeTitle = checkNotNull(
+                savedStateHandle.get<String>(THEME_TITLE_ARG)?.let(Uri::decode),
+            ),
         )
     )
 }
 
 fun NavController.navigateToSection(payload: SectionPayload) {
-    val route = "$SECTION_ROUTE/${payload.themeId}&${payload.themeTitle}"
+    val encodedTitle = Uri.encode(payload.themeTitle)
+    val route = "$SECTION_ROUTE/${payload.themeId}&$encodedTitle"
     navigate(route)
 }
 

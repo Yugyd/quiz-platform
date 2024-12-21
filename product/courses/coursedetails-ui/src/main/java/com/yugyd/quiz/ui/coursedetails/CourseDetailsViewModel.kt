@@ -20,7 +20,9 @@ import androidx.lifecycle.SavedStateHandle
 import com.yugyd.quiz.commonui.base.BaseViewModel
 import com.yugyd.quiz.core.Logger
 import com.yugyd.quiz.core.coroutinesutils.DispatchersProvider
+import com.yugyd.quiz.core.result
 import com.yugyd.quiz.core.runCatch
+import com.yugyd.quiz.domain.aitasks.AiTasksInteractor
 import com.yugyd.quiz.domain.courses.CourseInteractor
 import com.yugyd.quiz.domain.courses.model.CourseDetailModel
 import com.yugyd.quiz.featuretoggle.domain.FeatureManager
@@ -29,7 +31,9 @@ import com.yugyd.quiz.ui.coursedetails.CourseDetailsView.Action
 import com.yugyd.quiz.ui.coursedetails.CourseDetailsView.State
 import com.yugyd.quiz.ui.coursedetails.CourseDetailsView.State.CourseDetailsDomainState
 import com.yugyd.quiz.ui.coursedetails.CourseDetailsView.State.NavigationState
+import com.yugyd.quiz.ui.coursedetails.CourseDetailsView.State.SnackbarMessage
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -38,6 +42,7 @@ internal class CourseDetailsViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val featureManager: FeatureManager,
     private val courseInteractor: CourseInteractor,
+    private val aiTasksInteractor: AiTasksInteractor,
     logger: Logger,
     dispatchersProvider: DispatchersProvider,
 ) :
@@ -76,7 +81,7 @@ internal class CourseDetailsViewModel @Inject constructor(
             }
 
             Action.OnSnackbarDismissed -> {
-                screenState = screenState.copy(showErrorMessage = false)
+                screenState = screenState.copy(showErrorMessage = null)
             }
 
             Action.OnTasksClicked -> onTasksClicked()
@@ -84,14 +89,62 @@ internal class CourseDetailsViewModel @Inject constructor(
     }
 
     private fun onTasksClicked() {
+        loadAiTasks()
+    }
+
+    private fun loadAiTasks() {
         val courseDetailModel = screenState.courseDetailsDomainState.courseDetailModel ?: return
 
+        vmScopeErrorHandled.launch {
+            screenState = screenState.copy(isLoading = true)
+
+            result {
+                val aiThemeId = courseDetailModel.id
+                aiTasksInteractor.fetchAiTasks(aiThemeId = aiThemeId)
+
+                val isContainAiTasks = aiTasksInteractor
+                    .subscribeToAiTasks(aiThemeId = aiThemeId)
+                    .firstOrNull()
+                    .orEmpty()
+                    .isNotEmpty()
+                isContainAiTasks
+            }
+                .onFailure(::processAiTasksError)
+                .onSuccess { isContainAiTasks ->
+                    processAiTasks(
+                        courseDetailModel = courseDetailModel,
+                        isContainAiTasks = isContainAiTasks,
+                    )
+                }
+        }
+    }
+
+    private fun processAiTasksError(error: Throwable) {
         screenState = screenState.copy(
-            navigationState = NavigationState.NavigateToTasks(
-                id = courseDetailModel.id,
-                title = courseDetailModel.name,
-            )
+            isLoading = false,
+            showErrorMessage = SnackbarMessage.AI_TASKS_ERROR,
         )
+        processError(error)
+    }
+
+    private fun processAiTasks(
+        courseDetailModel: CourseDetailModel,
+        isContainAiTasks: Boolean,
+    ) {
+        screenState = if (isContainAiTasks) {
+            screenState.copy(
+                isLoading = false,
+                navigationState = NavigationState.NavigateToTasks(
+                    id = courseDetailModel.id,
+                    title = courseDetailModel.name,
+                )
+            )
+        } else {
+            screenState.copy(
+                isLoading = false,
+                showErrorMessage = SnackbarMessage.AI_TASKS_EMPTY,
+            )
+        }
     }
 
     private fun loadData() {
@@ -136,7 +189,7 @@ internal class CourseDetailsViewModel @Inject constructor(
             isLoading = false,
             isWarning = true,
             courseDetailsDomainState = domainState,
-            showErrorMessage = true,
+            showErrorMessage = SnackbarMessage.ERROR,
         )
         processError(error)
     }

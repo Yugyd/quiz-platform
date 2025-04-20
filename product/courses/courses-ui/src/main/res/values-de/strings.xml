@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Generated Translator AI-->
+    <string name="course_list_title_search_theme">Kursübersicht</string>
+    <string name="course_list_banner_title">Fortsetzen des Studiums des begonnenen Kurses</string>
+    <string name="course_list_banner_continue">Fortsetzen</string>
+    <string name="course_list_banner_hide">Verstecken</string>
+</resources>

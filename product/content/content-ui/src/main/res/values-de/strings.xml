@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Generated Translator AI-->
+    <string name="content_title">Inhalt</string>
+    <string name="content_empty_state_new_file">Neuer Inhalt</string>
+    <string name="content_empty_state_title">Beginnen</string>
+    <string name="content_empty_state_message">Wählen Sie einen neuen Inhaltfile aus und genießen Sie die App mit Ihrem Inhalt.</string>
+    <string name="content_empty_state_button">Datei wählen</string>
+    <string name="content_empty_state_note">Der Inhalt muss dem Datenformat entsprechen.</string>
+    <string name="content_error_not_added_content_is_exists">Inhalt wurde bereits hinzugefügt</string>
+    <string name="content_error_invalid_uri">Fehlgeschlagene Zugriff auf Inhaltdatei</string>
+    <string name="content_error_add_is_failed">Zugabe von Inhalt fehlgeschlagen</string>
+    <string name="content_error_delete_is_failed">Löschen von Inhalt fehlgeschlagen</string>
+    <string name="content_error_not_select_and_delete">Der ausgewählte Inhalt ist ungültig und wurde gelöscht</string>
+    <string name="content_error_select_is_failed">Auswahl von Inhalt fehlgeschlagen</string>
+    <string name="content_error_one_item_not_delete">Einziger Inhalt kann nicht gelöscht werden</string>
+    <string name="content_error_selected_item_not_delete">Ausgewählter Inhalt kann nicht gelöscht werden</string>
+    <string name="content_format_error_content_quest_duplicate_id">Duplikate von IDs wurden gefunden, bitte geben Sie einzigartige IDs für Fragen an: %s</string>
+    <string name="content_format_error_content_theme_duplicate_id">Duplikate von IDs wurden gefunden, setzen Sie bitte einzigartige IDs für Themen an: %s</string>
+    <string name="content_format_error_content_quest_not_valid">Falsch geschrieben wordenene Fragen wurden gefunden: %s</string>
+    <string name="content_format_error_content_theme_not_valid">Falsch zusammengesetzte Themen wurden gefunden: %s</string>
+    <string name="content_error_content_format_url_not_loaded">Link zur Resource für das Inhaltsformat wurde nicht geladen</string>
+</resources>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Generated Translator AI-->
+    <string name="app_email">yugydyur@gmail.com</string>
+    <string name="title_select_messenger">Wählen Sie einen Nachrichtenübertrager aus</string>
+    <string name="title_message_error">Fehler-Nachricht</string>
+    <string name="msg_message_describe_error">Beschreiben Sie den Fehler</string>
+    <string name="format_message_subject">%1$s. %2$s</string>
+</resources>

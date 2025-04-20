@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Generated Translator AI-->
+    <string name="ai_settings_title_ai">AI Beta</string>
+    <string name="ai_settings_title_enable_ai">Activer AI Beta</string>
+    <string name="ai_settings_title_ai_connected">Connecté</string>
+    <string name="ai_settings_add_ai_connection">Ajouter une connexion AI</string>
+    <string name="ai_settings_term_of_cache">Période de mise à jour du contenu</string>
+    <string name="ai_settings_direct_connection">Connexion directe</string>
+    <string name="ai_settings_privacy_policy">Politique de confidentialité sur l\'utilisation d\'AI</string>
+    <string name="ai_settings_ai_test_info">Cette fonctionnalité se trouve en mode de test.</string>
+</resources>

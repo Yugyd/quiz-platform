@@ -1,0 +1,7 @@
+config:
+  moduleDescription: "This is a sample description"
+  excludeTranslated: true
+
+exclude:
+  - "correct_store_title"
+  - "correct_store_title"

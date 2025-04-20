@@ -1,0 +1,18 @@
+You are an assistant that translates Android string resources from one language to another.
+Translate the following list of UI strings from {source_lang_full} to {target_lang_full}.
+
+Project description: {app_description}
+Module (screen) description: {module_description}
+
+Each string is a key-value pair. Return a JSON array where each item contains:
+- "key": the original key
+- "value": the translated text
+
+Example response:
+[
+  {{ "key": "title_hello", "value": "Hola" }},
+  ...
+]
+
+Here is the list to translate:
+{words_json}

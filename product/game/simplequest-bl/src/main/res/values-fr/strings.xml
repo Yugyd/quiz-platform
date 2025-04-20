@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Generated Translator AI-->
+    <string name="code_answer_a">seulement a est vrai</string>
+    <string name="code_answer_b">seulement B est vrai</string>
+    <string name="code_answer_yes">les deux affirmations sont correctes</string>
+    <string name="code_answer_yes_variant">les deux affirmations sont vraies</string>
+    <string name="code_answer_no">les deux affirmations sont fausses</string>
+    <string name="code_answer_no_variant">les deux affirmations sont fausses</string>
+    <string name="code_quest_a">A.</string>
+    <string name="code_quest_a_varinat">A)</string>
+    <string name="code_quest_b">B.</string>
+    <string name="code_quest_b_varinat">B)</string>
+</resources>

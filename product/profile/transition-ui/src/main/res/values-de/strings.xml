@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Generated Translator AI-->
+    <string name="title_show_answer">Answeringansicht</string>
+    <string name="format_time_second">%1$.1f Sekunde</string>
+    <string name="format_round_time_second">%1$d Sekunden</string>
+</resources>

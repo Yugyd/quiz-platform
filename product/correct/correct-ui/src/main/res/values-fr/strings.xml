@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Generated Translator AI-->
+    <string name="title_remember_quest">Maintenant, les questions seront retenues !</string>
+    <string name="msg_correct_quest">Corrigez les erreurs pour solidifier le matériel. Toutes les erreurs sont regroupées ici.</string>
+    <string name="msg_correct_pro_available">Seulement disponible dans Pro.</string>
+</resources>

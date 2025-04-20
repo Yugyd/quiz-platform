@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Generated Translator AI-->
+    <string name="title_rewarded">Belohnungsmodus</string>
+    <string name="msg_rewarded">Nach Ansicht der Werbung verfügbar</string>
+    <string name="action_rewarded">Ansuchen</string>
+    <string name="action_no_thanks">Vielen Dank, nein</string>
+    <string name="error_rewarded_ad">Werbeanzeigen nicht geladen</string>
+    <string name="title_theme_completed">Kategorie vollendet</string>
+    <string name="action_info">Informationen</string>
+    <string name="action_close">Schließen</string>
+</resources>

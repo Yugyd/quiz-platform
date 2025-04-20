@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Generated Translator AI-->
+    <string name="app_name">Quiz-Plattform</string>
+    <string name="title_theme">Themen</string>
+    <string name="title_courses">Kurse</string>
+    <string name="title_correct">Richtig</string>
+    <string name="title_progress">Fortschritt</string>
+    <string name="title_profile">Profil</string>
+    <string name="title_arcade">Arcade</string>
+    <string name="title_train">Trainieren</string>
+    <string name="title_unknown">Unbekannt</string>
+    <string name="title_favorites">Geliebte</string>
+    <string name="title_ai_tasks">AI-Aufgaben</string>
+    <string name="title_content_lite">Lite</string>
+    <string name="title_content_pro">Pro</string>
+    <string name="title_work_error">Arbeiten an Fehlern</string>
+    <string name="title_work_favorites">Arbeiten an Geliebten</string>
+    <string name="format_record_progress">%1$d von %2$d</string>
+    <string name="action_game">Spielen</string>
+    <string name="error_base">Etwas ist schief gelaufen</string>
+    <string name="error_fields">Bitte füllen Sie alle Felder aus</string>
+    <string name="title_empty_state">Ups, keine Daten</string>
+    <string name="title_empty_state_description">Versuchen Sie es mit der Neuaufladung</string>
+    <string name="title_empty_state_retry">Wiederholen</string>
+</resources>

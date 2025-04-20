@@ -1,0 +1,12 @@
+config:
+  appDescription: "This is a sample description"
+  sourceLanguage: "en"
+  targetLanguages: [ "de", "fr" ]
+  aiProvider: "yandex"
+  aiKey: "REPLACE_ME"
+  aiFolder: "REPLACE_ME"
+  excludeTranslated: true
+
+exclude:
+  - "ds_store_title"
+  - "ds_store_title"

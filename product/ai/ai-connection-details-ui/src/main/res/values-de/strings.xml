@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Generated Translator AI-->
+    <string name="ai_connection_title_add">Neue AI-Verbindung</string>
+    <string name="ai_connection_title_edit">Bearbeiten der AI-Verbindung</string>
+    <string name="ai_connection_details_title">Anleitungen für die API-Schlüsselgenerierung</string>
+    <string name="ai_connection_details_description">Erzeuge den API-Schlüssel mit Hilfe der offiziellen Dokumentation des AI-Anbieters</string>
+    <string name="ai_connection_details_open">Mehr erfahren</string>
+    <string name="ai_connection_details_name">Name</string>
+    <string name="ai_connection_details_provider">AI-Provider</string>
+    <string name="ai_connection_details_api_key">API-Schlüssel</string>
+    <string name="ai_connection_details_project_folder">Projektmappe</string>
+    <string name="ai_connection_details_action_save">Speichern</string>
+    <string name="ai_connection_details_action_delete">Löschen</string>
+</resources>

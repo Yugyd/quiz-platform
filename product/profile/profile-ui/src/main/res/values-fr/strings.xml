@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Generated Translator AI-->
+    <string name="profile_title_content">Contenu</string>
+    <string name="profile_title_content_not_selected">Aucun contenu sélectionné</string>
+    <string name="title_social">Médias sociaux</string>
+    <string name="title_settings">Paramètres</string>
+    <string name="title_show_answer">Affichage de la réponse</string>
+    <string name="title_sorting_quest">Tri des questions</string>
+    <string name="title_vibration">Vibre</string>
+    <string name="profile_tasks">Taches</string>
+    <string name="profile_content_banner_title">Plateforme Quiz</string>
+    <string name="profile_content_banner_subtitle">L\'application est basée sur la solution open-source Quiz-Platform. Nous aimerais entendre votre avis sur la plateforme sur GitHub.</string>
+    <string name="profile_content_banner_rate">Évaluez</string>
+    <string name="profile_content_banner_report_error">Signaler un bug</string>
+    <string name="title_purchases">Achats</string>
+    <string name="title_pro_version">Version Pro</string>
+    <string name="title_please_use">S\'il vous plaît utilisez</string>
+    <string name="title_rate_app">Évaluez l\'application</string>
+    <string name="title_share_friend">Partagez l\'application</string>
+    <string name="title_other_apps">Nos applications</string>
+    <string name="title_feedback">Retours</string>
+    <string name="title_report_error">Signaler un bug</string>
+    <string name="title_privacy_policy">Politique de confidentialité</string>
+    <string name="profile_title_telegram">Chaîne Telegram</string>
+    <string name="profile_title_telegram_promo">Questions quotidiennes et retours</string>
+    <string name="format_version">%1$s version</string>
+    <string name="format_time_second">%1$.1f s.</string>
+    <string name="format_round_time_second">%1$d s.</string>
+    <string name="profile_title_section_ai">IA</string>
+    <string name="profile_title_ai">Beta IA</string>
+    <string name="profile_title_ai_not_connected">Aucun connecté</string>
+    <string name="profile_title_ai_off">Déconnecté</string>
+</resources>

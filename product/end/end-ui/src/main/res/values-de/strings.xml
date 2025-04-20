@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Generated Translator AI-->
+    <string name="title_well">Super!</string>
+    <string name="msg_new_record">Ein neuer Rekord wurde aufgestellt! Gefällt Ihnen das?</string>
+    <string name="action_leave_rate">Eine Besprechung hinterlassen</string>
+    <string name="action_skip">Überspringen</string>
+    <string name="action_show_error">Fehler anzeigen</string>
+    <string name="action_new_game">Neues Spiel</string>
+    <string name="action_watch">Ansuchen</string>
+    <string name="action_next">Nächstes</string>
+    <string name="error_reward_not_loaded">Werbung nicht geladen</string>
+</resources>

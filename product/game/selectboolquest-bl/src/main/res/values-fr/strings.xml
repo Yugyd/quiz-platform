@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Generated Translator AI-->
+    <string name="select_bool_answer_true">Oui</string>
+    <string name="select_bool_answer_false">Non</string>
+</resources>

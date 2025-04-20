@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Generated Translator AI-->
+    <string name="title_quest">Questionnaire</string>
+    <string name="title_true_answer">Réponse correcte</string>
+    <string name="title_error_list">Liste des erreurs</string>
+</resources>

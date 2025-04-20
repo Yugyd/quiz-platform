@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Generated Translator AI-->
+    <string name="tasks_title_quest">Questionnaire</string>
+    <string name="tasks_title_true_answer">Réponse correcte</string>
+    <string name="tasks_title_error_list">Liste des erreurs</string>
+    <string name="tasks_filters">Filtres</string>
+    <string name="tasks_errors">Erreurs</string>
+    <string name="tasks_favorites">Preferés</string>
+    <string name="tasks_empty_state_title">Aucun résultat trouvé</string>
+    <string name="tasks_empty_state_message">Essayez de changer vos filtres</string>
+</resources>

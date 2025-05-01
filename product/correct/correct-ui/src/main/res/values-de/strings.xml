@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--Generated Translator AI-->
-    <string name="title_remember_quest">Jetzt werden die Fragen gespeichert!</string>
-    <string name="msg_correct_quest">Fehler korrigieren, um das Material freizuschalten. Alle Fehler sind hier.</string>
-    <string name="msg_correct_pro_available">Nur in der Pro-Version verfügbar.</string>
+    <string name="correct_title_remember_quest">Jetzt werden die Fragen gespeichert!</string>
+    <string name="correct_msg_correct_quest">Fehler korrigieren, um das Material freizuschalten. Alle Fehler sind hier.</string>
+    <string name="correct_msg_correct_pro_available">Nur in der Pro-Version verfügbar.</string>
 </resources>

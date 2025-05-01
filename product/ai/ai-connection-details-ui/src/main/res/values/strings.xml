@@ -15,13 +15,14 @@
   -->
 
 <resources>
-    <string name="ai_connection_title_add">New AI Connection</string>
-    <string name="ai_connection_title_edit">Edit AI Connection</string>
-    <string name="ai_connection_details_title">API key generation instructions</string>
-    <string name="ai_connection_details_description">Generate the API key using the official documentation of the AI provider</string>
-    <string name="ai_connection_details_open">Open</string>
+    <!--Generated Translator AI-->
+    <string name="ai_connection_details_title">API Key Creation Guide</string>
+    <string name="ai_connection_details_description">Create a key using the official AI provider documentation</string>
+    <string name="ai_connection_details_open">Learn more</string>
+    <string name="ai_connection_details_title_add">New AI Connection</string>
+    <string name="ai_connection_details_title_edit">Edit AI Connection</string>
     <string name="ai_connection_details_name">Name</string>
-    <string name="ai_connection_details_provider">Provider</string>
+    <string name="ai_connection_details_provider">AI Provider</string>
     <string name="ai_connection_details_api_key">API Key</string>
     <string name="ai_connection_details_project_folder">Project Folder</string>
     <string name="ai_connection_details_action_save">Save</string>

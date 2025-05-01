@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--Generated Translator AI-->
-    <string name="code_answer_a">Solo la dichiarazione A è corretta</string>
-    <string name="code_answer_b">Solo la dichiarazione B è corretta</string>
-    <string name="code_answer_yes">Entrambe le dichiarazioni sono corrette</string>
-    <string name="code_answer_yes_variant">Sono corrette entrambe le affermazioni</string>
-    <string name="code_answer_no">Entrambe le dichiarazioni sono sbagliate</string>
-    <string name="code_answer_no_variant">Sbagliate entrambe le affermazioni</string>
-    <string name="code_quest_a">A.</string>
-    <string name="code_quest_a_varinat">A)</string>
-    <string name="code_quest_b">B.</string>
-    <string name="code_quest_b_varinat">B)</string>
+    <string name="simple_quest_code_answer_a">Solo la dichiarazione A è corretta</string>
+    <string name="simple_quest_code_answer_b">Solo la dichiarazione B è corretta</string>
+    <string name="simple_quest_code_answer_yes">Entrambe le dichiarazioni sono corrette</string>
+    <string name="simple_quest_code_answer_yes_variant">Sono corrette entrambe le affermazioni</string>
+    <string name="simple_quest_code_answer_no">Entrambe le dichiarazioni sono sbagliate</string>
+    <string name="simple_quest_code_answer_no_variant">Sbagliate entrambe le affermazioni</string>
+    <string name="simple_quest_code_quest_a">A.</string>
+    <string name="simple_quest_code_quest_a_variant">A)</string>
+    <string name="simple_quest_code_quest_b">B.</string>
+    <string name="simple_quest_code_quest_b_variant">B)</string>
 </resources>

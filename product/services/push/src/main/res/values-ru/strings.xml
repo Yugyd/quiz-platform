@@ -15,7 +15,6 @@
   -->
 
 <resources>
-    <string name="default_channel_id">main_channel</string>
-    <string name="default_channel_name">Основной</string>
-    <string name="default_channel_description">Все уведомления приложения</string>
+    <string name="push_default_channel_name">Основной</string>
+    <string name="push_default_channel_description">Все уведомления приложения</string>
 </resources>

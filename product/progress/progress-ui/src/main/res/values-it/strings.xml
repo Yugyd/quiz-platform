@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--Generated Translator AI-->
-    <string name="title_level_schoolboy">Scuolino</string>
-    <string name="title_level_amateur">Appassionato</string>
-    <string name="title_level_student">Studente</string>
-    <string name="title_level_master">Maestro</string>
-    <string name="title_level_postgraduate">Dottorando</string>
-    <string name="title_level_candidate">Candidato di Scienze</string>
-    <string name="title_level_doctor">Dottore di Scienze</string>
-    <string name="title_level_professor">Professore</string>
-    <string name="title_level_academic">Accademico</string>
-    <string name="title_reset_dialog_progress">Reimposta il progresso</string>
-    <string name="title_reset_dialog_progress_info">Tutto il tuo progresso sarà annullato. Questa azione non può essere annullata.</string>
-    <string name="format_percent">%1$d%%</string>
-    <string name="action_reset_dialog_yes">Sì</string>
-    <string name="action_reset_dialog_no">No</string>
-    <string name="content_description_progress_icon">Icona del progresso: %1$s</string>
+    <string name="progress_title_level_schoolboy">Scuolino</string>
+    <string name="progress_title_level_amateur">Appassionato</string>
+    <string name="progress_title_level_student">Studente</string>
+    <string name="progress_title_level_master">Maestro</string>
+    <string name="progress_title_level_postgraduate">Dottorando</string>
+    <string name="progress_title_level_candidate">Candidato di Scienze</string>
+    <string name="progress_title_level_doctor">Dottore di Scienze</string>
+    <string name="progress_title_level_professor">Professore</string>
+    <string name="progress_title_level_academic">Accademico</string>
+    <string name="progress_title_reset_dialog_progress">Reimposta il progresso</string>
+    <string name="progress_title_reset_dialog_progress_info">Tutto il tuo progresso sarà annullato. Questa azione non può essere annullata.</string>
+    <string name="progress_format_percent">%1$d%%</string>
+    <string name="progress_action_reset_dialog_yes">Sì</string>
+    <string name="progress_action_reset_dialog_no">No</string>
+    <string name="progress_content_description_progress_icon">Icona del progresso: %1$s</string>
 </resources>

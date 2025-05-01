@@ -22,16 +22,16 @@ import javax.inject.Inject
 
 class AbQuestParser @Inject constructor(@ApplicationContext private val context: Context) :
     IAbQuestParser {
-    private val aAnswer by lazy { context.getString(R.string.code_answer_a) }
-    private val bAnswer by lazy { context.getString(R.string.code_answer_b) }
-    private val yesAnswer by lazy { context.getString(R.string.code_answer_yes) }
-    private val yesAnswerVariant by lazy { context.getString(R.string.code_answer_yes_variant) }
-    private val noAnswer by lazy { context.getString(R.string.code_answer_no) }
-    private val noAnswerVariant by lazy { context.getString(R.string.code_answer_no_variant) }
-    private val aQuest by lazy { context.getString(R.string.code_quest_a) }
-    private val aQuestVariant by lazy { context.getString(R.string.code_quest_a_varinat) }
-    private val bQuest by lazy { context.getString(R.string.code_quest_b) }
-    private val bQuestVariant by lazy { context.getString(R.string.code_quest_b_varinat) }
+    private val aAnswer by lazy { context.getString(R.string.simple_quest_code_answer_a) }
+    private val bAnswer by lazy { context.getString(R.string.simple_quest_code_answer_b) }
+    private val yesAnswer by lazy { context.getString(R.string.simple_quest_code_answer_yes) }
+    private val yesAnswerVariant by lazy { context.getString(R.string.simple_quest_code_answer_yes_variant) }
+    private val noAnswer by lazy { context.getString(R.string.simple_quest_code_answer_no) }
+    private val noAnswerVariant by lazy { context.getString(R.string.simple_quest_code_answer_no_variant) }
+    private val aQuest by lazy { context.getString(R.string.simple_quest_code_quest_a) }
+    private val aQuestVariant by lazy { context.getString(R.string.simple_quest_code_quest_a_variant) }
+    private val bQuest by lazy { context.getString(R.string.simple_quest_code_quest_b) }
+    private val bQuestVariant by lazy { context.getString(R.string.simple_quest_code_quest_b_variant) }
 
     private val answerVariables by lazy {
         listOf(aAnswer, bAnswer, yesAnswer, yesAnswerVariant, noAnswer, noAnswerVariant)

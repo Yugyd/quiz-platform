@@ -62,13 +62,13 @@ internal object GlobalScreens {
     fun externalBrowser(url: String) = Intent(Intent.ACTION_VIEW, Uri.parse(url))
 
     fun externalReportError(context: Context): Intent {
-        val email = context.getString(CommonUiR.string.app_email)
+        val email = context.getString(CommonUiR.string.common_app_email)
         val appName = context.getString(UiKitR.string.app_name)
-        val title = context.getString(CommonUiR.string.title_message_error)
-        val body = context.getString(CommonUiR.string.msg_message_describe_error)
-        val chooserTitle = context.getString(CommonUiR.string.title_select_messenger)
+        val title = context.getString(CommonUiR.string.common_title_message_error)
+        val body = context.getString(CommonUiR.string.common_message_describe_error)
+        val chooserTitle = context.getString(CommonUiR.string.common_title_select_messenger)
         val subject = context.getString(
-            CommonUiR.string.format_message_subject,
+            CommonUiR.string.common_format_message_subject,
             appName,
             title
         )

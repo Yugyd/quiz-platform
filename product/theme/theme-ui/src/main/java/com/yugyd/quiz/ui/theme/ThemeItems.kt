@@ -139,7 +139,7 @@ internal fun ThemeItem(
                             onInfoClicked(model)
                         },
                     ) {
-                        Text(text = stringResource(id = R.string.action_info))
+                        Text(text = stringResource(id = R.string.theme_dialog_action_info))
                     }
 
                     Spacer(modifier = Modifier.width(width = 8.dp))

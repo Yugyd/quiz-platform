@@ -15,7 +15,8 @@
   -->
 
 <resources>
-    <string name="commin_course_banner_title">Continue the started course</string>
-    <string name="commin_course_banner_continue">Continue</string>
-    <string name="commin_course_banner_hide">Hide</string>
+    <!--Generated Translator AI-->
+    <string name="common_course_banner_title">Continue studying the started course</string>
+    <string name="common_course_banner_continue">Continue</string>
+    <string name="common_course_banner_hide">Hide</string>
 </resources>

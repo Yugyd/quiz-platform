@@ -3,4 +3,4 @@ config:
   excludeTranslated: true
 
 exclude:
-  - "default_channel_id"
+  - "push_default_channel_id"

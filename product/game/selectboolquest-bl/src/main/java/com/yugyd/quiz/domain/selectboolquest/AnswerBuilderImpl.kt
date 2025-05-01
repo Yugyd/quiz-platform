@@ -26,11 +26,11 @@ internal class AnswerBuilderImpl @Inject constructor(
 ) : AnswerBuilder {
 
     private val trueAnswer by lazy {
-        context.getString(R.string.select_bool_answer_true)
+        context.getString(R.string.select_bool_quest_answer_true)
     }
 
     private val falseAnswer by lazy {
-        context.getString(R.string.select_bool_answer_false)
+        context.getString(R.string.select_bool_quest_answer_false)
     }
 
     override fun buildAnswers() = listOf(trueAnswer, falseAnswer)

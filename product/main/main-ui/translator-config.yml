@@ -3,8 +3,8 @@ config:
   excludeTranslated: true
 
 exclude:
-  - "app_site_host"
-  - "app_site_patch_prefix"
-  - "app_telegram_chat_name"
+  - "main_app_site_host"
+  - "main_app_site_patch_prefix"
+  - "main_app_telegram_chat_name"
   - "main_link_quiz_platform_project"
   - "main_link_quiz_platform_issues"

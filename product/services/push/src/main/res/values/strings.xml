@@ -15,7 +15,8 @@
   -->
 
 <resources>
-    <string name="default_channel_id">main_channel</string>
-    <string name="default_channel_name">Main</string>
-    <string name="default_channel_description">All application notifications</string>
+    <!--Generated Translator AI-->
+    <string name="push_default_channel_id" translatable="false">main_channel</string>
+    <string name="push_default_channel_name">Main</string>
+    <string name="push_default_channel_description">All app notifications</string>
 </resources>

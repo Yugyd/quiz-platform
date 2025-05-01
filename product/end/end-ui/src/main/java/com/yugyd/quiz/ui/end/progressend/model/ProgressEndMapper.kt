@@ -37,9 +37,9 @@ internal class ProgressEndMapper @Inject constructor(
             )
         } else {
             currentState.copy(
-                title = context.getString(R.string.title_well),
-                message = context.getString(R.string.msg_new_record),
-                actionButtonTitle = context.getString(R.string.action_leave_rate),
+                title = context.getString(R.string.end_title_well),
+                message = context.getString(R.string.end_msg_new_record),
+                actionButtonTitle = context.getString(R.string.end_action_leave_rate),
                 actionButtonType = State.ActionButtonType.RATE,
             )
         }

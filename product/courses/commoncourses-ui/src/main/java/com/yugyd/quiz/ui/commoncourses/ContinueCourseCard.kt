@@ -21,9 +21,9 @@ fun ContinueCourseCard(
     TwoLineWithActionsElevatedCard(
         modifier = Modifier.padding(all = 16.dp),
         title = courseBanner.title,
-        subtitle = stringResource(id = R.string.commin_course_banner_title),
-        confirm = stringResource(id = R.string.commin_course_banner_continue),
-        cancel = stringResource(id = R.string.commin_course_banner_hide),
+        subtitle = stringResource(id = R.string.common_course_banner_title),
+        confirm = stringResource(id = R.string.common_course_banner_continue),
+        cancel = stringResource(id = R.string.common_course_banner_hide),
         onConfirmClicked = onConfirmClicked,
         onCancelClicked = onHideClicked,
     )

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--Generated Translator AI-->
-    <string name="default_channel_name">Haupt</string>
-    <string name="default_channel_description">Alle Benachrichtigungen des Anwendungsprogramms</string>
+    <string name="push_default_channel_name">Haupt</string>
+    <string name="push_default_channel_description">Alle Benachrichtigungen des Anwendungsprogramms</string>
 </resources>

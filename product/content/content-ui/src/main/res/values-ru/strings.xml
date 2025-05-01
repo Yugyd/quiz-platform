@@ -18,9 +18,7 @@
     <string name="content_title">Контент</string>
     <string name="content_empty_state_new_file">Новый файл</string>
     <string name="content_empty_state_title">Начало работы</string>
-    <string name="content_empty_state_message">
-        Выберите новый файл с контеном, а затем наслаждайтесь приложением с вашим контентом.
-    </string>
+    <string name="content_empty_state_message">Выберите новый файл с контеном, а затем наслаждайтесь приложением с вашим контентом.</string>
     <string name="content_empty_state_button">Выбрать файл</string>
     <string name="content_empty_state_note">Контент, должен соответствовать формату данных.</string>
     <string name="content_error_not_added_content_is_exists">Контент уже добавлен</string>
@@ -31,23 +29,9 @@
     <string name="content_error_select_is_failed">Не удалось выбрать контент</string>
     <string name="content_error_one_item_not_delete">Единственный контент не может быть удален</string>
     <string name="content_error_selected_item_not_delete">Выбранный контент не может быть удален</string>
-
-    <!-- Content -->
-    <string name="content_format_error_content_quest_duplicate_id">
-        Обнаружены дубликаты ид, задайте уникальные ид для вопросов: %s
-    </string>
-    <string name="content_format_error_content_theme_duplicate_id">
-        Обнаружены дубликаты ид, задайте уникальные ид для тем: %s
-    </string>
-    <string name="content_format_error_content_quest_not_valid">
-        Обнаружены неправильно составленные вопросы: %s
-    </string>
-    <string name="content_format_error_content_theme_not_valid">
-        Обнаружены неправильно составленные темы: %s
-    </string>
-
-    <string name="content_error_content_format_url_not_loaded">
-        Ссылка на ресурс формата контента не загружена
-    </string>
-
+    <string name="content_format_error_content_quest_duplicate_id">Обнаружены дубликаты ид, задайте уникальные ид для вопросов: %s</string>
+    <string name="content_format_error_content_theme_duplicate_id">Обнаружены дубликаты ид, задайте уникальные ид для тем: %s</string>
+    <string name="content_format_error_content_quest_not_valid">Обнаружены неправильно составленные вопросы: %s</string>
+    <string name="content_format_error_content_theme_not_valid">Обнаружены неправильно составленные темы: %s</string>
+    <string name="content_error_content_format_url_not_loaded">Ссылка на ресурс формата контента не загружена</string>
 </resources>

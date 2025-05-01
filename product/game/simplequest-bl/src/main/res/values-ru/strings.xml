@@ -15,15 +15,14 @@
   -->
 
 <resources>
-    <!-- Code -->
-    <string name="code_answer_a">верно только А</string>
-    <string name="code_answer_b">верно только Б</string>
-    <string name="code_answer_yes">верны оба суждения</string>
-    <string name="code_answer_yes_variant">верны оба утверждения</string>
-    <string name="code_answer_no">оба суждения неверны</string>
-    <string name="code_answer_no_variant">оба утверждения неверны</string>
-    <string name="code_quest_a">А.</string>
-    <string name="code_quest_a_varinat">А)</string>
-    <string name="code_quest_b">Б.</string>
-    <string name="code_quest_b_varinat">Б)</string>
+    <string name="simple_quest_code_answer_a">верно только А</string>
+    <string name="simple_quest_code_answer_b">верно только Б</string>
+    <string name="simple_quest_code_answer_yes">верны оба суждения</string>
+    <string name="simple_quest_code_answer_yes_variant">верны оба утверждения</string>
+    <string name="simple_quest_code_answer_no">оба суждения неверны</string>
+    <string name="simple_quest_code_answer_no_variant">оба утверждения неверны</string>
+    <string name="simple_quest_code_quest_a">А.</string>
+    <string name="simple_quest_code_quest_a_variant">А)</string>
+    <string name="simple_quest_code_quest_b">Б.</string>
+    <string name="simple_quest_code_quest_b_variant">Б)</string>
 </resources>

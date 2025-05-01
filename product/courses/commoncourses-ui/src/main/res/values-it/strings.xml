@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--Generated Translator AI-->
-    <string name="commin_course_banner_title">Continua il corso iniziato</string>
-    <string name="commin_course_banner_continue">Continua</string>
-    <string name="commin_course_banner_hide">Nascondi</string>
+    <string name="common_course_banner_title">Continua il corso iniziato</string>
+    <string name="common_course_banner_continue">Continua</string>
+    <string name="common_course_banner_hide">Nascondi</string>
 </resources>

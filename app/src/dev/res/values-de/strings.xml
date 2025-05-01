@@ -2,6 +2,6 @@
 <resources>
     <!--Generated Translator AI-->
     <string name="app_name">Flexquiz: Quiz-Plattform</string>
-    <string name="msg_pro_dialog">Dreifacher Wissensanteil – mehr als 3000 Fragen! Das ist genug, um ein echter Experte zu werden.</string>
-    <string name="msg_pro_ad_banner">Mehr als 3000 Fragen und keine Werbung!</string>
+    <string name="app_msg_pro_dialog">Dreifacher Wissensanteil – mehr als 3000 Fragen! Das ist genug, um ein echter Experte zu werden.</string>
+    <string name="app_msg_pro_ad_banner">Mehr als 3000 Fragen und keine Werbung!</string>
 </resources>

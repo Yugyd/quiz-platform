@@ -158,12 +158,12 @@ private fun ResetAlertDialog(
         },
         title = {
             Text(
-                text = stringResource(id = R.string.title_reset_dialog_progress)
+                text = stringResource(id = R.string.progress_title_reset_dialog_progress)
             )
         },
         text = {
             Text(
-                text = stringResource(id = R.string.title_reset_dialog_progress_info)
+                text = stringResource(id = R.string.progress_title_reset_dialog_progress_info)
             )
         },
         confirmButton = {
@@ -173,7 +173,7 @@ private fun ResetAlertDialog(
                     onResetDialogDismissState()
                 }
             ) {
-                Text(stringResource(id = R.string.action_reset_dialog_yes))
+                Text(stringResource(id = R.string.progress_action_reset_dialog_yes))
             }
         },
         dismissButton = {
@@ -182,7 +182,7 @@ private fun ResetAlertDialog(
                     onResetDialogDismissState()
                 }
             ) {
-                Text(stringResource(id = R.string.action_reset_dialog_no))
+                Text(stringResource(id = R.string.progress_action_reset_dialog_no))
             }
         }
     )

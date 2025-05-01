@@ -153,8 +153,8 @@ internal fun AiConnectionDetailsScreen(
     Column {
         val toolbar = remember(uiState.toolbarTitle) {
             when (uiState.toolbarTitle) {
-                ToolbarTitle.ADD -> R.string.ai_connection_title_add
-                ToolbarTitle.EDIT -> R.string.ai_connection_title_edit
+                ToolbarTitle.ADD -> R.string.ai_connection_details_title_add
+                ToolbarTitle.EDIT -> R.string.ai_connection_details_title_edit
                 null -> null
             }
         }

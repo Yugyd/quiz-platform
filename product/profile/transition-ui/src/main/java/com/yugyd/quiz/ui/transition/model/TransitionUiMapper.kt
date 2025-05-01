@@ -29,9 +29,9 @@ internal class TransitionUiMapper @Inject constructor(
 
     fun map(model: Transition) = model.run {
         val title = if (value < Transition.TRANSITION1000.value) {
-            context.getString(R.string.format_time_second, value)
+            context.getString(R.string.transition_format_time_second, value)
         } else {
-            context.getString(R.string.format_round_time_second, value.roundToInt())
+            context.getString(R.string.transition_format_round_time_second, value.roundToInt())
         }
 
         TransitionUiModel(

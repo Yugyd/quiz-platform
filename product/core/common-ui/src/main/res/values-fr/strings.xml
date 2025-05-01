@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--Generated Translator AI-->
-    <string name="title_select_messenger">Choisissez un messager</string>
-    <string name="title_message_error">Message d\'erreur</string>
-    <string name="msg_message_describe_error">Décrivez l\'erreur</string>
-    <string name="format_message_subject">%1$s. %2$s</string>
+    <string name="common_title_select_messenger">Choisissez un messager</string>
+    <string name="common_title_message_error">Message d\'erreur</string>
+    <string name="common_message_describe_error">Décrivez l\'erreur</string>
+    <string name="common_format_message_subject">%1$s. %2$s</string>
 </resources>

@@ -67,7 +67,7 @@ fun EnterQuestContent(
                 AnswerState.NONE -> Icons.Rounded.Cancel
             }
         },
-        questHint = stringResource(id = R.string.enter_code_correct_answer),
+        questHint = stringResource(id = R.string.enter_quest_correct_answer),
         manualAnswer = manualAnswer,
         trueAnswer = quest.trueAnswer,
         isErrorSupportingText = quest.answerState == AnswerState.FAILED,

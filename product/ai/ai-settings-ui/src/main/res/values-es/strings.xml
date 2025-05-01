@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Unsupported translate words -->
+    <plurals name="ai_settings_storage_term">
+        <item quantity="one">%1$d día</item>
+        <item quantity="many">%1$d días</item>
+        <item quantity="other">%1$d días</item>
+    </plurals>
+
     <!--Generated Translator AI-->
     <string name="ai_settings_title_ai">Configuración de IA</string>
     <string name="ai_settings_title_enable_ai">Habilitar IA</string>

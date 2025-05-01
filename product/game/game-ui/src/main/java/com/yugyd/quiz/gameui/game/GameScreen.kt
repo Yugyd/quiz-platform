@@ -182,7 +182,7 @@ internal fun GameScreen(
         }
     }
 
-    val rewardedAdNotLoadMessage = stringResource(id = R.string.error_reward_not_loaded)
+    val rewardedAdNotLoadMessage = stringResource(id = R.string.game_error_reward_not_loaded)
     LaunchedEffect(key1 = uiState.showRewardedAdNotLoadMessage) {
         if (uiState.showRewardedAdNotLoadMessage) {
             snackbarHostState.showSnackbar(message = rewardedAdNotLoadMessage)
@@ -437,10 +437,10 @@ internal fun RewardedDialog(
             onRewardDialogDismissState()
         },
         title = {
-            Text(text = stringResource(id = R.string.title_add_life))
+            Text(text = stringResource(id = R.string.game_title_add_life))
         },
         text = {
-            Text(text = stringResource(id = R.string.msg_add_life))
+            Text(text = stringResource(id = R.string.game_msg_add_life))
         },
         confirmButton = {
             TextButton(
@@ -449,7 +449,7 @@ internal fun RewardedDialog(
                     onRewardDialogDismissState()
                 }
             ) {
-                Text(text = stringResource(id = R.string.action_watch))
+                Text(text = stringResource(id = R.string.game_action_watch))
             }
         },
         dismissButton = {
@@ -459,7 +459,7 @@ internal fun RewardedDialog(
                     onRewardDialogDismissState()
                 }
             ) {
-                Text(text = stringResource(id = R.string.action_next))
+                Text(text = stringResource(id = R.string.game_action_next))
             }
         }
     )

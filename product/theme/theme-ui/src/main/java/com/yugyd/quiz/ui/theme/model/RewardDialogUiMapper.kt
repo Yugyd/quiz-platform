@@ -44,10 +44,10 @@ internal class RewardDialogUiMapper @Inject constructor(
         model: ThemeUiModel
     ): RewardDialogUiModel {
         return RewardDialogUiModel(
-            title = context.getString(R.string.title_rewarded),
-            message = context.getString(R.string.msg_rewarded),
-            positiveButton = context.getString(R.string.action_rewarded),
-            negativeButton = context.getString(R.string.action_no_thanks),
+            title = context.getString(R.string.theme_dialog_title_rewarded),
+            message = context.getString(R.string.theme_dialog_msg_rewarded),
+            positiveButton = context.getString(R.string.theme_dialog_action_rewarded),
+            negativeButton = context.getString(R.string.theme_dialog_action_no_thanks),
             rewardType = RewardType.Ad,
             themeUiModel = model
         )

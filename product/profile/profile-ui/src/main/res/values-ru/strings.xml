@@ -15,45 +15,34 @@
   -->
 
 <resources>
-
     <string name="profile_title_content">Контент</string>
     <string name="profile_title_content_not_selected">Контент не выбран</string>
-    <string name="title_social">Социальные сети</string>
-    <string name="title_settings">Настройки</string>
-    <string name="title_show_answer">Просмотр ответа</string>
-    <string name="title_sorting_quest">Сортировка вопросов</string>
-    <string name="title_vibration">Вибрация</string>
-
+    <string name="profile_title_social">Социальные сети</string>
+    <string name="profile_title_settings">Настройки</string>
+    <string name="profile_title_show_answer">Просмотр ответа</string>
+    <string name="profile_title_sorting_quest">Сортировка вопросов</string>
+    <string name="profile_title_vibration">Вибрация</string>
     <string name="profile_tasks">Задания</string>
-
     <string name="profile_content_banner_title">Quiz-Platform</string>
     <string name="profile_content_banner_subtitle">Приложение основано на open-source решении Quiz-Platform. Будем рады вашей оценке платформы на GitHub.</string>
     <string name="profile_content_banner_rate">Оценить</string>
     <string name="profile_content_banner_report_error">Сообщить о проблеме</string>
-
-    <string name="title_purchases">Покупки</string>
-    <string name="title_pro_version">Про-версия</string>
-
-    <string name="title_please_us">Порадовать нас</string>
-    <string name="title_rate_app">Оцените приложение</string>
-    <string name="title_share_friend">Расскажите другу</string>
-    <string name="title_other_apps">Наши приложения</string>
-
-    <string name="title_feedback">Обратная связь</string>
-    <string name="title_report_error">Сообщите об ошибке</string>
-    <string name="title_privacy_policy">Политика конфиденциальности</string>
-
+    <string name="profile_title_purchases">Покупки</string>
+    <string name="profile_title_pro_version">Про-версия</string>
+    <string name="profile_title_please_us">Порадовать нас</string>
+    <string name="profile_title_rate_app">Оцените приложение</string>
+    <string name="profile_title_share_app">Расскажите другу</string>
+    <string name="profile_title_other_apps">Наши приложения</string>
+    <string name="profile_title_feedback">Обратная связь</string>
+    <string name="profile_title_report_error">Сообщите об ошибке</string>
+    <string name="profile_title_privacy_policy">Политика конфиденциальности</string>
     <string name="profile_title_telegram">Telegram-канал</string>
     <string name="profile_title_telegram_promo">Ежедневные вопросы и обратная связь</string>
-
-    <string name="format_version">%1$s версия</string>
-    <string name="format_time_second">%1$.1f сек.</string>
-    <string name="format_round_time_second">%1$d сек.</string>
-
-    <!-- AI -->
+    <string name="profile_format_version">%1$s версия</string>
+    <string name="profile_format_time_second">%1$.1f сек.</string>
+    <string name="profile_format_round_time_second">%1$d сек.</string>
     <string name="profile_title_section_ai">Искусственный интеллект</string>
     <string name="profile_title_ai">ИИ Бета</string>
     <string name="profile_title_ai_not_connected">Доступные подключения</string>
     <string name="profile_title_ai_off">Выключено</string>
-
 </resources>

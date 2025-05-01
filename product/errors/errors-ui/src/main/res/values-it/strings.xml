@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--Generated Translator AI-->
-    <string name="title_quest">Domanda</string>
-    <string name="title_true_answer">Risposta corretta</string>
-    <string name="title_error_list">Elenco degli errori</string>
+    <string name="errors_title_quest">Domanda</string>
+    <string name="errors_title_true_answer">Risposta corretta</string>
+    <string name="errors_title_error_list">Elenco degli errori</string>
 </resources>

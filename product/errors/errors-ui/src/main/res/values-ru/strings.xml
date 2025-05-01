@@ -15,10 +15,7 @@
   -->
 
 <resources>
-
-    <!-- Error List -->
-    <string name="title_quest">Вопрос</string>
-    <string name="title_true_answer">Правильный ответ</string>
-    <string name="title_error_list">Список ошибок</string>
-
+    <string name="errors_title_quest">Вопрос</string>
+    <string name="errors_title_true_answer">Правильный ответ</string>
+    <string name="errors_title_error_list">Список ошибок</string>
 </resources>

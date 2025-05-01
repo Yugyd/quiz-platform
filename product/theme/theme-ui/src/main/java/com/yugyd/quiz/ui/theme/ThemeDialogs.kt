@@ -67,7 +67,7 @@ internal fun InfoDialog(
                     onInfoDialogDismissState()
                 }
             ) {
-                Text(stringResource(id = R.string.action_close))
+                Text(stringResource(id = R.string.theme_action_close))
             }
         }
     )
@@ -129,7 +129,7 @@ internal fun ResetDialog(
         },
         title = {
             Text(
-                text = stringResource(id = R.string.title_theme_completed),
+                text = stringResource(id = R.string.theme_title_theme_completed),
             )
         },
         confirmButton = {

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--Generated Translator AI-->
-    <string name="title_add_life">Vita extra</string>
-    <string name="msg_add_life">Guarda un video promozionale per ottenere una vita extra</string>
-    <string name="action_watch">Guardo</string>
-    <string name="action_next">Procedi</string>
-    <string name="error_reward_not_loaded">Impossibile caricare il premio</string>
+    <string name="game_title_add_life">Vita extra</string>
+    <string name="game_msg_add_life">Guarda un video promozionale per ottenere una vita extra</string>
+    <string name="game_action_watch">Guardo</string>
+    <string name="game_action_next">Procedi</string>
+    <string name="game_error_reward_not_loaded">Impossibile caricare il premio</string>
 </resources>

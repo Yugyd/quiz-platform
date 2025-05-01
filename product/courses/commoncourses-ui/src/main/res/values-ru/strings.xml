@@ -15,10 +15,7 @@
   -->
 
 <resources>
-
-    <!-- Complete theme banner -->
-    <string name="commin_course_banner_title">Продолжить изучать начатый курс</string>
-    <string name="commin_course_banner_continue">Продолжить</string>
-    <string name="commin_course_banner_hide">Скрыть</string>
-
+    <string name="common_course_banner_title">Продолжить изучать начатый курс</string>
+    <string name="common_course_banner_continue">Продолжить</string>
+    <string name="common_course_banner_hide">Скрыть</string>
 </resources>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--Generated Translator AI-->
-    <string name="title_update">Aggiorna</string>
-    <string name="title_update_description">Nuove funzionalità e contenuti disponibili per te</string>
-    <string name="action_update">Aggiorna</string>
+    <string name="update_title_update">Aggiorna</string>
+    <string name="update_title_update_description">Nuove funzionalità e contenuti disponibili per te</string>
+    <string name="update_action_update">Aggiorna</string>
 </resources>

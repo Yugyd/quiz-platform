@@ -194,7 +194,7 @@ internal fun HeaderProgressItem(
                         id = UiKitR.drawable.ic_account_circle
                     ),
                     contentDescription = stringResource(
-                        id = R.string.content_description_progress_icon, model.title
+                        id = R.string.progress_content_description_progress_icon, model.title
                     ),
                     modifier = Modifier.size(size = 96.dp),
                     tint = model.color,

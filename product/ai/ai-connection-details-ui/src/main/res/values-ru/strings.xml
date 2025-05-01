@@ -15,18 +15,15 @@
   -->
 
 <resources>
-
-    <!-- Ai Setting -->
     <string name="ai_connection_details_title">Инструкция по созданию ключа</string>
     <string name="ai_connection_details_description">Создайте ключ используя официальную документацию провайдера ИИ</string>
     <string name="ai_connection_details_open">Создать</string>
-    <string name="ai_connection_title_add">Новое ИИ подключение</string>
-    <string name="ai_connection_title_edit">Редактирование ИИ подключения</string>
+    <string name="ai_connection_details_title_add">Новое ИИ подключение</string>
+    <string name="ai_connection_details_title_edit">Редактирование ИИ подключения</string>
     <string name="ai_connection_details_name">Имя</string>
     <string name="ai_connection_details_provider">Провайдер ИИ</string>
     <string name="ai_connection_details_api_key">Ключ API</string>
     <string name="ai_connection_details_project_folder">Проект</string>
     <string name="ai_connection_details_action_save">Сохранить</string>
     <string name="ai_connection_details_action_delete">Удалить</string>
-
 </resources>

@@ -2,6 +2,6 @@
 <resources>
     <!--Generated Translator AI-->
     <string name="app_name">Flexquiz: Plateforme de Quiz</string>
-    <string name="msg_pro_dialog">Triple portion de connaissances – plus de 3000 questions ! Cela suffit pour devenir un vrai expert.</string>
-    <string name="msg_pro_ad_banner">Plus de 3000 questions et pas d\'annonces !</string>
+    <string name="app_msg_pro_dialog">Triple portion de connaissances – plus de 3000 questions ! Cela suffit pour devenir un vrai expert.</string>
+    <string name="app_msg_pro_ad_banner">Plus de 3000 questions et pas d\'annonces !</string>
 </resources>

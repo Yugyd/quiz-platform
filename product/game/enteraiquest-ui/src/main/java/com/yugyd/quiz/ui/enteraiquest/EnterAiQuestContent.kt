@@ -92,7 +92,7 @@ fun EnterAiQuestContent(
             onValueChange = onAnswerTextChanged,
             label = {
                 Text(
-                    text = stringResource(id = R.string.enter_ai_title_enter_answer),
+                    text = stringResource(id = R.string.enter_ai_quest_title_enter_answer),
                 )
             },
             keyboardOptions = KeyboardOptions(
@@ -127,7 +127,7 @@ fun EnterAiQuestContent(
             isError = isError,
             supportingText = {
                 Text(
-                    text = stringResource(id = R.string.enter_ai_title_supporting),
+                    text = stringResource(id = R.string.enter_ai_quest_title_supporting),
                 )
             },
             readOnly = !quest.isFieldEnabled,
@@ -141,7 +141,7 @@ fun EnterAiQuestContent(
 
                 AiAnswer(
                     aiDescription = quest.answerDescriptionFromAi.ifEmpty {
-                        stringResource(id = R.string.enter_ai_check_error)
+                        stringResource(id = R.string.enter_ai_quest_check_error)
                     },
                 )
             }
@@ -177,7 +177,7 @@ private fun ColumnScope.ContinueButton(
         enabled = answerButtonIsEnabled,
     ) {
         Text(
-            text = stringResource(id = R.string.enter_ai_continue),
+            text = stringResource(id = R.string.enter_ai_quest_continue),
         )
     }
 }
@@ -186,7 +186,7 @@ private fun ColumnScope.ContinueButton(
 private fun AiAnswer(aiDescription: String) {
     Column(modifier = controlModifier) {
         Text(
-            text = stringResource(id = R.string.enter_ai_title_true_answer_description_from_ai),
+            text = stringResource(id = R.string.enter_ai_quest_title_true_answer_description_from_ai),
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             style = MaterialTheme.typography.labelMedium,
         )

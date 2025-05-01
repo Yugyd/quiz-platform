@@ -15,15 +15,7 @@
   -->
 
 <resources>
-
-    <!-- Base -->
     <string name="app_name">Flexquiz: Викторина Платформа</string>
-
-    <!-- Messages -->
-    <string name="msg_pro_dialog">
-        "Тройная порция знаний - более 3 000 вопросов!"
-        "Этого вполне достаточно, чтобы стать настоящим экспертом."
-    </string>
-    <string name="msg_pro_ad_banner">Более 3 000 вопросов и никакой рекламы!</string>
-
+    <string name="app_msg_pro_dialog">Тройная порция знаний - более 3 000 вопросов! Этого вполне достаточно, чтобы стать настоящим экспертом.</string>
+    <string name="app_msg_pro_ad_banner">Более 3 000 вопросов и никакой рекламы!</string>
 </resources>

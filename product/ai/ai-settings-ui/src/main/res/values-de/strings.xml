@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Unsupported translate words -->
+    <plurals name="ai_settings_storage_term">
+        <item quantity="one">%1$d Tag</item>
+        <item quantity="other">%1$d Tage</item>
+    </plurals>
+
     <!--Generated Translator AI-->
     <string name="ai_settings_title_ai">AI Einstellungen</string>
     <string name="ai_settings_title_enable_ai">AI Beta aktivieren</string>

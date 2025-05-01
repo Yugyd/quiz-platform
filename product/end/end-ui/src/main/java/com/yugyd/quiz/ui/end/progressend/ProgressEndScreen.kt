@@ -185,7 +185,7 @@ internal fun ProgressEndContent(
             onClick = onSkipButtonClicked,
             colors = ButtonDefaults.filledTonalButtonColors(),
         ) {
-            Text(text = stringResource(id = R.string.action_skip))
+            Text(text = stringResource(id = R.string.end_action_skip))
         }
     }
 }
@@ -216,11 +216,11 @@ private fun ContentPreview() {
     QuizApplicationTheme {
         QuizBackground {
             ProgressEndContent(
-                title = stringResource(id = R.string.title_well),
-                message = stringResource(id = R.string.msg_new_record),
+                title = stringResource(id = R.string.end_title_well),
+                message = stringResource(id = R.string.end_msg_new_record),
                 icon = R.drawable.ic_rewarded_ads_48,
                 showIconBackground = true,
-                actionButtonTitle = stringResource(id = R.string.action_leave_rate),
+                actionButtonTitle = stringResource(id = R.string.end_action_leave_rate),
                 onRateButtonClicked = {},
                 onSkipButtonClicked = {},
             )

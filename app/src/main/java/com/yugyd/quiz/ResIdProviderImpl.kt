@@ -26,8 +26,8 @@ internal class ResIdProviderImpl @Inject constructor() : ResIdProvider {
     override fun appRoundIcon() = R.mipmap.ic_launcher_round
     override fun pushIcon() = uiKitR.drawable.ic_message_24
     override fun appName() = R.string.app_name
-    override fun msgProAdBanner() = R.string.msg_pro_ad_banner
-    override fun appTelegramChat() = R.string.app_telegram_chat_name
+    override fun msgProAdBanner() = R.string.app_msg_pro_ad_banner
+    override fun appTelegramChat() = R.string.main_app_telegram_chat_name
     override fun msgProAdBannerString() = TextModel.ResTextModel(res = msgProAdBanner())
     override fun appPrivacyPolicyLink() = R.string.app_privacy_policy_link
 }

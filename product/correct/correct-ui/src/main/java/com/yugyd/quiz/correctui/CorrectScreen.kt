@@ -161,7 +161,7 @@ internal fun CorrectContent(
         Spacer(modifier = Modifier.height(32.dp))
 
         Text(
-            text = stringResource(id = R.string.title_remember_quest),
+            text = stringResource(id = R.string.correct_title_remember_quest),
             style = MaterialTheme.typography.headlineSmall,
             textAlign = TextAlign.Center,
             color = MaterialTheme.colorScheme.onBackground,
@@ -170,7 +170,7 @@ internal fun CorrectContent(
         Spacer(modifier = Modifier.height(16.dp))
 
         Text(
-            text = stringResource(id = R.string.msg_correct_quest),
+            text = stringResource(id = R.string.correct_msg_correct_quest),
             color = MaterialTheme.colorScheme.onBackground,
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.bodyLarge,
@@ -191,7 +191,7 @@ internal fun CorrectContent(
             Spacer(modifier = Modifier.height(16.dp))
 
             Text(
-                text = stringResource(id = R.string.msg_correct_pro_available),
+                text = stringResource(id = R.string.correct_msg_correct_pro_available),
                 style = MaterialTheme.typography.titleSmall,
                 color = MaterialTheme.colorScheme.primary,
             )

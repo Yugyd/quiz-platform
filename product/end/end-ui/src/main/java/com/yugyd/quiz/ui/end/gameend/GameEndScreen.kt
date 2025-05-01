@@ -114,7 +114,7 @@ internal fun GameEndScreen(
     onInterstitialAdDismissed: () -> Unit,
     onInterstitialAdFailedToShow: (AdErrorDomainModel) -> Unit,
 ) {
-    val rewardedErrorMessage = stringResource(id = R.string.error_reward_not_loaded)
+    val rewardedErrorMessage = stringResource(id = R.string.end_error_reward_not_loaded)
     LaunchedEffect(key1 = uiState.showInterstitialErrorMessage) {
         if (uiState.showInterstitialErrorMessage) {
             snackbarHostState.showSnackbar(message = rewardedErrorMessage)
@@ -209,7 +209,7 @@ internal fun GameEndContent(
         Button(
             onClick = onNewGameButtonClicked,
         ) {
-            Text(text = stringResource(id = R.string.action_new_game))
+            Text(text = stringResource(id = R.string.end_action_new_game))
         }
 
         if (isErrorVisible) {
@@ -219,7 +219,7 @@ internal fun GameEndContent(
                 onClick = onShowErrorsButtonClicked,
                 colors = ButtonDefaults.filledTonalButtonColors(),
             ) {
-                Text(text = stringResource(id = R.string.action_show_error))
+                Text(text = stringResource(id = R.string.end_action_show_error))
             }
         }
     }

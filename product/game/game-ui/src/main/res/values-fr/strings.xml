@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--Generated Translator AI-->
-    <string name="title_add_life">Ajouter une vie</string>
-    <string name="msg_add_life">Regardez un vidéo publicitaire pour obtenir une vie supplémentaire</string>
-    <string name="action_watch">Voir</string>
-    <string name="action_next">Suivant</string>
-    <string name="error_reward_not_loaded">Chargement de la récompense échoué</string>
+    <string name="game_title_add_life">Ajouter une vie</string>
+    <string name="game_msg_add_life">Regardez un vidéo publicitaire pour obtenir une vie supplémentaire</string>
+    <string name="game_action_watch">Voir</string>
+    <string name="game_action_next">Suivant</string>
+    <string name="game_error_reward_not_loaded">Chargement de la récompense échoué</string>
 </resources>

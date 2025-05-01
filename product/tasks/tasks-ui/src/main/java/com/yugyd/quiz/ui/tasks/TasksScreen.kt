@@ -148,7 +148,7 @@ internal fun TasksScreen(
 
     Column {
         SimpleToolbar(
-            title = stringResource(id = R.string.tasks_title_list),
+            title = stringResource(id = R.string.tasks_title_tasks_list),
             onBackPressed = onBackPressed,
             rightIcon = Icons.Filled.Tune,
             onRightIconClicked = onShowFilterClicked,

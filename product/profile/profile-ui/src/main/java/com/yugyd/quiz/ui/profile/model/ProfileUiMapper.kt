@@ -70,26 +70,26 @@ internal class ProfileUiMapper @Inject constructor(
         ),
         section(
             type = TypeProfile.SOCIAL_SECTION,
-            titleRes = R.string.title_social,
+            titleRes = R.string.profile_title_social,
             isSectionEnabled = isTelegramEnabledAndTelegramConfigNotNull(
                 isTelegramFeatureEnabled = isTelegramFeatureEnabled,
                 telegramConfig = telegramConfig,
             ),
         ),
         social(TypeProfile.TELEGRAM_SOCIAL, isTelegramFeatureEnabled, telegramConfig),
-        section(TypeProfile.SETTINGS_SECTION, R.string.title_settings),
-        value(TypeProfile.TRANSITION, R.string.title_show_answer, transition.value),
-        switch(TypeProfile.SORT_QUEST, R.string.title_sorting_quest, isSortedQuest),
-        switch(TypeProfile.VIBRATION, R.string.title_vibration, isVibration),
+        section(TypeProfile.SETTINGS_SECTION, R.string.profile_title_settings),
+        value(TypeProfile.TRANSITION, R.string.profile_title_show_answer, transition.value),
+        switch(TypeProfile.SORT_QUEST, R.string.profile_title_sorting_quest, isSortedQuest),
+        switch(TypeProfile.VIBRATION, R.string.profile_title_vibration, isVibration),
         getProItem(isProFeatureEnabled),
         getPurchaseSection(isProFeatureEnabled),
-        section(TypeProfile.PLEASE_US_SECTION, R.string.title_please_us),
-        item(TypeProfile.RATE_APP, R.string.title_rate_app),
-        item(TypeProfile.SHARE, R.string.title_share_friend),
-        item(TypeProfile.OTHER_APPS, R.string.title_other_apps),
-        section(TypeProfile.FEEDBACK_SECTION, R.string.title_feedback),
-        item(TypeProfile.REPORT_ERROR, R.string.title_report_error),
-        item(TypeProfile.PRIVACY_POLICY, R.string.title_privacy_policy),
+        section(TypeProfile.PLEASE_US_SECTION, R.string.profile_title_please_us),
+        item(TypeProfile.RATE_APP, R.string.profile_title_rate_app),
+        item(TypeProfile.SHARE, R.string.profile_title_share_app),
+        item(TypeProfile.OTHER_APPS, R.string.profile_title_other_apps),
+        section(TypeProfile.FEEDBACK_SECTION, R.string.profile_title_feedback),
+        item(TypeProfile.REPORT_ERROR, R.string.profile_title_report_error),
+        item(TypeProfile.PRIVACY_POLICY, R.string.profile_title_privacy_policy),
         getOpenSourceItem(isBasedOnPlatformApp),
     )
 
@@ -133,7 +133,7 @@ internal class ProfileUiMapper @Inject constructor(
     private fun header(content: Content, isProFeatureEnabled: Boolean) = content.run {
         val contentUi = contentUiMapper.map(content)
         val contentTitle = context.getString(contentUi.title)
-        val formattedVersionName = context.getString(R.string.format_version, contentTitle)
+        val formattedVersionName = context.getString(R.string.profile_format_version, contentTitle)
 
         HeaderProfileUiModel(
             appName = appName,
@@ -163,7 +163,7 @@ internal class ProfileUiMapper @Inject constructor(
             id = type.id,
             type = type,
             title = context.getString(titleRes),
-            value = context.getString(R.string.format_time_second, value)
+            value = context.getString(R.string.profile_format_time_second, value)
         )
 
     private fun value(type: TypeProfile, @StringRes titleRes: Int, value: String) =
@@ -221,7 +221,7 @@ internal class ProfileUiMapper @Inject constructor(
 
     private fun getPurchaseSection(isProFeatureEnabled: Boolean): SelectItemProfileUiModel? {
         return if (isProFeatureEnabled) {
-            item(TypeProfile.PRO, R.string.title_pro_version)
+            item(TypeProfile.PRO, R.string.profile_title_pro_version)
         } else {
             null
         }
@@ -229,7 +229,7 @@ internal class ProfileUiMapper @Inject constructor(
 
     private fun getProItem(isProFeatureEnabled: Boolean): SectionProfileUiModel? {
         return if (isProFeatureEnabled) {
-            section(TypeProfile.PURCHASES_SECTION, R.string.title_purchases)
+            section(TypeProfile.PURCHASES_SECTION, R.string.profile_title_purchases)
         } else {
             null
         }

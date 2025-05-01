@@ -15,22 +15,15 @@
   -->
 
 <resources>
-
-    <!-- Game End -->
-    <string name="title_well">Отлично!</string>
-    <string name="msg_new_record">Установлен новый рекорд! Вам понравилось?</string>
-
-    <!-- Action -->
-    <string name="action_leave_rate">Оставьте отзыв</string>
-    <string name="action_skip">Пропустить</string>
-    <string name="action_show_error">Смотреть ошибки</string>
-    <string name="action_new_game">Новая игра</string>
-    <string name="action_watch">Посмотреть</string>
-    <string name="action_next">Далее</string>
-
-    <string name="error_reward_not_loaded">Не удалось загрузить рекламу</string>
-
-    <string name="title_work_favorites">Работа над избранным</string>
-    <string name="title_work_error">Работа над ошибками</string>
-
+    <string name="end_title_well">Отлично!</string>
+    <string name="end_msg_new_record">Установлен новый рекорд! Вам понравилось?</string>
+    <string name="end_action_leave_rate">Оставьте отзыв</string>
+    <string name="end_action_skip">Пропустить</string>
+    <string name="end_action_show_error">Смотреть ошибки</string>
+    <string name="end_action_new_game">Новая игра</string>
+    <string name="end_action_watch">Посмотреть</string>
+    <string name="end_action_next">Далее</string>
+    <string name="end_error_reward_not_loaded">Не удалось загрузить рекламу</string>
+    <string name="end_title_work_favorites">Работа над избранным</string>
+    <string name="end_title_work_error">Работа над ошибками</string>
 </resources>

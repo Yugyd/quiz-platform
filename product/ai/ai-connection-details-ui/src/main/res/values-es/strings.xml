@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--Generated Translator AI-->
-    <string name="ai_connection_title_add">Nueva conexión AI</string>
-    <string name="ai_connection_title_edit">Editar conexión AI</string>
+    <string name="ai_connection_details_title_add">Nueva conexión AI</string>
+    <string name="ai_connection_details_title_edit">Editar conexión AI</string>
     <string name="ai_connection_details_title">Instrucciones para generar la clave API</string>
     <string name="ai_connection_details_description">Genera la clave API usando la documentación oficial del proveedor de IA</string>
     <string name="ai_connection_details_open">Abrir</string>

@@ -3,4 +3,4 @@ config:
   excludeTranslated: true
 
 exclude:
-  - "app_email"
+  - "common_app_email"

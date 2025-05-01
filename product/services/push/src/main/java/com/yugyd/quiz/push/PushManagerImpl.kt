@@ -43,7 +43,7 @@ internal class PushManagerImpl @Inject constructor(
     private val notificationManager = NotificationManagerCompat.from(context)
 
     private val channelId by lazy {
-        context.getString(R.string.default_channel_id)
+        context.getString(R.string.push_default_channel_id)
     }
 
     private val launchIntent
@@ -74,8 +74,8 @@ internal class PushManagerImpl @Inject constructor(
     }
 
     private fun createNotificationChannel(): NotificationChannel {
-        val name = context.getString(R.string.default_channel_name)
-        val description = context.getString(R.string.default_channel_description)
+        val name = context.getString(R.string.push_default_channel_name)
+        val description = context.getString(R.string.push_default_channel_description)
         val importance = NotificationManager.IMPORTANCE_DEFAULT
         return NotificationChannel(
             channelId,

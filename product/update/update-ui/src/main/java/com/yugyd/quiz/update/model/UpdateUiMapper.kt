@@ -31,11 +31,11 @@ internal class UpdateUiMapper @Inject constructor(
     fun map(updateConfig: UpdateConfig?): State {
         return State(
             updateConfig = UpdateConfigUiModel(
-                title = updateConfig?.title ?: context.getString(R.string.title_update),
+                title = updateConfig?.title ?: context.getString(R.string.update_title_update),
                 message = updateConfig?.message
-                    ?: context.getString(R.string.title_update_description),
+                    ?: context.getString(R.string.update_title_update_description),
                 buttonTitle = updateConfig?.buttonTitle
-                    ?: context.getString(R.string.action_update),
+                    ?: context.getString(R.string.update_action_update),
             ),
             isLoading = false,
         )
@@ -44,9 +44,9 @@ internal class UpdateUiMapper @Inject constructor(
     fun makeDefaultState(): State {
         return State(
             updateConfig = UpdateConfigUiModel(
-                buttonTitle = context.getString(R.string.action_update),
-                message = context.getString(R.string.title_update_description),
-                title = context.getString(R.string.title_update),
+                buttonTitle = context.getString(R.string.update_action_update),
+                message = context.getString(R.string.update_title_update_description),
+                title = context.getString(R.string.update_title_update),
             ),
             isLoading = false,
         )

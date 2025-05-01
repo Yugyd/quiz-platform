@@ -85,7 +85,7 @@ internal fun TransitionScreen(
 ) {
     Column {
         SimpleToolbar(
-            title = stringResource(id = R.string.title_show_answer),
+            title = stringResource(id = R.string.transition_title_show_answer),
             onBackPressed = onBackPressed,
         )
 

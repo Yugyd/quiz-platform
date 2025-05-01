@@ -15,11 +15,12 @@
   -->
 
 <resources>
-    <string name="title_extended_content">Extended content</string>
-    <string name="title_extended_content_info">More than three thousand questions</string>
-    <string name="title_work_error">Work with errors</string>
-    <string name="title_work_error_info">Fix errors</string>
-    <string name="title_ad_off">Ad-free</string>
-    <string name="title_ad_off_info">Do not respond to ads</string>
-    <string name="action_attempt">Try</string>
+    <!--Generated Translator AI-->
+    <string name="pro_title_extended_content">Extended content</string>
+    <string name="pro_title_extended_content_info">Over three thousand questions</string>
+    <string name="pro_title_work_error">Work on mistakes</string>
+    <string name="pro_title_work_error_info">Review your mistakes</string>
+    <string name="pro_title_ad_off">No ads</string>
+    <string name="pro_title_ad_off_info">No distractions from ads</string>
+    <string name="pro_action_attempt">Try</string>
 </resources>

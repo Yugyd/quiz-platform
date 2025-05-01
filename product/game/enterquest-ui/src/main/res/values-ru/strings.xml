@@ -15,6 +15,5 @@
   -->
 
 <resources>
-    <!-- Game: Enter code -->
-    <string name="enter_code_correct_answer">Правильный ответ</string>
+    <string name="enter_quest_correct_answer">Правильный ответ</string>
 </resources>

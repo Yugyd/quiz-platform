@@ -15,5 +15,6 @@
   -->
 
 <resources>
-    <string name="course_details_start_test">Start test</string>
+    <!--Generated Translator AI-->
+    <string name="course_details_start_test">Start Testing</string>
 </resources>

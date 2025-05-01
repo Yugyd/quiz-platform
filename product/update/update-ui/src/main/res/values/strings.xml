@@ -14,7 +14,8 @@
   ~    limitations under the License.
   -->
 <resources>
-    <string name="title_update">Update</string>
-    <string name="title_update_description">New features and content available for you</string>
-    <string name="action_update">Update</string>
+    <!--Generated Translator AI-->
+    <string name="update_title_update">Update Available</string>
+    <string name="update_title_update_description">New features and content are available for you</string>
+    <string name="update_action_update">Update</string>
 </resources>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--Generated Translator AI-->
-    <string name="tasks_title_list">Liste des tâches</string>
+    <string name="tasks_title_tasks_list">Liste des tâches</string>
     <string name="tasks_filters">Filtres</string>
     <string name="tasks_errors">Erreurs</string>
     <string name="tasks_favorites">Meilleures</string>

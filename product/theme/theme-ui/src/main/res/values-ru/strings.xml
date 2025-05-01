@@ -15,18 +15,12 @@
   -->
 
 <resources>
-
-    <!-- Theme -->
-    <string name="title_rewarded">Режим тренировка</string>
-    <string name="msg_rewarded">Доступен после просмотра рекламного ролика</string>
-    <string name="action_rewarded">Посмотреть</string>
-    <string name="action_no_thanks">Нет, спасибо</string>
-    <string name="error_rewarded_ad">Не удалось загрузить рекламу</string>
-
-    <string name="title_theme_completed">Категория пройдена</string>
-
-    <!-- Action -->
-    <string name="action_info">Информация</string>
-    <string name="action_close">Закрыть</string>
-
+    <string name="theme_dialog_title_rewarded">Режим тренировка</string>
+    <string name="theme_dialog_msg_rewarded">Доступен после просмотра рекламного ролика</string>
+    <string name="theme_dialog_action_rewarded">Посмотреть</string>
+    <string name="theme_dialog_action_no_thanks">Нет, спасибо</string>
+    <string name="theme_error_rewarded_ad">Не удалось загрузить рекламу</string>
+    <string name="theme_title_theme_completed">Категория пройдена</string>
+    <string name="theme_dialog_action_info">Информация</string>
+    <string name="theme_action_close">Закрыть</string>
 </resources>

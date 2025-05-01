@@ -15,10 +15,11 @@
   -->
 
 <resources>
-    <string name="tasks_title_list">Task List</string>
+    <!--Generated Translator AI-->
+    <string name="tasks_title_tasks_list">Task List</string>
     <string name="tasks_filters">Filters</string>
     <string name="tasks_errors">Errors</string>
     <string name="tasks_favorites">Favorites</string>
     <string name="tasks_empty_state_title">Nothing found</string>
-    <string name="tasks_empty_state_message">Try changing filters</string>
+    <string name="tasks_empty_state_message">Try changing the filters</string>
 </resources>

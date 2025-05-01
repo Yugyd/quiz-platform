@@ -15,19 +15,18 @@
   -->
 
 <resources>
-
     <!-- Base -->
-    <string name="app_name">Flexquiz: Quiz Platform</string>
     <!-- Replace with your resource -->
-    <string name="app_site_host" translatable="false">sites.google.com</string>
+    <string name="main_app_site_host" translatable="false">sites.google.com</string>
     <!-- Replace with your resource -->
-    <string name="app_site_patch_prefix" translatable="false">/view/yugyd/quiz/quiz-platform</string>
+    <string name="main_app_site_patch_prefix" translatable="false">/view/yugyd/quiz/quiz-platform</string>
     <!-- Replace with your resource -->
-    <string name="app_telegram_chat_name" translatable="false">quizplatformapp</string>
+    <string name="main_app_telegram_chat_name" translatable="false">quizplatformapp</string>
     <!-- Replace with your resource -->
     <string name="app_privacy_policy_link" translatable="false">https://sites.google.com/view/yugyd/privacy-policy/quiz-platform</string>
 
-    <string name="msg_pro_dialog">Triple portion of knowledge - more than 3000 questions! This is enough to become a real expert.</string>
-    <string name="msg_pro_ad_banner">More than 3000 questions and no ads!</string>
-
+    <!-- Res -->
+    <string name="app_name">Flexquiz: Quiz Platform</string>
+    <string name="app_msg_pro_dialog">A triple portion of knowledge – more than 3,000 questions! That\'s more than enough to become a real expert.</string>
+    <string name="app_msg_pro_ad_banner">Over 3,000 questions and no ads!</string>
 </resources>

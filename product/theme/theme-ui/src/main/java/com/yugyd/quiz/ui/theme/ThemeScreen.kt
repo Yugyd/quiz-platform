@@ -159,7 +159,7 @@ internal fun ThemeScreen(
         }
     }
 
-    val rewardedErrorMessage = stringResource(id = R.string.error_rewarded_ad)
+    val rewardedErrorMessage = stringResource(id = R.string.theme_error_rewarded_ad)
     LaunchedEffect(key1 = uiState.showRewardedErrorMessage) {
         if (uiState.showRewardedErrorMessage) {
             snackbarHostState.showSnackbar(message = rewardedErrorMessage)

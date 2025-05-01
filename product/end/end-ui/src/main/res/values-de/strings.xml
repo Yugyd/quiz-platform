@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--Generated Translator AI-->
-    <string name="title_well">Na gut!</string>
-    <string name="msg_new_record">Neuer Rekord! Hat dir gefallen??</string>
-    <string name="action_leave_rate">Bewertung abgeben</string>
-    <string name="action_skip">Überspringen</string>
-    <string name="action_show_error">Fehler ansehen</string>
-    <string name="action_new_game">Neu spielen</string>
-    <string name="action_watch">Zuschauen</string>
-    <string name="action_next">Weiter</string>
-    <string name="error_reward_not_loaded">Anzeige konnte nicht geladen werden</string>
-    <string name="title_work_favorites">Arbeiten an Favoriten</string>
-    <string name="title_work_error">Fehlersuche</string>
+    <string name="end_title_well">Na gut!</string>
+    <string name="end_msg_new_record">Neuer Rekord! Hat dir gefallen??</string>
+    <string name="end_action_leave_rate">Bewertung abgeben</string>
+    <string name="end_action_skip">Überspringen</string>
+    <string name="end_action_show_error">Fehler ansehen</string>
+    <string name="end_action_new_game">Neu spielen</string>
+    <string name="end_action_watch">Zuschauen</string>
+    <string name="end_action_next">Weiter</string>
+    <string name="end_error_reward_not_loaded">Anzeige konnte nicht geladen werden</string>
+    <string name="end_title_work_favorites">Arbeiten an Favoriten</string>
+    <string name="end_title_work_error">Fehlersuche</string>
 </resources>

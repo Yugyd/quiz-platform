@@ -15,5 +15,6 @@
   -->
 
 <resources>
-    <string name="select_manual_action_continue">Continue</string>
+    <!--Generated Translator AI-->
+    <string name="select_manual_quest_action_continue">Continue</string>
 </resources>

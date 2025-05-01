@@ -15,12 +15,13 @@
   -->
 
 <resources>
-    <string name="title_rewarded">Training mode</string>
-    <string name="msg_rewarded">Available after watching the ad</string>
-    <string name="action_rewarded">View</string>
-    <string name="action_no_thanks">No thanks</string>
-    <string name="error_rewarded_ad">Failed to load ad</string>
-    <string name="title_theme_completed">Category completed</string>
-    <string name="action_info">Information</string>
-    <string name="action_close">Close</string>
+    <!--Generated Translator AI-->
+    <string name="theme_dialog_title_rewarded">Training Mode</string>
+    <string name="theme_dialog_msg_rewarded">Available after watching an ad</string>
+    <string name="theme_dialog_action_rewarded">Watch</string>
+    <string name="theme_dialog_action_no_thanks">No thanks</string>
+    <string name="theme_error_rewarded_ad">Failed to load ad</string>
+    <string name="theme_title_theme_completed">Category completed</string>
+    <string name="theme_dialog_action_info">Information</string>
+    <string name="theme_action_close">Close</string>
 </resources>

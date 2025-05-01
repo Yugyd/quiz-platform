@@ -108,7 +108,7 @@ internal fun ErrorListScreen(
 
     Column {
         SimpleToolbar(
-            title = stringResource(id = R.string.title_error_list),
+            title = stringResource(id = R.string.errors_title_error_list),
             onBackPressed = onBackPressed,
         )
 
@@ -179,7 +179,7 @@ internal fun ErrorItem(
                 modifier = Modifier.weight(weight = 1F),
             ) {
                 Text(
-                    text = stringResource(id = R.string.title_quest),
+                    text = stringResource(id = R.string.errors_title_quest),
                     style = MaterialTheme.typography.bodyLarge,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
@@ -195,7 +195,7 @@ internal fun ErrorItem(
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Text(
-                    text = stringResource(id = R.string.title_true_answer),
+                    text = stringResource(id = R.string.errors_title_true_answer),
                     style = MaterialTheme.typography.bodyLarge,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,

@@ -15,18 +15,6 @@
   -->
 
 <resources>
-
-    <string name="ai_settings_title_ai">ИИ Бета</string>
-
-    <!-- Switch -->
-    <string name="ai_settings_title_enable_ai">Включить ИИ Бета</string>
-
-    <!-- Connection list -->
-    <string name="ai_settings_title_ai_connected">Подключен</string>
-    <string name="ai_settings_add_ai_connection">Добавить ИИ подключение</string>
-
-    <!-- Storage term -->
-    <string name="ai_settings_term_of_cache">Срок обновления контента</string>
     <plurals name="ai_settings_storage_term">
         <item quantity="one">%1$d день</item>
         <item quantity="few">%1$d дня</item>
@@ -34,11 +22,12 @@
         <item quantity="other">%1$d дней</item>
     </plurals>
 
-    <!-- Direct Connection -->
+    <string name="ai_settings_title_ai">ИИ Бета</string>
+    <string name="ai_settings_title_enable_ai">Включить ИИ Бета</string>
+    <string name="ai_settings_title_ai_connected">Подключен</string>
+    <string name="ai_settings_add_ai_connection">Добавить ИИ подключение</string>
+    <string name="ai_settings_term_of_cache">Срок обновления контента</string>
     <string name="ai_settings_direct_connection">Прямое подключение</string>
-
-    <!-- Other -->
     <string name="ai_settings_privacy_policy">Политика использования ИИ</string>
     <string name="ai_settings_ai_test_info">Данная функциональность находится в тестовом режиме</string>
-
 </resources>

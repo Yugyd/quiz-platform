@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--Generated Translator AI-->
-    <string name="select_bool_answer_true">Vrai</string>
-    <string name="select_bool_answer_false">Faux</string>
+    <string name="select_bool_quest_answer_true">Vrai</string>
+    <string name="select_bool_quest_answer_false">Faux</string>
 </resources>

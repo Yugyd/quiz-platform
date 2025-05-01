@@ -15,7 +15,8 @@
   -->
 
 <resources>
-    <string name="title_quest">Quest</string>
-    <string name="title_true_answer">Correct answer</string>
-    <string name="title_error_list">Error list</string>
+    <!--Generated Translator AI-->
+    <string name="errors_title_quest">Question</string>
+    <string name="errors_title_true_answer">Correct answer</string>
+    <string name="errors_title_error_list">Error list</string>
 </resources>

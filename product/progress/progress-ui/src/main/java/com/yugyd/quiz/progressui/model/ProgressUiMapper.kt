@@ -49,7 +49,7 @@ internal class ProgressUiMapper @Inject constructor(
             id = HEADER_ID,
             title = context.getString(uiDegree.title),
             progressPercent = percent,
-            progressPercentTitle = context.getString(R.string.format_percent, percent),
+            progressPercentTitle = context.getString(R.string.progress_format_percent, percent),
             color = progressColorUtils.getProgressColor(percent)
         )
     }
@@ -61,7 +61,7 @@ internal class ProgressUiMapper @Inject constructor(
             title = title,
             subtitle = context.getString(uiDegree.title),
             progressPercent = percent,
-            progressPercentTitle = context.getString(R.string.format_percent, percent),
+            progressPercentTitle = context.getString(R.string.progress_format_percent, percent),
             progressColor = progressColorUtils.getProgressColor(percent)
         )
     }
@@ -73,7 +73,7 @@ internal class ProgressUiMapper @Inject constructor(
             title = context.getString(uiMode.title),
             subtitle = context.getString(uiKitR.string.ds_format_record_progress, record, count),
             progressPercent = percent,
-            progressPercentTitle = context.getString(R.string.format_percent, percent),
+            progressPercentTitle = context.getString(R.string.progress_format_percent, percent),
             progressColor = progressColorUtils.getProgressColor(percent)
         )
     }

@@ -109,7 +109,7 @@ internal fun ProOnboardingScreen(
                 modifier = Modifier.fillMaxWidth(),
             ) {
                 Text(
-                    text = stringResource(id = R.string.action_attempt)
+                    text = stringResource(id = R.string.pro_action_attempt)
                 )
             }
         }

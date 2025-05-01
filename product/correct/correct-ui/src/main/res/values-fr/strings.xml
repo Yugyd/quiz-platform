@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--Generated Translator AI-->
-    <string name="title_remember_quest">Les questions seront maintenant mémorisées !</string>
-    <string name="msg_correct_quest">Corrige les erreurs pour débloquer le contenu. Tous les méfaits sont ici.</string>
-    <string name="msg_correct_pro_available">Disponible uniquement en version Pro.</string>
+    <string name="correct_title_remember_quest">Les questions seront maintenant mémorisées !</string>
+    <string name="correct_msg_correct_quest">Corrige les erreurs pour débloquer le contenu. Tous les méfaits sont ici.</string>
+    <string name="correct_msg_correct_pro_available">Disponible uniquement en version Pro.</string>
 </resources>

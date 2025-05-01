@@ -15,11 +15,9 @@
   -->
 
 <resources>
-    <string name="enter_ai_title_enter_answer">Ваш ответ</string>
-    <string name="enter_ai_title_supporting">Не более 400 символов</string>
-    <string name="enter_ai_title_true_answer_description_from_ai">Правильный ответ из ИИ</string>
-    <string name="enter_ai_continue">Продолжить</string>
-
-    <!-- Error -->
-    <string name="enter_ai_check_error">Что-то пошло не так. Попробуйте позже.</string>
+    <string name="enter_ai_quest_title_enter_answer">Ваш ответ</string>
+    <string name="enter_ai_quest_title_supporting">Не более 400 символов</string>
+    <string name="enter_ai_quest_title_true_answer_description_from_ai">Правильный ответ из ИИ</string>
+    <string name="enter_ai_quest_continue">Продолжить</string>
+    <string name="enter_ai_quest_check_error">Что-то пошло не так. Попробуйте позже.</string>
 </resources>

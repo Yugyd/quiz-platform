@@ -33,20 +33,20 @@ internal class ProOnboadringUiMapper @Inject constructor(
             item(
                 FIRST_ITEM,
                 R.drawable.ic_school_48,
-                R.string.title_extended_content,
-                R.string.title_extended_content_info,
+                R.string.pro_title_extended_content,
+                R.string.pro_title_extended_content_info,
             ),
             item(
                 TWO_ITEM,
                 R.drawable.ic_rocket_launch_48,
-                R.string.title_work_error,
-                R.string.title_work_error_info
+                R.string.pro_title_work_error,
+                R.string.pro_title_work_error_info
             ),
             item(
                 THREE_ITEM,
                 R.drawable.ic_ad_off_48,
-                R.string.title_ad_off,
-                R.string.title_ad_off_info
+                R.string.pro_title_ad_off,
+                R.string.pro_title_ad_off_info
             )
         )
     }

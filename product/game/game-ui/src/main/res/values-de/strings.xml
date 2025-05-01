@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--Generated Translator AI-->
-    <string name="title_add_life">Extraleben</string>
-    <string name="msg_add_life">Ein Werbefilm schauen, um Extraleben zu bekommen</string>
-    <string name="action_watch">Werbevideo ansehen</string>
-    <string name="action_next">Weiter</string>
-    <string name="error_reward_not_loaded">Belohnung konnte nicht geladen werden</string>
+    <string name="game_title_add_life">Extraleben</string>
+    <string name="game_msg_add_life">Ein Werbefilm schauen, um Extraleben zu bekommen</string>
+    <string name="game_action_watch">Werbevideo ansehen</string>
+    <string name="game_action_next">Weiter</string>
+    <string name="game_error_reward_not_loaded">Belohnung konnte nicht geladen werden</string>
 </resources>

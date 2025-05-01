@@ -15,19 +15,9 @@
   -->
 
 <resources>
-
-    <!-- Game -->
-    <string name="title_add_life">Дополнительная жизнь</string>
-    <string name="msg_add_life">Получить дополнительную жизнь, посмотрев рекламный ролик</string>
-
-    <!-- Action -->
-    <string name="action_leave_rate">Оставьте отзыв</string>
-    <string name="action_skip">Пропустить</string>
-    <string name="action_show_error">Смотреть ошибки</string>
-    <string name="action_new_game">Новая игра</string>
-    <string name="action_watch">Посмотреть</string>
-    <string name="action_next">Далее</string>
-
-    <string name="error_reward_not_loaded">Не удалось загрузить рекламу</string>
-
+    <string name="game_title_add_life">Дополнительная жизнь</string>
+    <string name="game_msg_add_life">Получить дополнительную жизнь, посмотрев рекламный ролик</string>
+    <string name="game_action_watch">Посмотреть</string>
+    <string name="game_action_next">Далее</string>
+    <string name="game_error_reward_not_loaded">Не удалось загрузить рекламу</string>
 </resources>

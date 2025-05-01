@@ -15,9 +15,11 @@
   -->
 
 <resources>
-    <string name="app_email" translatable="false">yugydyur@gmail.com</string>
-    <string name="title_select_messenger">Choose a messenger</string>
-    <string name="title_message_error">Error message</string>
-    <string name="msg_message_describe_error">Describe the error</string>
-    <string name="format_message_subject">%1$s. %2$s</string>
+    <string name="common_app_email" translatable="false">yugydyur@gmail.com</string>
+
+    <!--Generated Translator AI-->
+    <string name="common_title_select_messenger">Select a mail messenger</string>
+    <string name="common_title_message_error">Error message</string>
+    <string name="common_message_describe_error">Describe the error</string>
+    <string name="common_format_message_subject">%1$s. %2$s</string>
 </resources>

@@ -15,7 +15,8 @@
   -->
 
 <resources>
-    <string name="search_course_title_search_theme">Course search</string>
+    <!--Generated Translator AI-->
+    <string name="search_course_title_search_theme">Course Search</string>
     <string name="search_course_title_themes">Topics</string>
-    <string name="search_course_empty_state_message">Nothing found for &quot;%s&quot;</string>
+    <string name="search_course_empty_state_message">No results found for &quot;%s&quot;</string>
 </resources>

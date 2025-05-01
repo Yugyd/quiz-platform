@@ -40,8 +40,8 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:host="@string/app_site_host"
-                    android:pathPrefix="@string/app_site_patch_prefix"
+                    android:host="@string/main_app_site_host"
+                    android:pathPrefix="@string/main_app_site_patch_prefix"
                     android:scheme="http" />
 
             </intent-filter>
@@ -53,8 +53,8 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:host="@string/app_site_host"
-                    android:pathPrefix="@string/app_site_patch_prefix"
+                    android:host="@string/main_app_site_host"
+                    android:pathPrefix="@string/main_app_site_patch_prefix"
                     android:scheme="https" />
 
             </intent-filter>

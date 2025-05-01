@@ -83,7 +83,7 @@ fun SelectManualQuestContent(
             enabled = quest.answerButtonIsEnabled,
         ) {
             Text(
-                text = stringResource(id = R.string.select_manual_action_continue),
+                text = stringResource(id = R.string.select_manual_quest_action_continue),
             )
         }
     }

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--Generated Translator AI-->
-    <string name="code_answer_a">Seulement l\'affirmation A est correcte</string>
-    <string name="code_answer_b">Seulement l\'affirmation B est correcte</string>
-    <string name="code_answer_yes">Les deux affirmations sont correctes</string>
-    <string name="code_answer_yes_variant">Les deux énoncés sont corrects</string>
-    <string name="code_answer_no">Les deux affirmations sont incorrectes</string>
-    <string name="code_answer_no_variant">Les deux énoncés sont incorrects</string>
-    <string name="code_quest_a">A.</string>
-    <string name="code_quest_a_varinat">A)</string>
-    <string name="code_quest_b">B.</string>
-    <string name="code_quest_b_varinat">B)</string>
+    <string name="simple_quest_code_answer_a">Seulement l\'affirmation A est correcte</string>
+    <string name="simple_quest_code_answer_b">Seulement l\'affirmation B est correcte</string>
+    <string name="simple_quest_code_answer_yes">Les deux affirmations sont correctes</string>
+    <string name="simple_quest_code_answer_yes_variant">Les deux énoncés sont corrects</string>
+    <string name="simple_quest_code_answer_no">Les deux affirmations sont incorrectes</string>
+    <string name="simple_quest_code_answer_no_variant">Les deux énoncés sont incorrects</string>
+    <string name="simple_quest_code_quest_a">A.</string>
+    <string name="simple_quest_code_quest_a_variant">A)</string>
+    <string name="simple_quest_code_quest_b">B.</string>
+    <string name="simple_quest_code_quest_b_variant">B)</string>
 </resources>

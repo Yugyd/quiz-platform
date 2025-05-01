@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--Generated Translator AI-->
-    <string name="title_rewarded">Belohnungsmodus</string>
-    <string name="msg_rewarded">Verfügbar nach Werbungseinspeichern</string>
-    <string name="action_rewarded">Anzeigen</string>
-    <string name="action_no_thanks">Danke nicht</string>
-    <string name="error_rewarded_ad">Werbeanzeige konnte nicht geladen werden</string>
-    <string name="title_theme_completed">Thema abgeschlossen</string>
-    <string name="action_info">Informationen</string>
-    <string name="action_close">Schließen</string>
+    <string name="theme_dialog_title_rewarded">Belohnungsmodus</string>
+    <string name="theme_dialog_msg_rewarded">Verfügbar nach Werbungseinspeichern</string>
+    <string name="theme_dialog_action_rewarded">Anzeigen</string>
+    <string name="theme_dialog_action_no_thanks">Danke nicht</string>
+    <string name="theme_error_rewarded_ad">Werbeanzeige konnte nicht geladen werden</string>
+    <string name="theme_title_theme_completed">Thema abgeschlossen</string>
+    <string name="theme_dialog_action_info">Informationen</string>
+    <string name="theme_action_close">Schließen</string>
 </resources>

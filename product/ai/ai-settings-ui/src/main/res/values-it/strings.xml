@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Generated Translator AI-->
+    <string name="ai_settings_title_ai">Impostazioni AI</string>
+    <string name="ai_settings_title_enable_ai">Abilita l\'AI</string>
+    <string name="ai_settings_title_ai_connected">Connesso</string>
+    <string name="ai_settings_add_ai_connection">Aggiungi un collegamento AI</string>
+    <string name="ai_settings_term_of_cache">Periodo di aggiornamento della cache</string>
+    <string name="ai_settings_direct_connection">Collegamento diretto</string>
+    <string name="ai_settings_privacy_policy">Politica sulla privacy</string>
+    <string name="ai_settings_ai_test_info">Questa funzionalità è disponibile in modalità test</string>
+</resources>

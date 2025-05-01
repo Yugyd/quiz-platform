@@ -94,7 +94,7 @@ internal fun SpecificProgressScreen(
     onNavigationHandled: () -> Unit,
 ) {
     if (uiState.showErrorMessage) {
-        val showSnackbarMessage = stringResource(id = UiKitR.string.error_base)
+        val showSnackbarMessage = stringResource(id = UiKitR.string.ds_error_base)
         LaunchedEffect(showSnackbarMessage, snackbarHostState) {
             snackbarHostState.showSnackbar(message = showSnackbarMessage)
             onErrorDismissState()
@@ -158,12 +158,12 @@ private fun ResetAlertDialog(
         },
         title = {
             Text(
-                text = stringResource(id = R.string.title_reset_progress)
+                text = stringResource(id = R.string.title_reset_dialog_progress)
             )
         },
         text = {
             Text(
-                text = stringResource(id = R.string.title_reset_progress_info)
+                text = stringResource(id = R.string.title_reset_dialog_progress_info)
             )
         },
         confirmButton = {
@@ -173,7 +173,7 @@ private fun ResetAlertDialog(
                     onResetDialogDismissState()
                 }
             ) {
-                Text(stringResource(id = R.string.action_yes))
+                Text(stringResource(id = R.string.action_reset_dialog_yes))
             }
         },
         dismissButton = {
@@ -182,7 +182,7 @@ private fun ResetAlertDialog(
                     onResetDialogDismissState()
                 }
             ) {
-                Text(stringResource(id = R.string.action_no))
+                Text(stringResource(id = R.string.action_reset_dialog_no))
             }
         }
     )

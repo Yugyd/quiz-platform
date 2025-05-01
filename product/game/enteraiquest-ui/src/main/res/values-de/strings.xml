@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--Generated Translator AI-->
-    <string name="enter_ai_continue">Fortsetzen</string>
+    <string name="enter_ai_continue">Weiter</string>
     <string name="enter_ai_title_enter_answer">Ihre Antwort</string>
-    <string name="enter_ai_title_supporting">Max. 400 Zeichen</string>
-    <string name="enter_ai_title_true_answer_description_from_ai">Richtige Antwort von AI</string>
-    <string name="enter_ai_check_error">Es ist was nicht in Ordnung gekommen. Versuchen Sie es später wieder.</string>
+    <string name="enter_ai_title_supporting">Nicht mehr als 400 Zeichen</string>
+    <string name="enter_ai_title_true_answer_description_from_ai">Die richtige Antwort von AI</string>
+    <string name="enter_ai_check_error">Es ist etwas schief gelaufen. Bitte versuchen Sie es erneut.</string>
 </resources>

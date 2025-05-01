@@ -15,45 +15,34 @@
   -->
 
 <resources xmlns:tools="http://schemas.android.com/tools">
-
     <string name="profile_title_content">Content</string>
-    <string name="profile_title_content_not_selected">No content selected</string>
-    <string name="title_social">Social media</string>
+    <string name="profile_title_content_not_selected">Content not selected</string>
+    <string name="title_social">Social networks</string>
     <string name="title_settings">Settings</string>
-    <string name="title_show_answer">Viewing the answer</string>
-    <string name="title_sorting_quest">Question sorting</string>
+    <string name="title_show_answer">Show answer</string>
+    <string name="title_sorting_quest">Sorting questions</string>
     <string name="title_vibration">Vibration</string>
-
     <string name="profile_tasks">Tasks</string>
-
-    <string name="profile_content_banner_title">Quiz-Platform</string>
-    <string name="profile_content_banner_subtitle">The application is based on the open-source Quiz-Platform solution. We\'d love to hear from you about the platform on GitHub.</string>
+    <string name="profile_content_banner_title">Quiz Platform</string>
+    <string name="profile_content_banner_subtitle">This application is based on the open-source Quiz Platform solution. Follow your account\'s progress on GitHub.</string>
     <string name="profile_content_banner_rate">Rate</string>
-    <string name="profile_content_banner_report_error">Report a bug</string>
-
+    <string name="profile_content_banner_report_error">Report an error</string>
     <string name="title_purchases">Purchases</string>
     <string name="title_pro_version">Pro version</string>
-
-    <string name="title_please_use">Please us</string>
+    <string name="title_please_us">Please us</string>
     <string name="title_rate_app">Rate the app</string>
-    <string name="title_share_friend">Share app</string>
-    <string name="title_other_apps">Our applications</string>
-
+    <string name="title_share_friend">Share with a friend</string>
+    <string name="title_other_apps">Other apps</string>
     <string name="title_feedback">Feedback</string>
-    <string name="title_report_error">Report a bug</string>
-    <string name="title_privacy_policy">Privacy Policy</string>
-
+    <string name="title_report_error">Report an error</string>
+    <string name="title_privacy_policy">Privacy policy</string>
     <string name="profile_title_telegram">Telegram channel</string>
     <string name="profile_title_telegram_promo">Daily questions and feedback</string>
-
     <string name="format_version">%1$s version</string>
     <string name="format_time_second">%1$.1f sec.</string>
     <string name="format_round_time_second" tools:ignore="PluralsCandidate">%1$d sec.</string>
-
-    <!-- AI -->
-    <string name="profile_title_section_ai">AI</string>
+    <string name="profile_title_section_ai">Artificial Intelligence</string>
     <string name="profile_title_ai">AI Beta</string>
     <string name="profile_title_ai_not_connected">None</string>
     <string name="profile_title_ai_off">Off</string>
-
 </resources>

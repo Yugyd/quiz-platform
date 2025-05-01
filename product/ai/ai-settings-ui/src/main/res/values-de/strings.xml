@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--Generated Translator AI-->
-    <string name="ai_settings_title_ai">AI-Beta</string>
-    <string name="ai_settings_title_enable_ai">Aktivieren von AI-Beta</string>
+    <string name="ai_settings_title_ai">AI Einstellungen</string>
+    <string name="ai_settings_title_enable_ai">AI Beta aktivieren</string>
     <string name="ai_settings_title_ai_connected">Verbunden</string>
-    <string name="ai_settings_add_ai_connection">Hinzufügen von AI-Verbindung</string>
-    <string name="ai_settings_term_of_cache">Gehaltetaktungsperiode</string>
+    <string name="ai_settings_add_ai_connection">AI-Verbindung hinzufügen</string>
+    <string name="ai_settings_term_of_cache">Cache-Aktualisierungsintervall</string>
     <string name="ai_settings_direct_connection">Direkte Verbindung</string>
-    <string name="ai_settings_privacy_policy">AI-Nutzungsrichtlinie</string>
-    <string name="ai_settings_ai_test_info">Diese Funktion befindet sich im Testmodus.</string>
+    <string name="ai_settings_privacy_policy">Datenschutzrichtlinie</string>
+    <string name="ai_settings_ai_test_info">Diese Funktion ist im Testmodus verfügbar</string>
 </resources>

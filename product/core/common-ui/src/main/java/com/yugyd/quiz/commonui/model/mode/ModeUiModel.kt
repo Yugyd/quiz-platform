@@ -20,10 +20,10 @@ import androidx.annotation.StringRes
 import com.yugyd.quiz.uikit.R as uiKitR
 
 enum class ModeUiModel(@StringRes val title: Int) {
-    ARCADE(uiKitR.string.title_arcade),
-    TRAIN(uiKitR.string.title_train),
-    ERROR(uiKitR.string.title_correct),
-    FAVORITE(uiKitR.string.title_favorites),
-    AI_TASKS(uiKitR.string.title_ai_tasks),
-    NONE(uiKitR.string.title_unknown)
+    ARCADE(uiKitR.string.ds_game_mode_title_arcade),
+    TRAIN(uiKitR.string.ds_game_mode_title_train),
+    ERROR(uiKitR.string.ds_navbar_title_correct),
+    FAVORITE(uiKitR.string.ds_game_mode_title_favorites),
+    AI_TASKS(uiKitR.string.ds_game_mode_title_ai_tasks),
+    NONE(uiKitR.string.ds_game_mode_title_unknown)
 }

@@ -15,23 +15,15 @@
   -->
 
 <resources>
-
-    <string name="ai_connection_title_add">New AI connection</string>
-    <string name="ai_connection_title_edit">Edit AI connection</string>
-
-    <!-- Ai Setting -->
+    <string name="ai_connection_title_add">New AI Connection</string>
+    <string name="ai_connection_title_edit">Edit AI Connection</string>
     <string name="ai_connection_details_title">API key generation instructions</string>
     <string name="ai_connection_details_description">Generate the API key using the official documentation of the AI provider</string>
-    <string name="ai_connection_details_open">Learn more</string>
-
-    <!-- Fields -->
+    <string name="ai_connection_details_open">Open</string>
     <string name="ai_connection_details_name">Name</string>
-    <string name="ai_connection_details_provider">Provider AI</string>
-    <string name="ai_connection_details_api_key">Api key</string>
-    <string name="ai_connection_details_project_folder">Project folder</string>
-
-    <!-- Action -->
+    <string name="ai_connection_details_provider">Provider</string>
+    <string name="ai_connection_details_api_key">API Key</string>
+    <string name="ai_connection_details_project_folder">Project Folder</string>
     <string name="ai_connection_details_action_save">Save</string>
     <string name="ai_connection_details_action_delete">Delete</string>
-
 </resources>

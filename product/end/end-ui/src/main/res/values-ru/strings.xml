@@ -30,4 +30,7 @@
 
     <string name="error_reward_not_loaded">Не удалось загрузить рекламу</string>
 
+    <string name="title_work_favorites">Работа над избранным</string>
+    <string name="title_work_error">Работа над ошибками</string>
+
 </resources>

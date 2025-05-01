@@ -1,0 +1,3 @@
+config:
+  moduleDescription: "Game topic list screen. Displays topics. The screen consists of the following components: 1. A basic toolbar. 2. TabLayout with game mode selection. 3. A list of topics, including an image, title, subtitle, progress bar, a button for information about the topic, and a 'Play' button. 4. A dialog indicating that the topic is completed. 5. A dialog to start the training game mode after watching an ad."
+  excludeTranslated: true

@@ -1,0 +1,3 @@
+config:
+  moduleDescription: "Progress screen. This screen displays the user's level and a list of progress. The screen consists of the following components: 1. A basic toolbar. 2. A header showing the overall progress level. Icon, title with the level, progress bar, and numerical value. 3. A list of topics, with progress displayed for each. 4. A reset result dialog."
+  excludeTranslated: true

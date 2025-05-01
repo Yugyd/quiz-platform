@@ -1,0 +1,3 @@
+config:
+  moduleDescription: "Design System module. Reusable string resources used throughout the application. The screen consists of the following components: 1. App name. 2. Titles for the navbar and root features. 3. Names of game modes. 4. App version names. 5. Common actions. 6. Error state. 7. Empty state."
+  excludeTranslated: true

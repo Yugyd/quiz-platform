@@ -15,42 +15,24 @@
   -->
 
 <resources>
-
-    <!-- App -->
     <string name="app_name">Quiz Platform</string>
-
-    <!-- Share -->
-    <string name="title_theme">Themes</string>
-    <string name="title_courses">Courses</string>
-    <string name="title_correct">Correct</string>
-    <string name="title_progress">Progress</string>
-    <string name="title_profile">Profile</string>
-
-    <string name="title_arcade">Arcade</string>
-    <string name="title_train">Train</string>
-    <string name="title_unknown">Unknown</string>
-    <string name="title_favorites">Favorites</string>
-    <string name="title_ai_tasks">AI Tasks</string>
-
-    <string name="title_content_lite">Lite</string>
-    <string name="title_content_pro">Pro</string>
-
-    <!-- Game End -->
-    <string name="title_work_error">Work on mistakes</string>
-    <string name="title_work_favorites">Work on favorites</string>
-
-    <string name="format_record_progress">%1$d of %2$d</string>
-
-    <!-- Action -->
-    <string name="action_game">Play</string>
-
-    <!-- Error -->
-    <string name="error_base">Something went wrong</string>
-    <string name="error_fields">Please fill in all fields</string>
-
-    <!-- Empty state -->
-    <string name="title_empty_state">Oops, no data</string>
-    <string name="title_empty_state_description">Try reloading</string>
-    <string name="title_empty_state_retry">Retry</string>
-
+    <string name="ds_navbar_title_theme">Themes</string>
+    <string name="ds_navbar_title_courses">Courses</string>
+    <string name="ds_navbar_title_correct">Correct</string>
+    <string name="ds_navbar_title_progress">Progress</string>
+    <string name="ds_navbar_title_profile">Profile</string>
+    <string name="ds_game_mode_title_arcade">Arcade</string>
+    <string name="ds_game_mode_title_train">Training</string>
+    <string name="ds_game_mode_title_unknown">Unknown</string>
+    <string name="ds_game_mode_title_favorites">Favorites</string>
+    <string name="ds_game_mode_title_ai_tasks">AI Tasks</string>
+    <string name="ds_app_version_title_content_lite">Lite</string>
+    <string name="ds_app_version_title_content_pro">Pro</string>
+    <string name="ds_format_record_progress">%1$d of %2$d</string>
+    <string name="ds_action_game">Play</string>
+    <string name="ds_error_base">Something went wrong</string>
+    <string name="ds_error_fields">Fill in all fields</string>
+    <string name="ds_empty_state_title">No data</string>
+    <string name="ds_empty_state_description">Please reload the screen</string>
+    <string name="ds_empty_state_retry">Retry</string>
 </resources>

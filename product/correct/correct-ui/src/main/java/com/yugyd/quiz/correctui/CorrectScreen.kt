@@ -87,7 +87,7 @@ internal fun CorrectScreen(
     onNavigateToGame: (GamePayload) -> Unit,
     onNavigationHandled: () -> Unit,
 ) {
-    val errorMessage = stringResource(id = UiKitR.string.error_base)
+    val errorMessage = stringResource(id = UiKitR.string.ds_error_base)
     LaunchedEffect(key1 = uiState.showErrorMessage) {
         if (uiState.showErrorMessage) {
             snackbarHostState.showSnackbar(message = errorMessage)
@@ -98,7 +98,7 @@ internal fun CorrectScreen(
 
     Column {
         RootToolbar(
-            title = stringResource(id = UiKitR.string.title_correct),
+            title = stringResource(id = UiKitR.string.ds_navbar_title_correct),
         )
 
         when {
@@ -183,7 +183,7 @@ internal fun CorrectContent(
                 onClick = onStartButtonClicked,
                 enabled = isStartButtonEnabled
             ) {
-                Text(text = stringResource(id = UiKitR.string.action_game))
+                Text(text = stringResource(id = UiKitR.string.ds_action_game))
             }
         }
 

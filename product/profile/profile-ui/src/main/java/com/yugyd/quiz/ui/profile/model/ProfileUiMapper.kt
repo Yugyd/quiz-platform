@@ -83,7 +83,7 @@ internal class ProfileUiMapper @Inject constructor(
         switch(TypeProfile.VIBRATION, R.string.title_vibration, isVibration),
         getProItem(isProFeatureEnabled),
         getPurchaseSection(isProFeatureEnabled),
-        section(TypeProfile.PLEASE_US_SECTION, R.string.title_please_use),
+        section(TypeProfile.PLEASE_US_SECTION, R.string.title_please_us),
         item(TypeProfile.RATE_APP, R.string.title_rate_app),
         item(TypeProfile.SHARE, R.string.title_share_friend),
         item(TypeProfile.OTHER_APPS, R.string.title_other_apps),

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--Generated Translator AI-->
-    <string name="default_channel_id">id_canal_principal</string>
     <string name="default_channel_name">Principal</string>
-    <string name="default_channel_description">Toutes les notifications de l\'app</string>
+    <string name="default_channel_description">Toutes les notifications de l\'application</string>
 </resources>

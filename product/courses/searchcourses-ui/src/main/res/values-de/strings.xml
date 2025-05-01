@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--Generated Translator AI-->
-    <string name="search_course_title_search_theme">Suchergebnisse nach Kurs</string>
+    <string name="search_course_title_search_theme">Suche nach Kursen</string>
     <string name="search_course_title_themes">Themen</string>
-    <string name="search_course_empty_state_message">Keine Ergebnisse für \&quot;%s\&quot;</string>
+    <string name="search_course_empty_state_message">Nichts gefunden für \&quot;%s\&quot;</string>
 </resources>

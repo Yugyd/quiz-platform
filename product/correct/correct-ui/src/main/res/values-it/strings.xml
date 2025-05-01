@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Generated Translator AI-->
+    <string name="title_remember_quest">Ora i questioni verranno memorizzate!</string>
+    <string name="msg_correct_quest">Correggi gli errori per sbloccare il materiale. Tutti gli errori sono qui.</string>
+    <string name="msg_correct_pro_available">Disponibile solo in Pro.</string>
+</resources>

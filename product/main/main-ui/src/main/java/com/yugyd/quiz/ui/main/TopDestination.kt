@@ -10,27 +10,27 @@ enum class TopDestination(
 ) {
 
     THEME(
-        R.string.title_theme,
+        R.string.ds_navbar_title_theme,
         com.yugyd.quiz.commonui.R.drawable.ic_menu_book,
     ),
 
     COURSES(
-        R.string.title_courses,
+        R.string.ds_navbar_title_courses,
         com.yugyd.quiz.commonui.R.drawable.ic_school,
     ),
 
     CORRECT(
-        R.string.title_correct,
+        R.string.ds_navbar_title_correct,
         com.yugyd.quiz.commonui.R.drawable.ic_check_circle,
     ),
 
     PROGRESS(
-        R.string.title_progress,
+        R.string.ds_navbar_title_progress,
         com.yugyd.quiz.commonui.R.drawable.ic_pie_chart,
     ),
 
     PROFILE(
-        R.string.title_profile,
+        R.string.ds_navbar_title_profile,
         R.drawable.ic_account_circle,
     ),
 }

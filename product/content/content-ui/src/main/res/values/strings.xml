@@ -16,38 +16,22 @@
 
 <resources>
     <string name="content_title">Content</string>
-    <string name="content_empty_state_new_file">New file</string>
-    <string name="content_empty_state_title">Get started</string>
-    <string name="content_empty_state_message">
-        Select a new content file and then enjoy the app with your content.
-    </string>
-    <string name="content_empty_state_button">Choose file</string>
-    <string name="content_empty_state_note">Content must match the data format.</string>
-    <string name="content_error_not_added_content_is_exists">Content has already been added</string>
-    <string name="content_error_invalid_uri">Failed to access content file</string>
+    <string name="content_empty_state_new_file">New File</string>
+    <string name="content_empty_state_title">Start work</string>
+    <string name="content_empty_state_message">Choose a new file with content.</string>
+    <string name="content_empty_state_button">Select file</string>
+    <string name="content_empty_state_note">Content must correspond to the data format.</string>
+    <string name="content_error_not_added_content_is_exists">The content has already been added</string>
+    <string name="content_error_invalid_uri">Failed to get access to the file content</string>
     <string name="content_error_add_is_failed">Failed to add content</string>
     <string name="content_error_delete_is_failed">Failed to delete content</string>
-    <string name="content_error_not_select_and_delete">The selected content is invalid and has been removed</string>
+    <string name="content_error_not_select_and_delete">Selected content is invalid and has been deleted</string>
     <string name="content_error_select_is_failed">Failed to select content</string>
-    <string name="content_error_one_item_not_delete">The only content cannot be deleted</string>
-    <string name="content_error_selected_item_not_delete">Selected content cannot be deleted</string>
-
-    <!-- Content -->
-    <string name="content_format_error_content_quest_duplicate_id">
-        Duplicate IDs detected, please provide unique IDs for questions: %s
-    </string>
-    <string name="content_format_error_content_theme_duplicate_id">
-        Duplicate IDs detected, please set unique IDs for topics: %s
-    </string>
-    <string name="content_format_error_content_quest_not_valid">
-        Incorrectly written questions detected: %s
-    </string>
-    <string name="content_format_error_content_theme_not_valid">
-        Incorrectly composed topics detected: %s
-    </string>
-
-    <string name="content_error_content_format_url_not_loaded">
-        Content format resource link not loaded
-    </string>
-
+    <string name="content_error_one_item_not_delete">Single item cannot be deleted</string>
+    <string name="content_error_selected_item_not_delete">Selected item cannot be deleted</string>
+    <string name="content_format_error_content_quest_duplicate_id">Duplicate quest IDs found, please provide unique IDs for questions: %s</string>
+    <string name="content_format_error_content_theme_duplicate_id">Duplicate theme IDs found, please provide unique IDs for themes: %s</string>
+    <string name="content_format_error_content_quest_not_valid">Invalid quest contents found: %s</string>
+    <string name="content_format_error_content_theme_not_valid">Invalid theme contents found: %s</string>
+    <string name="content_error_content_format_url_not_loaded">Could not load content format URL</string>
 </resources>

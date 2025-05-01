@@ -71,7 +71,7 @@ internal class ProgressUiMapper @Inject constructor(
         ItemProgressUiModel(
             id = id,
             title = context.getString(uiMode.title),
-            subtitle = context.getString(uiKitR.string.format_record_progress, record, count),
+            subtitle = context.getString(uiKitR.string.ds_format_record_progress, record, count),
             progressPercent = percent,
             progressPercentTitle = context.getString(R.string.format_percent, percent),
             progressColor = progressColorUtils.getProgressColor(percent)

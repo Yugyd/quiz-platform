@@ -15,18 +15,12 @@
   -->
 
 <resources>
-
-    <!-- Theme -->
     <string name="title_rewarded">Training mode</string>
     <string name="msg_rewarded">Available after watching the ad</string>
     <string name="action_rewarded">View</string>
     <string name="action_no_thanks">No thanks</string>
     <string name="error_rewarded_ad">Failed to load ad</string>
-
     <string name="title_theme_completed">Category completed</string>
-
-    <!-- Action -->
     <string name="action_info">Information</string>
     <string name="action_close">Close</string>
-
 </resources>

@@ -148,7 +148,7 @@ internal fun AiSettingsScreen(
     onAiUsagePolicyClicked: () -> Unit,
     onNavigateToBrowser: (String) -> Unit,
 ) {
-    val errorMessage = stringResource(id = UiKitR.string.error_base)
+    val errorMessage = stringResource(id = UiKitR.string.ds_error_base)
     LaunchedEffect(key1 = uiState.showErrorMessage) {
         if (uiState.showErrorMessage) {
             snackbarHostState.showSnackbar(message = errorMessage)

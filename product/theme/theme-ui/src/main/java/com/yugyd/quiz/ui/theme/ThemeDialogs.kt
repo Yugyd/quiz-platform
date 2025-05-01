@@ -58,7 +58,7 @@ internal fun InfoDialog(
                     onInfoDialogDismissState()
                 }
             ) {
-                Text(stringResource(id = UiKitR.string.action_game))
+                Text(stringResource(id = UiKitR.string.ds_action_game))
             }
         },
         dismissButton = {

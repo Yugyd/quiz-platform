@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--Generated Translator AI-->
-    <string name="app_name">Flexquiz: Plateforme de quiz</string>
-    <string name="app_site_host">sites.google.com</string>
-    <string name="app_site_patch_prefix">/view/yugyd/quiz/plateforme-de-quiz</string>
-    <string name="app_telegram_chat_name">quizplatformapp</string>
-    <string name="app_privacy_policy_link">https://sites.google.com/view/yugyd/politique-de-confidentialité/plateforme-de-quiz</string>
-    <string name="msg_pro_dialog">\&quot;Triple portion de connaissances - plus de 3 000 questions !\&quot; \&quot;Cela suffit déjà pour devenir un véritable expert.\&quot;</string>
-    <string name="msg_pro_ad_banner">Plus de 3 000 questions et aucune publicité !</string>
+    <string name="app_name">Flexquiz: Plateforme de Quiz</string>
+    <string name="msg_pro_dialog">Triple portion de connaissances – plus de 3000 questions ! Cela suffit pour devenir un vrai expert.</string>
+    <string name="msg_pro_ad_banner">Plus de 3000 questions et pas d\'annonces !</string>
 </resources>

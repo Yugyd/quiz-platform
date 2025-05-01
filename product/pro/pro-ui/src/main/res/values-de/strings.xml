@@ -2,9 +2,10 @@
 <resources>
     <!--Generated Translator AI-->
     <string name="title_extended_content">Erweitertes Inhalt</string>
-    <string name="title_extended_content_info">Über drei tausend Fragen</string>
-    <string name="title_work_error_info">Fehler durcharbeiten</string>
-    <string name="title_ad_off">Ohne Werbung</string>
-    <string name="title_ad_off_info">Nicht von der Werbung abgelenkt</string>
+    <string name="title_extended_content_info">Mehr als drei tausend Fragen</string>
+    <string name="title_work_error">Arbeiten mit Fehlern</string>
+    <string name="title_work_error_info">Fehler beheben</string>
+    <string name="title_ad_off">Werbung frei</string>
+    <string name="title_ad_off_info">Keine Werbung mehr sehen</string>
     <string name="action_attempt">Versuchen</string>
 </resources>

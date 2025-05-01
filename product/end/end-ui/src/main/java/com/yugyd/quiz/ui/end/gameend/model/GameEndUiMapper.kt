@@ -21,6 +21,7 @@ import com.yugyd.quiz.commonui.utils.ProgressColorUtils
 import com.yugyd.quiz.core.calculatePercentageToRounded
 import com.yugyd.quiz.domain.api.model.Mode
 import com.yugyd.quiz.domain.api.model.payload.GameEndPayload
+import com.yugyd.quiz.ui.end.R
 import com.yugyd.quiz.ui.end.gameend.GameEndView.State
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
@@ -38,15 +39,15 @@ internal class GameEndUiMapper @Inject constructor(
     ): State {
         val mappedThemeTitle = when (payload.mode) {
             Mode.ARCADE, Mode.TRAIN, Mode.AI_TASKS -> themeTitle
-            Mode.ERROR -> context.getString(uiKitR.string.title_work_error)
-            Mode.FAVORITE -> context.getString(uiKitR.string.title_work_favorites)
+            Mode.ERROR -> context.getString(R.string.title_work_error)
+            Mode.FAVORITE -> context.getString(R.string.title_work_favorites)
             Mode.NONE -> ""
         }
 
         val progress = calculatePercentageToRounded(payload.point, payload.count)
 
         val progressTitle = context.getString(
-            uiKitR.string.format_record_progress,
+            uiKitR.string.ds_format_record_progress,
             payload.point,
             payload.count
         )

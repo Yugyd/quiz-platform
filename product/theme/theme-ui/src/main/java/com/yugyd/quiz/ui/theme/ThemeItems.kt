@@ -149,7 +149,7 @@ internal fun ThemeItem(
                             onStartClicked(model)
                         },
                     ) {
-                        Text(text = stringResource(id = com.yugyd.quiz.uikit.R.string.action_game))
+                        Text(text = stringResource(id = com.yugyd.quiz.uikit.R.string.ds_action_game))
                     }
                 }
             }

@@ -1,0 +1,3 @@
+config:
+  moduleDescription: "Course List screen. This screen displays all available courses. The screen consists of the following components: 1. A basic toolbar. 2. A 'Continue Course' banner. 3. A list of courses from the API."
+  excludeTranslated: true

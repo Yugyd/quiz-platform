@@ -150,7 +150,7 @@ internal fun ThemeScreen(
     onRewardAdDismissed: () -> Unit,
     onRewardAdFailedToShow: (AdErrorDomainModel) -> Unit,
 ) {
-    val errorMessage = stringResource(id = UiKitR.string.error_base)
+    val errorMessage = stringResource(id = UiKitR.string.ds_error_base)
     LaunchedEffect(key1 = uiState.showErrorMessage) {
         if (uiState.showErrorMessage) {
             snackbarHostState.showSnackbar(message = errorMessage)
@@ -213,7 +213,7 @@ internal fun ThemeScreen(
 
     Column {
         RootToolbar(
-            title = stringResource(id = UiKitR.string.title_theme),
+            title = stringResource(id = UiKitR.string.ds_navbar_title_theme),
         )
 
         when {

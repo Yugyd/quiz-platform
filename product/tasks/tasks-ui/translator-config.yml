@@ -1,0 +1,3 @@
+config:
+  moduleDescription: "Task list screen. This screen contains a list of tasks. The screen consists of the following components: 1. A toolbar with a title and a filter icon. 2. A list of tasks, each with a question, correct answer, and a favorite icon. 3. A bottom sheet for selecting filters for tasks. 4. An empty state when there are no tasks."
+  excludeTranslated: true

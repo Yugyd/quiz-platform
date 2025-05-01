@@ -1,0 +1,3 @@
+config:
+  moduleDescription: "Profile screen. A classic profile screen where various settings and useful links are stored. The screen consists of the following components: 1. A basic toolbar. 2. A list of various profile items. 3. An open-source project banner."
+  excludeTranslated: true

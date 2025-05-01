@@ -2,12 +2,12 @@
 <resources>
     <!--Generated Translator AI-->
     <string name="ai_connection_title_add">Neue AI-Verbindung</string>
-    <string name="ai_connection_title_edit">Bearbeiten der AI-Verbindung</string>
-    <string name="ai_connection_details_title">Anleitungen für die API-Schlüsselgenerierung</string>
-    <string name="ai_connection_details_description">Erzeuge den API-Schlüssel mit Hilfe der offiziellen Dokumentation des AI-Anbieters</string>
-    <string name="ai_connection_details_open">Mehr erfahren</string>
+    <string name="ai_connection_title_edit">AI-Verbindung bearbeiten</string>
+    <string name="ai_connection_details_title">API-Schlüsselgenerierungsanleitung</string>
+    <string name="ai_connection_details_description">Erzeugen Sie den API-Schlüssel, indem Sie die offizielle Dokumentation des AI-Anbieters verwenden</string>
+    <string name="ai_connection_details_open">Öffnen</string>
     <string name="ai_connection_details_name">Name</string>
-    <string name="ai_connection_details_provider">AI-Provider</string>
+    <string name="ai_connection_details_provider">Anbieter</string>
     <string name="ai_connection_details_api_key">API-Schlüssel</string>
     <string name="ai_connection_details_project_folder">Projektmappe</string>
     <string name="ai_connection_details_action_save">Speichern</string>

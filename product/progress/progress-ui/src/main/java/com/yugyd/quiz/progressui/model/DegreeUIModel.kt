@@ -20,13 +20,13 @@ import androidx.annotation.StringRes
 import com.yugyd.quiz.progressui.R
 
 internal enum class DegreeUIModel(@StringRes val title: Int) {
-    SCHOOLBOY(title = R.string.title_schoolboy),
-    AMATEUR(title = R.string.title_amateur),
-    STUDENT(title = R.string.title_student),
-    MASTER(title = R.string.title_master),
-    POSTGRADUATE(title = R.string.title_postgraduate),
-    CANDIDATE(title = R.string.title_candidate),
-    DOCTOR(title = R.string.title_doctor),
-    PROFESSOR(title = R.string.title_professor),
-    ACADEMIC(title = R.string.title_academic)
+    SCHOOLBOY(title = R.string.title_level_schoolboy),
+    AMATEUR(title = R.string.title_level_amateur),
+    STUDENT(title = R.string.title_level_student),
+    MASTER(title = R.string.title_level_master),
+    POSTGRADUATE(title = R.string.title_level_postgraduate),
+    CANDIDATE(title = R.string.title_level_candidate),
+    DOCTOR(title = R.string.title_level_doctor),
+    PROFESSOR(title = R.string.title_level_professor),
+    ACADEMIC(title = R.string.title_level_academic)
 }

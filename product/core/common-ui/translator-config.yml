@@ -1,0 +1,6 @@
+config:
+  moduleDescription: "Module with common text strings for the entire application. The module consists of the following components: 1. Messenger selection. 2. Basic errors. 3. Basic formats."
+  excludeTranslated: true
+
+exclude:
+  - "app_email"

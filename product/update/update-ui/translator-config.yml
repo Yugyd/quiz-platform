@@ -1,0 +1,3 @@
+config:
+  moduleDescription: "Force update screen. Stimulates the user to update the app. The screen consists of the following components: 1. Icon. 2. Title. 3. Subtitle. 4. 'Update' button."
+  excludeTranslated: true

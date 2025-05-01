@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--Generated Translator AI-->
-    <string name="title_schoolboy">Schüler</string>
-    <string name="title_amateur">Amateur</string>
-    <string name="title_student">Student</string>
-    <string name="title_master">Meister</string>
-    <string name="title_postgraduate">Postgraduierter</string>
-    <string name="title_candidate">Kandidat der Wissenschaften</string>
-    <string name="title_doctor">Doktor</string>
-    <string name="title_professor">Professor</string>
-    <string name="title_academic">Akademiker</string>
-    <string name="title_reset_progress">Fortschritte zurücksetzen</string>
-    <string name="title_reset_progress_info">Alle Fortschritte werden zurückgesetzt. Diese Aktion kann nicht rückgängig gemacht werden.</string>
+    <string name="title_level_schoolboy">Schüler</string>
+    <string name="title_level_amateur">Amateur</string>
+    <string name="title_level_student">Student</string>
+    <string name="title_level_master">Meister</string>
+    <string name="title_level_postgraduate">Postgraduiert</string>
+    <string name="title_level_candidate">Kandidat der Wissenschaften</string>
+    <string name="title_level_doctor">Doktor der Wissenschaften</string>
+    <string name="title_level_professor">Professor</string>
+    <string name="title_level_academic">Akademiemitglied</string>
+    <string name="title_reset_dialog_progress">Fortschritt zurücksetzen</string>
+    <string name="title_reset_dialog_progress_info">Der gesamte Fortschritt wird zurückgesetzt. Diese Aktion kann nicht rückgängig gemacht werden.</string>
     <string name="format_percent">%1$d%%</string>
-    <string name="action_yes">Ja</string>
-    <string name="action_no">Nein</string>
-    <string name="content_description_progress_icon">Fortschrittsicon %1$s</string>
+    <string name="action_reset_dialog_yes">Ja</string>
+    <string name="action_reset_dialog_no">Nein</string>
+    <string name="content_description_progress_icon">Fortschritts-Icon: %1$s</string>
 </resources>

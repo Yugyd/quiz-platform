@@ -1,0 +1,3 @@
+config:
+  moduleDescription: "AI Connection Detail screen. Allows you to add or modify AI connection data. The screen consists of the following components: 1. A banner with instructions for generating an API key. 2. A form for entering AI API connection details — name, provider, API key, and cloud project folder. 3. A button to save the connection. 4. A basic toolbar."
+  excludeTranslated: true

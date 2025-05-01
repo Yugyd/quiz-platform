@@ -1,0 +1,3 @@
+config:
+  moduleDescription: "Task screen 'Enter the correct answer and check with AI.' The user enters an answer into the form, and the app displays the answer received from AI below. The screen consists of the following components: 1. Question. 2. Answer input form. 3. Correct answer component, which may also include an error state. 4. Continue button."
+  excludeTranslated: true

@@ -27,11 +27,7 @@
     <!-- Replace with your resource -->
     <string name="app_privacy_policy_link" translatable="false">https://sites.google.com/view/yugyd/privacy-policy/quiz-platform</string>
 
-    <!-- Messages -->
-    <string name="msg_pro_dialog">
-        "Triple portion of knowledge - more than 3,000 questions!"
-        "This is quite enough to become a real expert."
-    </string>
-    <string name="msg_pro_ad_banner">Over 3,000 questions and no ads!</string>
+    <string name="msg_pro_dialog">Triple portion of knowledge - more than 3000 questions! This is enough to become a real expert.</string>
+    <string name="msg_pro_ad_banner">More than 3000 questions and no ads!</string>
 
 </resources>

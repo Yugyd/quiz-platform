@@ -14,7 +14,7 @@
   ~    limitations under the License.
   -->
 <resources>
-    <string name="title_update">Update is out</string>
-    <string name="title_update_description">New features and content available to you</string>
+    <string name="title_update">Update</string>
+    <string name="title_update_description">New features and content available for you</string>
     <string name="action_update">Update</string>
 </resources>

@@ -1,7 +1,3 @@
 config:
-  moduleDescription: "This is a sample description"
+  moduleDescription: "Error Correction Onboarding screen. This screen serves as onboarding and provides access to the error correction mode. The screen consists of the following components: 1. A basic toolbar. 2. An information block with an icon, a title, and a subtitle. 3. A 'Play' button."
   excludeTranslated: true
-
-exclude:
-  - "correct_store_title"
-  - "correct_store_title"

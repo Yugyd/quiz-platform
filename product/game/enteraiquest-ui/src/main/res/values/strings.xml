@@ -18,8 +18,6 @@
     <string name="enter_ai_continue">Continue</string>
     <string name="enter_ai_title_enter_answer">Your answer</string>
     <string name="enter_ai_title_supporting">No more than 400 characters</string>
-    <string name="enter_ai_title_true_answer_description_from_ai">Correct answer from AI</string>
-
-    <!-- Error -->
-    <string name="enter_ai_check_error">Something went wrong. Try again later.</string>
+    <string name="enter_ai_title_true_answer_description_from_ai">The correct answer from AI</string>
+    <string name="enter_ai_check_error">Something went wrong. Please try again.</string>
 </resources>

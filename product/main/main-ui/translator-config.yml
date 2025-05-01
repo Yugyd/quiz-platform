@@ -1,0 +1,10 @@
+config:
+  moduleDescription: "Main screen module. Contains useful links to resources. The screen consists of the following components: 1. Text strings with links to resources, such as the developer's website or privacy policy."
+  excludeTranslated: true
+
+exclude:
+  - "app_site_host"
+  - "app_site_patch_prefix"
+  - "app_telegram_chat_name"
+  - "main_link_quiz_platform_project"
+  - "main_link_quiz_platform_issues"

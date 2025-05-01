@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--Generated Translator AI-->
-    <string name="title_add_life">Extra Leben</string>
-    <string name="msg_add_life">Sie können sich ein zusätzliches Leben durch Anschauen eines Werbevideos erspielen.</string>
-    <string name="action_leave_rate">Bewertung hinterlassen</string>
-    <string name="action_skip">Überspringen</string>
-    <string name="action_show_error">Fehler anzeigen</string>
-    <string name="action_new_game">Neues Spiel</string>
-    <string name="action_watch">Ansuchen</string>
-    <string name="action_next">Nächstes</string>
-    <string name="error_reward_not_loaded">Werbeanzeigenkonfiguration nicht geladen</string>
+    <string name="title_add_life">Extraleben</string>
+    <string name="msg_add_life">Ein Werbefilm schauen, um Extraleben zu bekommen</string>
+    <string name="action_watch">Werbevideo ansehen</string>
+    <string name="action_next">Weiter</string>
+    <string name="error_reward_not_loaded">Belohnung konnte nicht geladen werden</string>
 </resources>

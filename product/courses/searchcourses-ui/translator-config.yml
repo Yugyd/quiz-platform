@@ -1,0 +1,3 @@
+config:
+  moduleDescription: "Course Search screen. This screen implements course search functionality. The screen consists of the following components: 1. A search bar with an input field. 2. An empty state if nothing is found. 3. A list of the user's recent queries. 4. A list of found course topics."
+  excludeTranslated: true

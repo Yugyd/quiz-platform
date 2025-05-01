@@ -1,0 +1,3 @@
+config:
+  moduleDescription: "AI Settings screen. A menu for configuring AI settings, such as enabling AI, selecting a connection, setting the data refresh interval, and viewing the AI usage policy. The screen consists of the following components: 1. A basic toolbar. 2. A list of various settings menu items."
+  excludeTranslated: true

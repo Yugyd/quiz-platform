@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Generated Translator AI-->
+    <string name="default_channel_name">Principale</string>
+    <string name="default_channel_description">Tutti i notifiche dell\'applicazione</string>
+</resources>

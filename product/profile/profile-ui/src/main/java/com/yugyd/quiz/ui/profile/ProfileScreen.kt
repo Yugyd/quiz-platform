@@ -127,7 +127,7 @@ internal fun ProfileScreen(
 
     Column {
         RootToolbar(
-            title = stringResource(id = UiKitR.string.title_profile),
+            title = stringResource(id = UiKitR.string.ds_navbar_title_profile),
         )
 
         when {

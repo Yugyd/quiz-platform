@@ -2,11 +2,11 @@
 <resources>
     <!--Generated Translator AI-->
     <string name="title_rewarded">Belohnungsmodus</string>
-    <string name="msg_rewarded">Nach Ansicht der Werbung verfügbar</string>
-    <string name="action_rewarded">Ansuchen</string>
-    <string name="action_no_thanks">Vielen Dank, nein</string>
-    <string name="error_rewarded_ad">Werbeanzeigen nicht geladen</string>
-    <string name="title_theme_completed">Kategorie vollendet</string>
+    <string name="msg_rewarded">Verfügbar nach Werbungseinspeichern</string>
+    <string name="action_rewarded">Anzeigen</string>
+    <string name="action_no_thanks">Danke nicht</string>
+    <string name="error_rewarded_ad">Werbeanzeige konnte nicht geladen werden</string>
+    <string name="title_theme_completed">Thema abgeschlossen</string>
     <string name="action_info">Informationen</string>
     <string name="action_close">Schließen</string>
 </resources>

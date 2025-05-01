@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--Generated Translator AI-->
-    <string name="tasks_title_quest">Frage</string>
-    <string name="tasks_title_true_answer">Richtige Antwort</string>
-    <string name="tasks_title_error_list">Liste der Fehler</string>
+    <string name="tasks_title_list">Aufgabenliste</string>
     <string name="tasks_filters">Filter</string>
     <string name="tasks_errors">Fehler</string>
-    <string name="tasks_favorites">Geliebte Aufgaben</string>
-    <string name="tasks_empty_state_title">Keine Ergebnisse gefunden</string>
-    <string name="tasks_empty_state_message">Versuchen Sie Ihre Filter zu ändern</string>
+    <string name="tasks_favorites">Favoriten</string>
+    <string name="tasks_empty_state_title">Nichts gefunden</string>
+    <string name="tasks_empty_state_message">Versuche, die Filter zu ändern</string>
 </resources>

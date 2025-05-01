@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Generated Translator AI-->
+    <string name="title_rewarded">Modo de entrenamiento</string>
+    <string name="msg_rewarded">Disponible después de ver el anuncio</string>
+    <string name="action_rewarded">Ver</string>
+    <string name="action_no_thanks">No gracias</string>
+    <string name="error_rewarded_ad">Error al cargar el anuncio</string>
+    <string name="title_theme_completed">Categoría completada</string>
+    <string name="action_info">Información</string>
+    <string name="action_close">Cerrar</string>
+</resources>

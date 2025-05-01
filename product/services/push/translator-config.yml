@@ -1,0 +1,6 @@
+config:
+  moduleDescription: "Push notifications module. Contains data for notification channels. The module consists of the following components: 1. Text strings for channel data."
+  excludeTranslated: true
+
+exclude:
+  - "default_channel_id"

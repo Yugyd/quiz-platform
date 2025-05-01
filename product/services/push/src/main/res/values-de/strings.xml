@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--Generated Translator AI-->
-    <string name="default_channel_id">Hauptkanal</string>
-    <string name="default_channel_name">Hauptkanal</string>
-    <string name="default_channel_description">Alle Notifikationen des Apps</string>
+    <string name="default_channel_name">Haupt</string>
+    <string name="default_channel_description">Alle Benachrichtigungen des Anwendungsprogramms</string>
 </resources>

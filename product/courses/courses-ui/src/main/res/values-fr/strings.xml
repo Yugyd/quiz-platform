@@ -2,7 +2,4 @@
 <resources>
     <!--Generated Translator AI-->
     <string name="course_list_title_search_theme">Cours</string>
-    <string name="course_list_banner_title">Poursuivez vos études du cours commencé</string>
-    <string name="course_list_banner_continue">Poursuivre</string>
-    <string name="course_list_banner_hide">Cacher</string>
 </resources>

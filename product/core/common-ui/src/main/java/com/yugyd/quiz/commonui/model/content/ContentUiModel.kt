@@ -20,6 +20,6 @@ import androidx.annotation.StringRes
 import com.yugyd.quiz.uikit.R as uiKitR
 
 enum class ContentUiModel(@StringRes val title: Int) {
-    LITE(uiKitR.string.title_content_lite),
-    PRO(uiKitR.string.title_content_pro)
+    LITE(uiKitR.string.ds_app_version_title_content_lite),
+    PRO(uiKitR.string.ds_app_version_title_content_pro)
 }

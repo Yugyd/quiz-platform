@@ -1,26 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--Generated Translator AI-->
-    <string name="app_name">Plateforme de quiz</string>
-    <string name="title_theme">Thèmes</string>
-    <string name="title_courses">Cours</string>
-    <string name="title_correct">Correct</string>
-    <string name="title_progress">Progrès</string>
-    <string name="title_profile">Profil</string>
-    <string name="title_arcade">Arcade</string>
-    <string name="title_train">Train</string>
-    <string name="title_unknown">Inconnu</string>
-    <string name="title_favorites">Favoris</string>
-    <string name="title_ai_tasks">Tâches AI</string>
-    <string name="title_content_lite">Lite</string>
-    <string name="title_content_pro">Pro</string>
-    <string name="title_work_error">Travailler sur les erreurs</string>
-    <string name="title_work_favorites">Travailler sur les favoris</string>
-    <string name="format_record_progress">%1$d sur %2$d</string>
-    <string name="action_game">Jouer</string>
-    <string name="error_base">Quelque chose est allé de travers</string>
-    <string name="error_fields">Veuillez remplir tous les champs</string>
-    <string name="title_empty_state">Oh non, pas de données</string>
-    <string name="title_empty_state_description">Essayez de recharger</string>
-    <string name="title_empty_state_retry">Réessayer</string>
+    <string name="app_name">Plateforme Quiz</string>
+    <string name="ds_navbar_title_theme">Thèmes</string>
+    <string name="ds_navbar_title_courses">Cours</string>
+    <string name="ds_navbar_title_correct">Correct</string>
+    <string name="ds_navbar_title_progress">Progrès</string>
+    <string name="ds_navbar_title_profile">Profile</string>
+    <string name="ds_game_mode_title_arcade">Arcade</string>
+    <string name="ds_game_mode_title_train">Formation</string>
+    <string name="ds_game_mode_title_unknown">Inconnu</string>
+    <string name="ds_game_mode_title_favorites">Favoris</string>
+    <string name="ds_game_mode_title_ai_tasks">Tâches IA</string>
+    <string name="ds_app_version_title_content_lite">Lite</string>
+    <string name="ds_app_version_title_content_pro">Pro</string>
+    <string name="ds_format_record_progress">%1$d de %2$d</string>
+    <string name="ds_action_game">Jouer</string>
+    <string name="ds_error_base">Quelque chose ne va pas</string>
+    <string name="ds_error_fields">Remplir tous les champs</string>
+    <string name="ds_empty_state_title">Aucune donnée</string>
+    <string name="ds_empty_state_description">Veuillez recharger l\'écran</string>
+    <string name="ds_empty_state_retry">Réessayer</string>
 </resources>

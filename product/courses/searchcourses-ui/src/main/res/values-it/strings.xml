@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Generated Translator AI-->
+    <string name="search_course_title_search_theme">Ricerca di corsi</string>
+    <string name="search_course_title_themes">Argomenti</string>
+    <string name="search_course_empty_state_message">Nessun risultato trovato per \&quot;%s\&quot;</string>
+</resources>

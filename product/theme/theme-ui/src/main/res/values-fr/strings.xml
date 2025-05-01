@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--Generated Translator AI-->
-    <string name="title_rewarded">Mode d\'entraînement</string>
+    <string name="title_rewarded">Mode de formation</string>
     <string name="msg_rewarded">Disponible après avoir regardé la publicité</string>
     <string name="action_rewarded">Voir</string>
-    <string name="action_no_thanks">Pas merci</string>
+    <string name="action_no_thanks">Pas d\'accord</string>
     <string name="error_rewarded_ad">Échec de chargement de la publicité</string>
     <string name="title_theme_completed">Catégorie complétée</string>
     <string name="action_info">Information</string>

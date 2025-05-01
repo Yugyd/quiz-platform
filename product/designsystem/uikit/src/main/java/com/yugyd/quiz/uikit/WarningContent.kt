@@ -50,8 +50,8 @@ fun WarningContent(
 ) {
     WarningContent(
         icon = R.drawable.ic_cloud_off_24,
-        title = stringResource(id = R.string.title_empty_state),
-        message = stringResource(id = R.string.title_empty_state_description),
+        title = stringResource(id = R.string.ds_empty_state_title),
+        message = stringResource(id = R.string.ds_empty_state_description),
         modifier = modifier,
         isRetryButtonEnabled = isRetryButtonEnabled,
         onRetryClicked = onRetryClicked,
@@ -63,7 +63,7 @@ fun WarningContent(
     @DrawableRes icon: Int,
     message: String,
     modifier: Modifier = Modifier,
-    title: String = stringResource(id = R.string.title_empty_state),
+    title: String = stringResource(id = R.string.ds_empty_state_title),
     isRetryButtonEnabled: Boolean = false,
     onRetryClicked: (() -> Unit)? = null,
 ) {
@@ -110,7 +110,7 @@ fun WarningContent(
                 enabled = isRetryButtonEnabled,
             ) {
                 Text(
-                    text = stringResource(id = R.string.title_empty_state_retry),
+                    text = stringResource(id = R.string.ds_empty_state_retry),
                 )
             }
         }

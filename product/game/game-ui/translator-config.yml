@@ -1,0 +1,3 @@
+config:
+  moduleDescription: "Game screen. This screen displays various tasks. The screen consists of the following components: 1. A basic toolbar. 2. Extra life dialog: title, subtitle, 'Watch Ad' button, 'Next' button, and a toast with an error if the ad fails to load. 3. Task: can vary greatly."
+  excludeTranslated: true

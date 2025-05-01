@@ -15,19 +15,15 @@
   -->
 
 <resources>
-
-    <!-- Game End -->
-    <string name="title_well">Great!</string>
-    <string name="msg_new_record">A new record has been set! Did you like it?</string>
-
-    <!-- Action -->
+    <string name="title_well">Well!</string>
+    <string name="msg_new_record">New record! Did you like it??</string>
     <string name="action_leave_rate">Leave a review</string>
     <string name="action_skip">Skip</string>
-    <string name="action_show_error">See errors</string>
+    <string name="action_show_error">See mistakes</string>
     <string name="action_new_game">New game</string>
-    <string name="action_watch">View</string>
+    <string name="action_watch">Watch</string>
     <string name="action_next">Next</string>
-
     <string name="error_reward_not_loaded">Failed to load ad</string>
-
+    <string name="title_work_favorites">Work on favorites</string>
+    <string name="title_work_error">Work on errors</string>
 </resources>

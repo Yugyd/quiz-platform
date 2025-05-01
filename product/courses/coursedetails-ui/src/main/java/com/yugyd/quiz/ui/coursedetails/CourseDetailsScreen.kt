@@ -102,7 +102,7 @@ internal fun CourseDetailsScreen(
     onNavigateToExternalReportError: () -> Unit,
     onNavigationHandled: () -> Unit,
 ) {
-    val errorMessage = stringResource(id = UiKitR.string.error_base)
+    val errorMessage = stringResource(id = UiKitR.string.ds_error_base)
     LaunchedEffect(key1 = uiState.showErrorMessage) {
         when (uiState.showErrorMessage) {
             SnackbarMessage.ERROR -> {

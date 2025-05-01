@@ -1,0 +1,3 @@
+config:
+  moduleDescription: "Task screen 'Enter the correct answer.' The user enters an answer into the form, and the app displays the correct answer in the form. The screen consists of the following components: 1. Question. 2. Answer input form."
+  excludeTranslated: true

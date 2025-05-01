@@ -20,37 +20,34 @@
     <string name="app_name">Quiz Platform</string>
 
     <!-- Share -->
-    <string name="title_theme">Темы</string>
-    <string name="title_courses">Курсы</string>
-    <string name="title_correct">Правка</string>
-    <string name="title_progress">Прогресс</string>
-    <string name="title_profile">Профиль</string>
+    <string name="ds_navbar_title_theme">Темы</string>
+    <string name="ds_navbar_title_courses">Курсы</string>
+    <string name="ds_navbar_title_correct">Правка</string>
+    <string name="ds_navbar_title_progress">Прогресс</string>
+    <string name="ds_navbar_title_profile">Профиль</string>
 
-    <string name="title_arcade">Аркада</string>
-    <string name="title_train">Тренировка</string>
-    <string name="title_unknown">Неизвестно</string>
-    <string name="title_favorites">Избранное</string>
+    <string name="ds_game_mode_title_arcade">Аркада</string>
+    <string name="ds_game_mode_title_train">Тренировка</string>
+    <string name="ds_game_mode_title_unknown">Неизвестно</string>
+    <string name="ds_game_mode_title_favorites">Избранное</string>
 
-    <string name="title_content_lite">Лайт</string>
-    <string name="title_content_pro">Про</string>
+    <string name="ds_app_version_title_content_lite">Лайт</string>
+    <string name="ds_app_version_title_content_pro">Про</string>
 
     <!-- Game End -->
-    <string name="title_work_error">Работа над ошибками</string>
-
-    <string name="format_record_progress">%1$d из %2$d</string>
+    <string name="ds_format_record_progress">%1$d из %2$d</string>
 
     <!-- Action -->
-    <string name="action_game">Играть</string>
+    <string name="ds_action_game">Играть</string>
 
     <!-- Error -->
-    <string name="error_base">Что-то пошло не так</string>
+    <string name="ds_error_base">Что-то пошло не так</string>
 
     <!-- Empty state -->
-    <string name="error_fields">Заполните все поля</string>
-    <string name="title_empty_state">Упс, нет данных</string>
-    <string name="title_empty_state_description">Попробуйте перезагрузить экран</string>
-    <string name="title_empty_state_retry">Повторить</string>
-    <string name="title_work_favorites">Работа над избранным</string>
-    <string name="title_ai_tasks">ИИ Задания</string>
+    <string name="ds_error_fields">Заполните все поля</string>
+    <string name="ds_empty_state_title">Упс, нет данных</string>
+    <string name="ds_empty_state_description">Попробуйте перезагрузить экран</string>
+    <string name="ds_empty_state_retry">Повторить</string>
+    <string name="ds_game_mode_title_ai_tasks">ИИ Задания</string>
 
 </resources>

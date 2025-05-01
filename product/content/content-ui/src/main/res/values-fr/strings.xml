@@ -3,21 +3,21 @@
     <!--Generated Translator AI-->
     <string name="content_title">Contenu</string>
     <string name="content_empty_state_new_file">Nouveau fichier</string>
-    <string name="content_empty_state_title">Démarrez</string>
-    <string name="content_empty_state_message">Sélectionnez un nouveau fichier de contenu et profitez de l\'application avec votre contenu.</string>
-    <string name="content_empty_state_button">Choisir un fichier</string>
+    <string name="content_empty_state_title">Commencez le travail</string>
+    <string name="content_empty_state_message">Choisissez un nouveau fichier contenant du contenu.</string>
+    <string name="content_empty_state_button">Sélectionnez le fichier</string>
     <string name="content_empty_state_note">Le contenu doit correspondre au format des données.</string>
     <string name="content_error_not_added_content_is_exists">Le contenu a déjà été ajouté</string>
-    <string name="content_error_invalid_uri">Échec d\'accès au fichier de contenu</string>
+    <string name="content_error_invalid_uri">Impossible d\'accéder au contenu du fichier</string>
     <string name="content_error_add_is_failed">Échec de l\'ajout de contenu</string>
-    <string name="content_error_delete_is_failed">Échec de la suppression de contenu</string>
+    <string name="content_error_delete_is_failed">Échec du supprimer le contenu</string>
     <string name="content_error_not_select_and_delete">Le contenu sélectionné est invalide et a été supprimé</string>
-    <string name="content_error_select_is_failed">Échec de la sélection de contenu</string>
-    <string name="content_error_one_item_not_delete">Le seul contenu ne peut pas être supprimé</string>
-    <string name="content_error_selected_item_not_delete">Le contenu sélectionné ne peut pas être supprimé</string>
-    <string name="content_format_error_content_quest_duplicate_id">Des ID dupliqués ont été détectés, veuillez fournir des ID uniques pour les questions: %s</string>
-    <string name="content_format_error_content_theme_duplicate_id">Des ID dupliqués ont été détectés, veuillez établir des ID uniques pour les thèmes: %s</string>
-    <string name="content_format_error_content_quest_not_valid">Des questions écrites incorrectement ont été détectées: %s</string>
-    <string name="content_format_error_content_theme_not_valid">Des thèmes composés incorrectement ont été détectés: %s</string>
-    <string name="content_error_content_format_url_not_loaded">Le lien de ressource du format de contenu n\'a pas été chargé</string>
+    <string name="content_error_select_is_failed">Échec à sélectionner le contenu</string>
+    <string name="content_error_one_item_not_delete">Un seul élément ne peut être supprimé</string>
+    <string name="content_error_selected_item_not_delete">L\'élément sélectionné ne peut pas être supprimé</string>
+    <string name="content_format_error_content_quest_duplicate_id">Des ID de quêtes identiques ont été trouvés, veuillez fournir des ID uniques pour les questions: %s</string>
+    <string name="content_format_error_content_theme_duplicate_id">Des IDs de thèmes identiques ont été trouvés, veuillez fournir des IDs uniques pour les thèmes: %s</string>
+    <string name="content_format_error_content_quest_not_valid">Du contenu de quête invalide trouvé : %s</string>
+    <string name="content_format_error_content_theme_not_valid">Du contenu thème invalide trouvé: %s</string>
+    <string name="content_error_content_format_url_not_loaded">Impossible de charger le URL du format de contenu</string>
 </resources>

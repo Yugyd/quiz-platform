@@ -1,0 +1,3 @@
+config:
+  moduleDescription: "Subscription screen. The screen contains several pages that encourage users to purchase the app's pro subscription. The screen consists of the following components: 1. Basic close button. 2. Motivational page content, including an icon, title, and subtitle. 3. 'Try/Buy Subscription' button."
+  excludeTranslated: true

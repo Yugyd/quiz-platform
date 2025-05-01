@@ -18,9 +18,4 @@
 
     <string name="course_list_title_search_theme">Курсы</string>
 
-    <!-- Complete theme banner -->
-    <string name="course_list_banner_title">Продолжить изучать начатый курс</string>
-    <string name="course_list_banner_continue">Продолжить</string>
-    <string name="course_list_banner_hide">Скрыть</string>
-
 </resources>

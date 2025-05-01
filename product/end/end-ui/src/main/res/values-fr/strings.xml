@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--Generated Translator AI-->
-    <string name="title_well">Super!</string>
-    <string name="msg_new_record">Un nouveau record a été établi ! A-t-on pas aimé ?</string>
-    <string name="action_leave_rate">Écrivez un avis</string>
-    <string name="action_skip">Skip</string>
-    <string name="action_show_error">Afficher les erreurs</string>
+    <string name="title_well">Bien!</string>
+    <string name="msg_new_record">Record nouveau! Est-ce que cela vous a plu??</string>
+    <string name="action_leave_rate">Laissez un commentaire</string>
+    <string name="action_skip">Sauter</string>
+    <string name="action_show_error">Voir les erreurs</string>
     <string name="action_new_game">Nouveau jeu</string>
-    <string name="action_watch">Visualiser</string>
+    <string name="action_watch">Regarder</string>
     <string name="action_next">Suivant</string>
-    <string name="error_reward_not_loaded">Échec de chargement de la publicité</string>
+    <string name="error_reward_not_loaded">Ad non chargé</string>
+    <string name="title_work_favorites">Travailler sur les favoris</string>
+    <string name="title_work_error">Corriger les erreurs</string>
 </resources>

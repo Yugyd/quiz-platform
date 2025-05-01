@@ -1,0 +1,3 @@
+config:
+  moduleDescription: "Task screen 'Choose the correct answers.' The user selects the correct answers using checkboxes. The screen consists of the following components: 1. Question. 2. List of answers to choose from. 3. Continue button."
+  excludeTranslated: true

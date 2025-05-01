@@ -1,0 +1,3 @@
+config:
+  moduleDescription: "Domain module. Contains a parser for tasks with two statements, where there is statement A and B, and a limited set of answers. The module consists of the following components: 1. Text strings for answers in statement tasks."
+  excludeTranslated: true

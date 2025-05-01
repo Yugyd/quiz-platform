@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!--Generated Translator AI-->
-    <string name="app_site_host">sites.google.com</string>
-    <string name="app_site_patch_prefix">/view/yugyd/quiz/quiz-platform</string>
-    <string name="app_telegram_chat_name">quizplatformapp</string>
-    <string name="main_link_quiz_platform_project">https://github.com/Yugyd/quiz-platform</string>
-    <string name="main_link_quiz_platform_issues">https://github.com/Yugyd/quiz-platform/issues</string>
-</resources>

@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--Generated Translator AI-->
-    <string name="title_add_life">Vie supplémentaire</string>
-    <string name="msg_add_life">Gagnez une vie supplémentaire en regardant un spot publicitaire</string>
-    <string name="action_leave_rate">Écrivez un avis</string>
-    <string name="action_skip">Skip</string>
-    <string name="action_show_error">Afficher les erreurs</string>
-    <string name="action_new_game">Nouveau jeu</string>
-    <string name="action_watch">Visualiser</string>
+    <string name="title_add_life">Ajouter une vie</string>
+    <string name="msg_add_life">Regardez un vidéo publicitaire pour obtenir une vie supplémentaire</string>
+    <string name="action_watch">Voir</string>
     <string name="action_next">Suivant</string>
-    <string name="error_reward_not_loaded">Échec de chargement de la publicité</string>
+    <string name="error_reward_not_loaded">Chargement de la récompense échoué</string>
 </resources>

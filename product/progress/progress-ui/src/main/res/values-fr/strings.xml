@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--Generated Translator AI-->
-    <string name="title_schoolboy">Écolier</string>
-    <string name="title_amateur">Amateur</string>
-    <string name="title_student">Étudiant</string>
-    <string name="title_master">Maître</string>
-    <string name="title_postgraduate">Doctorant</string>
-    <string name="title_candidate">Candidat de sciences</string>
-    <string name="title_doctor">Docteur</string>
-    <string name="title_professor">Professeur</string>
-    <string name="title_academic">Académicien</string>
-    <string name="title_reset_progress">Réinitialiser le progrès</string>
-    <string name="title_reset_progress_info">Tout le progrès sera réinitialisé. Cette action ne peut pas être annulée.</string>
-    <string name="format_percent">%1$d%</string>
-    <string name="action_yes">Oui</string>
-    <string name="action_no">Non</string>
-    <string name="content_description_progress_icon">Icone de progrès %1$s</string>
+    <string name="title_level_schoolboy">Élève</string>
+    <string name="title_level_amateur">Amateur</string>
+    <string name="title_level_student">Etudiant</string>
+    <string name="title_level_master">Maître</string>
+    <string name="title_level_postgraduate">Aspirant</string>
+    <string name="title_level_candidate">Candidat de sciences</string>
+    <string name="title_level_doctor">Docteur de sciences</string>
+    <string name="title_level_professor">Professeur</string>
+    <string name="title_level_academic">Académicien</string>
+    <string name="title_reset_dialog_progress">Réinitialiser les progrès</string>
+    <string name="title_reset_dialog_progress_info">Tous les progrès seront réinitialisés. Cette action ne peut être annulée.</string>
+    <string name="format_percent">%1$d%%</string>
+    <string name="action_reset_dialog_yes">Oui</string>
+    <string name="action_reset_dialog_no">Non</string>
+    <string name="content_description_progress_icon">Icône des progrès: %1$s</string>
 </resources>

@@ -15,19 +15,10 @@
   -->
 
 <resources>
-
-    <!-- Tasks List -->
-    <string name="tasks_title_quest">Question</string>
-    <string name="tasks_title_true_answer">Right answer</string>
-    <string name="tasks_title_error_list">List of tasks</string>
-
-    <!-- Filters Bottom Sheet -->
+    <string name="tasks_title_list">Task List</string>
     <string name="tasks_filters">Filters</string>
     <string name="tasks_errors">Errors</string>
     <string name="tasks_favorites">Favorites</string>
-
-    <!-- Tasks Empty State -->
-    <string name="tasks_empty_state_title">No results found</string>
-    <string name="tasks_empty_state_message">Try changing your filters</string>
-
+    <string name="tasks_empty_state_title">Nothing found</string>
+    <string name="tasks_empty_state_message">Try changing filters</string>
 </resources>

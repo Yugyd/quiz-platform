@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Generated Translator AI-->
+    <string name="content_title">Contenuto</string>
+    <string name="content_empty_state_new_file">Nuovo file</string>
+    <string name="content_empty_state_title">Inizia il lavoro</string>
+    <string name="content_empty_state_message">Seleziona un nuovo file con contenuto.</string>
+    <string name="content_empty_state_button">Seleziona il file</string>
+    <string name="content_empty_state_note">Il contenuto deve corrispondere al formato dei dati.</string>
+    <string name="content_error_not_added_content_is_exists">Il contenuto è già stato aggiunto</string>
+    <string name="content_error_invalid_uri">Impossibile accedere ai contenuti del file</string>
+    <string name="content_error_add_is_failed">Errore nell\'aggiunta del contenuto</string>
+    <string name="content_error_delete_is_failed">Errore nella cancellazione del contenuto</string>
+    <string name="content_error_not_select_and_delete">Il contenuto selezionato non è valido e è stato cancellato</string>
+    <string name="content_error_select_is_failed">Errore nella selezione del contenuto</string>
+    <string name="content_error_one_item_not_delete">Non è possibile cancellare un singolo elemento</string>
+    <string name="content_error_selected_item_not_delete">L\'elemento selezionato non può essere cancellato</string>
+    <string name="content_format_error_content_quest_duplicate_id">Trovati ID di quiz duplicati, fornire per favore ID univoci: %s</string>
+    <string name="content_format_error_content_theme_duplicate_id">Trovati ID di tema duplicati, per favore fornire ID univoci per i temi: %s</string>
+    <string name="content_format_error_content_quest_not_valid">Rilevati contenuti di quiz non validi: %s</string>
+    <string name="content_format_error_content_theme_not_valid">Rilevati contenuti non validi per i temi: %s</string>
+    <string name="content_error_content_format_url_not_loaded">URL del formato del contenuto non caricabile</string>
+</resources>

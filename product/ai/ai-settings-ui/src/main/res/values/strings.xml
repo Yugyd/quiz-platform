@@ -15,19 +15,11 @@
   -->
 
 <resources>
-
     <string name="ai_settings_title_ai">AI Beta</string>
-
-    <!-- Switch -->
     <string name="ai_settings_title_enable_ai">Enable AI Beta</string>
-
-    <!-- Connection list -->
     <string name="ai_settings_title_ai_connected">Connected</string>
-    <string name="ai_settings_add_ai_connection">Add AI connection</string>
-
-    <!-- Storage term -->
-    <!-- term of content -->
-    <string name="ai_settings_term_of_cache">Content update period</string>
+    <string name="ai_settings_add_ai_connection">Add AI Connection</string>
+    <string name="ai_settings_term_of_cache">Cache Update Period</string>
     <plurals name="ai_settings_storage_term">
         <item quantity="zero">None</item>
         <item quantity="one">%1$d day</item>
@@ -36,12 +28,7 @@
         <item quantity="many">%1$d days</item>
         <item quantity="other">%1$d days</item>
     </plurals>
-
-    <!-- Direct Connection -->
-    <string name="ai_settings_direct_connection">Direct connection</string>
-
-    <!-- Other -->
-    <string name="ai_settings_privacy_policy">AI Usage Policy</string>
-    <string name="ai_settings_ai_test_info">This functionality is in test mode.</string>
-
+    <string name="ai_settings_direct_connection">Direct Connection</string>
+    <string name="ai_settings_privacy_policy">Privacy Policy</string>
+    <string name="ai_settings_ai_test_info">This functionality is available in test mode</string>
 </resources>

@@ -130,7 +130,7 @@ internal fun TasksScreen(
     onNavigateToGame: (GamePayload) -> Unit,
     onNavigationHandled: () -> Unit,
 ) {
-    val errorMessage = stringResource(id = UiKitR.string.error_base)
+    val errorMessage = stringResource(id = UiKitR.string.ds_error_base)
     LaunchedEffect(key1 = uiState.showErrorMessage) {
         if (uiState.showErrorMessage) {
             snackbarHostState.showSnackbar(message = errorMessage)
@@ -148,7 +148,7 @@ internal fun TasksScreen(
 
     Column {
         SimpleToolbar(
-            title = stringResource(id = R.string.tasks_title_error_list),
+            title = stringResource(id = R.string.tasks_title_list),
             onBackPressed = onBackPressed,
             rightIcon = Icons.Filled.Tune,
             onRightIconClicked = onShowFilterClicked,

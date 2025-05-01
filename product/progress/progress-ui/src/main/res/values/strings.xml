@@ -15,26 +15,19 @@
   -->
 
 <resources>
-
-    <!-- Progress -->
-    <string name="title_schoolboy">Schoolboy</string>
-    <string name="title_amateur">Amateur</string>
-    <string name="title_student">Student</string>
-    <string name="title_master">Master</string>
-    <string name="title_postgraduate">Graduate student</string>
-    <string name="title_candidate">Candidate of science</string>
-    <string name="title_doctor">PhD</string>
-    <string name="title_professor">Professor</string>
-    <string name="title_academic">Academic</string>
-    <string name="title_reset_progress">Reset progress</string>
-    <string name="title_reset_progress_info">All progress will be reset. This action cannot be undone.</string>
+    <string name="title_level_schoolboy">Schoolboy</string>
+    <string name="title_level_amateur">Amateur</string>
+    <string name="title_level_student">Student</string>
+    <string name="title_level_master">Master</string>
+    <string name="title_level_postgraduate">Postgraduate</string>
+    <string name="title_level_candidate">Candidate of Science</string>
+    <string name="title_level_doctor">Doctor of Science</string>
+    <string name="title_level_professor">Professor</string>
+    <string name="title_level_academic">Academician</string>
+    <string name="title_reset_dialog_progress">Reset progress</string>
+    <string name="title_reset_dialog_progress_info">All progress will be reset. This action cannot be undone.</string>
     <string name="format_percent">%1$d%%</string>
-
-    <!-- Action -->
-    <string name="action_yes">Yes</string>
-    <string name="action_no">No</string>
-
-    <!-- Content description -->
-    <string name="content_description_progress_icon">Progress icon %1$s</string>
-
+    <string name="action_reset_dialog_yes">Yes</string>
+    <string name="action_reset_dialog_no">No</string>
+    <string name="content_description_progress_icon">Progress icon: %1$s</string>
 </resources>

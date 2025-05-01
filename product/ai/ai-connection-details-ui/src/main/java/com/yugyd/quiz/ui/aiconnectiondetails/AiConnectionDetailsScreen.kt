@@ -134,8 +134,8 @@ internal fun AiConnectionDetailsScreen(
     onNavigateToBrowser: (String) -> Unit,
     onNavigationHandled: () -> Unit,
 ) {
-    val errorMessage = stringResource(id = UiKitR.string.error_base)
-    val errorFieldsMessage = stringResource(id = UiKitR.string.error_fields)
+    val errorMessage = stringResource(id = UiKitR.string.ds_error_base)
+    val errorFieldsMessage = stringResource(id = UiKitR.string.ds_error_fields)
     LaunchedEffect(key1 = uiState.showErrorMessage) {
         when (uiState.showErrorMessage) {
             SnackbarMessage.ERROR -> {

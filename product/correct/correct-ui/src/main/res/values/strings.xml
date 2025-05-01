@@ -15,12 +15,7 @@
   -->
 
 <resources>
-
-    <!-- Correct -->
     <string name="title_remember_quest">Now questions will be remembered!</string>
-    <string name="msg_correct_quest">
-        Correct the mistakes to consolidate the material. All errors are collected here.
-    </string>
-    <string name="msg_correct_pro_available">Only available in Pro.</string>
-
+    <string name="msg_correct_quest">Correct the errors to unlock the material. All mistakes are here.</string>
+    <string name="msg_correct_pro_available">Available only in Pro.</string>
 </resources>

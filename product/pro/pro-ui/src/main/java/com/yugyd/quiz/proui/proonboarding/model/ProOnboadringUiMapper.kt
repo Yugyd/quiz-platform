@@ -23,7 +23,6 @@ import com.yugyd.quiz.proui.R
 import com.yugyd.quiz.proui.proonboarding.ProOnboardingView.State
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
-import com.yugyd.quiz.uikit.R as uiKitR
 
 internal class ProOnboadringUiMapper @Inject constructor(
     @ApplicationContext private val context: Context
@@ -40,7 +39,7 @@ internal class ProOnboadringUiMapper @Inject constructor(
             item(
                 TWO_ITEM,
                 R.drawable.ic_rocket_launch_48,
-                uiKitR.string.title_work_error,
+                R.string.title_work_error,
                 R.string.title_work_error_info
             ),
             item(

@@ -1,0 +1,3 @@
+config:
+  moduleDescription: "Transition time settings screen. Select the transition time. The screen consists of the following components: 1. A basic toolbar. 2. A list of time intervals."
+  excludeTranslated: true

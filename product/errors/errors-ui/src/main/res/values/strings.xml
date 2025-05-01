@@ -15,10 +15,7 @@
   -->
 
 <resources>
-
-    <!-- Error List -->
-    <string name="title_quest">Question</string>
-    <string name="title_true_answer">Right answer</string>
-    <string name="title_error_list">List of errors</string>
-
+    <string name="title_quest">Quest</string>
+    <string name="title_true_answer">Correct answer</string>
+    <string name="title_error_list">Error list</string>
 </resources>

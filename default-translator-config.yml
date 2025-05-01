@@ -1,12 +1,8 @@
 config:
-  appDescription: "This is a sample description"
+  appDescription: "Mobile app Quiz Platform is an open-source knowledge testing platform. The user can play by completing tasks, track their progress, study theory in courses, review the theory from courses in practice mode, and so on. The tasks themselves resemble quizzes."
   sourceLanguage: "en"
-  targetLanguages: [ "de", "fr" ]
+  targetLanguages: [ "de", "fr", "es", "it" ]
   aiProvider: "yandex"
   aiKey: "REPLACE_ME"
   aiFolder: "REPLACE_ME"
   excludeTranslated: true
-
-exclude:
-  - "ds_store_title"
-  - "ds_store_title"

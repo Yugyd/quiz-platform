@@ -15,12 +15,9 @@
   -->
 
 <resources>
-
-    <!-- Report error -->
     <string name="app_email" translatable="false">yugydyur@gmail.com</string>
-    <string name="title_select_messenger">Choose a mail messenger</string>
+    <string name="title_select_messenger">Choose a messenger</string>
     <string name="title_message_error">Error message</string>
     <string name="msg_message_describe_error">Describe the error</string>
     <string name="format_message_subject">%1$s. %2$s</string>
-
 </resources>

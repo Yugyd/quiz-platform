@@ -17,9 +17,7 @@
 <resources>
 
     <!-- Tasks List -->
-    <string name="tasks_title_quest">Вопрос</string>
-    <string name="tasks_title_true_answer">Правильный ответ</string>
-    <string name="tasks_title_error_list">Список заданий</string>
+    <string name="tasks_title_list">Список заданий</string>
 
     <!-- Filters Bottom Sheet -->
     <string name="tasks_filters">Фильтры</string>

@@ -15,6 +15,5 @@
   -->
 
 <resources>
-    <color name="colorLauncherBackground">#2196F3</color>
     <color name="ic_launcher_background">#0277BD</color>
 </resources>

@@ -14,7 +14,7 @@
   ~    limitations under the License.
   -->
 
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!--Generated Translator AI-->
     <string name="profile_title_content">Content</string>
     <string name="profile_title_content_not_selected">Content not selected</string>
@@ -41,7 +41,7 @@
     <string name="profile_title_telegram_promo">Daily questions and feedback</string>
     <string name="profile_format_version">%1$s version</string>
     <string name="profile_format_time_second">%1$.1f sec.</string>
-    <string name="profile_format_round_time_second">%1$d sec.</string>
+    <string name="profile_format_round_time_second" tools:ignore="PluralsCandidate">%1$d sec.</string>
     <string name="profile_title_section_ai">AI</string>
     <string name="profile_title_ai">AI Beta</string>
     <string name="profile_title_ai_not_connected">None</string>

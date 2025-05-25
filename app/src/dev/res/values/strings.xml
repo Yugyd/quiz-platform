@@ -27,6 +27,5 @@
 
     <!-- Res -->
     <string name="app_name">Flexquiz: Quiz Platform</string>
-    <string name="app_msg_pro_dialog">A triple portion of knowledge – more than 3,000 questions! That\'s more than enough to become a real expert.</string>
     <string name="app_msg_pro_ad_banner">Over 3,000 questions and no ads!</string>
 </resources>
